@@ -1,0 +1,572 @@
+
+
+
+
+
+
+#adminContent {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    height: 90vh;
+}
+    
+    .adminForm {
+        /* border: 3px red ridge; */
+        padding: 1em;
+        width: 95%;
+        width: 100%;
+        height: fit-content;
+        min-height: 90vh;
+        /* margin-top: 10vmin; */
+        display: flex;
+        flex-direction: column;
+        background-image: linear-gradient(rgba(236, 230, 230, 0.9), rgba(230, 225, 225, 0.95)),
+                        url('../../images/metalTexture.jpeg');
+        box-shadow: 0px 0px 5px 1px rgba(255, 0, 0, 0.5), 
+                inset 4em 1em 10px 10px rgb(2, 2, 19, .05);
+        align-items: center;
+        justify-content: center;
+        animation: .4s ease-out 0s 1 fadeIn;
+
+        @keyframes fadeIn  {
+            0%   { opactiy: 0; }
+            100% { opactiy: 1; }
+        }
+    }
+
+        .adminFormFields {
+            /* border: 3px lime ridge; p */
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+        }
+
+        #adminFormWrapper {
+            /* border: 3px teal ridge; */
+            overflow-y: scroll;
+            height: 100%;
+        }
+
+
+
+
+
+    #adminDataViewer {
+        height: 100%;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* justify-content: center; */
+        /* border: 3px lime ridge; */
+        /* padding-top: 70vh; */
+    }
+
+        .pageEndH3 {
+            padding: 2em;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: lightgray;
+        }
+
+
+/* 
+        .adminItem {
+            margin: 5vmin;
+            padding: 1vmin;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            width: 70%;
+            background: rgba(14, 13, 13, 0.5);
+                box-shadow:    2px    2px  5px 5px rgba(206, 58, 8, .15), 
+                        inset  5em    10em 10em    rgb(48, 44, 44, .25),
+                        inset  2.5em  5em  10em    rgba(235, 232, 230, 0.25),
+                        inset -1em   -2em  10em    rgb(46, 28, 28);
+                background-image: linear-gradient(rgba(42, 43, 44, .8), rgba(24, 6, 19, 0.9));
+                color: white;
+        } */
+
+                .adminItem.teamProfile {
+                    align-items: center;
+                }
+
+                    .profileBio {
+                        max-height: 15vmin;
+                    }
+
+                .headline {
+                    white-space:nowrap;
+                    overflow:hidden;
+                    text-overflow:ellipsis;  
+                    margin-top: 2.5vmin;   
+                    max-width: 100%;       
+                }
+
+                #quoteWrapper {
+                    margin: 5vmin 0;
+                }
+
+                .adminMediaItem {
+                    display: grid;
+                    grid-template-columns: 1fr 5fr;
+                    height: 22vh;
+                }
+
+                    .adminMediaImage {
+                        width: 100%;
+                        height: 22vh;
+                        object-fit: cover;
+                        object-position: top;
+                    }
+
+                        .adminMediaFacts {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: flex-start;
+                            align-items: flex-start;
+                            padding: 1vmin 2.5vmin;
+                            /* border: 3px lime ridge; */
+                        }
+                  
+
+                        .adminMediaImage.logo {
+                            background-color: black;
+                            object-fit: cover;
+                            object-position: center;
+                        }
+
+        
+
+                .adminItemButtons {
+                    display: flex;
+                    padding: 2vmin 0;
+                    width: fit-content;
+                    max-height: 5vmax;
+                    /* transform: translateY(-5vh); */
+                }
+
+                    .buttonIcon {
+                        height: 1em;
+                    }
+
+                    
+                    .adminMediaButtons {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        /* border: 3px lime ridge; */
+                    }
+
+    .adminReelWrapper {
+        width: 100%;
+        border: 1px black ridge;
+    }
+
+        .adminReelHeading {
+            min-height: 10vmin;
+            width: 100%;
+        
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 1vmin 5vmin;
+        }
+
+
+
+        /* .adminReel {
+            border: 3px lime ridge;
+            padding: 10%;
+        } */
+
+    .adminTeamHeading {
+        min-height: 10vmin;
+        width: 100%;
+        color: white;
+        background-color: black;
+        display: flex;
+        align-items: center;
+        padding-left: 5vmin;
+    }
+   
+
+    .adminTeamGrid {
+        min-width: 100%;
+        display: grid;
+        grid-template-columns: 2fr 8fr;
+        min-height: 10vh;
+        grid-gap: .5em;
+        align-items: center;
+    }
+
+        .adminTeamThumbnail {
+           width: 100%;
+           position: relative;
+           height: 10vh;
+           object-fit: cover;
+        }
+
+        .adminTeamControls {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center; 
+            padding: .5vh 0;
+            /* border: 1.5px orange ridge; */
+        }
+
+        .adminTeamPosterRack {
+            display: flex;
+            width: 100%;
+            justify-content: space-between
+        }
+
+            .adminTeamPoster {
+                height: 10vmin;
+                width: 100%;
+            }
+
+        .adminTeamContent {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+            .adminTeamContentRight, .adminTeamContentLeft {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+        /* .adminTeamImage {
+            width: 100%;
+            height: auto;
+        } */
+
+        .adminTeamNameLevel {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            /* border: 3px yellowgreen ridge; */
+        }
+
+        .adminTeamProfileDisplay {
+            font-size: 1.5em;
+            padding: .75em;
+            text-overflow: clip;
+            height: 80%;
+        }
+
+        .adminTeamButtons {
+            /* border: 3px orange ridge; */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: fit-content;
+        }
+
+
+        #oldImageGraf {
+            margin-bottom: 2em; 
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+            #oldImageGraf:hover {
+                color: red;
+            }
+
+    .performerFilter {
+        display: flex;
+        width: 90%;
+    }
+
+    .adminPerformerFormButton {
+        font-family: BarlowCondensed;
+        font-size: 1.5em;
+        margin: 5vh 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+        
+    .adminItem {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, 
+                    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, 
+                    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;                
+        background: whitesmoke;    
+    }
+   
+        .adminPerformerGrid {
+            max-width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr 4fr 1fr 1fr 1fr 1fr;
+            min-height: 10vh;
+            grid-gap: .5em;
+            align-items: center;
+        }
+
+            .adminPerformerKey {
+                color: white;
+                background-color: black;
+                width: 100%
+            }
+
+        .adminPerformerExpansion {
+            transform-origin: top;
+            transform: translateX(-1px) scaleY(0);
+            position: absolute;
+            /* border: 3px orange ridge; */
+        }
+
+            .adminPerformerExpansion.open {
+                transform: translateX(-1px)  scaleY(1);
+                position: static;
+                transition: transform .4s;
+            }
+
+        .adminPerformerTable {
+            width: 70%;
+            font-size: 2vmin;
+        }
+
+        .adminPerformerGridItem {
+            /* border: 3px red ridge; */
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            transition: transform .4s;
+            max-width: 100%
+        }
+
+            .adminPerformerGridItem.spun {
+                transform: rotate(180deg);
+            }
+
+
+
+
+            .adminPerformerThumbnail {
+                height: 10vh;
+                max-width: 100%;
+            }
+
+                .adminPerformerThumbnail:active {
+                    height: 40vh;
+                    max-width: none;
+                    z-index: 999;
+                    position: absolute;
+                    top: -5.2vmin;
+                    transition: height .4s;
+                }
+
+
+            .groupMailIcon {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+        .adminPerformerPhotoRow, .adminPerformerInfoRow {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            justify-content: flex-start;
+            padding-left: 5vmin;
+            font-family: BarlowCondensed;
+            height: fit-content;
+        }
+            .adminPerformerPhoto {
+                height: 30vh;
+                margin: 2.5vh 0;
+                max-width: 100%;
+            }
+
+            .adminPerformerAttributeGrid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: .5em 1em;
+                font-size: 1.25em;
+            }
+
+                .adminPerformerAttribute {
+     
+                    font-size: 1.5em;
+                }
+
+
+
+
+        .adminPerformerSkillSection {
+            padding: 5vmin;
+        }
+
+            .adminPerformerSkills {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                margin: 2.5vmin 0;
+                font-size: .75em;
+            }
+
+        .adminPerformerContactSection {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 5vmin;
+            font-size: .75em;
+        }
+
+            .adminPerformerContactRow {
+                display: flex;
+                align-items: center;
+            }
+
+                .adminPerformerIcon {
+                    height: 4vmin;
+                    margin: .25em 1em;
+                }
+            
+                    .adminPerformerIcon:hover {
+                        cursor: pointer;
+                    }
+
+                    .adminPerformerIcon.checkIcon {
+                        cursor: auto;
+                        animation: .4s ease-out 0s 1 fadeIn;
+                    }
+
+                    .adminPerformerIcon.updating {
+                        transform-origin: center;
+                        animation: spinner 1s linear infinite;
+                    }
+                    
+                    @keyframes spinner {
+                      0% {                       transform-origin: center;
+                        transform: rotate(0deg); }
+                      100% { transform: rotate(360deg); }
+                    }
+
+            .adminPerformerEmailForm {
+                padding: 0 5vmin 5vmin;
+                transition: opacity .4s;
+            }
+
+  
+
+       
+        
+
+
+    #posterBarnBlurb {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        align-self: flex-start;
+        margin: 2.5vmin;
+    }
+
+        #posterBarnUL {
+            list-style-type: square;
+            color: black;
+            list-style-position: inside;
+            padding: 2.5vmin 0;
+            font-family: BarlowCondensed;
+            font-size: 2.5em;
+        }
+
+        #barnLog {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 5vmin;
+        }
+
+        #letterSearch {
+            display: grid;
+            grid-template:  1fr 1fr / repeat(13, 1fr);
+        }
+
+            .letterLink {
+                margin: .5vmin;
+            }
+
+                .letterLink:hover {
+                    color: red;
+                }
+
+        #barnRack {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+            .barnPoster {
+                margin: 2.5vmin 2.5vmin 0 2.5vmin;
+                height: 20vmin;
+            }
+
+                .barnPosterWrapper {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                }
+
+        #barnButtons {
+            display: flex;
+        }
+
+
+
+
+
+@media only screen and (max-width: 1200px) {
+
+    #adminContent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: fit-content;
+    }
+
+    .adminForm {
+        width: 100vw;
+    }
+}
+
+
+
+ 
+
+
+
+@media only screen and (max-width: 700px) {
+    
+    .adminPerformerDropdownIcon {
+        transform: translateX(-5vw);
+    }
+    .adminPerformerGridItem.spun {
+        transform: translateX(-5vw) rotate(180deg) ;
+    }
+    .adminPerformerTable {
+        font-size: 3vmin;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    
+    .adminPerformerGrid {
+        grid-template-columns: 2fr 2fr 4fr 1fr 1fr 1fr 2fr;
+    }
+}
+

@@ -1,0 +1,877 @@
+
+
+
+
+
+    
+    #infoWrapper {
+        width: 100vw;
+        height: fit-content;
+        overflow: auto;
+        scroll-snap-type: y proximity;
+        position: relative;
+    }
+    
+    .infoDiv {
+      scroll-snap-align: start end;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: fit-content;
+      min-height: 90vh;
+      width: 100vw;
+    }
+   
+    /* bio */
+    .infoDiv:nth-of-type(1) {
+      background: white;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      z-index: 1;
+      position: relative;
+    }
+
+        .infoBioDiv {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            /* border: 3px aqua ridge; */
+        }
+
+            #infoBio {
+                border-left: 30px red solid;
+                padding: 10px 15px;
+                position: absolute;
+                left: 0;
+                top: 15vmin;
+                font-size: 3vmin;
+                line-height: 4vmin;
+                transform: translateX(-5vmax);
+                transition: transform 2s;
+                /* margin: 0 15vmin 10vmin 0; */
+            }
+
+                #infoBio.animated {
+                    transform: none;
+                }
+
+            #infoBioButton {
+                display: flex;
+                align-items: center;
+                position: absolute;
+                left: 15vmin;
+                bottom: 5vmin;
+                padding: 2vmin 4vmin 2.5vmin;
+                width: fit-content;
+                z-index: 3;
+                font-size: 3vmin;
+            }
+
+            #infoBioImage {
+                width: 80%;
+                z-index: 2;
+                position: absolute;
+                top: 5vmax;
+                right: 5vmax;
+                box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+                /* margin: 15vmin 15vmin 25vmin 0; */
+            }
+
+            .infoBioImageBlock {
+                position: absolute;
+                box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+                transition: transform 1.5s;
+                transform: scale(.5);
+            }
+
+                .infoBioImageBlock.animated {
+                    transform: scale(1);
+                }
+                #infoBioImageBlockLeft {
+                    height: 40vmin;
+                    width: 20vmin;
+                    left: 2.5vmax;
+                    top: 10vmax;
+                    background-color: darkgray;
+                    z-index: 1;
+                    /* border: 3px lime ridge; */
+                }
+
+                #infoBioImageBlockBottom {
+                    height: 20vmin;
+                    width: 40vmin;
+                    right: 30vmax;
+                    bottom: 2.5vmax;
+                    background-color: lightgray;
+                    z-index: 1;
+                }
+
+                #infoBioImageBlockRight {
+                    height: 40vmin;
+                    width: 20vmin;
+                    right: 2.5vmax;
+                    top: 2.5vmax;
+                    background: rgba(14, 13, 13, 0.5);
+                    z-index: 1;
+                }
+
+  
+
+
+
+
+   
+    /* reel */
+    .infoDiv:nth-of-type(2) {
+      background: black;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* border: 3px lime ridge; */
+      clip-path: polygon(0 20%, 100% 0, 100% 80%, 0% 100%);
+
+    }
+    
+        
+            #infoReelPlayer {
+                /* position: relative; */
+                /* height: 50vh; */
+                width: 40vw;
+                z-index: 3;
+                /* border: 3px yellowgreen ridge; */
+            }
+
+            #infoReelTitleWrapper {
+                padding: 1vmin 1vmin 1vmin 2.5vmin;
+                /* border: 3px orange ridge; */
+                position: absolute;
+                left: 0;
+                top: 20%;
+                transform-origin: top left;
+                z-index: 3;
+            }
+            
+                #infoReelTitle {
+                    font-family: BigShoulders;
+                    color: white;
+                    text-shadow: 0px 1px 0px rgba(255,255,255,.3), 0px -1px 0px rgba(0,0,0,.7);
+                    /* transform-origin: top; */
+                    transform: rotateX(5turn) translateX(-150%);
+                    transition: transform .4s;
+                }
+
+                    #infoReelTitle.animated {
+                        transform: none;
+                    }
+
+            .infoReelTile {
+                position: absolute;
+                width: 30vw;
+                height: 200vmin;
+                box-shadow: rgba(245, 245, 245, 0.5) 0px 30px 90px;
+                transition: transform .8s;
+            }
+
+
+                #infoReelTileLeft {
+                    /* background: lightgray; */
+                    background: rgba(14, 13, 13, 0.95);
+                    z-index: 2; 
+                    box-shadow:         rgba(245, 245, 245, 0.25) 0px 30px 90px,
+                                            2px 2px 5px 5px rgba(206, 58, 8, .15), 
+                                        inset 5em 10em 10em  rgb(48, 44, 44, .25),
+                                        /* inset 2.5em 5em 10em  rgba(235, 232, 230, 0.25), */
+                                        inset -1em -2em 10em  rgb(46, 28, 28);
+                    background-image: linear-gradient(rgba(42, 43, 44, .8), 
+                                                      rgba(24, 6, 19, 0.9)),
+                                                         url('../images/diamondplate.webp');
+                    bottom: 10vmin;
+                    left: 25vw;
+                    transform: translateY(100%);
+                }
+
+
+                #infoReelTileRight {
+                    /* background: darkgray; */
+                    background: rgba(14, 13, 13, 0.5);
+                    z-index: 1; 
+                    background-image: linear-gradient(rgba(236, 230, 230, 0.49),
+                                                      rgba(230, 225, 225, 0.5)),
+                                                         url('../images/metalTexture2.webp');
+                    
+                    top: 10vmin;   
+                    right: 25vw;
+                    transform: translateY(-100%);
+                }
+
+                    #infoReelTileRight.animated, #infoReelTileLeft.animated {
+                        transform: none;
+                    }
+
+
+    /* values */
+    .infoDiv:nth-of-type(3) {
+      background: white;
+      flex-direction: column;
+      height: 90vh;
+      position: relative;
+
+    }
+
+        #infoValuesDisplay {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            /* border: 3px orange ridge; */
+            height: 70%;
+            width: 100%;
+        }
+
+            #infoValueBox {
+                height: 35vh;
+                width: 50%;
+                margin: 0 5vw;
+                padding: 2.5vw;
+            }
+
+            .infoValueTitle {
+                font-family: BigShoulders;
+                font-size: 15vmin;
+                /* position: absolute;
+                top: -16vmin;
+                right: 10vmin;
+                transform: rotate(-5deg); */
+                /* border: 3px green ridge; */
+                letter-spacing: -4px;
+                line-height: 85%;
+                opacity: 0;
+                transform: translateY(500%);
+                z-index: 1;
+                /* transition: transform 1s; */
+            }
+
+                .infoValueTitle.animated {
+                    animation: 1s ease-in 0s 1 highFall;
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+
+            #infoValueLogo {
+                position: absolute;
+                bottom: -10vmin;
+                right: 5vmin;;
+                height: 100%;
+                z-index: 0;
+            }
+
+            #infoValueBox {
+                transition: border .4s
+            }
+
+                #infoValueBox.collaboration {
+                    border: 10px lightgray solid;
+                }
+
+                #infoValueBox.safety {
+                    border: 10px red solid;
+                }
+
+                #infoValueBox.performance {
+                    border: 10px darkgray solid;
+                }
+
+                #infoValueBlurb {
+                    font-size: 3vmin;
+                    line-height: 3.5vmin;
+                }
+
+              
+
+        #infoValuesSelect {
+            /* border: 3px purple ridge; */
+            height: 30%;
+            width: 100%;
+            position: relative;
+            display: flex;
+            justify-content: space-evenly;
+            filter:   drop-shadow(1px 0px 0px black)
+                      drop-shadow(-1px 0px 0px black)
+                      drop-shadow(1px -1px 0px black);
+                                                    /* drop-shadow(0px 1px 0px black)
+                                                    drop-shadow(0px -1px 0px black)
+                                                    drop-shadow(1px 1px 0px black)
+                                                    drop-shadow(-1px -1px 0px black)
+                                                    drop-shadow(-1px 1px 0px black) */
+             }
+            
+            #infoValuesSelectBar {
+                position: absolute;
+                z-index: 1;
+                width: 100%;
+                height: 20%;
+                top: 40%;
+                background: lightslategray;
+            }
+
+                .valueSelector {
+                    height: 80%;
+                    width: 15%;
+                    position: relative;
+                    background: whitesmoke;
+                    z-index: 2;
+                    /* border: 1px black solid; */
+                    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
+                    border-top: 6px darkgray solid;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    background: white;
+                    clip-path: polygon(0% 0%, 100% 0, 100% 75%, 50% 100%, 0 75%);
+                    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.1) 0px 18px 36px -18px inset;
+                    transition: box-shadow 1s;
+                }
+
+                    .valueSelector:hover {
+                        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.75) 0px 18px 36px -18px inset;
+                    }
+
+                    .valueSelector.selected {
+                        border-top: 6px red solid;
+                    }
+
+    
+                    .valueSelectIcon {
+                        height: 20%;
+                        transition: transform 1s;
+                    }
+
+                        .valueSelectIcon.selected {
+                            transform: translateY(-50%) rotateY(1turn);
+                        }
+
+                    .valueSelectTitle {
+                        color: black;
+                        transition: color 1s;
+                    }
+
+                        .valueSelectTitle.selected {
+                            color: red;
+                        }
+
+        .mobileValue {
+            display: flex;
+            flex-direction: column;
+            margin: 5vmax 0;
+            /* border: 3px blue ridge; */
+        }     
+
+            .mobileValueIcon {
+                height: 5vmax;
+            }
+
+            .mobileValueName {
+                /* border: 3px pink ridge; */
+                width: 100%;
+                text-align: center;
+                margin: 1vmin 0;
+            }
+
+            .mobileValueBlurb {
+                margin: 2.5vmin 5vmin;
+                text-align: center;
+            }
+
+    /* faq */
+    .infoDiv:nth-of-type(4) {
+        /* background: lightslategray;  */
+        height: 90vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* padding: 15vmin 0; */
+        position: relative;
+        background-image: linear-gradient(rgba(236, 230, 230, 0.49),
+        rgba(230, 225, 225, 0.5)),
+            url('../images/metalTexture2.webp');
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;    
+    }
+
+        #faqTitle {
+            position: absolute;
+            top: 20vmin;
+            left: -1.5vw;
+            font-family: BigShoulders;
+            font-size: 12vw;
+            color: transparent;
+            text-shadow: 0px 1px 0px rgba(255,255,255,.3), 0px -1px 0px rgba(0,0,0,.7);
+            transform: rotate(-90deg);
+            /* border: 3px lime ridge; */
+        }
+
+
+        #faqBuffet {
+            width: 70%;
+            height: 70%;
+            overflow: scroll;
+            background: white;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;     
+       }
+
+            .faq {
+                /* border: 1px black solid; */
+                box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, 
+                            rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, 
+                            rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;                
+                background: whitesmoke;
+               
+            }
+
+                .faqQ {
+                    opacity: 0;
+                    transition: opacity .4s;
+                }
+
+                    .faqQ.onScreen {
+                        opacity: 1;
+                    }
+
+                .faqQuestion {
+                    height: 10vmin;
+                    padding: 4vmin;
+                    display: flex;
+                    justify-content: space-between;
+                    /* border: 3px lime ridge; */
+                    align-items: center;
+                    font-size: 2.5vmin;
+                }
+
+                    .faq .adminPerformerDropdownIcon {
+                        transform: none;
+                    }
+
+                    .faq .adminPerformerDropdownIcon.spun {
+                        transform: rotate(180deg) ;
+                    }
+
+
+
+                .faqAnswer {
+                    height: fit-content;
+                    padding: 4vmin;
+                    transform: scaleY(0);
+                    /* border: 3px yellowgreen ridge; */
+                    transform-origin: top;
+                    position: absolute;
+                }
+
+                    .faqAnswer.open {
+                        transform: scaleY(1);
+                        transition: transform .4s;
+                        position: static;
+                    }
+
+
+    /* social */
+    .infoDiv:nth-of-type(5) {
+      background: white;
+      display: flex;
+      align-items: flex-start;
+      height: fit-content;
+    }
+
+        .infoSocialPlatform {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 10vmin;
+            /* border: 3px lime ridge; */
+            /* position: relative; */
+        }
+
+            .infoSocialIcon {
+                height: 15vmin;
+                /* border: 3px red ridge; */
+                margin: 5vmin auto;
+                /* align-self: center; */
+                width: 100%;
+                filter: invert(100%) blur(10px);
+                transition: filter 2s;
+            }
+
+                .infoSocialIcon.animated {
+                    filter: none;
+                }
+
+            .infoPlatformWrapper {
+                /* border: 3px orange ridge; */
+                width: fit-content;
+                margin-bottom: 5vmin;
+                box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+                
+            }
+
+                #igWrapperWrapper {
+                    height: 100%;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    /* border: 3px yellow ridge;   */
+                }
+                
+                .infoPlatformWrapper#ig {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    /* gap: 2.5vmin; */
+                    /* border: 3px yellow ridge; */
+
+                }
+
+                    .infoGramImage {
+                        height: 20vmin;
+                        transition: transform .4s;
+                    }
+
+                        .infoGramImage:hover {
+                            transform: scale(125%);
+                        }
+
+                  
+                  
+
+    
+    /* quote */
+    .infoDiv:nth-of-type(6) {
+      background: lightslategray;
+      color: white;
+      flex-direction: column;
+      height: 50vh;
+    }
+
+        #infoNextPageMenu {
+            width: 80vw;
+            margin: 10vmin 10vw 20vmin;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+            .nextPageOption {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nextPageIcon {
+                height: 5vmax;
+                transition: transform .4s;
+            }
+
+                .nextPageIcon:hover {
+                    transform: translateY(-1vmin);
+                }
+
+            .nextPageTitle {
+                margin: 1vmin 0;
+                color: white;
+            }
+
+        #infoQuoteWrapper {
+            margin: 0 5vmin 10vh;
+            /* border: 3px purple ridge; */
+            display: flex;
+            flex-direction: column;
+        }
+
+        #infoQuoteBy {
+            align-self: flex-end;
+            margin-top: 2.5vmin;
+            transform: translateX(-15vmin);
+        }
+    
+
+    
+
+
+
+
+    @media only screen and (max-width: 1400px) {
+
+        .infoDiv:nth-of-type(1) {
+            display: flex;
+            flex-direction: column-reverse;
+          }
+
+          .infoBioDiv {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: fit-content;;
+            /* border: 3px aqua ridge; */
+        }
+
+          #infoBioImage {
+            position: static;
+            height: auto;
+            width: 70vw;
+            object-fit: cover;
+            margin-top: 5vmin;
+        }
+
+    
+
+        #infoBioImageBlockLeft {   
+            left: 5vmax;
+            top: 10vmax;
+        }
+
+        #infoBioImageBlockBottom {
+            right: 30vmax;
+            bottom: -5vmax;
+        }
+
+        #infoBioImageBlockRight {
+            right: 5vmax;
+            top: 2vmax;
+        }
+
+        #infoBio {
+            position: static;
+            margin-top: 10vmin;
+            width: 65%;
+            align-self: flex-start;
+        }
+
+
+        #infoBioButton {
+            margin: 5vmin 0 20vmin;
+            position: static;
+        }
+
+        #infoReelPlayer {
+            width: 50vw;          
+        }
+
+        #infoReelTileLeft {
+            left: 20vw;
+        }
+
+        #infoReelTileRight {
+            right: 20vw;
+        }
+    }
+
+
+    @media only screen and (max-width: 1200px) {
+       
+        #infoValueTitle {
+            font-size: 12.5vmin;
+        }
+
+        #faqTitle {
+            position: absolute;
+            top: 2.5vh;
+            left: 5vw;
+            font-size: 15vh;
+            transform: none;
+            /* border: 3px lime ridge; */
+        }
+
+
+        #faqBuffet {
+            width: 90%;
+            height: 60vh;
+            margin: 20vh 5% 10vh;
+        }
+
+    }
+
+    @media only screen and (max-width: 1000px) {
+
+        #infoBioImage {
+            width: 100vw;
+            height: 50vh;
+            margin-top: 0;
+        }
+
+        .infoBioImageBlock {
+            display: none;
+        }
+
+        #infoBio {
+            margin-top: 5vmin;
+            border-left: 15px red solid;
+        }
+
+        #infoBioButton {
+           font-size: 3.5vmin;
+        }
+
+        #infoReelPlayer {
+            width: 60vw;          
+        }
+
+        .infoReelTile {
+            width: 40vw;
+        }
+
+        #infoReelTileLeft {
+            left: 15vw;
+        }
+
+        #infoReelTileRight {
+            right: 15vw;
+        }
+
+        .infoDiv:nth-of-type(5) {
+            min-height: fit-content;
+          }
+
+            .infoSocialPlatform {
+                /* border: 3px blue ridge; */
+                padding: 0;
+            }
+
+            .infoSocialIcon {
+                height: 20vh;
+                margin: 10vh 0;
+                /* border: 3px green ridge; */
+            }
+
+            .infoPlatformWrapper#ig, .infoPlatformWrapper#fb {
+                display: none;
+            }
+
+    }
+
+    @media only screen and (max-width: 800px) {
+
+   
+
+        #infoBio {
+            font-size: 4vmin;
+            line-height: 5vmin;
+        }
+
+        #infoReelPlayer {
+            width: 80vw;          
+        }
+
+        .infoReelTile {
+            width: 45vw;
+        }
+
+        #infoReelTileLeft {
+            left: 5vw;
+            bottom: 15vh;
+        }
+
+        #infoReelTileRight {
+            right: 5vw;
+            top: 15vh;
+        }
+
+        #infoValueTitle {
+            font-size: 11vmin;
+        }
+
+        .faq p {
+            font-size: 4vmin;
+        }
+    }
+
+    @media only screen and (max-width: 700px) {
+
+        #infoBioImage {
+            height: auto;
+        }
+
+        #infoBioButton {
+            font-size: 5vmin;
+         }
+
+         #infoReelTitle {
+            font-size: 8.5vmin;
+        }
+
+         #infoReelPlayer {
+            width: 90vw;          
+        }
+
+
+    }
+
+    @media only screen and (max-width: 600px) {
+
+        #infoBio {
+            font-size: 4.5vmin;
+            line-height: 5.5vmin;
+        }
+
+        .faq p {
+            font-size: 5vmin;
+            line-height: 6vmin;
+        }
+
+        .infoDiv:nth-of-type(5) {
+            flex-direction: column;
+            align-items: center;
+        }
+
+            .infoSocialIcon {
+                height: 10vh;
+                margin: 5vh 0;
+                /* border: 3px green ridge; */
+            }
+
+            #infoNextPageMenu {
+                grid-template-columns: 1fr 1fr;
+            }
+        
+                .nextPageOption {
+                   margin: 5vmin;
+                }
+
+    }
+
+   
+        
+    @media only screen and (max-width: 500px) {
+
+        #infoBio {
+            font-size: 5vmin;
+            line-height: 6vmin;
+        }
+
+         #infoReelTitle {
+            font-size: 10vmin;
+        }
+    }
+
+
+    @media (not (webp)) {
+
+        #infoReelTileLeft {
+            background-image: linear-gradient(rgba(42, 43, 44, .8), 
+                                              rgba(24, 6, 19, 0.9)),
+                                                 url('../images/diamondplate.jpeg');
+        }
+
+        #infoReelTileRight {
+            background-image: linear-gradient(rgba(236, 230, 230, 0.49),
+                                              rgba(230, 225, 225, 0.5)),
+                                                 url('../images/metalTexture2.jpeg');
+        }
+
+        .infoDiv:nth-of-type(4) {   
+            background-image: linear-gradient(rgba(236, 230, 230, 0.49),
+                                              rgba(230, 225, 225, 0.5)),
+                                                 url('../images/metalTexture2.jpeg');
+        }
+    
+
+      }

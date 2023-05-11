@@ -1,0 +1,415 @@
+
+
+
+
+
+
+
+/*
+We decided against going with lazy loading for this app, noting that
+implementing it only led to a 40ms improvement in load time,
+and significantly hurt the user experience with awkward loading pauses
+when changing pages or scrolling. 
+
+While the current initial load time isn't ideal, it's moderate enough
+that everything should generally be ready to go by the time the header animation
+finishes playing, and the user is ready to start interacting with the page.
+*/
+
+import                            './App.css';    
+
+import { useState, 
+         useEffect,
+         useCallback,
+         useRef        }     from 'react';
+
+import { Route,
+         Routes, 
+         useLocation   }     from 'react-router-dom';
+
+import { Helmet        }     from 'react-helmet';
+
+
+import   config              from './config.js';
+
+import   Axios               from 'axios';
+
+import   Info                from './pages/Info';
+import   Contact             from './pages/Contact'; 
+import   Gallery             from './pages/Gallery';
+import   Team                from './pages/Team';
+import   Reels               from './pages/Reels';
+import   Media               from './pages/Media';
+import   Admin               from './pages/Admin';
+import   UpdatePerformer     from './pages/UpdatePerformer';
+
+
+import   Header              from './components/Header';
+import   NavBar              from './components/NavBar';
+import   Construction        from './components/Construction'  
+import   PasswordReset       from './components/PasswordReset';
+import   performerOptions    from './components/performerOptions';
+
+import   logoS               from './images/logoSWhite.png';
+
+
+
+
+function App() {
+
+  
+  const [  constructionMode, setConstructionMode ] = useState(false);
+  
+  const [  photoData,        setPhotoData        ] = useState([]);
+  const [  instaToken,       setInstaToken       ] = useState(null);
+
+  const [  editing,          setEditing          ] = useState('posters');
+  const [  links,            setLinks            ] = useState([]);
+
+  const [  performerClass,   setPerformerClass   ] = useState('D');
+  const [  adminStatus,      setAdminStatus      ] = useState(false);
+  
+  const [  boardPosters,     setBoardPosters     ] = useState(false);
+  const [  teamPosters,      setTeamPosters      ] = useState(false);
+  const [  boardData,        setBoardData        ] = useState(false);
+  const [  teamData,         setTeamData         ] = useState(false);
+
+  const    posters = [ boardPosters, teamPosters ];
+
+  const    mainRef                                 = useRef(null);
+  const    faqRef                                  = useRef(null);
+
+  const    location                                = useLocation();
+
+  
+
+  //api url for all requests to server.
+  const url = config.apiUrl;
+
+
+  // all-terrain multipurpose highly functional trusty data fetcher.
+  const getData = useCallback((reqBody) => {
+
+   if (url)  return Axios.post(`${url}getData`, reqBody);
+    
+  }, [url]);  
+
+
+
+  // this hook handles preconnections to external domains to improve performance.
+  useEffect(() => {
+
+    const origins = [
+                      'https://connect.facebook.net',
+                      'https://drive.google.com',
+                      'https://scontent.cdninstagram.com',
+                      'https://www.gstatic.com',
+                      'https://doc-0o-5c-docs.googleusercontent.com',
+                      'https://fresnel.vimeocdn.com',
+                      'https://player.vimeo.com'
+                    ];
+  
+    origins.forEach( origin => {
+
+      const link      =  document.createElement('link');
+            link.rel  = 'preconnect';
+            link.href =  origin;
+
+      document.head.appendChild(link);
+
+    });
+
+  }, []);
+
+
+
+  //checks if site is in construction mode on initial load.
+  useEffect(() => {
+    
+    getData(['misc', [['description', 'construction_mode']]]).then(res => setConstructionMode(res.data[0].active));
+    
+  }, [getData])
+  
+
+  
+  
+  // gets team data on initial load. 
+  // state lifted to pass poster data to Admin and avoid poster-loading bugs when handled by Team component.
+  useEffect(() => {
+
+
+    // columns for all team and board members
+    const basicColumns =  [ 
+      'legal_name',
+      'title',
+      'imdb_id',
+      'uploaded_image',
+      'image_url',
+      'image_id',
+      'image_alt',
+      'no_posters',
+      'poster_1',
+      'poster_2',
+      'poster_3',
+      'poster_4',
+      'poster_5',
+      'publish',
+    ]
+
+
+    // additional columns just for board members
+    const extraColumns = [ 
+      'profile',
+      'attribute_1',
+      'attribute_2',
+      'attribute_3',
+      'poster_6',
+      'poster_7',
+      'poster_8',
+      'poster_9',
+      'poster_10',
+    ]
+
+
+
+    const teamColumns  = basicColumns.join(', ');
+    const boardColumns = basicColumns.concat(extraColumns).join(', ');  
+
+
+
+
+    getData(['board', [['publish', true]], { orderBy: 'rank', columns: boardColumns }]  )
+      .then( res => setBoardData(res.data)                                              )
+     .catch( err => console.log(err)                                                    );
+
+    getData(['team',  [['publish', true]], { orderBy: 'rank', columns: teamColumns }]   )
+      .then( res => setTeamData(res.data)                                               )
+     .catch( err => console.log(err)                                                    );
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+
+
+
+  // creates arrays of arrays of poster image elements for profiles on team page.
+  // waits until team data is in state before firing.  
+  useEffect(() => {  
+
+
+    function getPosters ( state, setter ) {  
+      
+        let teamPosters     = []
+        let allPosters      = [];
+
+        // sorts through team and board data and creates an array of arrays (teamPosters) with poster_id's for request.
+        for ( let i = 0; i < state.length; i++ ) {  
+
+          let double  = state[i];
+          let posters = [];
+
+          for ( let prop in double ) {
+              prop.startsWith('poster_')  && posters.push(double[prop]);
+          }
+          
+          teamPosters.push(posters);     
+        }
+
+
+        // creates an array of promises for requests.
+        let promises = teamPosters.map( (posters, index) => {
+
+
+            const boardMember = posters.length > 5;
+
+            return Axios.post(`${url}getDoublesPosters`, ['posters', 'poster_id', posters])
+                        .then( res => {        
+
+                                            return res.data.map(poster => (
+                                            <img
+                                                      key={poster.poster_id}
+                                                      src={poster.image_url}
+                                                className={boardMember ? 'boardPoster' : 'teamPoster'}
+                                                      alt={'movie poster for ' + poster.title}
+                                            />
+
+                                          )).concat([state[index].imdb_id]);
+                                        }
+                                )
+                          .catch(err => console.log(err));
+        });
+
+
+        // uses Axios.all to wait for all promises to resolve before loading them into state.
+        Axios.all(  promises  )
+             .then( responses => {
+                                    responses.forEach( posterArr => { allPosters = allPosters.concat([posterArr]); } );
+                                    setter(allPosters);
+                                 } 
+                  )
+            .catch( err => console.log(err) );
+    }
+
+    // functions only run once team data has been loaded and before poster data has been loaded
+    boardData && !boardPosters && getPosters( boardData, setBoardPosters );
+    teamData  && !teamPosters  && getPosters( teamData,  setTeamPosters  );
+
+   
+  }, [boardData, boardPosters, setBoardPosters, setTeamPosters, teamData, teamPosters, url, editing])
+
+
+
+
+
+  //scrolls to top of page div whenever path changes, Info component heandles scrolling if FAQ is present.
+  useEffect(() => { 
+   
+    const faq = new URLSearchParams(window.location.search).get('faq'); 
+
+    const scrollToRef = (ref) => window.scroll(0, (ref.current.offsetTop - window.innerHeight*.1));
+
+    if (!faq && location.pathname !== '/') { scrollToRef(mainRef); }
+
+  }, [location])
+
+
+
+
+
+  // grabs instagam data and refreshes long-lived token.
+  // token needs to be refreshed every 60 days, or it will expire and become unrenewable.
+  useEffect(() => {
+
+    let gramGetter  = 'https://graph.instagram.com/me/media?fields=media_url&access_token='+instaToken;
+    let tokenGetter = 'https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&&access_token='+instaToken;
+
+    if (!instaToken) {  getData(['misc', [[ 'description', 'insta_token' ]]])
+                          .then( res => { setInstaToken(res.data[0].value); })
+                     }
+
+    else             {  Axios.get(gramGetter)
+                             .then( res => {  setPhotoData(res.data.data); 
+                                              return Axios.get(tokenGetter);
+                                           }
+                                  )
+                             .then( res => {  const reqBody = [    'misc', 
+                                                                [  'value'                        ], 
+                                                                [   res.data.access_token         ], 
+                                                                [ ['description', 'insta_token']  ]
+                                                              ];
+                              
+                              
+                                              if (res.data.access_token.length > 0) { 
+                              
+                                                  return Axios.put(`${url}updateData`, reqBody         )
+                                                            //  .then(  response => console.log(response) )
+                                                            // .catch( err => console.log(err)            );
+                                               }
+                        })
+
+                     }
+  }, [getData, instaToken, url])
+
+
+  // toggles list of links for navbar based on adminStatus and current path.
+  // [ forward-facing site, admin director's chair, team member's chair ]
+  useEffect(() => {
+
+      location.pathname !== '/director' ? setLinks([ 'info',    'contact',   'gallery',   'reels',    'media',    'team',       'director'                ])
+    : adminStatus                       ? setLinks([ 'misc',    'info',      'reels',     'media',    'board',    'team',       'posters',   'performers' ])
+    :                                     setLinks([ 'profile', 'posters',   'performers'                                                                 ])      
+
+  }, [adminStatus,location.pathname])
+
+
+
+
+  
+
+
+
+ 
+
+
+  return (<>
+
+            <Helmet>
+              <title>Skene Stunts</title>
+              <meta name="description" content="Skene Stunts has been delivering excellence to the Canadian film and commercial industry for over 35 years." />
+              <link rel="canonical"    href="https://www.skenestunts.com/" />
+            </Helmet>
+
+            { constructionMode                   &&
+              location.pathname !== '/director'   ? <Construction /> 
+                                                 
+                                                  : <div id="App">
+
+                                                        { location.pathname !== '/director' &&  <Header  getData={getData}  /> }
+                                  
+                                  
+                                                        <NavBar links={links} editing={editing} setEditing={setEditing} adminStatus={adminStatus} />
+                                  
+                                  
+                                                        <div id="main" ref={mainRef}>
+                                  
+                                                          <Routes>
+                                                            <Route path='/'                element={<Info               photoData={photoData}
+                                                                                                                        faqRef={faqRef}                             
+                                                                                                                        getData={getData}                           />   } />  
+                                                            
+                                                            <Route path='/info'            element={<Info               photoData={photoData}
+                                                                                                                        faqRef={faqRef}  
+                                                                                                                        getData={getData}                           />   } />  
+                                                            
+                                                            <Route path='/contact'         element={<Contact            performerOptions={performerOptions()} 
+                                                                                                                        performerClass={performerClass} 
+                                                                                                                        setPerformerClass={setPerformerClass}
+                                                                                                                        getData={getData}
+                                                                                                                        url={url}                                   />   } /> 
+                                                            
+                                                            <Route path='/gallery'         element={<Gallery            photoData={photoData}                       />   } /> 
+                                                            
+                                                            <Route path='/reels'           element={<Reels              getData={getData}                           />   } /> 
+                                                            
+                                                            <Route path='/media'           element={<Media              getData={getData}                           />   } /> 
+                                                            
+                                                            <Route path='/team'            element={<Team               boardData={boardData}
+                                                                                                                        boardPosters={boardPosters}
+                                                                                                                        teamData={teamData}
+                                                                                                                        teamPosters={teamPosters}                   />   } /> 
+                                                            
+                                                            <Route path='/updatePerformer' element={<UpdatePerformer    performerOptions={performerOptions()} 
+                                                                                                                        performerClass={performerClass} 
+                                                                                                                        setPerformerClass={setPerformerClass}       
+                                                                                                                        getData={getData}
+                                                                                                                        url={url}                                   />  } />
+                                                            
+                                                            <Route path='passwordReset'    element={<PasswordReset      getData={getData} 
+                                                                                                                        url={url}                                   />  } />
+                                                            
+                                                            <Route path='/director'        element={<Admin              performerOptions={performerOptions()} 
+                                                                                                                        editing={editing} 
+                                                                                                                        posters={posters}
+                                                                                                                        setEditing={setEditing}  
+                                                                                                                        adminStatus={adminStatus}
+                                                                                                                        setAdminStatus={setAdminStatus}
+                                                                                                                        getData={getData} 
+                                                                                                                        url={url}                                    />  } /> 
+                                                          </Routes>
+                                  
+                                                        </div>
+
+                                  
+                                                        { location.pathname !== '/director' &&  
+                                                          <div id='footer'>
+                                                            <img id='footerLogo' alt='the iconic flaming Skene Stunts S logo' src={logoS} />
+                                                          </div>
+                                                        }
+                                  </div>     
+            }
+        </>);
+}
+
+
+
+export default App;

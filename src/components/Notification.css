@@ -1,0 +1,50 @@
+
+
+.notification {
+    max-width: 35vw;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    margin: 1.5em auto;
+    animation: .4s ease-in 0s 1 fadeIn;
+
+}
+
+    .bad.notification {
+        background-color: lightpink;
+        border: .25px red ridge;
+    }
+
+    .good.notification {
+        background-color: lightgreen;
+        border: .25px green ridge;
+    }
+
+
+    .wait.notification {
+        background-color: rgb(75, 75, 75);
+        border: 1px rgb(128, 128, 128) ridge;
+        color: white;
+    }
+
+        .notificationIcon {
+            height: 2.5em;
+            margin-left: 1.5em;
+        }
+
+        .notificationCaption {
+            font-size: 1.5em;
+            margin: .75em;
+        }
+
+
+@media only screen and (max-width: 700px) {
+
+    .notification {
+        max-width: 80%; 
+    }
+
+    .notificationIcon {
+        height: 3.5em;
+    }
+}

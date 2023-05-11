@@ -1,0 +1,19 @@
+
+
+
+
+
+
+.helpLinkIcon {
+
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    font-family: BarlowCondensed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    color: white;
+    margin: auto .8em .9em .9em;
+}
