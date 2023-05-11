@@ -1,0 +1,72 @@
+
+
+
+
+
+.reelContent {
+    width: 100%;
+    height: fit-content;
+    }
+
+    .reelWrapper:nth-of-type(even) {
+        color: white;
+        background: rgba(14, 13, 13, 0.5);
+        background: slategray;
+        box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    }
+   
+    .reelWrapper:nth-of-type(even) .reelPlayer {
+        box-shadow: rgba(235, 235, 235, 0.3) 0px 19px 38px, rgba(235, 235, 235, 0.22) 0px 15px 12px;        
+    }
+
+    .reelWrapper {
+        padding: 15vmin 0;
+        width: 100vw;
+        /* border: 3px lime ridge; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .realReelWrapper {
+            height: fit-content;
+            width: fit-content;
+            position: relative;
+            margin-top: 15vmin;
+            /* border: 3px aqua ridge; */
+        }
+
+        .reelTitle {
+            /* border: 3px yellow ridge; */
+            width: 150%;
+            overflow: visible;
+            position: absolute;
+            left: 0;
+            top: -7.5vmin;
+        }
+
+        .reelPlayer {
+            overflow: hidden;
+            width: 50vw;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;       
+            /* border: 3px red ridge;  */
+        }
+
+        .reelCaption {
+            padding-top: 5vmin;
+            text-align: center;
+            /* border: 3px red ridge; */
+        }
+
+        @media only screen and (max-width: 1000px) {
+            .reelPlayer {
+                width: 70vw;
+            }
+            
+        }
+
+        @media only screen and (max-width: 600px) {
+            .reelPlayer {
+                width: 90vw;
+            }
+        }

@@ -1,0 +1,489 @@
+
+
+
+
+
+
+
+
+
+
+.boardProfile {
+    display: grid;
+    grid-template-columns: 1fr 82.5% 1fr;
+    margin: 15vmin 30vmin;
+    position: relative;
+    z-index: 2;
+    height: 70vh;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+  
+ 
+    .boardPosterRack {
+        display: flex;
+        flex-direction: column;
+        height: 70vh;
+        background: rgba(14, 13, 13, 0.95);
+        background-image: linear-gradient(rgba(236, 230, 230, 0.49),
+                                                      rgba(230, 225, 225, 0.5)),
+                                                         url('../images/metalTexture2.jpeg');
+        /* border: 3px orange ridge; */
+    }
+
+        .boardPoster {
+            width: 100%;
+            height: 20%;
+            /* border: 3px lime ridge; */
+        }
+
+    .boardContent {
+        display: grid;
+        grid-template-rows: 6fr 4fr;
+        /* border-top: 1px black ridge; */
+        /* border-bottom: .5px black ridge; */
+        /* border: 3px green ridge; */
+        padding-top: 2vmin;
+        background: whitesmoke;
+        position: relative;
+        /* height: 70vh; */
+    }
+    
+        .boardContentTop {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            z-index: 1;
+            /* border: 3px yellowgreen ridge; */
+        }
+        
+        .boardContentTopLeft {
+
+            /* border: 3px yellowgreen ridge; */
+        }
+
+
+    .boardImage {
+        height: 80%;
+        max-height: 35vh;
+        width: 80%;
+        object-fit: cover;
+        margin: 2.5vmin 5vmin;
+        /* clip-path: polygon(0% 0%, 80% 0, 100% 50%, 80% 100%, 0% 100%); */
+        /* filter: grayscale(100%); */
+        /* border: 3px aqua ridge; */
+    }
+
+    .imdbIcon {
+        height: 4vmin;
+        margin: 0 2vmin 0 1vmin;
+        /* border: 3px red ridge; */
+    }
+
+
+    .boardNameLevel {
+        display: flex;
+        justify-content: left;
+        margin: 2.5vh 0 0;
+        width: 100%;
+        /* border: 3px blue ridge; */
+        align-items: center;
+        z-index: 1;
+
+    }
+
+    .boardAttribute {
+        display: flex;
+        /* font-family: BarlowCondensed; */
+        /* font-size: 1.75vmin; */
+        margin: 1vmin 0;
+        align-items: center;
+        z-index: 299;
+
+        /* border: 3px aqua ridge; */
+    }
+
+
+    .boardAttributes {
+        /* border: 3px orange ridge; */
+        align-items: center;
+        margin: 2vmin 0;
+
+    }
+
+
+    .boardProfileBlurb {
+        /* font-size: 5vmin; */
+        padding: 0 .75em 0 7vw;
+        text-overflow: clip;
+        height: 100%;
+        width: 75%;
+        position: relative;
+        z-index: 1;
+        /* border: 3px fuchsia ridge; */
+    }
+
+    .boardProfileLogo {
+        position: absolute;
+        bottom: 5%;
+        right: 20%;
+        opacity: .2;
+        /* top: 20vmin; */
+        z-index: 1;
+        height: 85%;
+        /* width: 20vw; */
+        filter: brightness(90)
+                drop-shadow(0 0 15px rgb(153, 149, 149));
+        /* border: 3px orange ridge; */
+    }
+
+    .boardProfileStripes {
+
+        position: absolute;
+        width: 10%;
+        height: 100%;
+        left: 7%;
+        z-index: 1;
+        opacity: .15;
+        background: repeating-linear-gradient(
+                                                25deg,
+                                                #ffffff,
+                                                rgb(153, 149, 149) 25px,
+                                                darkgray 25px,
+                                                darkgray 50px
+                                             );
+    }
+
+
+
+
+
+
+
+
+
+ #teamGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-around;
+ }
+
+
+ .teamProfile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: whitesmoke;
+    border-top: 4px red ridge;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 40vw;
+    margin: 5vw;
+    padding-top: 2.5vmin;
+    /* border: 3px pink ridge; */
+    /* height: fit-content; */
+  }
+  
+ 
+    .teamPosterRack {
+        display: flex;
+        height: auto;
+        margin-top: 2vmin;
+        /* border: 3px orange ridge; */
+    }
+
+        .teamPoster {
+            height: 10vw;
+            width: 20%;
+            /* border: 3px lime ridge; */
+        }
+
+    .teamContentTop {
+        display: grid;
+        grid-template-columns: 4fr 6fr;
+        height: fit-content;
+        /* border: 3px green ridge; */
+        margin: 0 1vmin;
+    }
+    
+    .teamContentLeft, .teamContentRight  {
+        align-items: center;
+        justify-content: center;
+        /* display: flex;
+        flex-direction: column; */
+        /* border: 3px yellow ridge; */
+    }
+        .teamContentLeft {
+            width: 12vw;
+            height: 12vw;
+            padding: 1vmin;
+        }
+        .teamContentRight {
+            display: flex;
+            flex-direction: column;
+            /* align-items: center;
+            justify-content: center; */
+           /* width: 100% */
+        }
+
+    .teamImage {
+        height: 10vw;
+        width: 10vw;
+        object-fit: cover;
+        border-radius: 50%;
+        margin: 10%
+        /* border: 3px aqua ridge; */
+    }
+
+
+
+
+    .teamTitleLevel {
+        display: flex;
+        justify-content: left;
+        width: 100%;
+        align-items: center;
+
+        /* padding-left: 2em; */
+        /* margin: 10vh 0 2.5vh; */
+        /* border: 3px blue ridge; */
+    }
+
+    .teamName {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        font-family: BebasNeue;
+        font-family: BarlowCondensed;
+        font-weight: bold;
+        /* border: 3px orange ridge; */
+    }
+
+    .teamProfileBlurb {
+        font-size: 1.5em;
+        padding: .75em 0;
+        height: auto;
+        width: 90%;
+        margin: 2.5vmin auto;
+        /* text-overflow: clip; */
+        /* border: 3px fuchsia ridge; */
+    }
+
+
+   
+
+
+
+    @media only screen and (max-width: 900px) {
+        
+        #teamGrid {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .teamProfile {
+            width: 450px;
+            margin: 50px 0;
+          }
+
+          .teamPoster {
+            height: 110px;
+           
+        }
+
+        .teamImage {
+            height: 125px;
+            width: 125px;
+            margin-left: 20px
+        }
+
+
+    .teamProfileBlurb {
+        
+        margin: 25px auto;
+       
+    }
+       
+    }
+
+
+    @media only screen and (max-width: 500px) {
+
+        .teamProfile {
+            width: 400px;
+            margin: 50px 0;
+          }
+
+          .teamPoster {
+            height: 110px;
+           
+        }
+
+        .teamImage {
+            height: 125px;
+            width: 125px;
+            margin-left: 20px
+        }
+
+
+    .teamProfileBlurb {
+        
+        margin: 25px auto;
+       
+    }
+       
+    }
+    /* @media only screen and (max-width: 600px) {
+        
+        .teamContent {
+            flex-direction: column;
+        }
+            .teamContentLeft {
+                width: 100%
+            }
+            .teamContentRight {
+            width: 100%
+            }
+
+        .teamNameLevel {
+            justify-content: center;
+            padding-left: 2em;
+            margin: 2.5vh 0 0;
+           
+        }       
+    
+        .teamImage {
+            max-height: 75vh;
+            width: auto;
+            margin-top: 5vmin;
+        }
+    } */
+
+
+
+
+
+    @media only screen and (max-width: 1500px) {
+       
+        .boardProfile {  
+            margin: 15vmin 20vmin; 
+        }
+    }
+
+    @media only screen and (max-width: 1350px) {
+       
+        .boardProfile {  
+            margin: 15vmin 10vmin; 
+        }
+    }
+
+    @media only screen and (max-width: 1200px) {
+       
+        .boardProfile {  
+            margin: 15vmin 10vmin; 
+        }
+    }
+
+
+    @media only screen and (max-width: 1000px) {
+
+        .boardProfile {
+            display: grid;
+            grid-template-rows: 1fr auto 1fr;
+            grid-auto-flow: column;
+            height: fit-content;
+            width: 75vw;
+            /* border: 3px red ridge; */
+          }
+
+          
+            .boardPosterRack {
+                display: flex;
+                flex-direction: row;
+                /* border: 3px orange ridge; */
+                height: 20vw;
+                width: 75vw;
+                display: relative;
+                z-index: 2;
+            }
+        
+                .boardPoster {
+                    width: 15vw;
+                    height: 20vw;
+                    /* border: 3px lime ridge; */
+                }
+            
+            .boardContent {
+                /* border: 3px lime ridge; */
+                padding-top: 5vmin;
+                /* padding: 5vmin 2.5vmin; */
+
+            }
+
+                .boardContentTop {
+                    display: flex;
+                    flex-direction: column;
+                    /* border: 3px aqua ridge; */
+                    padding-left: 10vmin;
+                }
+
+                    .boardContentTopLeft {
+                        display: flex;
+                        justify-content: flex-end;
+                        padding-right: 5vmin;    
+                        /* border: 3px yellowgreen ridge; */
+                    }
+
+                        .boardImage {
+                            /* width: auto; */
+                            height: 100%;
+                            margin: 0;
+                        }
+
+                    .boardContentTopRight {
+                        padding-top: 2.5vmin;  
+                        /* border: 3px yellowgreen ridge; */
+                    }
+
+                   
+
+
+            .boardProfileBlurb {
+                height: fit-content;
+                padding: 5vmin 0 0 10vmin;
+                height: 100%;
+            }
+
+            .boardProfileLogo {
+                bottom: 14vw;
+                right: 5%;
+    
+                height: 45%;
+                /* border: 3px orange ridge; */
+            }
+        
+            .boardProfileStripes {
+                left: 0;
+            }
+    }
+
+
+    @media only screen and (max-width: 650px) {
+
+        .boardProfile {
+            width: 100%;
+            margin: 15vmin 0;
+          }
+
+          .boardPosterRack {
+            width: 100vw;
+            height: 27vw;
+
+        }
+    
+            .boardPoster {
+                width: 20vw;
+                height: 27vw;
+            }
+
+        .imdbIcon {
+            height: 8vmin;
+        }
+    }

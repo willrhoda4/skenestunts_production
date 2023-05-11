@@ -1,0 +1,202 @@
+
+
+
+
+
+
+#navbar {
+    width: 100vw;
+    height: 10vh;
+    background: rgba(14, 13, 13, 0.5);
+    box-shadow:   2px 2px 5px 5px rgba(206, 58, 8, .15), 
+            inset 5em 10em 10em  rgb(48, 44, 44, .25),
+            inset 2.5em 5em 10em  rgba(235, 232, 230, 0.25),
+            inset -1em -2em 10em  rgb(46, 28, 28);
+    background-image: linear-gradient(rgba(42, 43, 44, .8), rgba(24, 6, 19, 0.9)),
+                      url('../images/diamondplate.webp');    
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+    /* border: 3px yellow ridge; */
+}
+
+
+      #desktopLinks {
+        width: fit-content;
+        height: fit-content;
+        margin: auto 0 auto 2em;
+      }
+        .navLink {
+          /* border: 3px orange ridge; */
+          width: fit-content;
+          height: 1.5em;
+          font-size: 1.5em;
+          margin: auto 1em;
+          color: white;
+          display: inline-block;
+          transition: text-decoration 1.5s ease-in-out;
+        }
+
+            .navLink.activeLink {
+                color: red;
+                cursor: default;
+                text-decoration: none;
+            }
+              
+              .navLink::after {
+                content: '';
+                width: 0px;
+                height: 1px;
+                display: block;
+                background: red;
+                transition: 300ms;
+              }
+              
+              .navLink:hover::after {
+                width: 100%;
+              }
+              .navLink.activeLink:hover::after {
+                width: 0;
+              }
+      
+      #mobileLinks {
+        display: flex;
+        align-items: center;
+        height: fit-content;
+        color: white;
+      }
+  
+      #socialLinks {
+        height: fit-content;
+        margin: auto 0;
+      }
+        .icon {
+          transition: filter .4s;
+        }
+        .icon:hover {
+          filter: brightness(0)
+                  drop-shadow(0 0 15px rgb(231, 21, 21));
+          }
+          .social.icon {
+            height: 2em;
+            padding: 0 2em;
+          }
+          .menu.icon {
+            height: 1.5em;
+            margin: 0 2em 0 1em;
+            /* border: 3px orange ridge; */
+          }
+  
+  
+      
+
+  #updateTab,#dropdownLinks {
+    position: absolute;
+    color: white;
+    background: rgba(14, 13, 13);
+    box-shadow:   2px 2px 5px 5px rgba(206, 58, 8, .15), 
+            inset 5em 10em 10em  rgb(48, 44, 44, .25),
+            inset 2.5em 5em 10em  rgba(235, 232, 230, 0.25),
+            inset -1em -2em 10em  rgb(46, 28, 28);   
+  }
+          
+    #updateTab {
+      height: 2em;
+      bottom: -2em;
+      right: 0;
+      border-bottom-left-radius: 25px;
+    }
+    
+    #dropdownLinks {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    top: 10vh;
+    left: 0;
+    padding-right: 2em;
+    border-bottom-right-radius: 25px;
+    transform-origin: top;     
+    }
+
+      #dropdownLinks.open {
+        animation: growDown 400ms ease-in-out forwards;
+      }
+
+      @keyframes growDown {
+        0% { 
+          transform: translateX(-1px) scaleY(0)
+        }
+        80% {
+          transform: translateX(-1px) scaleY(1.1)
+        }
+        100% {
+          transform: translateX(-1px) scaleY(1)
+        }
+      }
+
+      #dropdownLinks.close {
+        animation: shrinkUp 400ms ease-in-out forwards;
+      }
+
+      @keyframes shrinkUp {
+        0% { 
+          transform: translateX(-1px) scaleY(1)
+        }
+        100% {
+          transform: translateX(-1px) scaleY(0)
+        }
+      }
+
+      #adminNavbarRight {
+        height: fit-content;
+        margin: auto 5vmin auto 0;
+        color: white;
+        display: flex;
+        align-items: center;
+    }
+
+    .adminNavbarIcon {
+        height: 2.5em;
+        padding: 0 1em;
+}
+
+        @media only screen and (max-width: 1300px) {
+
+          #adminNavBarH3 {
+              display: none;
+          }
+        }
+
+        @media only screen and (min-width: 1050px) {
+          #mobileLinks {
+              display: none;
+          }
+        }
+
+        @media only screen and (max-width: 1050px) {
+          #desktopLinks {
+              display: none;
+          }
+          .social.icon {
+            height: 2em;
+            padding: 0 1em;
+          }
+        }
+
+        @media only screen and (max-width: 450px) {
+          #mobileTitle {
+              display: none;
+          }
+        }
+
+        @media (not (webp)) {
+          #navbar {
+            background-image: linear-gradient(rgba(42, 43, 44, .8), rgba(24, 6, 19, 0.9)),
+                              url('../images/diamondplate.jpeg');    
+          }
+        }
+          

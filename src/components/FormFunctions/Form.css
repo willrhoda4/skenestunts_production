@@ -1,0 +1,301 @@
+
+
+
+
+.formPageH2Wrapper {
+    margin: 1em 0 4em;
+}
+
+.formField {
+    display: flex;
+    flex-direction: column;
+    /* border: 3px blue ridge; */
+    margin-bottom: 5vh;
+    width: 100%;
+}
+
+    .fieldTitle {
+        display: flex;
+        align-items: center;
+    }
+
+        .fieldTitleH3 {
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 2em;
+
+        }
+
+        .otherTitleH3 {
+            font-family: BarlowCondensed;
+            font-size: 1.5em;
+            /* padding-left: 2em;
+            transform: translateY(-2vh); */
+        }
+
+    .fieldRow {
+        display: flex;
+        height: fit-content;
+        width: 100%;
+        /* justify-self: center; */
+        /* border: 3px aqua ridge; */
+    }
+
+        /* .indicatorLED {
+            border: 3px orange ridge;
+        } */
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-bottom: 2.5vmin;
+            /* border: 3px fuchsia ridge; */
+        }
+
+            .fieldInput {
+                width:100%;
+                /* border: 3px red ridge; */
+            }
+
+        
+
+        #otherField.field {
+            width: fit-content;
+            /* height: 2em;
+            margin-bottom: 5vh;
+            margin-top: 2vh; */
+        }
+
+    .dropdown {
+        display: flex;
+        height: fit-content;
+        align-items: center;
+        margin: 2.5vmin;
+        overflow: hidden;
+    }
+
+    .fileUploader {
+        display: flex;
+        margin-bottom: 5vh;
+    }
+
+        .fileUploaderH3 {
+            font-family: BarlowCondensed;
+            font-size: 1.5em;
+            color: white;
+            padding: .5em;
+            border: none;
+            margin-right: 2em;
+            width: fit-content;
+            transition: box-shadow .25s ease-out;
+            background: rgba(14, 13, 13, 0.5);
+            box-shadow:         2px 2px 5px 5px rgba(206, 58, 8, .15), 
+                        inset 5em 10em 10em  rgb(48, 44, 44, .25),
+                        inset 2.5em 5em 10em  rgba(235, 232, 230, 0.25),
+                        inset -1em -2em 10em  rgb(46, 28, 28);
+            background-image: linear-gradient(rgba(42, 43, 44, .8), rgba(24, 6, 19, 0.9)),
+                            url('../../images/diamondplate.jpeg');
+
+        }
+
+        .fileUploaderH3:hover {
+            box-shadow:         2px 2px 10px 2px rgba(234, 7, 7, 0.5), 
+                        inset 5em 10em 10em  rgb(48, 44, 44, .25),
+                        inset 2.5em 5em 10em  rgba(235, 232, 230, 0.25),
+                        inset -1em -2em 10em  rgb(46, 28, 28);  
+        }
+
+    .instructions {
+        font-family: BarlowCondensed;
+        font-size: 1.5em;
+        width: 100%;
+        height: fit-content;
+        text-align: center;
+        /* position: relative;
+        bottom: 2em; */
+        /* border: 3px yellow ridge; */
+    }
+
+    input, textarea {
+        border: none;
+        border-bottom: 2px ridge black;
+        width: 80%;
+        outline: none;
+        font-size: x-large;
+        padding: .5vh;
+        /* margin-bottom: 5vh; */
+        background: transparent;
+    }
+
+    textarea {
+        resize: none;
+        border-left: 2px ridge red;
+        font-family: OpenSans;
+        height: 25vh;
+
+
+    }
+
+    .uploader {
+        font-size: 0;
+        opacity: 0;
+    } 
+
+
+    /* Customize the label (the container) */
+    .checkboxLabel {
+        align-items: center;
+        text-align: left;
+        display: flex;
+        position: relative;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    /* Hide the browser's default checkbox */
+    .checkboxLabel input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+        display: flex;
+    }
+    
+    .checkboxCaption {
+        margin: .5em;
+        padding-left: 1.5em;
+        font-size: 1.5em;
+    }
+
+    
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        height:2em;
+        width: 2em;
+        margin: 1vh;
+        background-color: black;
+        border: .25px ridge red;
+        box-shadow: inset .1em .1em .5em rgb(230, 225, 225);
+    }
+    
+    /* On mouse-over, add a grey background color */
+    .checkmark:hover {
+        background-color: rgb(34, 33, 33);
+        box-shadow: inset .5em .5em 1em rgb(180, 174, 174);
+    }
+
+    .checkmark.checked {
+        background-color: rgba(255, 0, 0, 0.8);
+        box-shadow: inset .25em .25em 1em black;
+    }
+    
+
+    .toggle {
+        height: 1em;
+        width: 2em;
+        margin: auto 1em;
+        background: #BDB9A6;
+        border-radius: 1em;
+      }
+    
+        .toggleSlider {
+            height: 1em;
+            width: 1em;
+            border-radius: 1em;
+            background: #FFF;
+            transition: transform .4s;
+        }
+    
+        .toggleSlider.selected {
+             transform: translateX(1em);
+        }
+        
+        .dummybox {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+            display: none;
+        }
+
+
+    /*********** Baseline, reset styles ***********/
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  /* Removes default focus */
+  input[type="range"]:focus {
+    outline: none;
+  }
+  
+  /******** Chrome, Safari, Opera and Edge Chromium styles ********/
+  /* slider track */
+  /* input[type="range"]::-webkit-slider-runnable-track {
+    background-color: #c7c7c7;
+    border-radius: 5rem;
+    height: 0.25rem;
+  } */
+  
+  /* slider thumb */
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    margin-bottom: -12.5px; 
+    background-color: #808080;
+    border-radius: 0.5rem;
+    height: 1rem;
+    width: 1rem;
+  }
+  
+  input[type="range"]:focus::-webkit-slider-thumb {
+    outline: 3px solid #808080;
+    outline-offset: 0.125rem;
+  }
+  
+  /*********** Firefox styles ***********/
+  /* slider track */
+  input[type="range"]::-moz-range-track {
+    background-color: #c7c7c7;
+    border-radius: 5rem;
+    height: 0.25rem;
+  }
+  
+  /* slider thumb */
+  /* input[type="range"]::-moz-range-thumb {
+    background-color: #808080;
+    border: none; Removes extra border that FF applies
+    border-radius: 0.5rem;
+    height: 1rem;
+    width: 1rem;
+  }
+  
+  input[type="range"]:focus::-moz-range-thumb{
+    outline: 3px solid #808080;
+    outline-offset: 0.125rem;
+  } */
+
+
+
+    @media only screen and (max-width: 600px) {
+        .formPageH2 {
+            font-size: 3em;
+        }
+        .uploaderCaption {
+            font-size: 1.5em;
+        }
+        .fieldInput {
+            font-size: 1em;
+        }
+    }

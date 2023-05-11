@@ -1,0 +1,214 @@
+
+
+
+
+
+
+#fullForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 3px yellow ridge; */
+    width: 100vw;
+    margin-top: 5vmin;
+}
+
+
+
+#contactPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 3px blue ridge; */
+    width: 100%;
+}
+
+.contactForm {
+    padding: 4em;
+    width: 60vw;
+    margin:  5em auto;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(rgba(236, 230, 230, 0.9), rgba(230, 225, 225, 0.95)),
+                      url('../images/metalTexture.jpeg');
+    box-shadow:       0px 0px 5px  1px  rgba(255, 0, 0, 0.5), 
+                inset 4em 1em 10px 10px rgb(2, 2, 19, .05);
+    align-items: flex-start;
+    animation: .4s ease-out 0s 1 fadeIn;
+
+    @keyframes fadeIn  {
+        0%   { opactiy: 0; }
+        100% { opactiy: 1; }
+      }
+}
+    #emailForm {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    #contactSorter {
+        margin-top: 7.5vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+/* .formTitle {
+    width: 100%;
+    margin: 5vh auto 10vh;
+    display: flex;
+    justify-content: space-between;
+} */
+
+
+#dropdownGrid,#ethnicityGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    margin-bottom: 5vh;
+    width: 100%;
+}
+
+
+    #otherLabel {
+        display: flex;
+        margin-left: 2.5em;
+    }
+
+    #otherTitle {
+        font-size: 1.5em;
+        padding: .5em 1em 0 .4em;
+    }
+    
+   
+    
+    
+    
+    .formButton {
+        
+        background: rgba(14, 13, 13, 0.5);
+        box-shadow:          2px    2px   5px 5px rgba(206,  58,  8,    .15), 
+                     inset   5em   10em  10em      rgb(48,   44,  44,   .25),
+                     inset 2.5em    5em  10em     rgba(235,  232, 230, 0.25),
+                     inset  -1em   -2em  10em      rgb(46,   28,  28       );
+        background-image: linear-gradient(rgba(42, 43, 44, .8), rgba(24, 6, 19, 0.9)),
+                            url('../images/diamondplate.webp');
+        color: white;
+        padding: .25em 1em;
+        margin: 5vh 0;
+        font-size: 2em;
+        font-family: BebasNeue;
+        transition: box-shadow .5s ease-in;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+            .formButton.adminButton {
+                margin: 1vmin 0 0 0;
+            }
+    
+            .formButton.optionButton {
+                font-family: BarlowCondensed;
+                text-align: left;
+                font-size: 1.8em;
+                width: 100%
+            }
+
+            .formButton.backToButton {
+                font-family: BarlowCondensed;
+                font-size: 1.8em;
+                margin: 7.5vh auto;
+                width: fit-content;
+            }
+
+            .formButton.submitButton {
+                background: red;
+                background-image: none;
+                box-shadow: inset .1em .1em .5em rgba(48,  44,  44,   .25);    
+                padding: .25EM .5em;
+        
+            }
+
+                .formButton.submitButton:hover {
+                    box-shadow: inset .1em .1em 2.5em rgba(48,  44,  44,   .5);            
+                }
+                .formButton.submitButton:active {
+                    box-shadow: inset .1em .1em 2.5em rgba(48,  44,  44,   .5);            
+                }
+
+
+            .formButton:hover {
+                box-shadow:        2px    2px  10px 2px rgba(234, 7,   7,   0.5 ), 
+                            inset  5em   10em  10em      rgba(48,  44,  44,   .25),
+                            inset  2.5em  5em  10em     rgba(235, 232, 230, 0.25),
+                            inset -1em   -2em  10em      rgb(46,  28,  28       );  
+            }
+            
+            .formButton:active {
+                box-shadow:         2px   2px  10px 2px rgba(234, 7,   7,   0.75), 
+                            inset   5em  10em  10em      rgb(48,  44,  44,   .25),
+                            inset 2.5em   5em  10em     rgba(235, 232, 230, 0.25),
+                            inset  -1em  -2em  10em      rgb(46,  28,  28       );  
+            }
+    
+    #performerFormNav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+        .pageButtons {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+            .buttonIcon {
+                max-height: 1em;
+                width: 1em;
+            }
+
+                .buttonIcon.flipped {
+                    transform: rotate(180deg);
+                }
+
+    
+    
+
+    #rules {
+        list-style-type: disc;
+    }
+
+        .formRule {
+            margin: 4vh auto;
+            font-size: 2em;
+            font-family: BarlowCondensed;
+            width: 80%;
+        }
+
+            .formRule.thisRule {
+                border: 3px red ridge;
+                padding: 5px;
+            }
+
+    #rulesIntro {
+        font-family: BebasNeue;
+        font-size: 3em;
+        margin: 5vh 30% 5vh 0;
+    }
+
+    @media only screen and (max-width: 750px) {
+        .contactForm {
+            width: 70%;
+            margin:  5em 3em;
+            padding: 4em 2em;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        #dropdownGrid,#ethnicityGrid {
+            grid-template-columns: 1fr;
+           
+        }
+    }

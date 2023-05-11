@@ -1,0 +1,252 @@
+
+
+
+
+
+
+
+
+
+
+/*======RESET:======*/
+
+
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+/*=====NEW STYLING======*/
+
+
+
+
+@font-face {
+  font-family: 'BigShoulders';
+  src: local('BigShouldersText-Black'), url('./fonts/Big_Shoulders_Text/static/BigShouldersText-Black.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: 'SixCaps';
+  src: local('SixCaps-Regular'), url('./fonts/Six_Caps/SixCaps-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'BebasNeue';
+  src: local('BebasNeue-Regular'), url('./fonts/Bebas_Neue/BebasNeue-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'BarlowCondensed';
+  src: local('BarlowCondensed-Light'), url('./fonts/Barlow_Condensed/BarlowCondensed-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'BarlowCondensed-Bold';
+  src: local('BarlowCondensed-Bold'), url('./fonts/Barlow_Condensed/BarlowCondensed-Bold.ttf') format('truetype');
+}
+
+
+
+
+h1 {
+  font-family: BigShoulders, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 7em;
+  color: white;
+  line-height: .85em;
+  letter-spacing: -.025em;
+  margin: 0 auto;
+  width: fit-content;
+  z-index: 6;
+  position: relative;
+
+}
+
+
+h2 {
+  font-family: BebasNeue, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 7.5vmin;
+}
+
+h3 {
+  font-family: BebasNeue, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 2.5em;
+}
+
+h4 {
+  font-family: SixCaps;
+  font-size: 2.5em;
+  color: rgb(31, 29, 29);
+  color: white;
+  text-align: center;
+  animation: 3s ease-in 0s 1 fadeIn;
+}
+
+
+h5 {
+  font-family: BebasNeue, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 1.5em;
+}
+
+p {
+  font-family: BarlowCondensed, Rockwell, 'Rockwell Extra-Bold', 'Times New Roman', Times, serif;
+  font-size: 3vmin;
+}
+
+b {
+  font-family: BarlowCondensed-Bold, Rockwell, 'Rockwell Extra-Bold', 'Times New Roman', Times, serif;
+}
+
+a {
+  font-family: BarlowCondensed, Rockwell, 'Rockwell Extra-Bold', 'Times New Roman', Times, serif;
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+#App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* border: 3px red ridge; */
+}
+
+  .page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+  .flexColumn {
+    display: flex;
+    flex-direction: column;
+  
+  }
+
+
+  .flexRow {
+      display: flex;
+      /* border: 3px red ridge; */
+  }
+
+
+  .floatingNotification {
+    position: fixed;
+    z-index: 999;
+    bottom: 5vmin;
+    right: 5vmin;
+    height: fit-content;
+    width: fit-content;
+  }
+
+    .floatingNotification.fading {
+      animation: 2s fadeOut;
+    }
+
+
+  #main {
+    position: relative;
+    background-color: white;
+    min-height: 65vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  #footer {
+    width: 100vw;
+    height: 20em;
+    min-height: 20vh;
+    background: black;
+    position: relative;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+    #footerLogo {
+      height: 50%; 
+      transition: filter 1.5s;
+    }
+    
+    
+    #footerLogo:hover {
+        filter: brightness(0)
+                drop-shadow(0 0 15px rgb(231, 21, 21));
+        }
+
+
+  @media only screen and (max-width: 600px) {
+    p {
+        font-size: 1.5em;
+      }
+  }
