@@ -17,6 +17,8 @@ export default function AdminView({ url,
                                     table, 
                                     pkName,
                                     update,
+                                    gopher,
+                                    getData,
                                     columns, 
                                     posters, 
                                     loadData, 
@@ -44,6 +46,7 @@ export default function AdminView({ url,
     }, [table])
 
 
+    useEffect(() => console.log('viewurl ',url));
 
     return(
             <div id='adminContent'>
@@ -58,8 +61,10 @@ export default function AdminView({ url,
                                              update={update}
                                              pkName={pkName}
                                             columns={columns}
+                                            getData={getData}
                                    performerOptions={performerOptions}
                                         adminStatus={adminStatus}
+                                             gopher={gopher}
                                             posters={posters}
                                                 url={url}
                     />
@@ -79,6 +84,7 @@ export default function AdminView({ url,
                                 adminStatus={adminStatus}
                                 boardMember={boardMember}
                                     posters={posters} 
+                                     gopher={gopher}
                                         url={url}                      
                     />
                     { sorted &&  <li className='pageEndH3'><h3>Page Bottom</h3></li> }

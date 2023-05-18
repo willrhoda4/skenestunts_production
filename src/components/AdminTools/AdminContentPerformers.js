@@ -20,7 +20,7 @@ import   checkIcon         from '../../images/icon_check.svg';
 import   mailClosedIcon    from '../../images/icon_mailClosed.svg';
 import   mailOpenIcon      from '../../images/icon_mailOpen.svg';
 
-import { useState }        from 'react';
+import { useState, useEffect }        from 'react';
 
 import { noteForm, 
          emailForm, 
@@ -30,7 +30,7 @@ import { noteForm,
 
 
 
-export default function Performers ({  currentData, loadData, adminStatus, boardMember, url  }) { 
+export default function Performers ({  currentData, loadData, adminStatus, boardMember, gopher, url  }) { 
 
 
     const [ adminNote,     setAdminNote   ] = useState(false);
@@ -44,6 +44,7 @@ export default function Performers ({  currentData, loadData, adminStatus, board
     // wrangles email addresses for all search results into a comma-separated string for the 'mailto' link.
     const   groupEmails                     = currentData.map( double => double.email ).join(', ');
 
+    useEffect(() => console.log('performerurl ',url));
 
     
     function makePerformer (performer, index) {
@@ -441,7 +442,7 @@ export default function Performers ({  currentData, loadData, adminStatus, board
                                                             {
                                                                             // if no imdb credits have been counted yet, display link to count credits.
                                                              !creditCount ?  <p    style={{cursor: 'pointer'}}
-                                                                                 onClick={() => countCredits(imdb_id, setCreditCount, url)}>count credits</p>
+                                                                                 onClick={() => countCredits(imdb_id, setCreditCount, gopher)}>count credits</p>
 
 
                                                                                 // if credits are being counted, display 'counting...' message. 
@@ -476,7 +477,7 @@ export default function Performers ({  currentData, loadData, adminStatus, board
 
 
                     {/* Layer 7: The Email Form – appears when email icon is clicked. */}
-                    {  emailStatus && emailForm(performer_id, email, emailStatus, setEmailStatus, url)  }
+                    {  emailStatus && emailForm(performer_id, email, emailStatus, setEmailStatus, null, null, url)  }
 
                 </div>
 

@@ -17,7 +17,6 @@ const { simpleQuery,
 
 
 
-
 // check password against database and sends response data if it jives.
 const checkPassword = (request, response) => {
 
@@ -123,7 +122,7 @@ const registerReset = (request, response) => {
     const theDeal     =   table === 'performer_passwords' ? 'registering a performer-password reset request...'
                                                           : 'registering a reset or invitation for Director\'s Chair...';
 
-    console.log(theDeal+`\n`,Date.now(),typeof Date.now());
+    console.log(theDeal);
 
     // generates token for invitation
     const inviteToken =   crypto.randomBytes(32).toString("hex");
@@ -147,28 +146,6 @@ const registerReset = (request, response) => {
 
 }
 
-//function simpleQuery(response, query, parameters, cleanUp, next) {
-
-
-
-// // register a password reset request in the database
-// const registerReset = (request, response) => {
-
-//     let id     = request.body.resetId;
-//     let fk     = request.body.fk;
-//     let table  = request.body.pwTable;
-//     let token  = response.locals.resetToken;
-//     let query  = `UPDATE ${table} SET token = $1, reset_at = $2 WHERE ${fk} = $3`;
-
-//     console.log(`registering password reset for ${table}...`);
-
-
-//     pool.query(query, [ token, Date.now(), id ], (err, res) => {
-
-//             if (err) { console.log(err.stack);  response.status(400).send(err.message)  } 
-//             else     {                          response.send('reset re-registered')    }
-//     })
-// }
 
 
 
@@ -254,21 +231,6 @@ function newPerformer (request, response) {
 
 
 
-// async function logPassword (request, response) {
-
-//     let table       = request.body[0];
-//     let fkKeyValue  = request.body[1];
-//     let password    = request.body[2];
-    
-//     let hashedPass  = await bcrypt.hash(password, 10);
-//     let parameters  = [ fkKeyValue[1], hashedPass ];
-//     let query       = 'INSERT INTO '+table+' ('+fkKeyValue[0]+', password) VALUES ($1, $2)';
-
-//     pool.query(query, parameters, (err, res) => {
-//         if (err) { console.log(err.stack);  response.send(err.message)  } 
-//         else     {                          response.send(res.rows)     }
-//     })
-// }
 
 
 
@@ -276,11 +238,9 @@ function newPerformer (request, response) {
 
   
 module.exports = {  
-                    // logPassword,
                     newPerformer,
                     checkPassword, 
                     registerReset,
                     resetPassword,
-                    // registerInvite,
                     newPasswordLogin,
                  };

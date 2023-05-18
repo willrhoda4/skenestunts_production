@@ -5,15 +5,12 @@
 
 
 
-import './Info.css';
-
-import { Helmet } from 'react-helmet';
-
+import                      './Info.css';
 
 import teamShot        from '../images/team.webp'
 import teamShotBackup  from '../images/team.jpeg'
 
-import iconGroup       from '../images/icon_group.svg';
+import iconIntegrity   from '../images/icon_integrity2.svg';
 import iconSafety      from '../images/icon_safety.svg';
 import iconPerformance from '../images/icon_performance.svg';
 import iconInstagram   from '../images/icon_instagram.svg';
@@ -30,9 +27,9 @@ import FacebookFeed    from '../components/FacebookFeed';
 import Picture         from '../components/Picture';    
 
 
-import Axios from 'axios';
-import React from 'react';
+import Axios           from 'axios';
 
+import { Helmet }      from 'react-helmet';
 
 import { useEffect, 
          useState    } from 'react';
@@ -46,14 +43,13 @@ import { Link        } from 'react-router-dom';
 export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
 
-    // console.log('GET DATA', getData, setFbFeed);
 
 
    
    const [  reel,            setReel         ] = useState(false);
    const [  reelH2Skew,      setReelH2Skew   ] = useState(0);
 
-   const [  value,           setValue        ] = useState('collaboration');
+   const [  value,           setValue        ] = useState('safety');
 
    const [  FAQs,            setFAQs         ] = useState(false);
    const [  displayedFAQ,    setDisplayedFAQ ] = useState(false);
@@ -233,11 +229,11 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
 
     // bio and value blurbs are stored in-script as template literals to insure speedy loading.
-    const bioBlurb   = `Skene Stunts has been crashing cars and choreographing brawls for the Canadian film industry since the nineties, when we were a one-man show working on small projects in the Manitoba area. Today our team of top-tier talent has stunt credits on more than 400 films, and a catalogue of expertise that includes everything from motorcycle stunts and body burns, to high falls and wire work. From our first take, we made it our mission to deliver the kind of excellence that exceeds expectations and makes movies memorable, and 34 years later we’re still here.`;
+    const bioBlurb   = `Skene Stunts has been crashing cars and choreographing brawls for the Canadian commercial and film industry since the late eighties, when we started out as a one-man show working on small projects in the Manitoba area. Today, our performers and coordinators have credits on more than 350 films, and a catalogue of expertise that includes everything from major vehicle stunts and high falls, to body burns and wire work. From our first take, we made it our mission to deliver the kind of excellence that exceeds expectations and makes movies memorable, and over 35 years later we’re still here.`
 
-    const valueBlurb = value === 'collaboration' ? `This is the collaboration blurb. We call it the collaboration blurb because we’re purportedly pontificating about how great teamwork is, but the real goal is to convince any prospective producers that you’re not a bunch of adrenalin-addled egomaniacs who can’t be tamed. Recognize the importance of every person in a project playing their position, and focus on honouring that as a value, but don’t get caught up in bragging about how well you follow instructions, as that would just be unbecoming.`
-                     : value === 'safety'        ? `This is the safety blurb. We call it the safety blurb because we’re pretending talk about your unwillingness to compromise on your crew’s life expectancy, but what we’re really talking about is your competence and excellence. If there’s any impressive stats regarding your safety record, humble bragging is appropriate, and be sure to explain that there’s no coincidence. Mention the film’s interests as a goal of your safety protocol, but a secondary one.`
-                     : value === 'performance'   ? `Performance: the double-edged value. You’re talking about your love of the craft as performance art form, but also your commitment to achieving high-performance results with every stunt, so to speak. This is where you reassure the reader that in spite of your great attitude toward teamwork and your impeccable safety rating, you're still a squad of unstoppable badasses determined to do something epic.`
+    const valueBlurb = value === 'integrity'     ? `We expect honesty, trust and respect from all of our team members and co-workers, and are dedicated to fully serving the technical and artistic needs of every project we work on, without compromising our human values. We regard every person on the production team as a valued collaborator, recognizing and appreciating the critical role they each play in the process.`
+                     : value === 'safety'        ? `With a stellar safety record that stretches decades, Skene Stunts prides itself on observing world-class safety standards and consistently contributing to a safe work environment. We are committed to a harassment- and bully-free workplace and are allies to the under-represented. Our policy of inclusion insists that every project we work on be a safe space for all, regardless of race, gender or orientation.`
+                     : value === 'performance'   ? `We have an international reputation for executing exceptional stunt performances and sequences for film and television. Leveraging a solid resume of creative writing, directing and filmmaking, you can count on our determination to bring your vision to the screen, and expect our work to enhance and support your story. We can also provide second-unit directors for stunt sequences, if required.`
                      :                              null;
 
 
@@ -262,9 +258,9 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
         function mobileValueBlurb (thisValue) {
 
-            return  thisValue === 'collaboration' ? 'Collaboration is important stuff to us, teamwork yay.'
-                :   thisValue === 'safety'        ? 'Safety first, cocktail\'s second, we alwyas like to say.'
-                :   thisValue === 'performance'   ? 'We go hard. call us for a movie and count on asses getting kicked.'
+            return  thisValue === 'integrity'     ? `We expect honesty, trust and respect from all of our team members and co-workers, and regard every person on the production team as a valued collaborator, recognizing and appreciating the critical role they each play in the process.`
+                :   thisValue === 'safety'        ? `Skene Stunts prides itself in observing world-class safety standards and consistently contributing to a safe work environment. We are committed to a harassment- and bully-free workplace and are allies for the under-represented.`
+                :   thisValue === 'performance'   ? `We have an international reputation for executing exceptional stunt performances and sequences for film and television. You can count on our determination to bring your vision to the screen.`
                 :                                    null;
         }
 
@@ -277,6 +273,8 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
             </div>
         )
     }
+
+
 
 
 
@@ -343,31 +341,52 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
               <link rel="canonical"    href="https://www.skenestunts.com/info" />
             </Helmet>
 
+
             <div id='infoWrapper'>
 
-                {/* bio and get-in-touch button */}
                 <div className='infoDiv' >
+
+                    {/* bio and get-in-touch button */}
                     <div className='infoBioDiv'>
+
+                        <div id='infoBioWrapper'>
+
                             <p id='infoBio' className='animate' >{bioBlurb}</p>
+
                             <Link to='/contact'>
                                 <button  id='infoBioButton' className='formButton optionButton'>connect with Skene Stunts</button>
-                            </Link>    
+                            </Link>   
+
+                        </div>
+
                     </div>
             
                     {/* header image and background rectangles */}
                     <div className='infoBioDiv'>
-                            <div id='infoBioImageBlockLeft'   className='infoBioImageBlock animate' />
-                            <div id='infoBioImageBlockRight'  className='infoBioImageBlock animate' />
-                            <div id='infoBioImageBlockBottom' className='infoBioImageBlock animate' />
+
+                        <div id='infoBioImageWrapper'>
+                            
                             <Picture
                                      src={teamShot}
                                 fallback={teamShotBackup}
-                                    type='image/webp'
-                                     alt='rick daniel and sean skene posing next to an old dump truck'
-                                      id='infoBioImage'
+                                    type={'image/webp'}
+                                     alt={'rick daniel and sean skene posing next to an old dump truck'}
+                                      id={'infoBioImage'}
                             />
+
+                            <div id='infoBioImageBlockLeft'   className='infoBioImageBlock animate' />
+                            <div id='infoBioImageBlockRight'  className='infoBioImageBlock animate' />
+                            <div id='infoBioImageBlockBottom' className='infoBioImageBlock animate' />
+
+                        </div>
+
                     </div>
+
                 </div>
+
+
+
+
 
 
                 {/* latest reel section */}
@@ -382,6 +401,12 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
                     {   reel &&  <div id='infoReelPlayer' dangerouslySetInnerHTML={{__html: reel.embed_code}}  />  }
                 </div>
 
+
+
+
+
+
+
                 {/* value section uses a ternary to render a stripped-down offering for mobile and a splashy implementation for desktop */}
                 <div className='infoDiv' >
                     
@@ -391,28 +416,33 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
                                                         <p id='infoValueBlurb'>{valueBlurb}</p>    
                                                     </div>                
                                                     <h2  className='infoValueTitle animate'>Core<br/>Values</h2>
-                                                    <img id='infoValueLogo' className='boardProfileLogo' alt='the iconic flaming Skene Stunts S logo' src={logoS} />
-
                                                 </div>
                                 
                                                 <div id='infoValuesSelect'>
                                                     <div id='infoValuesSelectBar' />
-                                                    { valueSelector('collaboration',  iconGroup        )}    
                                                     { valueSelector('safety',         iconSafety       )}
                                                     { valueSelector('performance',    iconPerformance  )}
+                                                    { valueSelector('integrity',      iconIntegrity    )}    
                                                 </div>
+
+                                                <img id='infoValueLogo' className='boardProfileLogo' alt='the iconic flaming Skene Stunts S logo' src={logoS} />
+
                                             </>
                     
                                         :   <>
                                                 <h2  className='infoValueTitle animate'
                                                     style={{marginBottom: '2.5vmax'}}>Core<br/>Values</h2>
-                                                { mobileValue('collaboration',  iconGroup         )}
                                                 { mobileValue('safety',         iconSafety        )}
                                                 { mobileValue('performance',    iconPerformance   )}
+                                                { mobileValue('integrity',      iconIntegrity     )}
                                             </>
 
                     }
                 </div>
+
+
+
+
 
 
                 {/* the infamous faq buffet */}
@@ -433,6 +463,10 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
                 </div>
 
 
+
+
+
+
                 {/* social media section offers widgets for desktop and simple icons for mobile */}
                 <div className='infoDiv' >
 
@@ -444,10 +478,13 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
                         > 
                             <img className='infoSocialIcon animate' alt='facebook icon' src={iconFacebook} />
                         </a>
+
                         <div id='fb' className='infoPlatformWrapper'>
+
                             <FacebookFeed name='Skene Stunts' 
-                                        url='https://www.facebook.com/Skene-Stunts-109369232473048' 
+                                           url='https://www.facebook.com/Skene-Stunts-109369232473048' 
                             />
+
                         </div>
                     </div>
                     
@@ -466,12 +503,16 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
                                                                                                             alt='example instagram content'
                                                                                                             src={image.media_url}
                                                                                                 />
-                                                                            )
+                                                                               )
                                         }
                                     </div>
                         </a>
                     </div>
                 </div>       
+
+
+
+
 
 
                 {/* mildly suggestive footer section to move user along to next foot of their journey. */}

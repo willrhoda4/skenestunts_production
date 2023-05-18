@@ -131,7 +131,8 @@ h5 {
 
 p {
   font-family: BarlowCondensed, Rockwell, 'Rockwell Extra-Bold', 'Times New Roman', Times, serif;
-  font-size: 3vmin;
+  font-size: 12px; /* Fallback for older browsers */
+  font-size: clamp(20px, 3vmin, 30px); /* Modern browsers */
 }
 
 b {
@@ -144,6 +145,8 @@ a {
   cursor: pointer;
   text-decoration: none;
 }
+
+
 
 
 @keyframes fadeIn {

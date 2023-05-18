@@ -53,14 +53,14 @@ export default function TextArea ({ name,
 
                     { !noIndicator ? <IndicatorLED value={state} errorCase={error} /> : null}
 
-                    <textarea   type="textarea"
-                                name={name}
-                                  id={inputId}
-                               style={style}
-                               value={state}
-                        defaultValue={defaultValue}
-                            onChange={(e) => setter(e.target.value)}
-                            required 
+                    <textarea      type="textarea"
+                                   name={name}
+                                     id={inputId}
+                                  style={style && style}
+                                  value={state && state}
+                           defaultValue={defaultValue}
+                               onChange={(e) => setter && setter(e.target.value)}
+                               required 
                     />
 
                 </div>

@@ -6,78 +6,106 @@
 
 
 
-const { spawn }       = require('child_process');
-const   Pool          = require('pg').Pool
+// const { spawn }       = require('child_process');
+const { pool }        = require('./database');
 const { simpleQuery } = require('./database');
 
 
-const pool = new Pool({
-                        user: 'postgres',
-                        host: 'localhost',
-                        database: 'skenestunts',
-                        password: 'rootUser',
-                        port: 5432
-                     })
 
 
 
 
 
 
-// accept array of IMDB ids for Skene Stunts team and leverages Python child script
-// to retrieve comprehensiver list of flicks from IMDB and return them to the client.
-const getFlicks = (request, response) => {
 
-    console.log('getting flicks for ', request.body[0]);
+// // accept array of IMDB ids for Skene Stunts team and leverages Python child script
+// // to retrieve comprehensiver list of flicks from IMDB and return them to the client.
+// const getFlicks = (request, response) => {
+
+//     console.log('getting flicks for ', request.body[0]);
     
-    const getFlicks = spawn('python3', [process.env.GET_FLICKS].concat(request.body[0]));
-    let   flickList = '';
+//     const getFlicks = spawn('python3', [process.env.GET_FLICKS].concat(request.body[0]));
+//     let   flickList = '';
 
-    console.log('getting flicks...');
+//     console.log('getting flicks...');
 
-    getFlicks.stdout.on('data', function (data) {
-        console.log(`Pipe data from python script => ${data}`);
-        flickList += data.toString();
-    })
-        getFlicks.on('close', (code) => {
+//     getFlicks.stdout.on('data', function (data) {
+//         console.log(`Pipe data from python script => ${data}`);
+//         flickList += data.toString();
+//     })
+//         getFlicks.on('close', (code) => {
         
-            console.log(flickList);
-            response.send(JSON.parse(flickList));
-        })
+//             console.log(flickList);
+//             response.send(JSON.parse(flickList));
+//         })
+// }
+
+
+
+
+// // after getFlicks successfully does its thing, the return data is compared against the database
+// // and this function is called iteratively to fetch the poster data for any new movies and store it in database. 
+// const getPoster = (request, response) => {
+
+//     const getPoster = spawn('python3', [process.env.GET_POSTER, request.body[0]]);
+//     let   posterData = '';
+    
+//     console.log('getting poster...', request.body[0]);
+    
+//     getPoster.stdout.on('data', function (data) {
+
+//         console.log(`Pipe data from python script => ${data} ${typeof(data)}, ${data.keys}`);
+
+//         posterData += data.toString();
+//     })
+
+//     getPoster.on('close', (code) => {
+        
+//         posterData  = JSON.parse(posterData.replace(/'/g, '"'));
+//         const query = 'INSERT INTO posters (title, imdb_id, image_url) VALUES ($1, $2, $3)';
+        
+//                                           pool.query(query, posterData, (err, res) => {
+//                                             if (err) { console.log(err.stack);  response.send(err.message).status(400)    }  
+//                                             else     { console.log(res);        response.send(posterData)                 }
+
+//                                         })
+        
+//     })
+// }
+
+
+
+
+
+
+
+
+// logs a new poster in the database once its particulars
+// are returned by the poster_gopher
+const newPoster = (request, response) => {
+
+
+    const posterData = request.body;
+    const query      = 'INSERT INTO posters (title, imdb_id, image_url) VALUES ($1, $2, $3)';
+
+    
+    console.log(`Adding a poster for ${posterData[0]} to the database...\n`)
+
+        
+    pool.query(query, posterData, (err, res) => {
+        if (err) { console.log(err.stack);  response.send(err.message).status(400)    }  
+        else     { console.log(res);        response.send(posterData)                 }
+
+    })
+        
+
+
 }
 
 
 
 
-// after getFlicks successfully does its thing, the return data is compared against the database
-// and this function is called iteratively to fetch the poster data for any new movies and store it in database. 
-const getPoster = (request, response) => {
 
-    const getPoster = spawn('python3', [process.env.GET_POSTER, request.body[0]]);
-    let   posterData = '';
-    
-    console.log('getting poster...', request.body[0]);
-    
-    getPoster.stdout.on('data', function (data) {
-
-        console.log(`Pipe data from python script => ${data} ${typeof(data)}, ${data.keys}`);
-
-        posterData += data.toString();
-    })
-
-    getPoster.on('close', (code) => {
-        
-        posterData  = JSON.parse(posterData.replace(/'/g, '"'));
-        const query = 'INSERT INTO posters (title, imdb_id, image_url) VALUES ($1, $2, $3)';
-        
-                                          pool.query(query, posterData, (err, res) => {
-                                            if (err) { console.log(err.stack);  response.send(err.message).status(400)    }  
-                                            else     { console.log(res);        response.send(posterData)                 }
-
-                                        })
-        
-    })
-}
 
 
 
@@ -94,6 +122,11 @@ const getPosterList = (request, response) => {
 
 
 
+
+
+
+
+
 // rounds up all the data for movies that begin with a given letter.
 // a mercenary for the poster barn.
 const getPostersByLetter = (request, response) => {
@@ -106,6 +139,11 @@ const getPostersByLetter = (request, response) => {
             else      { console.log(err.message); response.send(err.message); }
         })
 }
+
+
+
+
+
 
 
 // accepts an array of poster_id's for a team or board member and returns the corresponding poster data.
@@ -141,8 +179,9 @@ const getDoublesPosters = (request, response) => {
 
   
 module.exports = {
-                    getFlicks, 
-                    getPoster, 
+                    newPoster,
+                    // getFlicks, 
+                    // getPoster, 
                     getPosterList, 
                     getDoublesPosters,
                     getPostersByLetter, 

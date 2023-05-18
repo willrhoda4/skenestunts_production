@@ -283,30 +283,30 @@ function App() {
     let gramGetter  = 'https://graph.instagram.com/me/media?fields=media_url&access_token='+instaToken;
     let tokenGetter = 'https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&&access_token='+instaToken;
 
+
+    // on initial render, get the current token from the database and store it in state.
     if (!instaToken) {  getData(['misc', [[ 'description', 'insta_token' ]]])
                           .then( res => { setInstaToken(res.data[0].value); })
                      }
 
+    // once we have a token in state, use it to send a get request for our instagram data.
+    // store the pictures in state, 
+    // then send another get request to get a new token.
     else             {  Axios.get(gramGetter)
                              .then( res => {  setPhotoData(res.data.data); 
                                               return Axios.get(tokenGetter);
                                            }
                                   )
+                                              // once we get our new token, put it in the database for the next user.
+                                              // as long as the site has a visitor every 60 days, the token should stay current.
                              .then( res => {  const reqBody = [    'misc', 
                                                                 [  'value'                        ], 
                                                                 [   res.data.access_token         ], 
                                                                 [ ['description', 'insta_token']  ]
-                                                              ];
-                              
-                              
-                                              if (res.data.access_token.length > 0) { 
-                              
-                                                  return Axios.put(`${url}updateData`, reqBody         )
-                                                            //  .then(  response => console.log(response) )
-                                                            // .catch( err => console.log(err)            );
-                                               }
-                        })
+                                                              ];                                               
 
+                                              if (res.data.access_token.length > 0) { return Axios.put(`${url}updateData`, reqBody) }
+                                            })
                      }
   }, [getData, instaToken, url])
 
@@ -315,9 +315,9 @@ function App() {
   // [ forward-facing site, admin director's chair, team member's chair ]
   useEffect(() => {
 
-      location.pathname !== '/director' ? setLinks([ 'info',    'contact',   'gallery',   'reels',    'media',    'team',       'director'                ])
+      location.pathname !== '/director' ? setLinks([ 'info',    'contact',   'gallery',   'reels',    'media',    'team',                                 ])
     : adminStatus                       ? setLinks([ 'misc',    'info',      'reels',     'media',    'board',    'team',       'posters',   'performers' ])
-    :                                     setLinks([ 'profile', 'posters',   'performers'                                                                 ])      
+    :                                     setLinks([ 'profile', 'posters',   'performers'                                                                 ]);      
 
   }, [adminStatus,location.pathname])
 

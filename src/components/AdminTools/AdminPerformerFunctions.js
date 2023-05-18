@@ -127,9 +127,9 @@ function countCredits (id, setter, url) {
 
     setter('counting');
 
-    Axios.post(`${url}py/getFlicks`, [[id]])
-         .then(  res => { setter(res.data[0]);               })
-         .catch( err => { console.log(err);                  })
+    Axios.post(`${url}`, [[id]]                     )
+         .then(  res => { setter(res.data[0]);     })
+         .catch( err => { console.log(err);        })
 }
 
 
@@ -160,12 +160,12 @@ function emailForm (id, email, status, setter, inputStyle, formStyle, url) {
              !message ){ return setter('blank'); } 
             
         // update the form notification if they aren't blank.
-        setter('sending');
+        setter('sending');                                                      console.log('url ', url);
             
         // attempt to send the email, and update the form notification accordingly.
-        Axios.post(`${url}email`,  { email, subject, message, type, cc })
-            .then(  res => { setter('done');  console.log(res);                  })
-            .catch( err => { setter('error'); console.log(err);                  });            
+        Axios.post(`${url}email`,  { email, subject, message, type, cc  })
+             .then(   res => { setter('done');  console.log(res);       })
+             .catch(  err => { setter('error'); console.log(err);       });            
     }
 
     return (
@@ -179,6 +179,7 @@ function emailForm (id, email, status, setter, inputStyle, formStyle, url) {
                                 < TextField
                                     name='subject'
                                     inputId={'adminPerformerSubject' + id} 
+                                    style={inputStyle}
                                     noHelp={true}
                                     noIndicator={true}
                                 />
@@ -187,6 +188,7 @@ function emailForm (id, email, status, setter, inputStyle, formStyle, url) {
                                 < TextField
                                     name='cc'
                                     inputId={'adminPerformerCC' + id} 
+                                    style={inputStyle}
                                     noHelp={true}
                                     noIndicator={true}
                                 />
@@ -195,6 +197,7 @@ function emailForm (id, email, status, setter, inputStyle, formStyle, url) {
                                 < TextArea
                                     name='message'
                                     inputId={'adminPerformerMessage' + id} 
+                                    style={inputStyle}
                                     noHelp={true}
                                     noIndicator={true}
                                 />

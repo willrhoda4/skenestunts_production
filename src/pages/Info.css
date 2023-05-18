@@ -34,47 +34,64 @@
         .infoBioDiv {
             position: relative;
             height: 100%;
+            min-height: 500px;
             width: 100%;
             /* border: 3px aqua ridge; */
         }
 
-            #infoBio {
-                border-left: 30px red solid;
-                padding: 10px 15px;
+            #infoBioWrapper {
                 position: absolute;
                 left: 0;
                 top: 15vmin;
-                font-size: 3vmin;
-                line-height: 4vmin;
-                transform: translateX(-5vmax);
-                transition: transform 2s;
-                /* margin: 0 15vmin 10vmin 0; */
+                /* border: 3px lime ridge; */
+                display: flex;
+                flex-direction: column;
             }
 
-                #infoBio.animated {
-                    transform: none;
+                #infoBio {
+                    /* border: 3px red ridge; */
+                    border-left: 30px red solid;
+                    padding: 20px 30px;
+                    line-height: 4vmin; /* backup for older browsers */
+                    line-height: clamp(30px, 4vmin, 40px); /* Modern browsers */
+                    transform: translateX(-5vmax);
+                    transition: transform 2s;
                 }
 
-            #infoBioButton {
-                display: flex;
-                align-items: center;
-                position: absolute;
-                left: 15vmin;
-                bottom: 5vmin;
-                padding: 2vmin 4vmin 2.5vmin;
-                width: fit-content;
-                z-index: 3;
-                font-size: 3vmin;
+                    #infoBio.animated {
+                        transform: none;
+                    }
+
+                #infoBioButton {
+                    margin: 30px 0 0 60px;
+                    display: flex;
+                    align-items: center;
+                    padding: 2vmin 4vmin 2.5vmin;
+                    width: fit-content;
+                    z-index: 3;
+                }
+
+
+
+
+            #infoBioImageWrapper {
+                position: relative;
+                top: 15%;
+                left: 10%;
+                /* border: 3px orange ridge; */
+                width: 80%;
+                height: 60%;
             }
 
+
+
             #infoBioImage {
-                width: 80%;
-                z-index: 2;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: 3;
                 position: absolute;
-                top: 5vmax;
-                right: 5vmax;
                 box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-                /* margin: 15vmin 15vmin 25vmin 0; */
             }
 
             .infoBioImageBlock {
@@ -82,37 +99,42 @@
                 box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
                 transition: transform 1.5s;
                 transform: scale(.5);
+                z-index: 2;
             }
 
                 .infoBioImageBlock.animated {
                     transform: scale(1);
                 }
+
+
                 #infoBioImageBlockLeft {
                     height: 40vmin;
                     width: 20vmin;
-                    left: 2.5vmax;
-                    top: 10vmax;
+                    min-height: 20vmax;
+                    min-width: 10vmax;
+                    left: -6vmin;
+                    top: -5vmin;
                     background-color: darkgray;
-                    z-index: 1;
-                    /* border: 3px lime ridge; */
                 }
 
                 #infoBioImageBlockBottom {
                     height: 20vmin;
                     width: 40vmin;
-                    right: 30vmax;
-                    bottom: 2.5vmax;
+                    min-height: 15vmax;
+                    min-width: 30vmax;
+                    right: 20vmin;
+                    bottom: -10vmin;
                     background-color: lightgray;
-                    z-index: 1;
                 }
 
                 #infoBioImageBlockRight {
                     height: 40vmin;
                     width: 20vmin;
-                    right: 2.5vmax;
-                    top: 2.5vmax;
+                    min-height: 20vmax;
+                    min-width: 10vmax;
+                    right: -8vmin;
+                    top: 5vmin;
                     background: rgba(14, 13, 13, 0.5);
-                    z-index: 1;
                 }
 
   
@@ -228,6 +250,7 @@
             /* border: 3px orange ridge; */
             height: 70%;
             width: 100%;
+            z-index: 1
         }
 
             #infoValueBox {
@@ -261,7 +284,7 @@
 
             #infoValueLogo {
                 position: absolute;
-                bottom: -10vmin;
+                bottom: 0;
                 right: 5vmin;;
                 height: 100%;
                 z-index: 0;
@@ -271,7 +294,7 @@
                 transition: border .4s
             }
 
-                #infoValueBox.collaboration {
+                #infoValueBox.integrity {
                     border: 10px lightgray solid;
                 }
 
@@ -291,7 +314,7 @@
               
 
         #infoValuesSelect {
-            /* border: 3px purple ridge; */
+            z-index: 1;
             height: 30%;
             width: 100%;
             position: relative;
@@ -300,11 +323,7 @@
             filter:   drop-shadow(1px 0px 0px black)
                       drop-shadow(-1px 0px 0px black)
                       drop-shadow(1px -1px 0px black);
-                                                    /* drop-shadow(0px 1px 0px black)
-                                                    drop-shadow(0px -1px 0px black)
-                                                    drop-shadow(1px 1px 0px black)
-                                                    drop-shadow(-1px -1px 0px black)
-                                                    drop-shadow(-1px 1px 0px black) */
+                                                  
              }
             
             #infoValuesSelectBar {
@@ -322,8 +341,6 @@
                     position: relative;
                     background: whitesmoke;
                     z-index: 2;
-                    /* border: 1px black solid; */
-                    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
                     border-top: 6px darkgray solid;
                     display: flex;
                     flex-direction: column;
@@ -366,7 +383,6 @@
             display: flex;
             flex-direction: column;
             margin: 5vmax 0;
-            /* border: 3px blue ridge; */
         }     
 
             .mobileValueIcon {
@@ -387,12 +403,10 @@
 
     /* faq */
     .infoDiv:nth-of-type(4) {
-        /* background: lightslategray;  */
         height: 90vh;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        /* padding: 15vmin 0; */
         position: relative;
         background-image: linear-gradient(rgba(236, 230, 230, 0.49),
         rgba(230, 225, 225, 0.5)),
@@ -491,14 +505,12 @@
             justify-content: center;
             padding-bottom: 10vmin;
             /* border: 3px lime ridge; */
-            /* position: relative; */
         }
 
             .infoSocialIcon {
                 height: 15vmin;
                 /* border: 3px red ridge; */
                 margin: 5vmin auto;
-                /* align-self: center; */
                 width: 100%;
                 filter: invert(100%) blur(10px);
                 transition: filter 2s;
@@ -594,8 +606,7 @@
         }
     
 
-    
-
+   
 
 
 
@@ -604,54 +615,36 @@
         .infoDiv:nth-of-type(1) {
             display: flex;
             flex-direction: column-reverse;
-          }
-
-          .infoBioDiv {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: fit-content;;
-            /* border: 3px aqua ridge; */
         }
 
-          #infoBioImage {
-            position: static;
-            height: auto;
-            width: 70vw;
-            object-fit: cover;
-            margin-top: 5vmin;
-        }
+            .infoBioDiv {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                height: fit-content;
+                min-height: auto;
+                /* border: 3px aqua ridge; */
+            }
 
+
+                #infoBioImageWrapper {
+                    top: 0;
+                    left: 0;
+                    width: 80vw;
+                    height: 40vw;
+                    margin: 10vw;
+                }
+
+                #infoBioWrapper {
+                    position: static;
+                    align-self: flex-start;
+                    width: 65%;
+                }
     
 
-        #infoBioImageBlockLeft {   
-            left: 5vmax;
-            top: 10vmax;
-        }
 
-        #infoBioImageBlockBottom {
-            right: 30vmax;
-            bottom: -5vmax;
-        }
-
-        #infoBioImageBlockRight {
-            right: 5vmax;
-            top: 2vmax;
-        }
-
-        #infoBio {
-            position: static;
-            margin-top: 10vmin;
-            width: 65%;
-            align-self: flex-start;
-        }
-
-
-        #infoBioButton {
-            margin: 5vmin 0 20vmin;
-            position: static;
-        }
-
+                  
         #infoReelPlayer {
             width: 50vw;          
         }
@@ -692,24 +685,17 @@
 
     @media only screen and (max-width: 1000px) {
 
-        #infoBioImage {
+        #infoBioImageWrapper {
             width: 100vw;
-            height: 50vh;
-            margin-top: 0;
+            height: 50vw;
+            margin: 60px 0;
         }
+       
 
         .infoBioImageBlock {
             display: none;
         }
 
-        #infoBio {
-            margin-top: 5vmin;
-            border-left: 15px red solid;
-        }
-
-        #infoBioButton {
-           font-size: 3.5vmin;
-        }
 
         #infoReelPlayer {
             width: 60vw;          
@@ -752,11 +738,6 @@
 
    
 
-        #infoBio {
-            font-size: 4vmin;
-            line-height: 5vmin;
-        }
-
         #infoReelPlayer {
             width: 80vw;          
         }
@@ -786,13 +767,9 @@
 
     @media only screen and (max-width: 700px) {
 
-        #infoBioImage {
-            height: auto;
+        #infoBioWrapper {
+            width: 80%;
         }
-
-        #infoBioButton {
-            font-size: 5vmin;
-         }
 
          #infoReelTitle {
             font-size: 8.5vmin;
@@ -802,16 +779,17 @@
             width: 90vw;          
         }
 
+        .infoDiv:nth-of-type(3) {   
+            height: fit-content;
+            min-height: 90vh;
+          }
+
 
     }
 
     @media only screen and (max-width: 600px) {
 
-        #infoBio {
-            font-size: 4.5vmin;
-            line-height: 5.5vmin;
-        }
-
+    
         .faq p {
             font-size: 5vmin;
             line-height: 6vmin;
@@ -842,9 +820,8 @@
         
     @media only screen and (max-width: 500px) {
 
-        #infoBio {
-            font-size: 5vmin;
-            line-height: 6vmin;
+        #infoBioWrapper {
+            width: 90%;
         }
 
          #infoReelTitle {

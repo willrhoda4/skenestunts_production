@@ -43,6 +43,10 @@ import Misc                from '../components/AdminTools/AdminContentMisc.js';
 function Admin({performerOptions, editing, adminStatus, setAdminStatus, posters, getData, url}) {
 
 
+  // api url for poster_gopher. 
+  // used for retrieving posters and credit counts from IMDB.
+  const   gopher                              = 'https://poster-gopher.vercel.app/';
+
   const   token                               = new URLSearchParams(window.location.search).get('token'); 
   const   invite                              = new URLSearchParams(window.location.search).get('invite') === 'true' ? true : false; 
 
@@ -72,12 +76,8 @@ function Admin({performerOptions, editing, adminStatus, setAdminStatus, posters,
     let quoteByBody  =                       [ 'misc',           [[ 'description', 'info_quote_by']]                                          ];
 
 
-    
 
-// FIGURE OUT WHETHER THIS setAuthenticated IS REDUNDANT
-          // if (table === 'profile') { getData(reqBody).then(  res => setAuthenticated(res.data[0]) )
-          //                                            .catch( err => console.log(err)              ); 
-                                  //  }
+
 
     // rounds up and amalgemates faq and quote data for the info page.
     // note that this hack is the reason why the AdminButtons component
@@ -105,6 +105,7 @@ function Admin({performerOptions, editing, adminStatus, setAdminStatus, posters,
   }
 
 
+  useEffect(() => console.log('adminurl ',url));
   // reloads data on page change
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => loadData(editing), [editing]);
@@ -273,6 +274,7 @@ function Admin({performerOptions, editing, adminStatus, setAdminStatus, posters,
                                                                                   AdminForm={PosterBarn}
                                                                                   Generator={Posters}
                                                                                     columns={[ 'title', 'imdb_id', 'image_url' ]}
+                                                                                     gopher={gopher}
                                                                                     getData={getData}
                                                                                         url={url}
                                                               />  
@@ -340,6 +342,7 @@ function Admin({performerOptions, editing, adminStatus, setAdminStatus, posters,
                                                                                 adminStatus={adminStatus}
                                                                                 boardMember={boardMember}
                                                                                   Generator={Performers}
+                                                                                     gopher={gopher}
                                                                            performerOptions={performerOptions}
                                                                                     columns={performerOptions.columns}
                                                                                         url={url}
