@@ -15,19 +15,19 @@ const crypto        = require('crypto');
 // takes care of all email endpoints
 function emailHandler (req, res, next) {
 
-    console.log(req.body);
+    console.log('launching the emailHandler.');
 
     const { cc,
             name, 
             type,
             email, 
+            token, 
             phone,
             origin,
             invite,
-            token, 
-            subject, 
             message, 
-            resetId  } = req.body
+            resetId,
+            subject  } = req.body
 
 
 
@@ -40,7 +40,7 @@ function emailHandler (req, res, next) {
                                     cleanUpError
                                 ) {
 
-        // create reusable transporter object using the default SMTP transport
+        // create  transporter object using the default SMTP transport
         const transporter = nodemailer.createTransport({
 
             host:  'smtp.gmail.com',
@@ -73,25 +73,98 @@ function emailHandler (req, res, next) {
         });
     }
 
+    // userEmail producerEmail reachingOut, resetEmail
+    function emailHTML (url) {
+
+        const resetTitle = invite ? 'initialize password' 
+                                  : 'reset password';
+
+        const resetGraf  = invite ? `You've been invited to Skene Stunts Director's Chair. Click below to activate your account.`
+                                  : `Click below to proceed with you password reset. Ignore this email if you didn't make a reset request.`;
+
+        const content = type === 'userEmail'      
+                     || type === 'producerEmail'  ?  `<p>
+                                                        <b>Name:</b>   ${name}<br>
+                                                        <b>Email:</b>   ${email}<br>
+                                                        <b>Phone #:</b> ${phone}<br>
+                                                        <b>Subject:</b> ${subject}<br>
+                                                        <b>Message:</b> ${message}
+                                                      </p>
+                                                      `
+
+                      : type === 'reachingOut'    ?  `<p>${message}</p>
+                                                      <br><br>
+                                                      <p>sent from skenestunts.com</p>`
+
+                      : type === 'resetEmail'     ?  `<p>${resetGraf}</p>
+                                                      <br><br>
+                                                      <p><a href="${url}">${resetTitle}</a></p>
+                                                      <br><br>
+                                                      <p>sent from skenestunts.com</p>
+                                                     `
+                      :                               null;
+
+
+
+        return `
+                    <!DOCTYPE html>
+
+                    <html>
+                        <head>
+                            <style>
+
+                                @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400&display=swap');
+
+                                body {
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                            
+                                .container {
+                                    border-left: 20px solid red;
+                                    padding: 20px 30px;
+                                    font-size: 18px;
+                                    font-family: 'Barlow Condensed', 'Courier New', Courier, monospace;
+                                }
+
+                                .container a {
+                                    color: #000000;
+                                    text-decoration: none;
+                                }
+                              
+                                .container a:hover {
+                                    color: #ff0000;
+                                }
+
+                            </style>
+
+                        <body>
+                            <div class="container">
+                                ${content}
+                            </div>
+                        </body>
+                    </html>
+               `
+    }
+
 
 
     
     // receives email from contact form
     async function formMail(request, response) {
 
+  
+
         const userSubject     = `Website email from ${name} subject: ${subject}`;
         const producerSubject = `PRODUCR MSG FROM: ${name}  subject: ${subject}`;
-        const otherSubject    = `From Website: ${subject}`;
-  
+        const emailSubject    = type==='userEmail' ? userSubject : producerSubject
+
+        console.log(`receiving a ${emailSubject}\n`);
+
         const mailOptions = {       from: email,
                                       to: process.env.EMAIL,
-                                 subject: type==='userEmail' ? userSubject : type==='producerEmail' ? producerSubject : otherSubject,
-                                    text: 
-                            `                Name:   ${name}
-                                            Email:   ${email}
-                                            Phone #: ${phone}
-                                            Subject: ${subject}
-                                            Message: ${message}`
+                                 subject: emailSubject,
+                                    html: emailHTML()
                             }
         
         deliverEmail(   response, 
@@ -114,7 +187,7 @@ function emailHandler (req, res, next) {
                                            to:  email,
                                          from:  `"Skene Stunts" ${process.env.EMAIL}`,
                                       subject: invite ? `Welcome to Skene Stunts Director's Chair` : `Password Reset`,
-                                         text: invite ? `Join the revolution => ${url}`            : `Reset your password here => ${url}`
+                                         html: emailHTML(url)
                                  } 
         
 
@@ -131,11 +204,13 @@ function emailHandler (req, res, next) {
     // sends email to performer directly from website
     async function reachOut(request, response) {
 
-        const reachOutOptions = {   to: email,
-                                    from: `"Skene Stunts" ${process.env.EMAIL}`,
-                                    cc: cc,
+        console.log(`reaching out to ${email}...\n`)
+
+        const reachOutOptions = {        to: email,
+                                       from: `"Skene Stunts" ${process.env.EMAIL}`,
+                                         cc: cc,
                                     subject: subject,
-                                    text: message
+                                       html: emailHTML()
                                 }
         deliverEmail(    response, 
                          reachOutOptions, 
@@ -146,7 +221,7 @@ function emailHandler (req, res, next) {
 
 
 
-    
+    // the type prop determines which function to execute.
     switch (type) {
 
         case 'userEmail':       formMail(req, res);                         break;

@@ -5,6 +5,8 @@
 
 
 
+                      require('dotenv'      ).config();
+
 const path          = require('path');
 const db            = require('./handlers/database.js'  );
 const email         = require('./handlers/email.js'     ); 
@@ -18,7 +20,6 @@ const cors          = require('cors'        );
 const bodyParser    = require('body-parser' );
 const multer        = require('multer'      );
 
-                      require('dotenv'      ).config();
                       
 
 const storage       = multer.diskStorage(
@@ -57,8 +58,8 @@ app.post('/registerReset',       auth.registerReset                    );
 app.post('/getPostersByLetter',  posters.getPostersByLetter             );
 app.post('/getDoublesPosters',   posters.getDoublesPosters              );
 app.get( '/getPosterList',       posters.getPosterList                  );
-app.post('/py/getFlicks',        posters.getFlicks                      );
-app.post('/py/getPoster',        posters.getPoster                      );
+app.post('/newPoster',           posters.newPoster                      );
+
 
 // email handler
 app.post('/email',                  email.emailHandler,
@@ -80,7 +81,7 @@ app.post('/performerPhotos',        upload.fields([
 
 
 // catch-all route to serve the index.html file for all routes
-app.get('/*',                       (req, res) => { res.sendFile(path.join(__dirname, '../build', 'index.html')); });
+app.get('/*',  (req, res) => { res.sendFile(path.join(__dirname, '../build', 'index.html')); });
 
 
 

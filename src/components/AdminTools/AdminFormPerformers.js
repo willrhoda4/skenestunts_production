@@ -29,6 +29,8 @@ import popUpIcon          from '../../images/icon_popup.svg'
 
 export default function PerformerForm ({loadData, currentData, setCurrentData, table, performerOptions}) {
 
+
+    
     // togles between some filters and all filter on form
     const [  moreFilters,         setMoreFilters          ] = useState(false);
 

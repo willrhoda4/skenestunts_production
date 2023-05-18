@@ -17,6 +17,7 @@ export default function TextField ({    id,
                                         name, 
                                         type,
                                         rule, 
+                                        style,
                                         state, 
                                         error, 
                                         setter, 
@@ -27,11 +28,12 @@ export default function TextField ({    id,
                                         setThisRule,
                                         instructions, 
                                         setContactDisplay }) { 
+
+
                                             
 
     return (<>
-
-                <label className='formField' style={id === 'otherField' ? {display: 'flex',} : null}>
+                    <label className='formField'>
 
                     <div className='fieldTitle'>
 
@@ -57,7 +59,8 @@ export default function TextField ({    id,
                                     id={inputId}
                                     className='fieldInput'
                                     value={state && state}
-                                    onChange={(e) => setter(e.target.value)}
+                                    style={style && style}
+                                    onChange={(e) => setter && setter(e.target.value)}
                                     required 
                             />
 

@@ -130,7 +130,6 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
         // to send the email with the reset link.
         function resetEmail (id, token) {
 
-            console.log('idToken', id, token);
 
             // data for the email
             const inviteBody = {    
@@ -198,13 +197,16 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
 
         <div className='passwordForm adminForm'>
             
-            <h2 className='passwordFormH2'>Sign in to continue</h2>
+            <h2 className='passwordFormH2'
+                style={{ paddingBottom: '5vh' }}
+            >Sign in to continue</h2>
         
             < TextField
                         name={ origin === '/director' ? 'login' : 'email' }
                        state={email}
                       setter={setEmail}
                        error={emailError}
+                      noHelp={true}
                 instructions='Whatever address you last submitted.'
             />
 
@@ -214,6 +216,7 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
                        state={password}
                       setter={setPassword}
                        error={passwordError}
+                      noHelp={true}
                 instructions='Exactly as entered during registration'
             />
 
