@@ -91,7 +91,7 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
              }))   
         
-    }, [])
+    }, [getData])
 
 
 
