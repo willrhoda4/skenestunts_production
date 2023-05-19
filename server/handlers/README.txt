@@ -199,7 +199,11 @@ skenstunts.com - The Readme File
             TEAM_IMAGES=        Google Drive ID for profile photos folder
             BACKGROUND_IMAGES=  Google Drive ID for background images folder
 
-
+            PG_USER=            Postgres user for local development
+            PG_HOST=            Postgres host for local development
+            PG_DATABASE=        Postgres database for local development
+            PG_PASSWORD=        Postgres password for local development
+            PG_PORT=            Postgres port for local development
 
 
     Database:

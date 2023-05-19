@@ -13,6 +13,7 @@ import { Helmet }     from 'react-helmet';
 import   imdbIcon     from '../images/imdb_icon.png';
 import   iconChevron  from '../images/icon_chevronsRight.svg'
 import   logoS        from '../images/logoSWhite.png';
+import   Loader       from '../components/Loader';
 
 
 
@@ -184,39 +185,26 @@ function Team({teamData, teamPosters, boardData, boardPosters}) {
                 <link rel="canonical"    href="https://www.skenestunts.com/team" />
               </Helmet>
 
-              { boardData.length && boardData.filter(double => double.publish)
-                                            .map(  (double, index) => { return <div key={index}>
-                                                                                { makeBoardProfile( double, index ) }
-                                                                                </div> 
-                                                                      } ) }
-              { teamData.length  &&  
-                  <div id='teamGrid'>
-                    { teamData.filter(double => double.publish)
-                              .map(  (double, index) => { return  <div key={index}>
-                                                                    { makeTeamProfile(  double, index ) }
-                                                                  </div> 
-                                                        } ) }
-                  </div>         
-              }
 
+              { !(boardData && teamData)  ?   <Loader />
+                                          :   <>
+                                                  {   boardData.filter(double => double.publish)
+                                                              .map(  (double, index) => { return   <div key={index}>
+                                                                                                      { makeBoardProfile( double, index ) }
+                                                                                                    </div> 
+                                                                                        } ) 
+                                                  }
+                                                      <div id='teamGrid'>
+                                                        { teamData.filter(double => double.publish)
+                                                                  .map(  (double, index) => { return  <div key={index}>
+                                                                                                        { makeTeamProfile(  double, index ) }
+                                                                                                      </div> 
+                                                                                            } ) 
+                                                        }
+                                                      </div>         
+                                              </> 
+              }
           </>
-   
   );
 }
 
-export default Team;
-
-/*
-return (
-  <>
-    {boardData.length && boardData.filter(double => double.publish)
-                                  .map((double, index) => makeBoardProfile(double, index, `board-${double.id}`))}
-    {teamData.length &&  
-      <div id='teamGrid'>
-        {teamData.filter(double => double.publish)
-          .map((double, index) => makeTeamProfile(double, index, `team-${double.id}`))}
-      </div>         
-    }
-  </>
-);
-*/
