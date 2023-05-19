@@ -84,7 +84,7 @@ export default function App() {
   
 
   //api url for all requests to server.
-  const url = config.apiUrl;      useEffect(() => { console.log('REACT_ENV => ', process.env.REACT_APP_CHECK)},[url]);
+  const url = process.env.REACT_APP_API_URL;
 
 
   // all-terrain multipurpose highly functional trusty data fetcher.
