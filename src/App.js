@@ -30,7 +30,6 @@ import { Route,
 import { Helmet        }     from 'react-helmet';
 
 
-import   config              from './config.js';
 
 import   Axios               from 'axios';
 
