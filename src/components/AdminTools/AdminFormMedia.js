@@ -34,7 +34,6 @@ export default function MediaForm({loadData, currentData, setCurrentData, table,
     const [ articleURLError, setArticleURLError ] = useState(false);
     const [ imageURLError,   setImageURLError   ] = useState(false);
     const [ imageAltError,   setImageAltError   ] = useState(false);
-    const [ uploadError,     setUploadError     ] = useState(false);
 
     const [ formStatus,      setFormStatus      ] = useState(false);
 
@@ -238,7 +237,6 @@ export default function MediaForm({loadData, currentData, setCurrentData, table,
 
                 <button className='formButton' type="submit" onClick={(e) => uploadArticle(e)}>{ update ? 'Update Article' : 'Post Article' }</button>
                 
-                { uploadError && <Notification type='bad' msg='Make sure all the lights on the form are shining green before you post!' /> }
 
             </div>
     )
