@@ -22,7 +22,7 @@ import Producer   from '../components/ContactComponents/ContactProducer';
 
 
 
-function Contact({performerOptions, performerClass, setPerformerClass, getData, url}) {
+export default function Contact({performerOptions, performerClass, setPerformerClass, getData, url}) {
 
     
     // tracks currently displayed contact component.
@@ -77,4 +77,3 @@ function Contact({performerOptions, performerClass, setPerformerClass, getData, 
     );
 }
 
-export default Contact;

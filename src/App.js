@@ -55,7 +55,7 @@ import   logoS               from './images/logoSWhite.png';
 
 
 
-function App() {
+export default function App() {
 
   
   const [  constructionMode, setConstructionMode ] = useState(false);
@@ -413,4 +413,3 @@ function App() {
 
 
 
-export default App;
