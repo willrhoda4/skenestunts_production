@@ -18,7 +18,7 @@ import    Loader          from '../components/Loader.js';
 
 
 
-function Reels({getData}) {
+export default function Reels({getData}) {
 
 
 
@@ -74,7 +74,6 @@ function Reels({getData}) {
   );
 }
 
-export default Reels;
 
 
 

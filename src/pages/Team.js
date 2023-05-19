@@ -17,7 +17,7 @@ import   Loader       from '../components/Loader';
 
 
 
-function Team({teamData, teamPosters, boardData, boardPosters}) {
+export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
   
 

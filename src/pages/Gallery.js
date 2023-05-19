@@ -22,7 +22,7 @@ import   Loader     from '../components/Loader.js';
 
 
 
-function Gallery({photoData}) {
+export default function Gallery({photoData}) {
 
 
   // state variable is leveraged to coordinate the spectacular hover effect for the Instagram icon.
@@ -86,5 +86,4 @@ function Gallery({photoData}) {
   );
 }
 
-export default Gallery;
 

@@ -40,7 +40,7 @@ import Misc                from '../components/AdminTools/AdminContentMisc.js';
 
 
 
-function Admin({performerOptions, editing, adminStatus, setAdminStatus, posters, getData, url}) {
+export default function Admin({performerOptions, editing, adminStatus, setAdminStatus, posters, getData, url}) {
 
 
   // api url for poster_gopher. 
@@ -371,4 +371,3 @@ function Admin({performerOptions, editing, adminStatus, setAdminStatus, posters,
   );
 }
 
-export default Admin;

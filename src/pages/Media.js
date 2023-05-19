@@ -18,7 +18,7 @@ import    Loader         from '../components/Loader.js';
 
 
 
-function Media({getData}) {
+export default function Media({getData}) {
 
 
 
@@ -91,4 +91,3 @@ function Media({getData}) {
   );
 }
 
-export default Media;
