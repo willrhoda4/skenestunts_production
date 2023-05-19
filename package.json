@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && npm run postbuild",
+    "build": "NODE_OPTIONS=--max_old_space_size=4096 react-scripts build && npm run postbuild",
     "postbuild": "echo 'Post build step in progress'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
