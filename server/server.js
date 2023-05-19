@@ -38,7 +38,8 @@ const app = express();
 
 
 
-
+// test route
+app.get('/check',                (req, res) => res.send('checkitout!')  );
 
 // database handlers
 app.post('/getData',             db.getData                             );
