@@ -7,7 +7,7 @@
 
 const config = {
 
-    apiUrl: 'https://skenestunts.herokuapp.com/'
+    apiUrl: process.env.REACT_APP_API_URL
     
   };
   

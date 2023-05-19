@@ -95,6 +95,8 @@ function App() {
   }, [url]);  
 
 
+  useEffect(() => { console.log(process.env.REACT_APP_CHECK)})
+
 
   // this hook handles preconnections to external domains to improve performance.
   useEffect(() => {
