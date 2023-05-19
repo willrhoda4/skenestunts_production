@@ -11,9 +11,12 @@ skenstunts.com - The Readme File
 
     skenestunts.com is the online headquarters for Skene Stunts, a film stunt company based in Western Canada.
 
-    the souce code for this project lives in a public repository at https://github.com/willrhoda4/skenestunts_production and is hosted at Heroku.
+    The souce code for this project lives in a public repository at https://github.com/willrhoda4/skenestunts_production and is hosted at Heroku.
 
-    it's supported by the poster_gopher microservice which lives at https://github.com/willrhoda4/poster_gopher and is hosted at Vercel.
+    It's supported by the poster_gopher microservice which lives at https://github.com/willrhoda4/poster_gopher and is hosted at Vercel.
+
+    This readme documents the project's dependencies, environment variables, database tables and API endpoints,
+    but before we get into all that, let's start with a high-level overview of what the website has to offer...
 
 
 
@@ -25,12 +28,12 @@ skenstunts.com - The Readme File
 
        
 
-        The client-facing website includes the following pages:
+        The public-facing website includes the following pages:
 
             Info: This is the busiest page on the site, and features the following from top to bottom:
 
                     - a bio blurb and team portrait
-                    - Skene Stunt's latest demo reel
+                    - Skene Stunts' latest demo reel
                     - a company values section
                     - the FAQ buffet
                     - a simple social media section
@@ -62,7 +65,7 @@ skenstunts.com - The Readme File
         (besides the gallery, which comes straight from Instagram). 
         
         The admin also has the power to send invitations to team and board members, which gives them access to a limited
-        version of Director's chair which includes:
+        version of Director's chair that includes:
 
             - performer search
             - access to the poster barn
@@ -110,7 +113,9 @@ skenstunts.com - The Readme File
 
                         Filters can be activated using the checkbox next to them.
 
-                        Results can be ordered according to one of seven qualities, and result lengths can be optionally limited.
+                        Results can be ordered according to one of seven qualities, in ascending or descending order.
+                        
+                        At your option, the amount of results can be limited from 1-100.
 
                         The envelope icon in the upper-righthand corner opens an email form that'll deliver a message to all search results.
 
@@ -134,19 +139,19 @@ skenstunts.com - The Readme File
         
         This is how they work:
 
-            trash icon: delete item
+            trash icon:         delete item
 
-            pen-on-page icon: edit item
+            pen-on-page icon:   edit item
 
-            up-arrow icon: move item up one position on page
+            up-arrow icon:      move item up one position on page
 
-            down-arrow icon: move item down one position on page
+            down-arrow icon:    move item down one position on page
 
-            paper-plane icon (team and board section only): sends out an invitation Director's Chair
+            paper-plane icon:   sends out an invitation Director's Chair    (team and board section only)
 
-            chain icon (FAQ section only): copy FAQ link to clipboard 
+            chain icon:         copy FAQ link* to clipboard                  (FAQ section only)
                 
-                (this is a link that will take a user straight to the info page and right to the right part of the FAQ buffet)
+                *this is a link that will take a user straight to the info page and right to the right part of the FAQ buffet
 
 
 
@@ -182,10 +187,11 @@ skenstunts.com - The Readme File
     Environment Variables;
 
 
-        The following environment variables need to be set in the .env file:
+        The following environment variables need to be configured in production:
 
+            REACT_APP_API_URL=  API URL for requests from the front-end
 
-            URL=                URL for the client-facing site
+            URL=                URL for the client-facing site (used to generate password reset links)
 
             EMAIL=              Gmail account to handle email needs
             EMAILPASS=          Gmail app password
@@ -199,11 +205,22 @@ skenstunts.com - The Readme File
             TEAM_IMAGES=        Google Drive ID for profile photos folder
             BACKGROUND_IMAGES=  Google Drive ID for background images folder
 
+            DATABASE_URL=       This variable will automatically be set by Heroku in production,
+                                and is automatically updated as account credentials are automatically updated.
+                                
+                                If you're not using Heroku Postgres, you may need to use 
+                                the PG_ variables below in production.
+
+
+        The following environment variables can be used to connect locally to a database
+        during development (just uncomment the code in database.js):
+
             PG_USER=            Postgres user for local development
             PG_HOST=            Postgres host for local development
             PG_DATABASE=        Postgres database for local development
             PG_PASSWORD=        Postgres password for local development
             PG_PORT=            Postgres port for local development
+
 
 
     Database:
