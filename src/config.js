@@ -7,7 +7,7 @@
 
 const config = {
 
-    apiUrl: 'http://localhost:5000/'
+    apiUrl: 'https://skenestunts.herokuapp.com/'
     
   };
   

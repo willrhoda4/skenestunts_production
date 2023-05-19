@@ -9,20 +9,21 @@
 skenstunts.com - The Readme File
 
 
+    skenestunts.com is the online headquarters for Skene Stunts, a film stunt company based in Western Canada.
+
+    the souce code for this project lives in a public repository at https://github.com/willrhoda4/skenestunts_production and is hosted at Heroku.
+
+    it's supported by the poster_gopher microservice which lives at https://github.com/willrhoda4/poster_gopher and is hosted at Vercel.
+
+
+
 
 
 
     Description:
 
 
-        skenestunts.com is the online headquarters for Skene Stunts, a film stunt company based in Western Canada.
-
-        the souce code for this project lives in a public repository at https://github.com/willrhoda4/skenestunts_production and is hosted at Heroku.
-
-        it's supported by the poster_gopher microservice which lives at https://github.com/willrhoda4/poster_gopher and is hosted at Vercel.
-
-
-
+       
 
         The client-facing website includes the following pages:
 
