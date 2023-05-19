@@ -5,7 +5,7 @@
 
 import           './Construction.css';
 
-import logo from '../images/logo.png';
+// import logo from '../images/logo.png';
 
 
 // this component is a placeholder for when the site is down for maintenance.
