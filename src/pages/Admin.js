@@ -105,7 +105,6 @@ function Admin({performerOptions, editing, adminStatus, setAdminStatus, posters,
   }
 
 
-  useEffect(() => console.log('adminurl ',url));
   // reloads data on page change
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => loadData(editing), [editing]);
