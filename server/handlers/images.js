@@ -134,11 +134,11 @@ async function background (req, res) {
     
     const media = {
         mimeType: 'image/jpeg',
-        body: fs.createReadStream(path.join(req.file.path))
+        body: fs.createReadStream(req.file.path)
     };
 
  
-    
+    // vvv Line 142 vvvv
     driveService.files.create({           resource: fileMetaData,
                                           media,
                                           fields: 'id'
