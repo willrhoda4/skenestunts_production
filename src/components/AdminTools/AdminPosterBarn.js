@@ -83,7 +83,7 @@ export default function PosterBarn ({setCurrentData, getData, gopher, url}) {
 
             // calls a python script that retrieves the number of credits and projects for the Skene Stunts team from IMDB
             Axios.post(`${gopher}server/getFlicks/`, ({ team: allIMDB }))
-                 .then( res => {        console.log(res.data);
+                 .then( res => {       
 
                             // the script should return an array with the total number of credits and a list of all the projects.
                             // if it comes back with anything but an array of length 2, there is a problem.
@@ -103,7 +103,7 @@ export default function PosterBarn ({setCurrentData, getData, gopher, url}) {
 
                             // checks how many posters are in the database and compares that number to the new number of credits
                             getData(['posters'])
-                              .then(  res =>  { console.log(res);
+                              .then(  res =>  { 
  
 
                                 databaseCount = res.data.length;
@@ -153,7 +153,7 @@ export default function PosterBarn ({setCurrentData, getData, gopher, url}) {
                                                 promises.push(
                                                     // Axios.post(`${url}py/getPoster`, [newFlicks[i]])
                                                     Axios.post(`${gopher}server/getPoster/`, { imdbId: newFlicks[i] })
-                                                    .then(res => {      console.log(res.data);
+                                                    .then(res => {      
 
                                                            res.status  === 400                ? setUpdateLog(updateLog => [...updateLog, <Notification type='bad'  msg={`There was an error retrieving a poster. Try again and, if the problem persists, call your guy.`}   />])
                                                         :  res.data[2] === 'no poster'        ? setUpdateLog(updateLog => [...updateLog, <Notification type='bad'  msg={`Couldn't find a poster for ${res.data[0]}.`}                                                        />])
