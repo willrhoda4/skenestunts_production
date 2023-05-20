@@ -38,6 +38,7 @@ import   Info                from './pages/Info';
 import   Header              from './components/Header';
 import   NavBar              from './components/NavBar';
 import   Loader              from './components/Loader';
+import   ErrorBoundary       from './components/ErrorBoundary';
 import   performerOptions    from './components/performerOptions';
 
 
@@ -353,53 +354,57 @@ export default function App() {
                                   
                                                         <div id="main" ref={mainRef}>
 
-                                                          <Suspense fallback={ <Loader /> }>
+                                                          <ErrorBoundary>
 
-                                                            <Routes>
+                                                            <Suspense fallback={ <Loader /> }>
 
-                                                              <Route path='/'                element={<Info               photoData={photoData}
-                                                                                                                          faqRef={faqRef}                             
-                                                                                                                          getData={getData}                           />   } />  
-                                                              
-                                                              <Route path='/info'            element={<Info               photoData={photoData}
-                                                                                                                          faqRef={faqRef}  
-                                                                                                                          getData={getData}                           />   } />  
-                                                              
+                                                              <Routes>
 
-                                                              <Route path='/contact'         element={<Contact            performerOptions={performerOptions()} 
-                                                                                                                          performerClass={performerClass} 
-                                                                                                                          setPerformerClass={setPerformerClass}
-                                                                                                                          getData={getData}                           />   } /> 
-                                                              
-                                                              <Route path='/gallery'         element={<Gallery            photoData={photoData}                       />   } /> 
-                                                              
-                                                              <Route path='/reels'           element={<Reels              getData={getData}                           />   } /> 
-                                                              
-                                                              <Route path='/media'           element={<Media              getData={getData}                           />   } /> 
-                                                              
-                                                              <Route path='/team'            element={<Team               boardData={boardData}
-                                                                                                                          boardPosters={boardPosters}
-                                                                                                                          teamData={teamData}
-                                                                                                                          teamPosters={teamPosters}                   />   } /> 
-                                                              
-                                                              <Route path='/updatePerformer' element={<UpdatePerformer    performerOptions={performerOptions()} 
-                                                                                                                          performerClass={performerClass} 
-                                                                                                                          setPerformerClass={setPerformerClass}       
-                                                                                                                          getData={getData}                          />  } />
-                                                              
-                                                              <Route path='passwordReset'    element={<PasswordReset      getData={getData}                          />  } />
-                                                              
-                                                              <Route path='/director'        element={<Admin              performerOptions={performerOptions()} 
-                                                                                                                          editing={editing} 
-                                                                                                                          posters={posters}
-                                                                                                                          setEditing={setEditing}  
-                                                                                                                          adminStatus={adminStatus}
-                                                                                                                          setAdminStatus={setAdminStatus}
-                                                                                                                          getData={getData}                          />  } /> 
+                                                                <Route path='/'                element={<Info               photoData={photoData}
+                                                                                                                            faqRef={faqRef}                             
+                                                                                                                            getData={getData}                           />   } />  
+                                                                
+                                                                <Route path='/info'            element={<Info               photoData={photoData}
+                                                                                                                            faqRef={faqRef}  
+                                                                                                                            getData={getData}                           />   } />  
+                                                                
 
-                                                            </Routes>
+                                                                <Route path='/contact'         element={<Contact            performerOptions={performerOptions()} 
+                                                                                                                            performerClass={performerClass} 
+                                                                                                                            setPerformerClass={setPerformerClass}
+                                                                                                                            getData={getData}                           />   } /> 
+                                                                
+                                                                <Route path='/gallery'         element={<Gallery            photoData={photoData}                       />   } /> 
+                                                                
+                                                                <Route path='/reels'           element={<Reels              getData={getData}                           />   } /> 
+                                                                
+                                                                <Route path='/media'           element={<Media              getData={getData}                           />   } /> 
+                                                                
+                                                                <Route path='/team'            element={<Team               boardData={boardData}
+                                                                                                                            boardPosters={boardPosters}
+                                                                                                                            teamData={teamData}
+                                                                                                                            teamPosters={teamPosters}                   />   } /> 
+                                                                
+                                                                <Route path='/updatePerformer' element={<UpdatePerformer    performerOptions={performerOptions()} 
+                                                                                                                            performerClass={performerClass} 
+                                                                                                                            setPerformerClass={setPerformerClass}       
+                                                                                                                            getData={getData}                          />  } />
+                                                                
+                                                                <Route path='passwordReset'    element={<PasswordReset      getData={getData}                          />  } />
+                                                                
+                                                                <Route path='/director'        element={<Admin              performerOptions={performerOptions()} 
+                                                                                                                            editing={editing} 
+                                                                                                                            posters={posters}
+                                                                                                                            setEditing={setEditing}  
+                                                                                                                            adminStatus={adminStatus}
+                                                                                                                            setAdminStatus={setAdminStatus}
+                                                                                                                            getData={getData}                          />  } /> 
 
-                                                          </Suspense>
+                                                              </Routes>
+
+                                                            </Suspense>
+
+                                                          </ErrorBoundary>
                                   
                                                         </div>
 
