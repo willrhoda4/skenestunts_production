@@ -145,7 +145,7 @@ export default function MediaForm({loadData, currentData, setCurrentData, table,
         } else {
 
             // if we are updating an existing record, we need to add the primary key to the request body as a filter .
-            Axios.put( `${url}updateData`, [table, columnList, parameters, [ pkName, update.at(-1)]])
+            Axios.put( `${url}updateData`, [ table, columnList, parameters, [[ pkName, update.at(-1)]] ] )
                                                                     .then(  res => { 
                                                                                         console.log(res);
                                                                                         loadData(table); 

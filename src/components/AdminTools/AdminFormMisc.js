@@ -74,8 +74,8 @@ export default function AdminFormMisc ({ table, loadData, currentData, setCurren
         // define the functions that will be used to upload the image to the server,
         // and update the background id in the misc table.
         const storeBackground = (file)   => Axios.post( `${url}background`, file );
-
-        const storeId         = (id)     => Axios.put(  `${url}updateData`, [ table, ['value'], [id], ['description', 'background'] ]);
+                                                                                                    console.log(`${url}updatData`);
+        const storeId         = (id)     => Axios.put(  `${url}updateData`, [ table, ['value'], [id], [ ['description', 'background'] ] ]);
      
 
 

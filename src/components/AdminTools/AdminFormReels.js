@@ -97,7 +97,7 @@ export default function ReelForm({loadData, currentData, setCurrentData, table, 
 
             // if this is an update, add the primary key name and value to the end of the 
             // request body, as a filter.
-            Axios.put( `${url}updateData`, [table, columnList, parameters, [ pkName, update.at(-1)]])
+            Axios.put( `${url}updateData`, [ table, columnList, parameters, [[ pkName, update.at(-1)]] ])
                                                                     .then(  res => { 
                                                                                         console.log(res);
                                                                                         loadData(table); 
