@@ -52,7 +52,7 @@ export default function AdminButtons ({ id,
         let warning = 'Are you sure you want to delete this item from the database?';
 
         window.confirm(warning) &&  Axios.post(`${process.env.REACT_APP_API_URL}deleteData`,  [ reqTable, pkName, id, rank ])
-                                         .then(res => { console.log(res); loadData(table) });   
+                                         .then(res => {     loadData(table)    });   
     }
 
 
@@ -62,8 +62,8 @@ export default function AdminButtons ({ id,
 
                 
         Axios.post(`${process.env.REACT_APP_API_URL}reRankData`,  [ reqTable, pkName, id, rank, rank-1 ] )  
-             .then(  res => { console.log(res); loadData(table);  }                               )
-             .catch( err => console.log(err)                                                      );  
+             .then(  res => {  loadData(table);  }                                                       )
+             .catch( err => console.log(err)                                                             );  
   
     }
 

@@ -17,6 +17,7 @@ const posters       = require('./handlers/posters.js'   );
 
 
 // import libraries
+const fs            = require('fs');
 const path          = require('path');
 const express       = require('express'     );
 const cors          = require('cors'        );
@@ -27,7 +28,7 @@ const compression   = require('compression' );
                       
 // brace yourself for file uploads
 const storage       = multer.diskStorage(
-                                            { destination:  (req, file, cb) => { cb(null, 'uploads')          },
+                                            { destination:  (req, file, cb) => { cb(null, '/tmp')          },
                                                  filename:  (req, file, cb) => { cb(null, file.originalname)  }
                                             }
                                         )
@@ -41,7 +42,17 @@ const app = express();
 
       app.use(compression());     // sets up gzip
 
-      app.use(bodyParser.json());                
+      app.use(bodyParser.json());   
+      
+      app.use((req, res, next) => {
+
+        if (req.file) {   fs.unlink(  req.file.path, 
+                                      (err) =>  err && console.error('Error deleting file:', err) 
+                                   );
+                      }
+        next();
+
+      });
 
       app.use(express.static(path.resolve(__dirname, "../build")));   //  <== sets up a static file server
 
@@ -55,6 +66,8 @@ const app = express();
       
         next();
       });
+
+   
 
 // test route
 app.get('/check',                (req, res) => res.send('checkitout!')  );
