@@ -11,7 +11,7 @@ const { google }      = require('googleapis');
 const   path          = require('path');
 
   
-const   keyFile       = "../gdrive_credentials.json";
+const   keyFile       = JSON.parse(process.env.GDRIVE_CREDENTIALS);
 const   scopes        = ['https://www.googleapis.com/auth/drive', 'profile'];
 const   auth          = new google.auth.GoogleAuth({ keyFile,  scopes });
 const   driveService  = google.drive({version: 'v3', auth});
