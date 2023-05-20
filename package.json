@@ -22,6 +22,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "run": "react-scripts start",
     "start": "node server/server.js",
     "build": "react-scripts build",
     "postinstall": "npm run build",
