@@ -137,6 +137,8 @@ async function background (req, res) {
         body: fs.createReadStream(req.file.path)
     };
 
+    console.log('Background Path =>\n', typeof req.file.path, '\n',req.file.path);
+
  
     // vvv Line 142 vvvv
     driveService.files.create({           resource: fileMetaData,
