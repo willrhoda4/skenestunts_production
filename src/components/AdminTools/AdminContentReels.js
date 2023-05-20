@@ -58,8 +58,6 @@ export default function Reel ({currentData, loadData, table, pkName, columns}) {
                                                 <div className='playerDiv' dangerouslySetInnerHTML={{__html: embedCode}} />
                                             </div>
 
-                                            <p style={{padding: '5vmin'}}>{caption}</p>
-
                                             <AdminFormReels     loadData={loadData}
                                                                    table={table}
                                                                   pkName={pkName}

@@ -113,7 +113,7 @@ export default function ReelForm({loadData, currentData, setCurrentData, table, 
 
     return(
             <div className='adminForm'>
-                <h2 className='formTitle'>Add Reel</h2> 
+                <h2 className='formTitle'>{ update ? 'Update Reel' : 'Add Reel' }</h2> 
 
 
                 <form className='adminFormFields'>
