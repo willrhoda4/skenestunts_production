@@ -151,7 +151,7 @@ export default function TeamForm({loadData, currentData, table, columns, update,
         
         const setters = !board ? commonSetters : commonSetters.concat(extraSetters);
 
-        if (update) {   console.log('update ',update);
+        if (update) {  
 
             
             for (let i = 0; i < setters.length; i++) {
@@ -438,8 +438,6 @@ export default function TeamForm({loadData, currentData, table, columns, update,
                                         }
 
 
-        console.log(columns);
-        console.log(parameters);
 
 
         // sends data to database, starting with uploading image if necessary

@@ -98,7 +98,7 @@ export default function AdminFormMisc ({ table, loadData, currentData, setCurren
 
         e.preventDefault();
 
-        const changeMode = (newMode) => Axios.put( `${process.env.REACT_APP_API_URL}updateData'`, [ table, ['active'], [newMode], [['description', 'construction_mode']] ]);
+        const changeMode = (newMode) => Axios.put( `${process.env.REACT_APP_API_URL}updateData`, [ table, ['active'], [newMode], [['description', 'construction_mode']] ]);
      
                                                         // throw up a notification to let the user know the mode is updating.
                                                         setModeStatus('updating');
