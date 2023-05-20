@@ -357,6 +357,8 @@ export default function App() {
                                   
                                                         <div id="main" ref={mainRef}>
                                   
+                                                          <Suspense fallback={<Loader />}>
+
                                                           <Routes>
                                                             <Route path='/'                element={<Info               photoData={photoData}
                                                                                                                         faqRef={faqRef}                             
@@ -366,7 +368,6 @@ export default function App() {
                                                                                                                         faqRef={faqRef}  
                                                                                                                         getData={getData}                           />   } />  
                                                             
-                                                            <Suspense fallback={<div>Loading...</div>}>
 
                                                             <Route path='/contact'         element={<Contact            performerOptions={performerOptions()} 
                                                                                                                         performerClass={performerClass} 
@@ -402,9 +403,11 @@ export default function App() {
                                                                                                                         setAdminStatus={setAdminStatus}
                                                                                                                         getData={getData} 
                                                                                                                         url={url}                                    />  } /> 
-                                                              </Suspense>
 
                                                           </Routes>
+
+                                                          </Suspense>
+
                                   
                                                         </div>
 
