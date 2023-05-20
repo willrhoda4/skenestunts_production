@@ -97,7 +97,7 @@ export default function FAQForm({   url,
                 
         } else {
             // If this is an update, the primary key is the last element of the update array.
-            Axios.put( `${url}updateData`, [ 'faq', columnList, parameters, [[ pkName, update.at(-1)]] ])
+            Axios.put( process.env.REACT_APP_API_URL, [ 'faq', columnList, parameters, [[ pkName, update.at(-1)]] ])
                                                                     .then(  res => { 
                                                                                         console.log(res);
                                                                                         loadData(table); 
