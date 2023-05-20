@@ -164,7 +164,8 @@
                 inset 2.5em 5em 10em  rgba(235, 232, 230, 0.25),
                 inset -1em -2em 10em  rgb(46, 28, 28);
         background-image: linear-gradient(rgba(42, 43, 44, .8), rgba(24, 6, 19, 0.9)),
-                          url('../images/diamondplate.jpeg');
+                          url('../images/diamondplate.webp');
+        background-size: 200%; /* Zoom in 2x */
         animation: 2s ease-in 0s 1 highFall;
         display: flex;
         flex-direction: column;
@@ -254,3 +255,9 @@
 
 
 
+        @media (not (webp)) {
+          #title {
+            background-image: linear-gradient(rgba(42, 43, 44, .8), rgba(24, 6, 19, 0.9)),
+                          url('../images/diamondplate.jpeg'); 
+          }
+        }

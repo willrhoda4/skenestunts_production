@@ -65,27 +65,35 @@ table {
 @font-face {
   font-family: 'BigShoulders';
   src: local('BigShouldersText-Black'), url('./fonts/Big_Shoulders_Text/static/BigShouldersText-Black.ttf') format('opentype');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'SixCaps';
   src: local('SixCaps-Regular'), url('./fonts/Six_Caps/SixCaps-Regular.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'BebasNeue';
   src: local('BebasNeue-Regular'), url('./fonts/Bebas_Neue/BebasNeue-Regular.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'BarlowCondensed';
   src: local('BarlowCondensed-Light'), url('./fonts/Barlow_Condensed/BarlowCondensed-Light.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'BarlowCondensed-Bold';
   src: local('BarlowCondensed-Bold'), url('./fonts/Barlow_Condensed/BarlowCondensed-Bold.ttf') format('truetype');
+  font-display: swap;
 }
+
+
+
 
 
 

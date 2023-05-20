@@ -4,10 +4,11 @@
 
 
 
-
+                      // configure your environment variables
                       require('dotenv'      ).config();
 
-const path          = require('path');
+
+// import handlers                    
 const db            = require('./handlers/database.js'  );
 const email         = require('./handlers/email.js'     ); 
 const auth          = require('./handlers/auth.js'      );
@@ -15,13 +16,16 @@ const images        = require('./handlers/images.js'    );
 const posters       = require('./handlers/posters.js'   );
 
 
+// import libraries
+const path          = require('path');
 const express       = require('express'     );
 const cors          = require('cors'        );
 const bodyParser    = require('body-parser' );
 const multer        = require('multer'      );
+const compression   = require('compression' );
 
                       
-
+// brace yourself for file uploads
 const storage       = multer.diskStorage(
                                             { destination:  (req, file, cb) => { cb(null, 'uploads')          },
                                                  filename:  (req, file, cb) => { cb(null, file.originalname)  }
@@ -30,13 +34,22 @@ const storage       = multer.diskStorage(
 const upload        = multer({ storage });
 
 
-const app = express();
-      app.use(cors());
-      app.use(bodyParser.json());
-      app.use(express.static(path.resolve(__dirname, "../build")));
+// ladies and gentlemen, start your app and initiate your middleware
+const app = express();                          
+      app.use(cors());            
+      app.use(compression());     // sets up gzip
+      app.use(bodyParser.json());                                     
+      app.use(express.static(path.resolve(__dirname, "../build")));   //  <== sets up a static file server
+      app.use((req, res, next) => {                                   //  vvv sets up cache control headers for static assets
 
+        const staticAssetExtensions = ['.js', '.css', '.jpg', '.png', '.gif', '.jpeg'];
 
-
+        if (staticAssetExtensions.some(ext => req.url.endsWith(ext))) {
+          res.set('Cache-Control', 'public, max-age=86400'); // Cache for one day
+        }
+      
+        next();
+      });
 
 // test route
 app.get('/check',                (req, res) => res.send('checkitout!')  );
