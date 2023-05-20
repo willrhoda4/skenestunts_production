@@ -346,7 +346,7 @@ async function addData (request, response) {
 
 
 
-const updateData = (request, response) => {
+const updateData = (request, response) => {     console.log('update function called'); console.log(request.body);
 
     
     const table      = request.body[0];

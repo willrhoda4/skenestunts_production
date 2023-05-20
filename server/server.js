@@ -35,12 +35,17 @@ const upload        = multer({ storage });
 
 
 // ladies and gentlemen, start your app and initiate your middleware
-const app = express();                          
-      app.use(cors());            
+const app = express();     
+                     
+      app.use(cors());    
+
       app.use(compression());     // sets up gzip
-      app.use(bodyParser.json());                                     
+
+      app.use(bodyParser.json());                
+
       app.use(express.static(path.resolve(__dirname, "../build")));   //  <== sets up a static file server
-      app.use((req, res, next) => {                                   //  vvv sets up cache control headers for static assets
+
+      app.use((req, res, next) => {  //  vvv sets up cache control headers for static assets
 
         const staticAssetExtensions = ['.js', '.css', '.jpg', '.png', '.gif', '.jpeg'];
 
@@ -66,7 +71,7 @@ app.post('/newPerformer',        auth.newPerformer                      );
 app.post('/checkPassword',       auth.checkPassword                     );
 app.post('/resetPassword',       auth.resetPassword                     );
 app.post('/newPasswordLogin',    auth.newPasswordLogin                  );
-app.post('/registerReset',       auth.registerReset                    );
+app.post('/registerReset',       auth.registerReset                     );
 
 // poster handlers
 app.post('/getPostersByLetter',  posters.getPostersByLetter             );

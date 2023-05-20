@@ -46,7 +46,6 @@ export default function AdminView({ url,
     }, [table])
 
 
-    useEffect(() => console.log('viewurl ',url));
 
     return(
             <div id='adminContent'>

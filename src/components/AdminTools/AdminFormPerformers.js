@@ -271,14 +271,6 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
                 {/* the function uses the name argument (derived from the front of the filter's gear array)
                     to determine what kind of filter it needs to conjure. */}
                 {
-                    //    name === 'order_by'          ? < StringDropdown
-                    //                                     noHelp={true}
-                    //                                     name={name.replaceAll('_', ' ')}
-                    //                                     state={filterState}
-                    //                                     setter={setFilterState}
-                    //                                     error={filterError}
-                    //                                     options={inputOptions}
-                    //                                     />
                      
                     // this edge case works similarly to the int_select case,
                     // but we hardcode min/max values and manipulate the name prop differently.
@@ -302,7 +294,7 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
                                                                 state={filterState[1]}
                                                                 setter={setFilterState[1]}
                                                                 error={filterError}
-                                                                min={2}
+                                                                min={1}
                                                                 max={51}
                                                             />
 
@@ -336,9 +328,9 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
 
                                                         </div>
 
-                    // this option covers dropdowns that are populated by a list of strings.
+                    // this option covers dropdowns populated by a list of strings.
                     // think skills, provinces, pronouns, eye color, etc.
-                    // it also covers the order_by dropdown, which is a special case.
+                    // it also covers the order_by dropdown, which is a sort of second-layer filter.
                     :   inputType === 'str_select'  ?  < StringDropdown
                                                             noHelp={true}
                                                             name={name.replaceAll('_', ' ')}
@@ -390,9 +382,9 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
                     // check if it's the age filter, and if so, calculate the birthyear range.
                     else if ( allFilters[i][0] === 'age'           ) { queryFilters.push([  'birthyear', 
                                                                                             // min  birthyear
-                                                                                            new Date().getFullYear() - allFilters[i][1][0]-allFilters[i][1][1], 
+                                                                                            new Date().getFullYear() - allFilters[i][1][0] - allFilters[i][1][1] - 1, 
                                                                                             // max birthyear
-                                                                                            new Date().getFullYear() - allFilters[i][1][0]+allFilters[i][1][1]  
+                                                                                            new Date().getFullYear() - allFilters[i][1][0] + allFilters[i][1][1] + 1 
                                                                                         ]);}
 
                     // for int_select filters, we need the name and two state variables.                                                                    
@@ -427,7 +419,7 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
             // if there are no filters engaged, return an error message.
             // otherwise, clear the error message.
             if (queryFilters.length === 0) { return setErrorMsg('filterless'); }
-            else                           { setErrorMsg(false);               }
+            else                           {        setErrorMsg(false);        }
             
 
             // if the order_by switch is engaged, we neeed to specify
@@ -435,8 +427,8 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
             // note that age is a special case, since birthyear is the column in the database.
             // the presence of a second value in the array indicates descending order to the server.
             const order      =     !orderBySwitch                      ?   null             
-                                 :  orderBy === 'age' && ascending     ?  'birthyear'      
-                                 :  orderBy === 'age'                  ? ['birthyear', true ]
+                                 :  orderBy === 'age' && ascending     ? ['birthyear', true ]     
+                                 :  orderBy === 'age'                  ?  'birthyear'
                                  :  ascending                          ? [ orderBy,    true ]
                                  :                                         orderBy
 
