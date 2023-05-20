@@ -14,7 +14,7 @@ import   Notification    from '../Notification.js';
 import { useState, 
          useEffect  }    from 'react';
         
-import   imdbIcon        from '../../images/imdb_icon.png';
+import   imdbIcon        from '../../images/imdb_icon.svg';
 
 
 export default function Team ({     

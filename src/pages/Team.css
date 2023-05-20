@@ -72,11 +72,7 @@
         /* border: 3px aqua ridge; */
     }
 
-    .imdbIcon {
-        height: 4vmin;
-        margin: 0 2vmin 0 1vmin;
-        /* border: 3px red ridge; */
-    }
+   
 
 
     .boardNameLevel {
@@ -483,7 +479,5 @@
                 height: 27vw;
             }
 
-        .imdbIcon {
-            height: 8vmin;
-        }
+   
     }

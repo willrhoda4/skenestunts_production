@@ -155,22 +155,23 @@ export default function PosterBarn ({setCurrentData, getData, gopher}) {
                                                     Axios.post(`${gopher}server/getPoster/`, { imdbId: newFlicks[i] })
                                                     .then(res => {      
 
-                                                           res.status  === 400                ? setUpdateLog(updateLog => [...updateLog, <Notification type='bad'  msg={`There was an error retrieving a poster. Try again and, if the problem persists, call your guy.`}   />])
-                                                        :  res.data[2] === 'no poster'        ? setUpdateLog(updateLog => [...updateLog, <Notification type='bad'  msg={`Couldn't find a poster for ${res.data[0]}.`}                                                        />])
-                                                        :                                       newPoster(res.data);   
+                                                            // if there's an error, put up a notification, else add the data to the database.
+                                                            // if no poster is found, an entry with 'no poster' will be provided for image_url, to prevent repeat searches.
+                                                           res.status  === 400      ? setUpdateLog(updateLog => [...updateLog, <Notification type='bad'  msg={`There was an error retrieving a poster. Try again and, if the problem persists, call your guy.`}   />])
+                                                                                    : newPoster(res.data);   
                                                         })
                                                 )
                                             }
 
                                             // when all the promises are fulfilled, end the update. You made it!
-                                            Promise.all(promises).then(   () => endUpdate('good') )
-                                                                 .catch( err => setUpdateLog(updateLog => [ ...updateLog, 
+                                            Promise.all(promises).catch( err => setUpdateLog(updateLog => [ ...updateLog, 
                                                                                                             <Notification type='bad'  
                                                                                                                            msg={`There was a problem getting your posters: \n\n${err}`}   
                                                                                                             />
                                                                                                           ]
                                                                                             )  
-                                                                       ); 
+                                                                       )
+                                                               .finally(   () => endUpdate('good')   ); 
                                 }
                             // catch blocks on catch blocks on catch blocks                   
                             }).catch(err => console.log(err))
