@@ -46,13 +46,13 @@ import   logoS               from './images/logoSWhite.png';
 
 const                   lazyLoad = (path) => lazy(() => import(path));
 
-const Contact         = lazyLoad( './pages/Contact'            ); 
-const Gallery         = lazyLoad( './pages/Gallery'            );
-const Team            = lazyLoad( './pages/Team'               );
-const Reels           = lazyLoad( './pages/Reels'              );
-const Media           = lazyLoad( './pages/Media'              );
-const Admin           = lazyLoad( './pages/Admin'              );
-const UpdatePerformer = lazyLoad( './pages/UpdatePerformer'    );
+const Contact         = lazyLoad( './pages/Contact'         ); 
+const Gallery         = lazyLoad( './pages/Gallery'         );
+const Team            = lazyLoad( './pages/Team'            );
+const Reels           = lazyLoad( './pages/Reels'           );
+const Media           = lazyLoad( './pages/Media'           );
+const Admin           = lazyLoad( './pages/Admin'           );
+const UpdatePerformer = lazyLoad( './pages/UpdatePerformer' );
 
 const Construction    = lazyLoad( './components/Construction'  );  
 const PasswordReset   = lazyLoad( './components/PasswordReset' );
@@ -329,9 +329,9 @@ export default function App() {
 
 
 
-  function lazyComponent(component) {
+  function lazyComponent(Component) {
     
-    return <Suspense fallback={<Loader />} >{component} </Suspense>
+    return <Suspense fallback={<Loader />} ><Component /> </Suspense>
   }
   
 
@@ -365,7 +365,7 @@ export default function App() {
                                                             <Route path={['/', '/info']}   element={               <Info                      photoData={photoData}
                                                                                                                                                  faqRef={faqRef}                             
                                                                                                                                                 getData={getData}                />   } />    
-{/*                                                                           
+                                                                          
                                                             <Route path='/contact'         element={ lazyComponent(<Contact            performerOptions={performerOptions()} 
                                                                                                                                          performerClass={performerClass} 
                                                                                                                                       setPerformerClass={setPerformerClass}
@@ -399,7 +399,7 @@ export default function App() {
                                                                                                                                             adminStatus={adminStatus}
                                                                                                                                          setAdminStatus={setAdminStatus}
                                                                                                                                                 getData={getData} 
-                                                                                                                                                    url={url}                     />) } />  */}
+                                                                                                                                                    url={url}                     />) } /> 
                                                           </Routes>
                                   
                                                         </div>
