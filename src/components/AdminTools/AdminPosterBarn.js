@@ -128,10 +128,14 @@ export default function PosterBarn ({setCurrentData, getData, gopher}) {
                                             // once the poster_gopher gets back to us with the facts.
                                             const newPoster = (data) => {
 
-                                                Axios.post( `${process.env.REACT_APP_API_URL}newPoster`, data )
-                                                     .then( res =>  { setUpdateLog(updateLog => [...updateLog, <Notification type='good' msg={`A poster for ${data[0]} was added to the database.`} /> ] ) } )
-                                                    .catch( err =>  { setUpdateLog(updateLog => [...updateLog, <Notification type='bad'  msg={`There was an error adding a poster for ${data[0]} to the database.`} /> ] ) } )
+                                                const wrappedUp   = data[2] !== 'no poster'   ?   <Notification type='good' msg={`A poster for ${data[0]} was added to the database.`}                />
+                                                                                              :   <Notification type='bad'  msg={`Couldn't find a poster for ${data[0]}.`            }                />
 
+                                                const posterError =                               <Notification type='bad'  msg={`There was an error adding a poster for ${data[0]} to the database.`} />
+
+                                                Axios.post( `${process.env.REACT_APP_API_URL}newPoster`, data )
+                                                     .then( res =>  { setUpdateLog(updateLog => [...updateLog, wrappedUp   ] ) } )
+                                                    .catch( err =>  { setUpdateLog(updateLog => [...updateLog, posterError ] ) } )
 
                                             }
 
