@@ -133,7 +133,7 @@ export default function AdminFormMisc ({ table, loadData, currentData, setCurren
             />
         
 
-            {       uploadStatus === 'uploading' ? <Notification type='wait' msg='Uploading background. This should only take a second...' />
+            {       uploadStatus === 'uploading' ? <Notification type='wait' msg='Uploading background. This might take a minute...' />
                 :   uploadStatus === 'error'     ? <Notification type='bad'  msg='The background needs to be .jpeg formatted.' />
                 :   uploadStatus === 'httpError' ? <Notification type='bad'  msg='Looks like there was a network error. Try refreshing the page and reattempting.' />
                 :   uploadStatus === 'uploaded'  ? <Notification type='wait' msg='Image successfully uploaded. Nowe we just need to catologue it in your database...' />

@@ -96,6 +96,8 @@ export default function TeamForm({loadData, currentData, table, columns, update,
     const [ poster8Error,       setPoster8Error       ]  =  useState(false);
     const [ poster9Error,       setPoster9Error       ]  =  useState(false);
     const [ poster10Error,      setPoster10Error      ]  =  useState(false);
+    
+    const [ duplicateError,     setDuplicateError     ]  =  useState(false);
 
     // notification state
     const [ uploadStatus,       setUploadStatus       ] = useState(false);
@@ -236,6 +238,21 @@ export default function TeamForm({loadData, currentData, table, columns, update,
 
 
 
+    //checks for duplicate posters
+    const teamPosters   = [ poster1, poster2, poster3, poster4, poster5  ];
+    const extraPosters  = [ poster6, poster7, poster8, poster9, poster10 ];
+    const boardPosters  =   teamPosters.concat(extraPosters);
+
+    const posters       =   board ? boardPosters : teamPosters;
+    const uniquePosters =   new Set(posters);
+
+    useEffect(() => {
+
+        uniquePosters.size !== posters.length  ? setDuplicateError(true)
+                                               : setDuplicateError(false);
+
+    }, [posters, uniquePosters.size])
+
 
     // lines everything up for poster dropdowns
     const posterGear = [
@@ -301,7 +318,7 @@ export default function TeamForm({loadData, currentData, table, columns, update,
                                 poster2Error    ||    
                                 poster3Error    ||    
                                 poster4Error    ||    
-                                poster5Error    
+                                poster5Error
                             )
                         )))                      { return setUploadStatus('error');    }
 
@@ -327,9 +344,12 @@ export default function TeamForm({loadData, currentData, table, columns, update,
                                 poster7Error    ||    
                                 poster8Error    ||    
                                 poster9Error    ||    
-                                poster10Error   
+                                poster10Error 
                             )
                         )))                      { return setUploadStatus('error');      }
+
+        // duplicate posters aren't allowed, and will cause display issues.
+        else if ( duplicateError )               { return setUploadStatus('duplicate');  }
 
 
         // for new profiles and updates with new images, 
@@ -457,18 +477,7 @@ export default function TeamForm({loadData, currentData, table, columns, update,
                                         sendData(columns, parameters).then( res => cleanUp()    )
                                                                     .catch( err => failure(err) ); 
                                     }
-                                                                
-
-
-
-
-
-
-
-
-                    
-        
-        
+                                                        
         
     }
 
@@ -695,18 +704,23 @@ export default function TeamForm({loadData, currentData, table, columns, update,
                 <button className='formButton' 
                              type="submit" 
                             style={{marginBottom: '2.5em'}}
-                          onClick={(e) => uploadProfile(e)}>{ publish ? 'Post Profile' : 'Update Data' }</button>
+                          onClick={(e) => uploadProfile(e)}>{ publish ? 'Post Profile' 
+                                                            : update  ? 'Update Data'
+                                                            :           'Save Data'                         
+                                                            }
+                </button>
 
                 {/* Notifications are displayed based on the uploadStatus state. */}
-                {       uploadStatus === 'uploading'     ? <Notification type='wait' msg='Uploading profile. This should only take a second...' />
-                    :   uploadStatus === 'error'         ? <Notification type='bad'  msg='Seems like something is filled out wrong. Make sure all lights are shining green before you try again.' />
-                    :   uploadStatus === 'submin'        ? <Notification type='bad'  msg='Name, email and IMDB ID are mandatory fields (even for drafts).' />
-                    :   uploadStatus === 'imageError'    ? <Notification type='bad'  msg='Looks like you still need to select a headshot.' />
-                    :   uploadStatus === 'dataError'     ? <Notification type='bad'  msg='A data error has occured. Try refreshing the page and reattempting.' />
-                    :   uploadStatus === 'httpError'     ? <Notification type='bad'  msg='A network error has occured. Try refreshing the page and reattempting.' />
-                    :   uploadStatus === 'added'         ? <Notification type='good' msg='New profile successfully added to database!' />
-                    :   uploadStatus === 'updated'       ? <Notification type='good' msg='Profile successfully updated!' />
-                    :                                      null
+                {       uploadStatus === 'uploading'         ? <Notification type='wait' msg='Uploading profile. This should only take a second...' />
+                    :   uploadStatus === 'duplicate'         ? <Notification type='bad'  msg='Duplicate posters are a no go. No matter how much you loved that movie.' />
+                    :   uploadStatus === 'error'             ? <Notification type='bad'  msg='Seems like something is filled out wrong. Make sure all lights are shining green before you try again.' />
+                    :   uploadStatus === 'submin'            ? <Notification type='bad'  msg='Name, email and IMDB ID are mandatory fields (even for drafts).' />
+                    :   uploadStatus === 'imageError'        ? <Notification type='bad'  msg='Looks like you still need to select a headshot.' />
+                    :   uploadStatus === 'dataError'         ? <Notification type='bad'  msg='A data error has occured. Try refreshing the page and reattempting.' />
+                    :   uploadStatus === 'httpError'         ? <Notification type='bad'  msg='A network error has occured. Try refreshing the page and reattempting.' />
+                    :   uploadStatus === 'added'             ? <Notification type='good' msg='New profile successfully added to database!' />
+                    :   uploadStatus === 'updated'           ? <Notification type='good' msg='Profile successfully updated!' />
+                    :                                           null
                 }
             </div>
     )
