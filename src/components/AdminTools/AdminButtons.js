@@ -16,7 +16,6 @@ import Axios            from 'axios';
 
 
 export default function AdminButtons ({ id,
-                                        url, 
                                         rank, 
                                         data, 
                                         index,
@@ -52,7 +51,7 @@ export default function AdminButtons ({ id,
 
         let warning = 'Are you sure you want to delete this item from the database?';
 
-        window.confirm(warning) &&  Axios.post(`${url}deleteData`,  [ reqTable, pkName, id, rank ])
+        window.confirm(warning) &&  Axios.post(`${process.env.REACT_APP_API_URL}deleteData`,  [ reqTable, pkName, id, rank ])
                                          .then(res => { console.log(res); loadData(table) });   
     }
 
@@ -62,7 +61,7 @@ export default function AdminButtons ({ id,
     function demoteItem () {
 
                 
-        Axios.post(`${url}reRankData`,  [ reqTable, pkName, id, rank, rank-1 ] )  
+        Axios.post(`${process.env.REACT_APP_API_URL}reRankData`,  [ reqTable, pkName, id, rank, rank-1 ] )  
              .then(  res => { console.log(res); loadData(table);  }                               )
              .catch( err => console.log(err)                                                      );  
   
@@ -73,7 +72,7 @@ export default function AdminButtons ({ id,
     function promoteItem () {
 
         
-        Axios.post(`${url}reRankData`,  [ reqTable, pkName, id, rank, rank+1 ])
+        Axios.post(`${process.env.REACT_APP_API_URL}reRankData`,  [ reqTable, pkName, id, rank, rank+1 ])
              .then(  res => { console.log(res); loadData(table); }                               )
              .catch( err => console.log(err)                                                     );  
      
@@ -102,7 +101,7 @@ export default function AdminButtons ({ id,
                     token:    token 
             };
 
-            Axios.post(`${url}email`, inviteBody                         )
+            Axios.post(`${process.env.REACT_APP_API_URL}email`, inviteBody                         )
                  .then(  res =>   setFloatingNotification('emailSent')   )             
                  .catch( err =>   setFloatingNotification('emailError')  );
         }
@@ -117,7 +116,7 @@ export default function AdminButtons ({ id,
         const warning = `Confirm that you're ok with sending this team member an invite to Skene Stunts Director's Chair`;
 
 
-        window.confirm(warning) &&  Axios.post(`${url}registerReset`,  reqBody                                      )
+        window.confirm(warning) &&  Axios.post(`${process.env.REACT_APP_API_URL}registerReset`,  reqBody                                      )
                                          .then( res =>   { console.log(res.data); inviteEmail(res.data[0].token); } )
                                         .catch( err =>     setFloatingNotification('emailError')                    );
      
@@ -127,7 +126,7 @@ export default function AdminButtons ({ id,
     // copies a link to the faq item to the clipboard
     function copyLink () {
 
-        navigator.clipboard.writeText(`${url}info?faq=`+cssId);
+        navigator.clipboard.writeText(`${process.env.REACT_APP_API_URL}info?faq=`+cssId);
     }
 
 

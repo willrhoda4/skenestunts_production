@@ -14,7 +14,7 @@ import   Notification from '../Notification.js';
 
 // a whole lot of mechanical and not much bodywork.
 // the PosterBarn is a tool for perusing and updating posters in the database.
-export default function PosterBarn ({setCurrentData, getData, gopher, url}) {
+export default function PosterBarn ({setCurrentData, getData, gopher}) {
 
     
     // the update log is a list of notifications that are displayed to the user as the update process progresses.
@@ -35,7 +35,7 @@ export default function PosterBarn ({setCurrentData, getData, gopher, url}) {
         // bespoke endpoint makes retrieval a breeze.
         function getLetterPosters (letter) {
             
-            Axios.post(  `${url}getPostersByLetter`, [letter]        )
+            Axios.post(  `${process.env.REACT_APP_API_URL}getPostersByLetter`, [letter]        )
                  .then(  res =>   setCurrentData(res.data)           )
                  .catch( err => { console.log(err); throwError(); }  );
         }   
@@ -128,7 +128,7 @@ export default function PosterBarn ({setCurrentData, getData, gopher, url}) {
                                             // once the poster_gopher gets back to us with the facts.
                                             const newPoster = (data) => {
 
-                                                Axios.post( `${url}newPoster`, data )
+                                                Axios.post( `${process.env.REACT_APP_API_URL}newPoster`, data )
                                                      .then( res =>  { setUpdateLog(updateLog => [...updateLog, <Notification type='good' msg={`A poster for ${data[0]} was added to the database.`} /> ] ) } )
                                                     .catch( err =>  { setUpdateLog(updateLog => [...updateLog, <Notification type='bad'  msg={`There was an error adding a poster for ${data[0]} to the database.`} /> ] ) } )
 

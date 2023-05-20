@@ -18,7 +18,7 @@ import Notification      from '../components/Notification.js';
 
 
 
-export default function UpdatePerformer({performerOptions, performerClass, setPerformerClass, getData, url}) {
+export default function UpdatePerformer({performerOptions, performerClass, setPerformerClass, getData}) {
 
 
 
@@ -69,17 +69,16 @@ export default function UpdatePerformer({performerOptions, performerClass, setPe
                 {      !performerData &&   token        ?   <Notification type='wait' msg='Hang tight while we get you logged in...'                               />
                     :   performerData === 'expired'     ?   <Notification type='bad'  msg='Your token has expired. Try resetting your password again.'             /> 
                     :   performerData === 'dataError'   ?   <Notification type='bad'  msg='A databse error has occured. Please try resetting your password again.' /> 
-                    :  !performerData                   ?   <PasswordChecker              table={  'performers'           }
-                                                                                        pwTable={  'performer_passwords'  }
-                                                                                             fk={  'performer_id'         }
-                                                                                     dataSetter={   setPerformerData      }
-                                                                                        getData={   getData               }
-                                                                                            url={   url                   }        
+                    :  !performerData                   ?   <PasswordChecker              table={  'performers'                     }
+                                                                                        pwTable={  'performer_passwords'            }
+                                                                                             fk={  'performer_id'                   }
+                                                                                     dataSetter={   setPerformerData                }
+                                                                                        getData={   getData                         }
                                                             />
-                        :                                   < ContactPerformer     performerOptions={ performerOptions  } 
-                                                                                    performerData={ performerData     } 
-                                                                                    performerClass={ performerClass    }
-                                                                                setPerformerClass={ setPerformerClass }
+                        :                                   < ContactPerformer  performerOptions={  performerOptions                } 
+                                                                                   performerData={  performerData                   } 
+                                                                                  performerClass={  performerClass                  }
+                                                                               setPerformerClass={  setPerformerClass               }
                                                             />
                     }
             </div>

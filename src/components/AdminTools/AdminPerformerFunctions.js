@@ -27,7 +27,7 @@ import   Axios            from 'axios';
 
 // conjures a note form inside performer profiles.
 // this is for internal use only, and is not visible to the public.
-function noteForm (id, note, setter, loadDat, url) {
+function noteForm (id, note, setter, loadDat) {
 
 
     // helper function that updates the note in the database.
@@ -44,7 +44,7 @@ function noteForm (id, note, setter, loadDat, url) {
         // update the database.
         // the response will be handled by the notification component,
         // but the note itself won't refresh until another query is made.
-        Axios.put( `${url}updateData`, [ 'performers', ['admin_notes'], [note], [['performer_id', id ]] ] )
+        Axios.put( `${process.env.REACT_APP_API_URL}updateData`, [ 'performers', ['admin_notes'], [note], [['performer_id', id ]] ] )
              .then(  res => { setNote('noted');   })
              .catch( err => { setNote('error');   });             
     }
@@ -86,12 +86,12 @@ function noteForm (id, note, setter, loadDat, url) {
 
 // give performer the axe after confirming that user wouldn't
 // rather just make them a class F, which might do more damage.
-function deletePerformer (id, loadData, url) {
+function deletePerformer (id, loadData) {
 
     const warning = `Are you sure you don't just want to make this performer a class F? Proceeding will totally delete them from your database.`;
     
     // eslint-disable-next-line no-restricted-globals
-    window.confirm(warning) &&  Axios.post(`${url}deleteData`, [ 'performers', 'performer_id', id ])
+    window.confirm(warning) &&  Axios.post(`${process.env.REACT_APP_API_URL}deleteData`, [ 'performers', 'performer_id', id ])
                                      .then(  res => { loadData('performers');             })
                                      .catch( err => { console.log(err);                   })
 }
@@ -101,7 +101,7 @@ function deletePerformer (id, loadData, url) {
 
 // allows admin and bnoard to reclassify a performer
 // according to their relationship with the company.
-function updateClass (id, url) {
+function updateClass (id) {
 
     let newClass  = document.getElementById('newPerformerClass'+id).value;
     let classIcon = document.getElementById('updateClassIcon'+id  );
@@ -109,7 +109,7 @@ function updateClass (id, url) {
 
     classIcon.className = 'adminPerformerIcon updating';
 
-    Axios.put(`${url}updateData`, [ 'performers', [' performer_class' ], [ newClass ], [[ 'performer_id', id ]] ])
+    Axios.put(`${process.env.REACT_APP_API_URL}updateData`, [ 'performers', [' performer_class' ], [ newClass ], [[ 'performer_id', id ]] ])
          .then(  res => { 
                           classIcon.style.display = 'none';
                           checkIcon.style.display = 'inline';   
@@ -123,11 +123,11 @@ function updateClass (id, url) {
 
 // triggers a python script that counts the number of
 // stunt credits a performer has on IMDB.
-function countCredits (id, setter, url) {
+function countCredits (id, setter) {
 
     setter('counting');
 
-    Axios.post(`${url}`, [[id]]                     )
+    Axios.post(`${process.env.REACT_APP_API_URL}`, [[id]]                     )
          .then(  res => { setter(res.data[0]);     })
          .catch( err => { console.log(err);        })
 }
@@ -140,7 +140,7 @@ function countCredits (id, setter, url) {
 
 // summons a simple email form so that admin can reach out to performers
 // without having to leave the page.
-function emailForm (id, email, status, setter, inputStyle, formStyle, url) {
+function emailForm (id, email, status, setter, inputStyle, formStyle) {
 
 
     // helper function that sends the email.
@@ -160,10 +160,10 @@ function emailForm (id, email, status, setter, inputStyle, formStyle, url) {
              !message ){ return setter('blank'); } 
             
         // update the form notification if they aren't blank.
-        setter('sending');                                                      console.log('url ', url);
+        setter('sending');                                                      
             
         // attempt to send the email, and update the form notification accordingly.
-        Axios.post(`${url}email`,  { email, subject, message, type, cc  })
+        Axios.post(`${process.env.REACT_APP_API_URL}email`,  { email, subject, message, type, cc  })
              .then(   res => { setter('done');  console.log(res);       })
              .catch(  err => { setter('error'); console.log(err);       });            
     }

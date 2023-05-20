@@ -32,7 +32,7 @@ import   iconRewind    from '../../images/icon_rewind.svg';
 
 
 // this is the mold that all FormPages are poured into.
-export default function PerformerForm ({performerOptions, performerData, performerClass, setPerformerClass, getData, url}) {
+export default function PerformerForm ({performerOptions, performerData, performerClass, setPerformerClass, getData}) {
 
 
 
@@ -170,7 +170,7 @@ export default function PerformerForm ({performerOptions, performerData, perform
                     :   currentPage === 7  ? <Page7  pageState={pageState7}  setPageState={setPageState7}   />
                     :   currentPage === 8  ? <Page8  pageState={pageState8}  setPageState={setPageState8}   />
                     :   currentPage === 9  ? <Page9  pageState={pageState9}  setPageState={setPageState9}   />
-                    :   currentPage === 10 ? <Page10 pageState={pageState10} setPageState={setPageState10} columns={columns} formState={formState} update={update} newPhotos={newPhotos} setCurrentPage={setCurrentPage} performerClass={performerClass} url={url}/>
+                    :   currentPage === 10 ? <Page10 pageState={pageState10} setPageState={setPageState10} columns={columns} formState={formState} update={update} newPhotos={newPhotos} setCurrentPage={setCurrentPage} performerClass={performerClass} />
                     :   <Notification type='bad' msg='Oops... Looks like there was a problem. Try refreshing your browser and starting over.' />
                     }
                     <div id='performerFormNav'>

@@ -18,7 +18,7 @@ import   TextArea     from '../FormFunctions/TextArea';
 import   Notification from '../Notification';
 
 
-export default function ContactProducer({setContactDisplay, url}) {
+export default function ContactProducer({setContactDisplay}) {
 
 
     const [ name,              setName               ] = useState('');
@@ -85,7 +85,7 @@ export default function ContactProducer({setContactDisplay, url}) {
             let type = 'userEmail' 
       
             // send email to server for delivery        email endpoint expects a req.body object, not an array.
-            Axios.post(`${url}email`, { name, phone, email, subject, message, type }, 
+            Axios.post(`${process.env.REACT_APP_API_URL}email`, { name, phone, email, subject, message, type }, 
                       )
                  .then(res => {  setUploadProgress(res.status);  }
                       );

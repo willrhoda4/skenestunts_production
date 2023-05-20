@@ -18,7 +18,7 @@ import   TextArea      from '../FormFunctions/TextArea.js';
 import   Notification  from '../Notification.js';
 
 
-export default function QuoteForm({  url,
+export default function QuoteForm({  
                                      table,
                                      pkName,
                                      update, 
@@ -63,7 +63,7 @@ export default function QuoteForm({  url,
 
 
         // this is the function that will be called to update both parts of the quote.
-        const updateMisc = (desc, value) => Axios.put(`${url}updateData`, [ 'misc', ['value'], [value], [['description', desc]] ])
+        const updateMisc = (desc, value) => Axios.put(`${process.env.REACT_APP_API_URL}updateData`, [ 'misc', ['value'], [value], [['description', desc]] ])
 
 
         // this is the function that will be called if the update is successful.

@@ -17,7 +17,7 @@ import { useState,
 import   imdbIcon        from '../../images/imdb_icon.png';
 
 
-export default function Team ({     url,
+export default function Team ({     
                                     table,
                                     pkName, 
                                     columns,
@@ -136,7 +136,6 @@ export default function Team ({     url,
                         <div className='adminTeamButtons'>
 
                             <AdminButtons   id={team_id}
-                                            url={url}
                                             rank={rank}
                                             data={currentData}
                                             table={table}
@@ -162,7 +161,6 @@ export default function Team ({     url,
                                                                 columns={columns}
                                                                  update={doubleData}
                                                             adminStatus={adminStatus}
-                                                                    url={url}
                                                 />
 
                                                 {/* five posters for team members, 10 for the board */}

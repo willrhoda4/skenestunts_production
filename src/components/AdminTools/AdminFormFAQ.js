@@ -18,7 +18,7 @@ import   TextArea      from '../FormFunctions/TextArea.js';
 import   Notification  from '../Notification.js';
 
 
-export default function FAQForm({   url,
+export default function FAQForm({   
                                     table,
                                     pkName,
                                     update, 
@@ -91,7 +91,7 @@ export default function FAQForm({   url,
             columnList = columnList.concat( ['rank']               );
             parameters = parameters.concat( [currentData.length+1] );
             
-            Axios.post( `${url}addData`,  ['faq', columnList, parameters]                     )
+            Axios.post( `${process.env.REACT_APP_API_URL}addData`,  ['faq', columnList, parameters]                     )
                  .then(   res => { setFormStatus('uploaded'); loadData(table); }              )
                  .catch(  err =>   setFormStatus('uploadError')                               );
                 

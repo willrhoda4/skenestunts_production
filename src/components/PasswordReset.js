@@ -21,7 +21,7 @@ import Notification    from '../components/Notification.js';
 // this component is the password form for resetting a forgotten password.
 // it can only be accessed via a link sent to the user's email address.
 // don't confuse it with PasswordChecker, which is the form for performer updates and Director's Chair.
-export default function PasswordReset ({getData, url}) {
+export default function PasswordReset ({getData}) {
 
 
 
@@ -185,9 +185,9 @@ export default function PasswordReset ({getData, url}) {
         else  {                                          // clears any previous error messages
                                                          setFormStatus('');
             // sends password reset request to database
-            Axios.post(`${url}resetPassword`, [ id, password1, table, fk ])
-                 .then( res => { setFormStatus('reset');                 })
-                .catch( err => { setFormStatus('resetError')             })
+            Axios.post(`${process.env.REACT_APP_API_URL}resetPassword`, [ id, password1, table, fk ])
+                 .then( res => { setFormStatus('reset');                                           })
+                .catch( err => { setFormStatus('resetError')                                       })
         }
     }
 

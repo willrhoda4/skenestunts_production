@@ -20,7 +20,7 @@ import   Notification  from '../Notification.js';
 
 
 
-export default function ReelForm({loadData, currentData, setCurrentData, table, columns, update, pkName, url}) {
+export default function ReelForm({loadData, currentData, setCurrentData, table, columns, update, pkName}) {
 
 
     const [ title,             setTitle             ] = useState('');
@@ -89,7 +89,7 @@ export default function ReelForm({loadData, currentData, setCurrentData, table, 
             columnList = columnList.concat( ['rank']               );
             parameters = parameters.concat( [currentData.length+1] );
             
-            Axios.post( `${url}addData`,  [table, columnList, parameters]                    )
+            Axios.post( `${process.env.REACT_APP_API_URL}addData`,  [table, columnList, parameters]                    )
                  .then(  res => { setFormStatus('uploaded'); loadData(table); }              )
                  .catch( err =>   setFormStatus('uploadError')                               );
              
@@ -97,7 +97,7 @@ export default function ReelForm({loadData, currentData, setCurrentData, table, 
 
             // if this is an update, add the primary key name and value to the end of the 
             // request body, as a filter.
-            Axios.put( `${url}updateData`, [ table, columnList, parameters, [[ pkName, update.at(-1)]] ])
+            Axios.put( `${process.env.REACT_APP_API_URL}updateData`, [ table, columnList, parameters, [[ pkName, update.at(-1)]] ])
                                                                     .then(  res => { 
                                                                                         console.log(res);
                                                                                         loadData(table); 
