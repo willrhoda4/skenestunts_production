@@ -329,10 +329,9 @@ export default function App() {
 
 
 
-  function lazyComponent (route) {
-
-    return <Suspense fallback={<Loader/>} > {route} </Suspense>
-     
+  function lazyComponent(component) {
+    
+    return <Suspense fallback={<Loader />} >{component} </Suspense>
   }
   
 
@@ -363,48 +362,44 @@ export default function App() {
                                                         <div id="main" ref={mainRef}>
                                   
                                                           <Routes>
-                                                                           <Route path='/'                element={<Info                      photoData={photoData}
+                                                            <Route path={['/', '/info']}   element={               <Info                      photoData={photoData}
                                                                                                                                                  faqRef={faqRef}                             
-                                                                                                                                                getData={getData}                />   } />  
+                                                                                                                                                getData={getData}                />   } />    
                                                                           
-                                                                           <Route path='/info'            element={<Info                      photoData={photoData}
-                                                                                                                                                 faqRef={faqRef}  
-                                                                                                                                                getData={getData}                />   } />  
-                                                                          
-                                                        {   lazyComponent( <Route path='/contact'         element={<Contact            performerOptions={performerOptions()} 
+                                                            <Route path='/contact'         element={ lazyComponent(<Contact            performerOptions={performerOptions()} 
                                                                                                                                          performerClass={performerClass} 
                                                                                                                                       setPerformerClass={setPerformerClass}
                                                                                                                                                 getData={getData}
-                                                                                                                                                    url={url}                    />   } /> )}
+                                                                                                                                                    url={url}                    />)  } /> 
                                                             
-                                                        {   lazyComponent( <Route path='/gallery'         element={<Gallery                   photoData={photoData}              />   } /> )}
+                                                            <Route path='/gallery'         element={ lazyComponent(<Gallery                   photoData={photoData}              />)  } /> 
                                                             
-                                                        {   lazyComponent( <Route path='/reels'           element={<Reels                       getData={getData}                />   } /> )}
+                                                            <Route path='/reels'           element={ lazyComponent(<Reels                       getData={getData}                />)  } /> 
                                                                   
-                                                        {   lazyComponent( <Route path='/media'           element={<Media                       getData={getData}                />   } /> )}
+                                                            <Route path='/media'           element={ lazyComponent(<Media                       getData={getData}                />)  } /> 
                                                             
-                                                        {   lazyComponent( <Route path='/team'            element={<Team                      boardData={boardData}
+                                                            <Route path='/team'            element={ lazyComponent(<Team                      boardData={boardData}
                                                                                                                                            boardPosters={boardPosters}
                                                                                                                                                teamData={teamData}
-                                                                                                                                            teamPosters={teamPosters}            />   } /> )}
+                                                                                                                                            teamPosters={teamPosters}            />)  } /> 
                                                             
-                                                        {   lazyComponent( <Route path='/updatePerformer' element={<UpdatePerformer    performerOptions={performerOptions()} 
+                                                            <Route path='/updatePerformer' element={ lazyComponent(<UpdatePerformer    performerOptions={performerOptions()} 
                                                                                                                                          performerClass={performerClass} 
                                                                                                                                       setPerformerClass={setPerformerClass}       
                                                                                                                                                 getData={getData}
-                                                                                                                                                    url={url}                     />  } /> )}
+                                                                                                                                                    url={url}                     />) } /> 
                                                             
-                                                        {   lazyComponent( <Route path='passwordReset'    element={<PasswordReset               getData={getData} 
-                                                                                                                                                   url={url}                      />  } /> )}
+                                                            <Route path='passwordReset'    element={ lazyComponent(<PasswordReset               getData={getData} 
+                                                                                                                                                   url={url}                      />) } /> 
                                                             
-                                                        {   lazyComponent( <Route path='/director'        element={<Admin              performerOptions={performerOptions()} 
+                                                            <Route path='/director'        element={ lazyComponent(<Admin              performerOptions={performerOptions()} 
                                                                                                                                                 editing={editing} 
                                                                                                                                                 posters={posters}
                                                                                                                                              setEditing={setEditing}  
                                                                                                                                             adminStatus={adminStatus}
                                                                                                                                          setAdminStatus={setAdminStatus}
                                                                                                                                                 getData={getData} 
-                                                                                                                                                    url={url}                     />  } /> )}
+                                                                                                                                                    url={url}                     />) } /> 
                                                           </Routes>
                                   
                                                         </div>
