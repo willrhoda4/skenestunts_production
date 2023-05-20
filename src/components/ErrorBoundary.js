@@ -21,6 +21,8 @@ export default function ErrorBoundary  ({ children }) {
 
     const errorHandler = (error) => {
 
+        
+        console.log('boundary ran');
         console.error(error);
         setHasError(true);
     };

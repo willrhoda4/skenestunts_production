@@ -37,7 +37,7 @@ export default function DatePicker ({name, state, setter, error, instructions, n
                     <input  type={'date'}
                             name={name}
                            value={state}
-                        onChange={(e) => setter(e.target.value.slice)}
+                        onChange={(e) => { console.log(e.target.value); setter(e.target.value)}}
                         required 
                     />
 
