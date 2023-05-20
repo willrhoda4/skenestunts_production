@@ -18,7 +18,7 @@ import { useState }     from 'react';
 
 
 
-export default function Reel ({currentData, loadData, table, pkName, columns, url}) {
+export default function Reel ({currentData, loadData, table, pkName, columns}) {
 
 
 
@@ -40,7 +40,6 @@ export default function Reel ({currentData, loadData, table, pkName, columns, ur
 
                         <p>{title}</p>
                         <AdminButtons   id={id}
-                                        url={url}
                                         rank={rank}
                                         index={index}
                                         table={table}
@@ -66,7 +65,6 @@ export default function Reel ({currentData, loadData, table, pkName, columns, ur
                                                                   pkName={pkName}
                                                                  columns={columns}
                                                                   update={reelData}
-                                                                     url={url}
                                             />
                                         </>
                 }

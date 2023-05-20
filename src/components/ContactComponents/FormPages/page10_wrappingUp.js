@@ -18,7 +18,7 @@ import   iconRewind     from '../../../images/icon_rewind.svg';
 
 // Page 10 is the last page of the form. 
 // it collects a password and optional note, then submits the form.
-export default function Page10 ({ url,
+export default function Page10 ({ 
                                   update, 
                                   columns, 
                                   formState, 
@@ -119,7 +119,7 @@ export default function Page10 ({ url,
         // newPerformer request requires a password to be passed in at index 2.
         const newPerformer = () => {
 
-            Axios.post( `${url}newPerformer`, [ columnList, databaseState, password ])
+            Axios.post( `${process.env.REACT_APP_API_URL}newPerformer`, [ columnList, databaseState, password ])
                  .then(   res => { setUploadProgress(res.status); console.log(res);  })
                  .catch(  err => { console.log(err); setUploadProgress(400);         })
                  .finally( () => { setUploading(false);                              });
@@ -130,7 +130,7 @@ export default function Page10 ({ url,
         // updateData request requires a performer_id filter array  to be passed in at index 3.
         const updateProfile = () => {
 
-            Axios.put( `${url}updateData`, ['performers', columnList, databaseState, [['performer_id', update]]])
+            Axios.put( `${process.env.REACT_APP_API_URL}updateData`, ['performers', columnList, databaseState, [['performer_id', update]]])
                  .then(   res => { setUploadProgress(res.status); console.log(res); })
                  .catch(  err => { console.log(err); setUploadProgress(400);        })
                  .finally( () => { setUploading(false);                             });
@@ -148,7 +148,7 @@ export default function Page10 ({ url,
 
                                                                         // onUploadProgress is a function that updates the uploadProgress state
                                                                         // for display in the uploadProgress notification.
-            Axios.post( `${url}performerPhotos`,  fd, {  onUploadProgress: progressEvent => {  
+            Axios.post( `${process.env.REACT_APP_API_URL}performerPhotos`,  fd, {  onUploadProgress: progressEvent => {  
                                                                             setUploadProgress( Math.floor(progressEvent.loaded / progressEvent.total * 100 ) );
                                                                         }
                                                                      }

@@ -13,7 +13,7 @@ import   QuoteForm     from './AdminFormQuote.js';
 
 // since there's a lot happening on the info page,
 // this simple scripts only real job is to render the FAQ and Quote forms.
-export default function InfoForm({  url,
+export default function InfoForm({  
                                     table,
                                     pkName,
                                     update, 
@@ -29,7 +29,6 @@ export default function InfoForm({  url,
 
         <>
             <FAQForm
-                url={url}
                 table={table}
                 pkName={pkName}
                 update={update} 
@@ -40,7 +39,6 @@ export default function InfoForm({  url,
             />
             
             <QuoteForm
-                url={url}
                 table={table}
                 loadData={loadData} 
                 currentData={currentData} 

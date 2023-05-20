@@ -24,7 +24,7 @@ import   Notification     from '../Notification';
 //  I'm leaving it in place in case we need to add more functionality to the
 //  producer contact form in the future, but for now the only real differences
 //  are the field instructions and the reqBody type.
-export default function ContactProducer({setContactDisplay, url}) {
+export default function ContactProducer({setContactDisplay}) {
 
 
 
@@ -97,7 +97,7 @@ export default function ContactProducer({setContactDisplay, url}) {
             let type = 'producerEmail';   
         
                                                     
-            Axios.post( `${url}email`, { name, phone, email, subject, message, type }, 
+            Axios.post( `${process.env.REACT_APP_API_URL}email`, { name, phone, email, subject, message, type }, 
                       )
                  .then( res => {  setUploadProgress(res.status); console.log('status: ' + res.status); }
                       )

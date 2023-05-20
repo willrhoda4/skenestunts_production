@@ -18,7 +18,7 @@ import   Axios          from 'axios';
 
 
 
-export default function AdminFormMisc ({ table, loadData, currentData, setCurrentData, url }) {
+export default function AdminFormMisc ({ table, loadData, currentData, setCurrentData }) {
 
     const [ newBackground,          setNewBackground      ] = useState(false);
     const [ newBackgroundError,     setNewBackgroundError ] = useState(false);
@@ -73,9 +73,9 @@ export default function AdminFormMisc ({ table, loadData, currentData, setCurren
 
         // define the functions that will be used to upload the image to the server,
         // and update the background id in the misc table.
-        const storeBackground = (file)   => Axios.post( `${url}background`, file );
-                                                                                                    console.log(`${url}updatData`);
-        const storeId         = (id)     => Axios.put(  `${url}updateData`, [ table, ['value'], [id], [ ['description', 'background'] ] ]);
+        const storeBackground = (file)   => Axios.post( `${process.env.REACT_APP_API_URL}background`, file );
+                                                                                                  
+        const storeId         = (id)     => Axios.put(  `${process.env.REACT_APP_API_URL}updateData`, [ table, ['value'], [id], [ ['description', 'background'] ] ]);
      
 
 
@@ -98,7 +98,7 @@ export default function AdminFormMisc ({ table, loadData, currentData, setCurren
 
         e.preventDefault();
 
-        const changeMode = (newMode) => Axios.put( `${url}updateData'`, [ table, ['active'], [newMode], [['description', 'construction_mode']] ]);
+        const changeMode = (newMode) => Axios.put( `${process.env.REACT_APP_API_URL}updateData'`, [ table, ['active'], [newMode], [['description', 'construction_mode']] ]);
      
                                                         // throw up a notification to let the user know the mode is updating.
                                                         setModeStatus('updating');

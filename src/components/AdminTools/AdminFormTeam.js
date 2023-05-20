@@ -22,7 +22,7 @@ import   Checkbox       from '../FormFunctions/Checkbox';
 
 
 
-export default function TeamForm({loadData, currentData, table, columns, update, pkName, adminStatus, url}) {
+export default function TeamForm({loadData, currentData, table, columns, update, pkName, adminStatus}) {
 
 
 
@@ -108,12 +108,11 @@ export default function TeamForm({loadData, currentData, table, columns, update,
     // retrieves list of all posters from database and stores in state on initial page load
     useEffect(() => {
 
-        console.log('url ',url);
 
-        Axios.get(`${url}getPosterList`                  )
+        Axios.get(`${process.env.REACT_APP_API_URL}getPosterList`                  )
             .then(  res => { setCredits(res.data); }     )
             .catch( err => { console.log(err);     }     );
-    }, [url])
+    }, [])
 
     
 
@@ -393,11 +392,11 @@ export default function TeamForm({loadData, currentData, table, columns, update,
         // HTTP requests
         const reqTable       = board ? 'board' : 'team';
 
-        const uploadPhotoReq = (data)         => Axios.post(`${url}teamPhoto`,        data                                                     )
+        const uploadPhotoReq = (data)         => Axios.post(`${process.env.REACT_APP_API_URL}teamPhoto`,        data                                                     )
         
-        const uploadDataReq  = (cols, params) => Axios.post(`${url}addData`,     [ reqTable, cols, params, ]                                   )
+        const uploadDataReq  = (cols, params) => Axios.post(`${process.env.REACT_APP_API_URL}addData`,     [ reqTable, cols, params, ]                                   )
                                                                                                          //   'team_id' and  team_id
-        const updateDataReq  = (cols, params) => Axios.put( `${url}updateData`,  [ reqTable, cols, params, [   [ pkName, update.at(-1) ]  ]  ] )
+        const updateDataReq  = (cols, params) => Axios.put( `${process.env.REACT_APP_API_URL}updateData`,  [ reqTable, cols, params, [   [ pkName, update.at(-1) ]  ]  ] )
 
         const sendData       = update ? updateDataReq
                                       : uploadDataReq;

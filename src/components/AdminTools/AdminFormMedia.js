@@ -18,7 +18,7 @@ import DatePicker   from '../FormFunctions/DatePicker.js';
 import Notification from '../Notification.js';
 
 
-export default function MediaForm({loadData, currentData, setCurrentData, table, columns, update, pkName, url}) {
+export default function MediaForm({loadData, currentData, setCurrentData, table, columns, update, pkName}) {
 
 
     const [ headline,        setHeadline        ] = useState('');
@@ -138,14 +138,14 @@ export default function MediaForm({loadData, currentData, setCurrentData, table,
             columnList = columnList.concat( ['rank']               );
             parameters = parameters.concat( [currentData.length+1] );
             
-            Axios.post( `${url}addData`,  [table, columnList, parameters]    )
+            Axios.post( `${process.env.REACT_APP_API_URL}addData`,  [table, columnList, parameters]    )
                     .then(  res => { setFormStatus('uploaded'); loadData(table); }              )
                     .catch( err =>   setFormStatus('uploadError')                               );
                 
         } else {
 
             // if we are updating an existing record, we need to add the primary key to the request body as a filter .
-            Axios.put( `${url}updateData`, [ table, columnList, parameters, [[ pkName, update.at(-1)]] ] )
+            Axios.put( `${process.env.REACT_APP_API_URL}updateData`, [ table, columnList, parameters, [[ pkName, update.at(-1)]] ] )
                                                                     .then(  res => { 
                                                                                         console.log(res);
                                                                                         loadData(table); 

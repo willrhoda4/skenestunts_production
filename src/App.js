@@ -86,15 +86,14 @@ export default function App() {
   
 
   //api url for all requests to server.
-  const url = process.env.REACT_APP_API_URL;
 
 
   // all-terrain multipurpose highly functional trusty data fetcher.
   const getData = useCallback((reqBody) => {
 
-   if (url)  return Axios.post(`${url}getData`, reqBody);
+   return Axios.post(`${process.env.REACT_APP_API_URL}getData`, reqBody);
     
-  }, [url]);  
+  }, []);  
 
 
 
@@ -225,7 +224,7 @@ export default function App() {
 
             const boardMember = posters.length > 5;
 
-            return Axios.post(`${url}getDoublesPosters`, ['posters', 'poster_id', posters])
+            return Axios.post(`${process.env.REACT_APP_API_URL}getDoublesPosters`, ['posters', 'poster_id', posters])
                         .then( res => {        
 
                                             return res.data.map(poster => (
@@ -258,7 +257,7 @@ export default function App() {
     teamData  && !teamPosters  && getPosters( teamData,  setTeamPosters  );
 
    
-  }, [boardData, boardPosters, setBoardPosters, setTeamPosters, teamData, teamPosters, url, editing])
+  }, [boardData, boardPosters, setBoardPosters, setTeamPosters, teamData, teamPosters, editing])
 
 
 
@@ -308,10 +307,10 @@ export default function App() {
                                                                 [ ['description', 'insta_token']  ]
                                                               ];                                               
 
-                                              if (res.data.access_token.length > 0) { return Axios.put(`${url}updateData`, reqBody) }
+                                              if (res.data.access_token.length > 0) { return Axios.put(`${process.env.REACT_APP_API_URL}updateData`, reqBody) }
                                             })
                      }
-  }, [getData, instaToken, url])
+  }, [getData, instaToken])
 
 
   // toggles list of links for navbar based on adminStatus and current path.
@@ -370,8 +369,7 @@ export default function App() {
                                                               <Route path='/contact'         element={<Contact            performerOptions={performerOptions()} 
                                                                                                                           performerClass={performerClass} 
                                                                                                                           setPerformerClass={setPerformerClass}
-                                                                                                                          getData={getData}
-                                                                                                                          url={url}                                   />   } /> 
+                                                                                                                          getData={getData}                           />   } /> 
                                                               
                                                               <Route path='/gallery'         element={<Gallery            photoData={photoData}                       />   } /> 
                                                               
@@ -387,11 +385,9 @@ export default function App() {
                                                               <Route path='/updatePerformer' element={<UpdatePerformer    performerOptions={performerOptions()} 
                                                                                                                           performerClass={performerClass} 
                                                                                                                           setPerformerClass={setPerformerClass}       
-                                                                                                                          getData={getData}
-                                                                                                                          url={url}                                   />  } />
+                                                                                                                          getData={getData}                          />  } />
                                                               
-                                                              <Route path='passwordReset'    element={<PasswordReset      getData={getData} 
-                                                                                                                          url={url}                                   />  } />
+                                                              <Route path='passwordReset'    element={<PasswordReset      getData={getData}                          />  } />
                                                               
                                                               <Route path='/director'        element={<Admin              performerOptions={performerOptions()} 
                                                                                                                           editing={editing} 
@@ -399,8 +395,7 @@ export default function App() {
                                                                                                                           setEditing={setEditing}  
                                                                                                                           adminStatus={adminStatus}
                                                                                                                           setAdminStatus={setAdminStatus}
-                                                                                                                          getData={getData} 
-                                                                                                                          url={url}                                    />  } /> 
+                                                                                                                          getData={getData}                          />  } /> 
 
                                                             </Routes>
 

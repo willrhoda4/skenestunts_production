@@ -13,7 +13,7 @@ import { useState }     from 'react';
 
 
 
-export default function Info  ({    url,
+export default function Info  ({    
                                     table,
                                     pkName, 
                                     columns,
@@ -46,11 +46,10 @@ export default function Info  ({    url,
 
                         <AdminButtons           
                             id={id}
-                            url={url}
-                            cssId={cssId}
                             data={currentData}
                             rank={rank}
                             index={key}
+                            cssId={cssId}
                             table={table}
                             pkName={pkName}
                             loadData={loadData}

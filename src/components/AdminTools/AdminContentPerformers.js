@@ -20,7 +20,7 @@ import   checkIcon         from '../../images/icon_check.svg';
 import   mailClosedIcon    from '../../images/icon_mailClosed.svg';
 import   mailOpenIcon      from '../../images/icon_mailOpen.svg';
 
-import { useState, useEffect }        from 'react';
+import { useState }        from 'react';
 
 import { noteForm, 
          emailForm, 
@@ -30,7 +30,7 @@ import { noteForm,
 
 
 
-export default function Performers ({  currentData, loadData, adminStatus, boardMember, gopher, url  }) { 
+export default function Performers ({  currentData, loadData, adminStatus, boardMember, gopher  }) { 
 
 
     const [ adminNote,     setAdminNote   ] = useState(false);
@@ -44,7 +44,6 @@ export default function Performers ({  currentData, loadData, adminStatus, board
     // wrangles email addresses for all search results into a comma-separated string for the 'mailto' link.
     const   groupEmails                     = currentData.map( double => double.email ).join(', ');
 
-    useEffect(() => console.log('performerurl ',url));
 
     
     function makePerformer (performer, index) {
@@ -321,7 +320,7 @@ export default function Performers ({  currentData, loadData, adminStatus, board
                         
                     {/* Layer 5: Note Form – this is used to add admin notes to a profile. 
                         It's hidden by default, and  appears when the note icon below is clicked. */}
-                    {   noting && noteForm(performer_id, adminNote, setAdminNote, loadData, url) }
+                    {   noting && noteForm(performer_id, adminNote, setAdminNote, loadData) }
 
 
 
@@ -345,7 +344,7 @@ export default function Performers ({  currentData, loadData, adminStatus, board
                                 <img className='adminPerformerIcon' 
                                     alt='delete user icon' 
                                     src={deleteUserIcon} 
-                                onClick={() => deletePerformer(performer_id, loadData, url) }
+                                onClick={() => deletePerformer(performer_id, loadData) }
                                 /> 
                         }         
                         
@@ -393,7 +392,7 @@ export default function Performers ({  currentData, loadData, adminStatus, board
                                                                 id={'updateClassIcon'+performer_id}
                                                             alt='refresh icon' 
                                                             src={refreshIcon} 
-                                                        onClick={() => updateClass(performer_id, url) }
+                                                        onClick={() => updateClass(performer_id) }
                                                     />
 
 
@@ -477,7 +476,7 @@ export default function Performers ({  currentData, loadData, adminStatus, board
 
 
                     {/* Layer 7: The Email Form – appears when email icon is clicked. */}
-                    {  emailStatus && emailForm(performer_id, email, emailStatus, setEmailStatus, null, null, url)  }
+                    {  emailStatus && emailForm(performer_id, email, emailStatus, setEmailStatus, null, null)  }
 
                 </div>
 
@@ -519,8 +518,7 @@ export default function Performers ({  currentData, loadData, adminStatus, board
                                              {  color:'white', 
                                                 borderBottom: '2px white ridge'
                                              },
-                                             {  boxShadow: 'rgba(255, 255, 255, 0.35) 0px -50px 36px -28px inset' },
-                                             url
+                                             {  boxShadow: 'rgba(255, 255, 255, 0.35) 0px -50px 36px -28px inset' }
                                          ) 
                 }
                 </div>

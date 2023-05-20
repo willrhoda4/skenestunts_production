@@ -12,7 +12,7 @@ import { useEffect,
 
 
 // this is the mold that all admin pages are poured into.
-export default function AdminView({ url,
+export default function AdminView({ 
                                     data,
                                     table, 
                                     pkName,
@@ -65,7 +65,6 @@ export default function AdminView({ url,
                                         adminStatus={adminStatus}
                                              gopher={gopher}
                                             posters={posters}
-                                                url={url}
                     />
                 </div>
 
@@ -84,7 +83,6 @@ export default function AdminView({ url,
                                 boardMember={boardMember}
                                     posters={posters} 
                                      gopher={gopher}
-                                        url={url}                      
                     />
                     { sorted &&  <li className='pageEndH3'><h3>Page Bottom</h3></li> }
                 </ul>

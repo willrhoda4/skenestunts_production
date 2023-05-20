@@ -40,7 +40,7 @@ import Misc                from '../components/AdminTools/AdminContentMisc.js';
 
 
 
-export default function Admin({performerOptions, editing, adminStatus, setAdminStatus, posters, getData, url}) {
+export default function Admin({performerOptions, editing, adminStatus, setAdminStatus, posters, getData}) {
 
 
   // api url for poster_gopher. 
@@ -250,7 +250,6 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                                                pwTable={  'board_passwords'  }
                                                                     fk={  'team_id'          }
                                                             dataSetter={   setAuthenticated  }
-                                                                   url={    url              } 
                                                                getData={    getData          }
                                            />
                                          
@@ -262,7 +261,6 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                                                                       table={editing}
                                                                                   AdminForm={AdminFormMisc}
                                                                                   Generator={Misc}
-                                                                                        url={url}
                                                               />  
                               
                               :   editing === 'posters'     ? <AdminView           loadData={loadData} 
@@ -275,7 +273,6 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                                                                     columns={[ 'title', 'imdb_id', 'image_url' ]}
                                                                                      gopher={gopher}
                                                                                     getData={getData}
-                                                                                        url={url}
                                                               />  
                               
                                 : editing === 'media'       ? <AdminView           loadData={loadData} 
@@ -285,7 +282,6 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                                                                   AdminForm={AdminFormMedia}
                                                                                   Generator={Media}
                                                                                     columns={[ 'headline', 'date', 'outlet', 'article_url', 'image_url', 'image_description' ]}
-                                                                                        url={url}
                                                               />
 
                                 : editing === 'info'        ? <AdminView           loadData={loadData} 
@@ -295,7 +291,6 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                                                                   AdminForm={AdminFormInfo}
                                                                                   Generator={Info}
                                                                                     columns={[ 'question', 'answer', 'css_id' ]}
-                                                                                        url={url}
                                                               />
 
                                 : editing === 'reels'       ? <AdminView           loadData={loadData} 
@@ -305,7 +300,6 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                                                                   AdminForm={AdminFormReels}
                                                                                   Generator={Reels}
                                                                                     columns={[ 'title', 'caption', 'embed_code' ]}
-                                                                                        url={url}
                                                               />
 
                                 : editing === 'board'      ? <AdminView            loadData={loadData} 
@@ -317,7 +311,6 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                                                                   Generator={Team}
                                                                                 adminStatus={adminStatus}
                                                                                     columns={boardColumns}
-                                                                                        url={url}
                                                               />
                                  
                                 : editing === 'team'       ? <AdminView            loadData={loadData} 
@@ -329,7 +322,6 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                                                                   Generator={Team}
                                                                                 adminStatus={adminStatus}
                                                                                     columns={teamColumns}
-                                                                                        url={url}
                                                               />
 
                                 : editing === 'performers'  ? <AdminView           loadData={loadData} 
@@ -344,7 +336,6 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                                                                      gopher={gopher}
                                                                            performerOptions={performerOptions}
                                                                                     columns={performerOptions.columns}
-                                                                                        url={url}
                                                               />
 
                                 : editing === 'profile'     ? <AdminView           loadData={loadData} 
@@ -356,7 +347,6 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                                                                   AdminForm={AdminFormTeam}
                                                                                   Generator={Profile}
                                                                                     columns={profileColumns}
-                                                                                        url={url}
                                                                                      update={ currentData[0].hasOwnProperty('email')        &&
                                                                                               profileColumns.map( key => currentData[0][key]  )
                                                                                                             .concat( [authenticated.team_id]  )

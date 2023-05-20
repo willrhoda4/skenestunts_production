@@ -14,7 +14,7 @@ import logo         from '../../images/logo.png'
 
 
 
-export default function Media ({currentData, loadData, table, pkName, columns, url}) {
+export default function Media ({currentData, loadData, table, pkName, columns}) {
 
 
 
@@ -59,7 +59,6 @@ export default function Media ({currentData, loadData, table, pkName, columns, u
 
                         <AdminButtons           
                             id={id}
-                            url={url}
                             data={currentData}
                             rank={rank}
                             index={index}

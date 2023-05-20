@@ -20,7 +20,7 @@ import   iconPlay      from '../images/icon_play.svg'
 
 // this component is the password form for performer updates and Director's Chair.
 // don't confuse it with PasswordReset, which is the form for resetting a forgotten password.
-export default function PasswordChecker({table, pwTable, fk, dataSetter, getData, url}) {
+export default function PasswordChecker({table, pwTable, fk, dataSetter, getData}) {
 
 
     const   location                               = useLocation();
@@ -89,7 +89,7 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
         // dislays loading notification
         setStatus('checking');
 
-        Axios.post(`${url}checkPassword`, [ table, email, pwTable, fk, password ] )
+        Axios.post(`${process.env.REACT_APP_API_URL}checkPassword`, [ table, email, pwTable, fk, password ] )
              .then(  res => {     
                                     // update notification according to response from backend
                                     res.data === 'no match'              ? setStatus('passwordError')
@@ -142,7 +142,7 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
                     token:    token 
             };
 
-            Axios.post(`${url}email`, inviteBody               )
+            Axios.post(`${process.env.REACT_APP_API_URL}email`, inviteBody               )
                  .then(  res => { setStatus('resetReady');   } )
                  .catch( err => { setStatus('programError'); } )
         }
@@ -176,8 +176,8 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
                                                                     // if email is found, register the reset request in the database,
                                                                     // then send the email with the reset link using the resetEmail function.
                                                                     // if there's an error, display error notification.
-                                                                        return Axios.post( `${url}registerReset`, [ reqPwTable, fk, resetId ]    )
-                                                                                    .then(    res => { resetEmail(resetId, res.data[0].token); } ); 
+                                                                        return Axios.post( `${process.env.REACT_APP_API_URL}registerReset`, [ reqPwTable, fk, resetId ]    )
+                                                                                    .then(    res => { resetEmail(resetId, res.data[0].token); }                           ); 
                                                                     }  
                                 else                                {   return setStatus( 'databaseError' );
                                                                     }                 

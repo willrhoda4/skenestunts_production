@@ -22,7 +22,7 @@ import Producer   from '../components/ContactComponents/ContactProducer';
 
 
 
-export default function Contact({performerOptions, performerClass, setPerformerClass, getData, url}) {
+export default function Contact({performerOptions, performerClass, setPerformerClass, getData}) {
 
     
     // tracks currently displayed contact component.
@@ -56,16 +56,15 @@ export default function Contact({performerOptions, performerClass, setPerformerC
             <div id='contactPage'>
                 {backToButton()}
                 <div id='contact' className='page'>
-                    {     contactDisplay === 'producer'     ? <Producer  setContactDisplay={setContactDisplay}
-                                                                                       url={url}  />
+                    {     contactDisplay === 'producer'     ? <Producer  setContactDisplay={setContactDisplay}  />
+
                         : contactDisplay === 'performer'    ? <Performer setPerformerClass={setPerformerClass} 
                                                                           performerOptions={performerOptions}   
                                                                             performerClass={performerClass}
-                                                                                   getData={getData}
-                                                                                       url={url}     />     
-                        : contactDisplay === 'new'          ? <p>redirecting to advice faq...</p>                  // contactDispalay 'new' redirects to faq with id 'advice'.
-                        : contactDisplay === 'email'        ? <Email     setContactDisplay={setContactDisplay}
-                                                                                       url={url}  /> 
+                                                                                   getData={getData}            />     
+                        : contactDisplay === 'new'          ? <p>redirecting to advice faq...</p>                   // contactDispalay 'new' redirects to faq with id 'advice'.
+                        : contactDisplay === 'email'        ? <Email     setContactDisplay={setContactDisplay}  /> 
+
                         :                                     <Options   setContactDisplay={setContactDisplay}  />
                     }
                     
