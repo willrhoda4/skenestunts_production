@@ -329,11 +329,7 @@ export default function App() {
 
 
 
-  function lazyComponent(Component) {
-    
-    return <Suspense fallback={<Loader />} ><Component /> </Suspense>
-  }
-  
+ 
 
 
 
@@ -362,44 +358,52 @@ export default function App() {
                                                         <div id="main" ref={mainRef}>
                                   
                                                           <Routes>
-                                                            <Route path={['/', '/info']}   element={               <Info                      photoData={photoData}
-                                                                                                                                                 faqRef={faqRef}                             
-                                                                                                                                                getData={getData}                />   } />    
-                                                                          
-                                                            <Route path='/contact'         element={ lazyComponent(<Contact            performerOptions={performerOptions()} 
-                                                                                                                                         performerClass={performerClass} 
-                                                                                                                                      setPerformerClass={setPerformerClass}
-                                                                                                                                                getData={getData}
-                                                                                                                                                    url={url}                    />)  } /> 
+                                                            <Route path='/'                element={<Info               photoData={photoData}
+                                                                                                                        faqRef={faqRef}                             
+                                                                                                                        getData={getData}                           />   } />  
                                                             
-                                                            <Route path='/gallery'         element={ lazyComponent(<Gallery                   photoData={photoData}              />)  } /> 
+                                                            <Route path='/info'            element={<Info               photoData={photoData}
+                                                                                                                        faqRef={faqRef}  
+                                                                                                                        getData={getData}                           />   } />  
                                                             
-                                                            <Route path='/reels'           element={ lazyComponent(<Reels                       getData={getData}                />)  } /> 
-                                                                  
-                                                            <Route path='/media'           element={ lazyComponent(<Media                       getData={getData}                />)  } /> 
+                                                            <Suspense fallback={<div>Loading...</div>}>
+
+                                                            <Route path='/contact'         element={<Contact            performerOptions={performerOptions()} 
+                                                                                                                        performerClass={performerClass} 
+                                                                                                                        setPerformerClass={setPerformerClass}
+                                                                                                                        getData={getData}
+                                                                                                                        url={url}                                   />   } /> 
                                                             
-                                                            <Route path='/team'            element={ lazyComponent(<Team                      boardData={boardData}
-                                                                                                                                           boardPosters={boardPosters}
-                                                                                                                                               teamData={teamData}
-                                                                                                                                            teamPosters={teamPosters}            />)  } /> 
+                                                            <Route path='/gallery'         element={<Gallery            photoData={photoData}                       />   } /> 
                                                             
-                                                            <Route path='/updatePerformer' element={ lazyComponent(<UpdatePerformer    performerOptions={performerOptions()} 
-                                                                                                                                         performerClass={performerClass} 
-                                                                                                                                      setPerformerClass={setPerformerClass}       
-                                                                                                                                                getData={getData}
-                                                                                                                                                    url={url}                     />) } /> 
+                                                            <Route path='/reels'           element={<Reels              getData={getData}                           />   } /> 
                                                             
-                                                            <Route path='passwordReset'    element={ lazyComponent(<PasswordReset               getData={getData} 
-                                                                                                                                                   url={url}                      />) } /> 
+                                                            <Route path='/media'           element={<Media              getData={getData}                           />   } /> 
                                                             
-                                                            <Route path='/director'        element={ lazyComponent(<Admin              performerOptions={performerOptions()} 
-                                                                                                                                                editing={editing} 
-                                                                                                                                                posters={posters}
-                                                                                                                                             setEditing={setEditing}  
-                                                                                                                                            adminStatus={adminStatus}
-                                                                                                                                         setAdminStatus={setAdminStatus}
-                                                                                                                                                getData={getData} 
-                                                                                                                                                    url={url}                     />) } /> 
+                                                            <Route path='/team'            element={<Team               boardData={boardData}
+                                                                                                                        boardPosters={boardPosters}
+                                                                                                                        teamData={teamData}
+                                                                                                                        teamPosters={teamPosters}                   />   } /> 
+                                                            
+                                                            <Route path='/updatePerformer' element={<UpdatePerformer    performerOptions={performerOptions()} 
+                                                                                                                        performerClass={performerClass} 
+                                                                                                                        setPerformerClass={setPerformerClass}       
+                                                                                                                        getData={getData}
+                                                                                                                        url={url}                                   />  } />
+                                                            
+                                                            <Route path='passwordReset'    element={<PasswordReset      getData={getData} 
+                                                                                                                        url={url}                                   />  } />
+                                                            
+                                                            <Route path='/director'        element={<Admin              performerOptions={performerOptions()} 
+                                                                                                                        editing={editing} 
+                                                                                                                        posters={posters}
+                                                                                                                        setEditing={setEditing}  
+                                                                                                                        adminStatus={adminStatus}
+                                                                                                                        setAdminStatus={setAdminStatus}
+                                                                                                                        getData={getData} 
+                                                                                                                        url={url}                                    />  } /> 
+                                                              </Suspense>
+
                                                           </Routes>
                                   
                                                         </div>
