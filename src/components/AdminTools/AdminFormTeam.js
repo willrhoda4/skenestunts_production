@@ -604,21 +604,11 @@ export default function TeamForm({loadData, currentData, table, columns, update,
                         instructions='be brief and specific.'
                         noHelp={true}
                     />   
- 
 
-                    {/* Serves up five dropdowns for team members, and 10 for board members plus three attribute inputs and a textarea for bios. */}
-                    {        !board                 && 
-                             !noPosters             &&
-                              credits               ?   <>
-                                                            <h3 style={{margin: '2em 0 1em'}}>Profile Posters</h3>
-                        
-                                                           { posterGear.slice(0,5).map(  (dropdown, index) => posterDropdown(...[...posterGear[index],   index  ]))}
-                                                        </>
 
-                         :   board                 && 
-                            !noPosters             &&
-                             credits               ?   <>
-                                                           < TextField
+                    {/* board members require three attribute inputs and a profile textarea */}
+                    {        board                  &&  <>
+                                                            < TextField
                                                                 name='attribute 1'
                                                                 state={attribute1}
                                                                 setter={setAttribute1}
@@ -658,9 +648,22 @@ export default function TeamForm({loadData, currentData, table, columns, update,
                                                                 noHelp={true}
                                                             /> 
                                                             
+                                                        </>
+                    }
+ 
 
+                    {/* Serves up five dropdowns for team members, and 10 for board members plus three attribute inputs and a textarea for bios. */}
+                    {        !board                 && 
+                             !noPosters             &&
+                              credits               ?   <>
+                                                            <h3 style={{margin: '2em 0 1em'}}>Profile Posters</h3>
+                        
+                                                           { posterGear.slice(0,5).map(  (dropdown, index) => posterDropdown(...[...posterGear[index],   index  ]))}
+                                                        </>
 
-
+                         :   board                 && 
+                            !noPosters             &&
+                             credits               ?   <>
                                                             {   !noPosters &&   <>
                                                                                     <h3 style={{margin: '2em 0 1em'}}>Profile Posters</h3>
 
@@ -673,8 +676,6 @@ export default function TeamForm({loadData, currentData, table, columns, update,
                                                                                     </div>
                                                                                 </>
                                                             }
-
-
                                                        </>
                          
                          :                              null
