@@ -34,7 +34,7 @@ async function headshot (req, res, next) {
     
     const media = {
         mimeType: 'image/jpeg',
-        body: fs.createReadStream(path.join('/tmp', req.files['headshot'][0].filename))
+        body: fs.createReadStream(path.join(req.files['headshot'][0].filename))
     };
     
     driveService.files.create({           resource: fileMetaData,
@@ -64,7 +64,7 @@ async function bodyshot (req, res) {
     
     const media = {
         mimeType: 'image/jpeg',
-        body: fs.createReadStream(path.join('/tmp', req.files['bodyshot'][0].filename))
+        body: fs.createReadStream(path.join(req.files['bodyshot'][0].filename))
     };
     
     driveService.files.create({           resource: fileMetaData,
@@ -100,7 +100,7 @@ async function teamshot (req, res) {
     
     const media = {
         mimeType: 'image/jpeg',
-        body: fs.createReadStream(path.join('/tmp', req.file.path))
+        body: fs.createReadStream(path.join(req.file.path))
     };
     
     driveService.files.create({           resource: fileMetaData,
@@ -134,8 +134,10 @@ async function background (req, res) {
     
     const media = {
         mimeType: 'image/jpeg',
-        body: fs.createReadStream(path.join('/tmp', req.file.path))
+        body: fs.createReadStream(path.join(req.file.path))
     };
+
+ 
     
     driveService.files.create({           resource: fileMetaData,
                                           media,
