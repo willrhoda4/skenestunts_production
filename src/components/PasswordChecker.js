@@ -233,11 +233,11 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
             : status === 'noEmail'          ? <Notification type={'bad'}  msg={`Type in the email you used during signup, so we can send you a reset link.`}        />
             : status === 'emailError'       ? <Notification type={'bad'}  msg={`This email doesn't exist in our database.`}                                         />
             : status === 'deliveryError'    ? <Notification type={'bad'}  msg={`There was a problem delivering your reset link.\n`+
-                                                                               `Please try again and notify us via email form if it persists.`}                  />
+                                                                               `Please try again and notify us via email form if it persists.`}                     />
             : status === 'programError'     ? <Notification type={'bad'}  msg={`There's been a problem with the program.\n`+
-                                                                               `Please try again and notify us via email form if it persists.`}                  />
+                                                                               `Please try again and notify us via email form if it persists.`}                     />
             : status === 'databaseError'    ? <Notification type={'bad'}  msg={`Looks like we're having trouble with our database.\n`+
-                                                                               `Please try again and notify us via email form if it persists.`}                  />
+                                                                               `Please try again and notify us via email form if it persists.`}                     />
             : status === 'loading'          ? <Notification type={'wait'} msg={`Processing your request...`}                                                        />
             : status === 'resetReady'       ? <Notification type={'good'} msg={`A password-reset link has been emailed to you.`}                                    />
             :                                  null

@@ -6,35 +6,48 @@
 
 
 
-import{ useState, useEffect } from 'react';
+import                              './Construction.css';
 
+import{ useState, useEffect } from 'react';
 
 
 
 export default function ErrorBoundary  ({ children }) {
 
 
+    const [hasError, setHasError] = useState(false);
 
-  const [hasError, setHasError] = useState(false);
+    useEffect(() => {
 
-  useEffect(() => {
+        const errorHandler = (error) => {
 
-    const errorHandler = (error) => {
+            
+            console.error(error);
+            setHasError(true);
+        };
 
-        
-        console.log('boundary ran');
-        console.error(error);
-        setHasError(true);
-    };
+        window.addEventListener('error', errorHandler);
 
-    window.addEventListener('error', errorHandler);
+        return () => window.removeEventListener('error', errorHandler);
 
-    return () => window.removeEventListener('error', errorHandler);
+    }, []);
 
-  }, []);
 
-  if (hasError) { return <p>Something went wrong.</p>; }
-  else          { return children;                     }
+    const errorPage = () => {
+
+        <div className='constructionPage'>
+            
+            <h2>Looks like someting went wrong...</h2>/
+
+            {/* <img className='constructionLogo' alt='skene stunts logo' src={logo} />*/}
+
+            <p className='constructionGraf'>Sorry about this. Try refreshing the browser, and if the problem persists send us an email..</p> 
+
+        </div>
+    }
+
+    if (hasError) { return errorPage; }
+    else          { return children;  }
 
   
 };
