@@ -189,37 +189,39 @@ skenstunts.com - The Readme File
 
         The following environment variables need to be configured in production:
 
-            REACT_APP_API_URL=  API URL for requests from the front-end
+            REACT_APP_API_URL=      API URL for requests from the front-end
 
-            URL=                URL for the client-facing site (used to generate password reset links)
+            GDRIVE_CREDENTIALS=     Google Drive credentials stored as a string to dynamically render .json
 
-            EMAIL=              Gmail account to handle email needs
-            EMAILPASS=          Gmail app password
+            URL=                    URL for the client-facing site (used to generate password reset links)
 
-            CLIENT_ID=          Google APIs client ID
-            CLIENT_SECRET=      Google APIs client secret
-            REDIRECT_URI=       Google APIs redirect URI
-            REFRESH_TOKEN=      Google APIs refresh token
+            EMAIL=                  Gmail account to handle email needs
+            EMAILPASS=              Gmail app password
 
-            PERFORMER_IMAGES=   Google Drive ID for performer images folder
-            TEAM_IMAGES=        Google Drive ID for profile photos folder
-            BACKGROUND_IMAGES=  Google Drive ID for background images folder
+            CLIENT_ID=              Google APIs client ID
+            CLIENT_SECRET=          Google APIs client secret
+            REDIRECT_URI=           Google APIs redirect URI
+            REFRESH_TOKEN=          Google APIs refresh token
 
-            DATABASE_URL=       This variable will automatically be set by Heroku in production,
-                                and is automatically updated as account credentials are automatically updated.
+            PERFORMER_IMAGES=       Google Drive ID for performer images folder
+            TEAM_IMAGES=            Google Drive ID for profile photos folder
+            BACKGROUND_IMAGES=      Google Drive ID for background images folder
+
+            DATABASE_URL=           This variable will automatically be set by Heroku in production,
+                                    and is automatically updated as account credentials are automatically updated.
                                 
-                                If you're not using Heroku Postgres, you may need to use 
-                                the PG_ variables below in production.
+                                    If you're not using Heroku Postgres, you may need to use 
+                                    the PG_ variables below in production.
 
 
         The following environment variables can be used to connect locally to a database
         during development (just uncomment the code in database.js):
 
-            PG_USER=            Postgres user for local development
-            PG_HOST=            Postgres host for local development
-            PG_DATABASE=        Postgres database for local development
-            PG_PASSWORD=        Postgres password for local development
-            PG_PORT=            Postgres port for local development
+            PG_USER=                Postgres user for local development
+            PG_HOST=                Postgres host for local development
+            PG_DATABASE=            Postgres database for local development
+            PG_PASSWORD=            Postgres password for local development
+            PG_PORT=                Postgres port for local development
 
 
 
