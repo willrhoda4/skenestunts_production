@@ -124,6 +124,7 @@ async function background (req, res) {
     console.log(req.body);
     console.log(req.file);
 
+    console.log('Background Path =>\n', typeof req.file.path, '\n',req.file.path);
 
     let id;
 
@@ -137,7 +138,6 @@ async function background (req, res) {
         body: fs.createReadStream(req.file.path)
     };
 
-    console.log('Background Path =>\n', typeof req.file.path, '\n',req.file.path);
 
  
     // vvvv Line 144 vvvv
