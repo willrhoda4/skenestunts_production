@@ -17,7 +17,6 @@ const   auth          = new google.auth.GoogleAuth({ keyFile,  scopes });
 const   driveService  = google.drive({version: 'v3', auth});
 
 
-console.log('Keyfile\n',typeof keyFile, keyFile);
 
 
 // receives performer headshot and deposits it in google drive
@@ -122,7 +121,7 @@ async function background (req, res) {
 
     console.log('uploading background...');
     console.log(req.file);
-
+    console.log('Keyfile\n',typeof keyFile, keyFile);
     console.log('Background Path =>\n', typeof req.file.path, '\n',req.file.path);
 
 
