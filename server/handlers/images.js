@@ -145,7 +145,7 @@ async function background (req, res) {
                     }).then(_res => {     console.log('background updated')
                                           console.log(_res.data);
                                           id = _res.data.id
-                                          fs.unlink(req.file.path, (err) => { if (err) {
+                                          fs.unlink(req.file.path, (err) => { if (err) {                            console.log('unlink callback');
                                                                                     console.error(err);
                                                                                     res.status(400).send(err);
                                                                           } else {
@@ -154,7 +154,7 @@ async function background (req, res) {
                                                                                  }
                                           });
                     }).then(_res => {     console.log('code ran: '+ id); res.send(id); 
-                    }).catch(err => {     console.log(err); res.status(400);})
+                    }).catch(err => {     console.log('catch block'); console.log(err); res.status(400);} )
 }
 
 
