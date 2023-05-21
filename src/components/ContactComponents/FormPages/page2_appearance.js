@@ -24,7 +24,8 @@ export default function Page2 ({    rookie,
                                     pageState, 
                                     setNewPhotos,
                                     setPageState, 
-                                    setPageError, 
+                                    setPageError,
+                                    performerClass, 
                                     performerOptions, 
                                     setPerformerClass   }) {
 
@@ -223,13 +224,19 @@ export default function Page2 ({    rookie,
         Non-IMDB members without reels are 'E' class.
     */
     useEffect(() => {
+
+                   // performers already marked as goodbooks/badbooks
+                   // by the team will not be reassigned.
+             if (  performerClass === 'A' ||
+                   performerClass === 'B' ||
+                   performerClass === 'F' ){          return;                 }
         
              if (  noImdb      &&  noReel         ) { setPerformerClass('E'); }
         else if ( !imdbIdError &&  noReel         ) { setPerformerClass('D'); }
         else if ( !imdbIdError && !reelError      ) { setPerformerClass('C'); }
         else                                        { setPerformerClass('R'); }
 
-    }, [imdbIdError, noImdb, noReel, reel, reelError, setPerformerClass])
+    }, [imdbIdError, noImdb, noReel, performerClass, reel, reelError, setPerformerClass])
 
     
     // lines everything up for checkboxes

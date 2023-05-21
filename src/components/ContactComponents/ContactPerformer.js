@@ -69,7 +69,16 @@ export default function PerformerForm ({performerOptions, performerData, perform
     const columns      =  performerOptions.columns
 
     // initiates update state if performerData is passed in
-    useEffect(() => { performerData ? setUpdate(performerData.performer_id) : setUpdate(false); }, [performerData])
+    // performerClass is tracked to make sure that it isn't overwritten if
+    // the user's already been marked by the team as goodbooks/badbooks etc.
+    useEffect(() => { 
+        
+        if (performerData)  {   setUpdate(performerData.performer_id);
+                                setPerformerClass(performerData.performer_id);
+                            }
+        else                {   setUpdate(false);   } 
+    
+    }, [performerData, setPerformerClass])
 
     
     //prepares form state for returning performers updating profile
@@ -161,8 +170,9 @@ export default function PerformerForm ({performerOptions, performerData, perform
             <div id='gap_up_top' style={{height: '5vmin'}} />
 
             <form id='performerForm' className='contactForm'>
-                    {   currentPage === 1  ? <Page1  pageState={pageState1}  setPageState={setPageState1} setPageError={setPageError1} performerOptions={performerOptions} update={update}                                                                                         />
-                    :   currentPage === 2  ? <Page2  pageState={pageState2}  setPageState={setPageState2} setPageError={setPageError2} performerOptions={performerOptions} update={update} newPhotos={newPhotos} setNewPhotos={setNewPhotos} setPerformerClass={setPerformerClass} />
+                    {   currentPage === 1  ? <Page1  pageState={pageState1}  setPageState={setPageState1} setPageError={setPageError1} performerOptions={performerOptions} update={update} />
+                    :   currentPage === 2  ? <Page2  pageState={pageState2}  setPageState={setPageState2} setPageError={setPageError2} performerOptions={performerOptions} update={update} 
+                                                                                newPhotos={newPhotos}     setNewPhotos={setNewPhotos}    performerClass={performerClass}   setPerformerClass={setPerformerClass} />
                     :   currentPage === 3  ? <Page3  pageState={pageState3}  setPageState={setPageState3}   />
                     :   currentPage === 4  ? <Page4  pageState={pageState4}  setPageState={setPageState4}   />
                     :   currentPage === 5  ? <Page5  pageState={pageState5}  setPageState={setPageState5}   />

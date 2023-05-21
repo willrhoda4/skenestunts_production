@@ -52,7 +52,7 @@ function ContactOptions({setContactDisplay}) {
       <ul>
           { optionButton('producer',  'a producer reaching out about a project')                        }
           { optionButton('update',    'returning to update your profile information')                   }
-          { optionButton('performer', 'an experienced stunt performer trying to get in touch')          }
+          { optionButton('performer', 'an experienced stunt performer getting in touch')                }
           { optionButton('new',       'an aspiring stunt performer looking to get into the business')   }
           { optionButton('email',     'somebody else who just needs an email form')                     }
       </ul>
