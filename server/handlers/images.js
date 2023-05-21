@@ -128,38 +128,41 @@ async function background (req, res) {
     console.log(req.file);
   
 
-
     let id;
+
 
     const fileMetaData = {
         'name':     'header_background',
         'parents': [ process.env.BACKGROUND_IMAGES ]
     };
     
+
     const media = {
         mimeType: 'image/jpeg',
         body: fs.createReadStream(req.file.path)
     };
 
 
- 
-    // vvvv Line 144 vvvv
-    driveService.files.create({           resource: fileMetaData,
-                                          media,
-                                          fields: 'id'
-                    }).then(_res => {     console.log('background updated')
-                                          console.log(_res.data);
-                                          id = _res.data.id
-                                          fs.unlink(req.file.path, (err) => { if (err) {                            console.log('unlink callback');
-                                                                                    console.error(err);
-                                                                                    res.status(400).send(err);
-                                                                          } else {
-                                                                                    console.log('File deleted successfully');
-                                                                                    res.send(id);
-                                                                                 }
-                                          });
-                    }).then(_res => {     console.log('code ran: '+ id); res.send(id); 
-                    }).catch(err => {     console.log('catch block'); console.log(err); res.status(400);} )
+    driveService.files.create(          {           
+                                            resource: fileMetaData,
+                                            media,
+                                            fields: 'id'
+                                        }
+                             )
+                        .then(_res =>   {   
+                                            id = _res.data.id;
+                                            fs.unlink(req.file.path, (err) => { 
+                                                
+                                                if (err) {  console.error(err);
+                                                            res.status(400).send(err);
+                                                         }  
+                                                else     {  console.log('background successfully updated.');
+                                                            res.send(id);
+                                                         }
+                                            });
+                                        }
+                             )
+                       .catch( err  =>  {   console.log(err); res.status(400); }  )
 }
 
 
