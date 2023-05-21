@@ -137,7 +137,7 @@ async function background (req, res) {
     
     const media = {
         mimeType: 'image/jpeg',
-        body: fs.createReadStream(thePath)
+        body: fs.createReadStream(thePath.toString())
     };
 
 
@@ -149,7 +149,14 @@ async function background (req, res) {
                     }).then(_res => {     console.log('background updated')
                                           console.log(_res.data);
                                           id = _res.data.id
-                                          fs.unlink(thePath,  (err) => {   if (err) res.status(400); });
+                                          fs.unlink(thePath.toString(), (err) => { if (err) {
+                                                                                    console.error(err);
+                                                                                    res.status(400).send(err);
+                                                                          } else {
+                                                                                    console.log('File deleted successfully');
+                                                                                    res.send(id);
+                                                                                 }
+                                          });
                     }).then(_res => {     console.log('code ran: '+ id); res.send(id); 
                     }).catch(err => {     console.log(err); res.status(400);})
 }
