@@ -126,6 +126,8 @@ async function background (req, res) {
 
     console.log('Background Path =>\n', typeof req.file.path, '\n',req.file.path);
 
+    let thePath = ''+req.file.path;     console.log('the path => ',thePath,typeof thePath);
+
     let id;
 
     const fileMetaData = {
@@ -135,7 +137,7 @@ async function background (req, res) {
     
     const media = {
         mimeType: 'image/jpeg',
-        body: fs.createReadStream(req.file.path)
+        body: fs.createReadStream(thePath)
     };
 
 
@@ -147,7 +149,7 @@ async function background (req, res) {
                     }).then(_res => {     console.log('background updated')
                                           console.log(_res.data);
                                           id = _res.data.id
-                                          fs.unlink(req.file.path,  (err) => {   if (err) res.status(400); });
+                                          fs.unlink(thePath,  (err) => {   if (err) res.status(400); });
                     }).then(_res => {     console.log('code ran: '+ id); res.send(id); 
                     }).catch(err => {     console.log(err); res.status(400);})
 }
