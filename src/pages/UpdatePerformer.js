@@ -26,6 +26,9 @@ export default function UpdatePerformer({performerOptions, performerClass, setPe
     
     const [ performerData,  setPerformerData ] = useState(null);
 
+
+    // if the user has been sent back with a valid token after a password reset,
+    // then go ahead and put their data in state without asking for credentials.
     useEffect(() => {
 
         const reqBody = ['performer_passwords', [['token', token]], { columns: 'performer_id, reset_at' } ];
@@ -39,19 +42,28 @@ export default function UpdatePerformer({performerOptions, performerClass, setPe
 
                                        const { performer_id, reset_at } = res.data[0];
 
-                                       if (Date.now() - reset_at < 900000) { setPerformerData('expired'); }
+                                       if (Date.now() - reset_at < 900000) { return setPerformerData('expired'); }
 
                                        getData(['performers', [['performer_id', performer_id]]])
-                                            .then(  res =>  {                                     
-                                                                if (res.data.length !== 1) { setPerformerData('dataError'); } console.log(res.data);
-                                                                                             setPerformerData(res.data[0]);
-                                                            }                                                                       )
-                                            .catch( err =>  { console.log(err);              setPerformerData('dataError'); }       )
+                                         .then(  res => {                                     
+                                                                if (res.data.length !== 1) {    setPerformerData('dataError');   } 
+                                                                                               
+                                                                                                setPerformerData(res.data[0]);
+                                                                                                setPerformerClass(res.data[0].performer_class);     
+                                                                                                // performerClass is tracked to make sure that it isn't overwritten if
+                                                                                                 // the user's already been marked by the team as goodbooks/badbooks etc.
+                                                        }                                                                      
+                                              )
+                                        .catch( err =>  {                                       console.log(err);              
+                                                                                                setPerformerData('dataError'); 
+                                                        }
+                                              )
                                     }
-                               }                                                                                                    )
-                .catch( err => { console.log(err); setPerformerData('dataError'); }                                                 )
+                               }                                                                                                   
+                      )
+                .catch( err => { console.log(err); setPerformerData('dataError'); } )
         }
-    }, [getData, token])
+    }, [getData, setPerformerClass, token])
 
 
 

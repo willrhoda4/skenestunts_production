@@ -711,7 +711,7 @@ export default function TeamForm({loadData, currentData, table, columns, update,
                 </button>
 
                 {/* Notifications are displayed based on the uploadStatus state. */}
-                {       uploadStatus === 'uploading'         ? <Notification type='wait' msg='Uploading profile. This should only take a second...' />
+                {       uploadStatus === 'uploading'         ? <Notification type='wait' msg='Uploading profile. This might take a minute...' />
                     :   uploadStatus === 'duplicate'         ? <Notification type='bad'  msg='Duplicate posters are a no go. No matter how much you loved that movie.' />
                     :   uploadStatus === 'error'             ? <Notification type='bad'  msg='Seems like something is filled out wrong. Make sure all lights are shining green before you try again.' />
                     :   uploadStatus === 'submin'            ? <Notification type='bad'  msg='Name, email and IMDB ID are mandatory fields (even for drafts).' />
