@@ -5,7 +5,7 @@
 
 
 
-#constructionPage {
+.constructionPage {
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -15,7 +15,7 @@
     background: whitesmoke;
 }
 
-    #constructionLogo {
+    .constructionLogo {
         height: 40vh;
         width: 50vw;
         filter: brightness(0)
@@ -23,7 +23,7 @@
         margin: 5vh 0;
     }
 
-    #constructionGraf {
+    .constructionGraf {
         font-size: 5vmin;
         width: 60vw;
         text-align: center;
