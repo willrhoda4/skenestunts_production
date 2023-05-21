@@ -28,7 +28,7 @@ const compression   = require('compression' );
                       
 // brace yourself for file uploads
 const storage       = multer.diskStorage(
-                                            { destination:  (req, file, cb) => { cb(null, '/server/uploads')          },
+                                            { destination:  (req, file, cb) => { cb(null, '/app/server/uploads')          },
                                                  filename:  (req, file, cb) => { cb(null, file.originalname)  }
                                             }
                                         )
