@@ -121,8 +121,7 @@ async function background (req, res) {
 
     console.log('uploading background...');
     console.log(req.file);
-    console.log('Keyfile\n',typeof keyFile, keyFile);
-    console.log('Background Path =>\n', typeof req.file.path, '\n',req.file.path);
+  
 
 
     let id;
@@ -134,7 +133,7 @@ async function background (req, res) {
     
     const media = {
         mimeType: 'image/jpeg',
-        body: fs.createReadStream(req.file.path.toString())
+        body: fs.createReadStream(req.file.path)
     };
 
 
@@ -146,7 +145,7 @@ async function background (req, res) {
                     }).then(_res => {     console.log('background updated')
                                           console.log(_res.data);
                                           id = _res.data.id
-                                          fs.unlink(req.file.path.toString(), (err) => { if (err) {
+                                          fs.unlink(req.file.path, (err) => { if (err) {
                                                                                     console.error(err);
                                                                                     res.status(400).send(err);
                                                                           } else {
