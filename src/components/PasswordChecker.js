@@ -21,7 +21,7 @@ import   iconPlay      from '../images/icon_play.svg'
 
 // this component is the password form for performer updates and Director's Chair.
 // don't confuse it with PasswordReset, which is the form for resetting a forgotten password.
-export default function PasswordChecker({table, pwTable, fk, dataSetter, getData}) {
+export default function PasswordChecker({table, pwTable, fk, dataSetter, getData, setPerformerClass}) {
 
 
     const   location                               = useLocation();
@@ -86,6 +86,12 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
     function checkPassword (e) {
 
         e.preventDefault();
+
+        const authenticateUser = (data) => {
+
+            setPerformerClass(data.performer_class);
+            return dataSetter(data);
+        }
         
         // dislays loading notification
         setStatus('checking');
@@ -96,7 +102,7 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
                                            res.data  === 'no match'      ? setStatus('passwordError')
                                 :          res.data  === 'no email'      ? setStatus('emailError')
                                 :          res.data  === 'no password'   ? dataSetter('noPassword')
-                                :   typeof(res.data) === 'object'        ? dataSetter(res.data)
+                                :   typeof(res.data) === 'object'        ? authenticateUser(res.data)
                                 :                                          setStatus('programError');
                                      
                             }
