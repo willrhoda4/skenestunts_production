@@ -7,6 +7,7 @@
 
 
 import                      './PasswordForm.css';
+import                      './AdminTools/AdminTools.css';
 import   TextField     from './FormFunctions/TextField.js';
 import   Notification  from './Notification.js';
 import { useState,
@@ -92,9 +93,9 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
         Axios.post(`${process.env.REACT_APP_API_URL}checkPassword`, [ table, email, pwTable, fk, password ] )
              .then(  res => {     
                                     // update notification according to response from backend
-                                    res.data === 'no match'              ? setStatus('passwordError')
-                                :   res.data === 'no email'              ? setStatus('emailError')
-                                :   res.data === 'no password'           ? dataSetter('noPassword')
+                                           res.data  === 'no match'      ? setStatus('passwordError')
+                                :          res.data  === 'no email'      ? setStatus('emailError')
+                                :          res.data  === 'no password'   ? dataSetter('noPassword')
                                 :   typeof(res.data) === 'object'        ? dataSetter(res.data)
                                 :                                          setStatus('programError');
                                      
