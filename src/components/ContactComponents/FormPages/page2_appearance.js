@@ -223,13 +223,13 @@ export default function Page2 ({    rookie,
         Non-IMDB members with reels are 'R' class.
         Non-IMDB members without reels are 'E' class.
     */
-    useEffect(() => {
+    useEffect(() => {       console.log('performer class => ',performerClass);
 
                    // performers already marked as goodbooks/badbooks
                    // by the team will not be reassigned.
              if (  performerClass === 'A' ||
                    performerClass === 'B' ||
-                   performerClass === 'F' ){          return;                 }
+                   performerClass === 'F'          ){ return;                 }
         
              if (  noImdb      &&  noReel         ) { setPerformerClass('E'); }
         else if ( !imdbIdError &&  noReel         ) { setPerformerClass('D'); }

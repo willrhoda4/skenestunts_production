@@ -201,7 +201,7 @@ export default function Page10 ({
         else if ( uploadProgress ===  -1  ) { return <Notification type='bad'  msg={'Make sure both lights are shining green before you submit.'} />                                           }
 
         // upload in progress  
-        else if ( uploadProgress  <   100 ) { return <Notification type='wait' msg={`Image upload ${uploadProgress}% complete`} />                                                             }
+        else if ( uploadProgress  <   100 ) { return <Notification type='wait' msg={`Image uploads ${uploadProgress}% complete`} />                                                             }
 
         // upload complete, but database still working
         else if ( uploadProgress ===  100 ) { return <Notification type='wait' msg={'Loading profile into database...'} />                                                                     }
