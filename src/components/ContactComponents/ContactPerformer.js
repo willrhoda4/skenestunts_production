@@ -118,9 +118,10 @@ export default function PerformerForm ({performerOptions, performerData, perform
                 ( currentPage === 2 && pageError2)  ) { return setShowErrorMsg('entryError'); }
 
         // if page 1 is error free, check if email is available.
-        else if ( currentPage === 1                 ) {     setShowErrorMsg('emailChecking');
+        else if ( currentPage === 1                 ) {     console.log('nextPage1');
+                                                            setShowErrorMsg('emailChecking');
                                                             getData(['performers', [['email', pageState1[2]]]])
-                                                              .then( res => {   
+                                                              .then( res => {   console.log('nextPageResponded');
                                                                                                                                 // if an existing email is used during a new registration,
                                                                                                                                 // prompt user to update their profile instead.
                                                                                   if (!update &&  res.data.length > 0      ) {  return setShowErrorMsg('newEmailError'); }  
