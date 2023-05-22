@@ -73,14 +73,9 @@ export default function PerformerForm ({performerOptions, performerData, perform
 
 
     // initiates update state if performerData is passed in
-    // performerClass is tracked to make sure that it isn't overwritten if
-    // the user's already been marked by the team as goodbooks/badbooks etc.
     useEffect(() => { 
         
-        if (performerData)  {   setUpdate(performerData.performer_id);
-                                setPerformerClass(performerData.performer_id);
-                            }
-        else                {   setUpdate(false);   } 
+        performerData   ?   setUpdate(performerData.performer_id) :   setUpdate(false); 
     
     }, [performerData, setPerformerClass])
 
