@@ -40,7 +40,7 @@ export default function performerOptions () {
                 union: ['ACTRA', 'UBPC', 'SAG', 'other', 'none'],
                gender: ['cis man', 'cis woman', 'trans man', 'trans woman', 'two-spirit', 'non-binary', 'other', 'prefer not to disclose'],
               columns: columns
-                    }
+           }
 }
 
 

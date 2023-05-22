@@ -47,11 +47,13 @@ export default function PerformerForm ({performerOptions, performerData, perform
     const [  pageState9,       setPageState9       ] = useState([]);
     const [  pageState10,      setPageState10      ] = useState([]);
  
+
     // since page 1 and 2 are the only pages with mandatory, 
     // non-boolean fields, they are the only pages with error states.
     const [  pageError1,       setPageError1       ] = useState(false);
     const [  pageError2,       setPageError2       ] = useState(false);
     const [  showErrorMsg,     setShowErrorMsg     ] = useState(false);
+
 
     // currentPage is the page that is currently being displayed.
     // update stores the performer_id of the performer being updated.
@@ -65,8 +67,10 @@ export default function PerformerForm ({performerOptions, performerData, perform
     const formState    =  [].concat(pageState1,    pageState2,    pageState3,    pageState4,    pageState5,    pageState6,    pageState7,    pageState8,    pageState9,    pageState10   );
     const formSetters  =  [].concat(setPageState1, setPageState2, setPageState3, setPageState4, setPageState5, setPageState6, setPageState7, setPageState8, setPageState9, setPageState10);
 
+
     // extracts columns array of arrays from performerOptions object.
     const columns      =  performerOptions.columns
+
 
     // initiates update state if performerData is passed in
     // performerClass is tracked to make sure that it isn't overwritten if
@@ -106,34 +110,33 @@ export default function PerformerForm ({performerOptions, performerData, perform
 
     
     // navigates to next page if no errors are present
-    function nextPage () {
+    function nextPage () {   console.log('nextPage ran');
 
 
         // if page 1 or 2 has an error, show error message.
         if (    ( currentPage === 1 && pageError1) ||
-                ( currentPage === 2 && pageError2)  ) { setShowErrorMsg('entryError');          }
+                ( currentPage === 2 && pageError2)  ) { return setShowErrorMsg('entryError'); }
 
         // if page 1 is error free, check if email is available.
-        else if ( currentPage === 1                 ) { setShowErrorMsg('emailChecking');
-                                                           getData(['performers', [['email', pageState1[2]]]])
-                                                             .then( res => { 
+        else if ( currentPage === 1                 ) {     setShowErrorMsg('emailChecking');
+                                                            getData(['performers', [['email', pageState1[2]]]])
+                                                              .then( res => {   
+                                                                                                                                // if an existing email is used during a new registration,
+                                                                                                                                // prompt user to update their profile instead.
+                                                                                  if (!update &&  res.data.length > 0      ) {  return setShowErrorMsg('newEmailError'); }  
 
-                                                                 
-                                                                                                                           // if an existing email is used during a new registration,
-                                                                                                                           // prompt user to update their profile instead.
-                                                                                  if (!update && res.data.length > 0      ) { setShowErrorMsg('newEmailError'); }   
-                                                                                                                                                                         // if an existing email is used during an email address update, 
-                                                                                                                                                                         // prompt user to use a different email.                  
-                                                                             else if ( update && res.data.length > 0      ) { if (res.data[0].performer_id !== update ) { setShowErrorMsg('oldEmailError') }
-                                                                                                                                                                        // if email is available, move to next page.
-                                                                                                                              else                                      { setShowErrorMsg(false);
-                                                                                                                                                                          setCurrentPage(2);
-                                                                                                                                                                        }
-                                                                                                                            }
-                                                                             else                                           { setShowErrorMsg(false);
-                                                                                                                              setCurrentPage(2);             
-                                                                                                                            }
-                                                                            })
+                                                                                                                                // if an existing email is used during an email address update, 
+                                                                                                                                // prompt user to use a different email.                  
+                                                                             else if ( update &&  res.data.length > 0 &&  
+                                                                                       update === res.data[0].performer_id ) {  return setShowErrorMsg('oldEmailError') }
+
+                                                                                                                                // if email is available, move to next page.
+                                                                             else                                            {         setShowErrorMsg(false);
+                                                                                                                                return setCurrentPage(2);
+                                                                                                                             }
+                                                                            
+                                                                            }
+                                                                   )
                                                              .catch( err => console.log(err))
                                                       }
         else                                          { setShowErrorMsg(false);
@@ -171,8 +174,7 @@ export default function PerformerForm ({performerOptions, performerData, perform
 
             <form id='performerForm' className='contactForm'>
                     {   currentPage === 1  ? <Page1  pageState={pageState1}  setPageState={setPageState1} setPageError={setPageError1} performerOptions={performerOptions} update={update} />
-                    :   currentPage === 2  ? <Page2  pageState={pageState2}  setPageState={setPageState2} setPageError={setPageError2} performerOptions={performerOptions} update={update} 
-                                                                                newPhotos={newPhotos}     setNewPhotos={setNewPhotos}    performerClass={performerClass}   setPerformerClass={setPerformerClass} />
+                    :   currentPage === 2  ? <Page2  pageState={pageState2}  setPageState={setPageState2} setPageError={setPageError2} performerOptions={performerOptions} update={update} newPhotos={newPhotos} setNewPhotos={setNewPhotos} performerClass={performerClass} setPerformerClass={setPerformerClass} />
                     :   currentPage === 3  ? <Page3  pageState={pageState3}  setPageState={setPageState3}   />
                     :   currentPage === 4  ? <Page4  pageState={pageState4}  setPageState={setPageState4}   />
                     :   currentPage === 5  ? <Page5  pageState={pageState5}  setPageState={setPageState5}   />
