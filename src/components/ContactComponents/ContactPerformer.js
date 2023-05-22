@@ -129,7 +129,7 @@ export default function PerformerForm ({performerOptions, performerData, perform
                                                                                                                                 // if an existing email is used during an email address update, 
                                                                                                                                 // prompt user to use a different email.                  
                                                                              else if ( update &&  res.data.length > 0 &&  
-                                                                                       update === res.data[0].performer_id ) {  return setShowErrorMsg('oldEmailError') }
+                                                                                       update !== res.data[0].performer_id ) {  return setShowErrorMsg('oldEmailError') }
 
                                                                                                                                 // if email is available, move to next page.
                                                                              else                                            {         setShowErrorMsg(false);
