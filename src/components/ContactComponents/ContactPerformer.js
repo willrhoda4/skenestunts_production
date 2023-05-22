@@ -118,7 +118,7 @@ export default function PerformerForm ({performerOptions, performerData, perform
                 ( currentPage === 2 && pageError2)  ) { return setShowErrorMsg('entryError'); }
 
         // if page 1 is error free, check if email is available.
-        else if ( currentPage === 1                 ) {     console.log('nextPage1');
+        else if ( currentPage === 1                 ) {     setShowErrorMsg('a test'); console.log('nextPage1', pageState1[2]);
                                                             setShowErrorMsg('emailChecking');
                                                             getData(['performers', [['email', pageState1[2]]]])
                                                               .then( res => {   console.log('nextPageResponded');
