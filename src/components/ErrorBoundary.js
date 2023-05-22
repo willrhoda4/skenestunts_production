@@ -46,8 +46,8 @@ export default function ErrorBoundary  ({ children }) {
         </div>
     }
 
-    if (hasError) { console.log('displaying the error page'); return errorPage; }
-    else          { console.log('dispalying the children');   return children;  }
+    if (hasError) { return errorPage(); }
+    else          { return children;    }
 
   
 };
