@@ -94,6 +94,7 @@ export default function UpdatePerformer({performerOptions, performerClass, setPe
                                                                                    performerData={  performerData                   } 
                                                                                   performerClass={  performerClass                  }
                                                                                setPerformerClass={  setPerformerClass               }
+                                                                                         getData={  getData                         }
                                                             />
                     }
             </div>
