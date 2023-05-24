@@ -144,7 +144,7 @@ function emailHandler (req, res, next) {
                         <body>
                             <div class="container">
                                 ${content}
-                                <img src="${logoUrl}" alt="skene stunts logo />
+                                <img src="${logoUrl}" alt="skene stunts logo" />
                                 <p>sent from skenestunts.com</p>
                             </div>
                         </body>
