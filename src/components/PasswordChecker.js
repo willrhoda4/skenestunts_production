@@ -24,15 +24,17 @@ import   iconPlay      from '../images/icon_play.svg'
 export default function PasswordChecker({table, pwTable, fk, dataSetter, getData, setPerformerClass}) {
 
 
-    const   location                               = useLocation();
-
+    
     const [ email,            setEmail           ] = useState('');
     const [ password,         setPassword        ] = useState('');
     const [ status,           setStatus          ] = useState('');
     const [ origin,           setOrigin          ] = useState('');
-
+    
     const [ emailError,       setEmailError      ] = useState(false);
     const [ passwordError,    setPasswordError   ] = useState(false);
+    
+    const   location                               = useLocation();
+
 
 
     //set origin to current path
@@ -89,7 +91,7 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
 
         const authenticateUser = (data) => {
 
-            setPerformerClass(data.performer_class);
+            origin !== '/director' && setPerformerClass(data.performer_class);
             return dataSetter(data);
         }
         

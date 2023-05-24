@@ -12,6 +12,8 @@ const crypto        = require('crypto');
 
 
 
+
+
 // takes care of all email endpoints
 function emailHandler (req, res, next) {
 
@@ -76,6 +78,8 @@ function emailHandler (req, res, next) {
     // userEmail producerEmail reachingOut, resetEmail
     function emailHTML (url) {
 
+        const logoUrl    = 'https://drive.google.com/uc?export=view&id=1hw-ft-d0pH1wocxdi3mPHF4-CqoKezd9';
+
         const resetTitle = invite ? 'initialize password' 
                                   : 'reset password';
 
@@ -94,13 +98,12 @@ function emailHandler (req, res, next) {
 
                       : type === 'reachingOut'    ?  `<p>${message}</p>
                                                       <br><br>
-                                                      <p>sent from skenestunts.com</p>`
+                                                      `
 
                       : type === 'resetEmail'     ?  `<p>${resetGraf}</p>
                                                       <br><br>
                                                       <p><a href="${url}">${resetTitle}</a></p>
                                                       <br><br>
-                                                      <p>sent from skenestunts.com</p>
                                                      `
                       :                               null;
 
@@ -141,6 +144,8 @@ function emailHandler (req, res, next) {
                         <body>
                             <div class="container">
                                 ${content}
+                                <img src="${logoUrl}" alt="skene stunts logo />
+                                <p>sent from skenestunts.com</p>
                             </div>
                         </body>
                     </html>
