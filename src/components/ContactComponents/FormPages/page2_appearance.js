@@ -227,8 +227,6 @@ export default function Page2 ({    rookie,
         
         
         
-        console.log('performer class => ',performerClass, typeof performerClass, (  performerClass === 'A' || performerClass === 'B' || performerClass === 'F'          ));
-
                    // performers already marked as goodbooks/badbooks
                    // by the team will not be reassigned.
              if (  performerClass === 'A' ||
