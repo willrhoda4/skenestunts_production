@@ -73,12 +73,12 @@ function emailHandler (req, res, next) {
                          }
             });
         });
-    }
+    }           
 
     // userEmail producerEmail reachingOut, resetEmail
     function emailHTML (url) {
 
-        const logoUrl    = 'https://drive.google.com/uc?export=view&id=1dBlAEqGVnpXu3ruS8ecPYEk9vzv0j7NQ';
+        const logoUrl    = 'https://drive.google.com/uc?export=view&id=1PLvD9xcxJUxY_t-FZIkdV7sC68a-81T5';
 
         const resetTitle = invite ? 'initialize password' 
                                   : 'reset password';
