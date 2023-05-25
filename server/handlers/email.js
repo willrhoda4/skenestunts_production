@@ -128,6 +128,7 @@ function emailHandler (req, res, next) {
                                     padding: 20px 30px;
                                     font-size: 18px;
                                     font-family: 'Barlow Condensed', 'Courier New', Courier, monospace;
+                                    background-color: #ffffff;
                                 }
 
                                 .container a {
