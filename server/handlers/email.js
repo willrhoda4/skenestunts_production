@@ -78,7 +78,7 @@ function emailHandler (req, res, next) {
     // userEmail producerEmail reachingOut, resetEmail
     function emailHTML (url) {
 
-        const logoUrl    = 'https://drive.google.com/uc?export=view&id=1hw-ft-d0pH1wocxdi3mPHF4-CqoKezd9';
+        const logoUrl    = 'https://drive.google.com/uc?export=view&id=1dBlAEqGVnpXu3ruS8ecPYEk9vzv0j7NQ';
 
         const resetTitle = invite ? 'initialize password' 
                                   : 'reset password';
@@ -107,7 +107,7 @@ function emailHandler (req, res, next) {
                                                      `
                       :                               null;
 
-
+                    
 
         return `
                     <!DOCTYPE html>
@@ -128,7 +128,6 @@ function emailHandler (req, res, next) {
                                     padding: 20px 30px;
                                     font-size: 18px;
                                     font-family: 'Barlow Condensed', 'Courier New', Courier, monospace;
-                                    background-color: #ffffff;
                                 }
 
                                 .container a {
