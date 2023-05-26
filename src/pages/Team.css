@@ -64,6 +64,8 @@
         width: 80%;
         object-fit: cover;
         margin: 2.5vmin 5vmin;
+        position: relative;
+        z-index: 99;
         /* border: 3px aqua ridge; */
     }
 
