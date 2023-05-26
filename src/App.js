@@ -39,10 +39,12 @@ import   Header              from './components/Header';
 import   NavBar              from './components/NavBar';
 import   Loader              from './components/Loader';
 import   ErrorBoundary       from './components/ErrorBoundary';
+import   Picture             from './components/Picture';
 import   performerOptions    from './components/performerOptions';
 
 
-import   logoS               from './images/logoSWhite.png';
+import   logo                from './images/logo_footer.webp';
+import   logoPng             from './images/logo_footer.png';
 
 
 
@@ -411,7 +413,14 @@ export default function App() {
                                   
                                                         { location.pathname !== '/director' &&  
                                                           <div id='footer'>
-                                                            <img id='footerLogo' alt='the iconic flaming Skene Stunts S logo' src={logoS} />
+                                                            {/* <img id='footerLogo' alt='the iconic flaming Skene Stunts S logo' src={logoS} /> */}
+                                                            <Picture
+                                                                     src={logo}
+                                                                fallback={logoPng}
+                                                                    type='image/webp'
+                                                                     alt='Skene Stunts company logo'
+                                                                      id='footerLogo'
+                                                            />
                                                           </div>
                                                         }
                                   </div>     

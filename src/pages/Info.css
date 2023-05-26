@@ -258,22 +258,18 @@
                 width: 50%;
                 margin: 0 5vw;
                 padding: 2.5vw;
+                background: rgba(255, 255, 255, 0.75)
             }
 
             .infoValueTitle {
                 font-family: BigShoulders;
                 font-size: 15vmin;
-                /* position: absolute;
-                top: -16vmin;
-                right: 10vmin;
-                transform: rotate(-5deg); */
-                /* border: 3px green ridge; */
                 letter-spacing: -4px;
                 line-height: 85%;
                 opacity: 0;
                 transform: translateY(500%);
                 z-index: 1;
-                /* transition: transform 1s; */
+                padding-right: 1vw;
             }
 
                 .infoValueTitle.animated {
@@ -284,12 +280,16 @@
 
             #infoValueLogo {
                 position: absolute;
+                left: 0;
                 bottom: 0;
-                right: 5vmin;;
                 height: 100%;
+                width: 100%;
                 z-index: 0;
+                opacity: .2;
+                filter: brightness(90)
+                drop-shadow(0 0 15px rgb(153, 149, 149));
             }
-
+           
             #infoValueBox {
                 transition: border .4s
             }

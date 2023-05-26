@@ -12,7 +12,8 @@ import { useEffect,
 
 import   Picture        from '../components/Picture.js';
 
-import   logo           from '../images/logo.png'
+import   logo           from '../images/logo_header.webp'
+import   logoPng        from '../images/logo_header.png'
 
 
 import   flames         from '../images/flames.webp';
@@ -26,8 +27,11 @@ function Header({getData}) {
 
 
     const [ backgroundId,   setBackgroundId ] = useState(null);
+    const [ titleMargin,    setTitleMargin  ] = useState(null);
 
     const   backgroundUrl                     = `https://drive.google.com/uc?export=view&id=${backgroundId}`;
+
+
 
 
     // on initial render,
@@ -45,9 +49,19 @@ function Header({getData}) {
     }, [getData])
 
    
-   
-                           
+   useEffect(() => {
 
+        const setWidth = () => setTitleMargin( ( ( (window.innerWidth - 400) / 1200 ) * 27.5 ) + 5 );
+
+        window.addEventListener('resize', setWidth);
+        setWidth();
+
+        return () => window.removeEventListener('resize', setWidth);
+
+
+   }, [])
+                           
+  
 
     // this effect contriols the spotlight animation.
     // it's a little complicated, so I'll explain it in detail.
@@ -207,7 +221,8 @@ function Header({getData}) {
 
         <div id='header'>   
 
-            <div id='title'>                           
+            <div id='title' style={{ margin: `0 ${titleMargin}vw`}}>      
+
                 <Picture
                          src={flames}
                     fallback={flamesGif}
@@ -215,13 +230,24 @@ function Header({getData}) {
                          alt='flames burning down'
                           id='flames'
                 />
-                <img id='headerLogo' alt='Skene Stunts company logo' src={logo} />
-                <h4  id='slogan'>Connoisseurs of Crashing & Burning Since 1988</h4>
+
+                <Picture
+                         src={logo}
+                    fallback={logoPng}
+                        type='image/webp'
+                         alt='Skene Stunts company logo'
+                          id='headerLogo'
+                />
+
+                <p id='slogan' className='with-bullets'>
+                        <span>coordinators</span> <span>performers</span> <span>second-unit directors</span>
+                </p>
+
             </div> 
 
             {   backgroundId &&  <img    id='headerBackground'
                                         alt='collage of movie posters'
-                                      src={backgroundUrl}
+                                        src={backgroundUrl}
                                  />
             }
 

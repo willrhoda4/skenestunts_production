@@ -9,10 +9,12 @@ import                     './Team.css';
 
 import { Helmet }     from 'react-helmet';
 
+import   Picture      from '../components/Picture';
 
 import   imdbIcon     from '../images/imdb_icon.png';
 import   iconChevron  from '../images/icon_chevronsRight.svg'
-import   logoS        from '../images/logoSWhite.png';
+import   logo         from '../images/logo_background.webp';
+import   logoPng      from '../images/logo_background.png';
 import   Loader       from '../components/Loader';
 
 
@@ -66,7 +68,15 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
       <div className='boardProfile' >    
 
-        <img className='boardProfileLogo' alt='the iconic flaming Skene Stunts S logo' src={logoS} />
+        {/* <img className='boardProfileLogo' alt='the iconic flaming Skene Stunts S logo' src={logoS} /> */}
+
+        <Picture
+                  src={logo}
+             fallback={logoPng}
+                 type='image/webp'
+                  alt='Skene Stunts company logo'
+            className='boardProfileLogo'
+        />
 
         <div className='boardProfileStripes' />
 

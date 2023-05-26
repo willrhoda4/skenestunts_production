@@ -73,7 +73,8 @@ function emailHandler (req, res, next) {
                          }
             });
         });
-    }           
+    }          
+
 
     // userEmail producerEmail reachingOut, resetEmail
     function emailHTML (url) {
@@ -145,7 +146,6 @@ function emailHandler (req, res, next) {
                             <div class="container">
                                 ${content}
                                 <img src="${logoUrl}" alt="skene stunts logo" />
-                                <p>sent from skenestunts.com</p>
                             </div>
                         </body>
                     </html>
