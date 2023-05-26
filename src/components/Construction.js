@@ -17,7 +17,7 @@ export default function Construction () {
 
         <div className='constructionPage'>
             
-            <h2>Coming soon...</h2>/
+            <h2>Coming soon...</h2>
 
             {/* <img className='constructionLogo' alt='skene stunts logo' src={logo} />
 
