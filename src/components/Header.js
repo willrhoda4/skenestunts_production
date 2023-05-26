@@ -204,8 +204,8 @@ function Header({getData}) {
 
         // for screens less than 1000px wide, we only want one light.
         // otherwise, we want two.
-        window.innerWidth <= 1000 ? doubleSpotlight( 'header', 250, 10, 1, true )
-                                  : doubleSpotlight( 'header', 250, 10, 1, false);
+        window.innerWidth <= 1000 ? doubleSpotlight( 'headerBackground', 250, 10, 1, true )
+                                  : doubleSpotlight( 'headerBackground', 250, 10, 1, false);
 
     }, [])
 
