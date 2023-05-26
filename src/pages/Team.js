@@ -69,24 +69,6 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
       <div className='boardProfile' >    
 
 
-        
-        {/* stripes and logo are absolutely-positoned background elements */}
-        <div className='boardProfileStripes' />
-
-        <Picture
-                  src={logo}
-             fallback={logoPng}
-                 type='image/webp'
-                  alt='Skene Stunts company logo'
-            className='boardProfileLogo'
-        />
-
-
-
-        <div className='boardPosterRack'>
-            { boardPosters && !no_posters && boardPosters[index].slice(0,5).map(poster => poster) }
-        </div>
-
 
 
 
@@ -136,6 +118,23 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
         <div className='boardPosterRack'>
             { boardPosters && !no_posters && boardPosters[index].slice(5,10).map(poster => poster) }
         </div>
+
+
+
+         {/* stripes and logo are absolutely-positoned background elements */}
+         <div className='boardProfileStripes' />
+
+          <Picture
+                    src={logo}
+              fallback={logoPng}
+                  type='image/webp'
+                    alt='Skene Stunts company logo'
+              className='boardProfileLogo'
+          />
+
+
+
+
 
 
 
