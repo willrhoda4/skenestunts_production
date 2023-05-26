@@ -244,16 +244,20 @@ a {
     align-items: center;
   }
 
-    #footerLogo {
-      height: 50%; 
-      transition: filter 1.5s;
+    #footerLogo path {
+      filter: invert(100%);
+      transition: filter 0.3s;
     }
     
     
-    #footerLogo:hover {
-        filter: brightness(0)
-                drop-shadow(0 0 15px rgb(231, 21, 21));
-        }
+    #footerLogo:hover path {
+      filter: none;
+      color: red;
+
+    }
+        
+
+   
 
 
 

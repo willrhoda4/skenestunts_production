@@ -15,7 +15,8 @@ import iconSafety      from '../images/icon_safety.svg';
 import iconPerformance from '../images/icon_performance.svg';
 import iconInstagram   from '../images/icon_instagram.svg';
 import iconFacebook    from '../images/icon_facebook.svg';
-import logoS           from '../images/logoSWhite.png';
+import logo            from '../images/logo_background.webp';
+import logoPng         from '../images/logo_background.png';
 import iconReels       from '../images/icon_reels.svg';
 import iconMedia       from '../images/icon_media.svg';
 import iconContact     from '../images/icon_mailClosed.svg';
@@ -408,37 +409,45 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
 
                 {/* value section uses a ternary to render a stripped-down offering for mobile and a splashy implementation for desktop */}
-                <div className='infoDiv' >
                     
-                    {   !smallScreen    ?   <>
-                                                <div id='infoValuesDisplay'>
-                                                    <div id='infoValueBox' className={value}>
-                                                        <p id='infoValueBlurb'>{valueBlurb}</p>    
-                                                    </div>                
-                                                    <h2  className='infoValueTitle animate'>Core<br/>Values</h2>
-                                                </div>
-                                
-                                                <div id='infoValuesSelect'>
-                                                    <div id='infoValuesSelectBar' />
-                                                    { valueSelector('safety',         iconSafety       )}
-                                                    { valueSelector('performance',    iconPerformance  )}
-                                                    { valueSelector('integrity',      iconIntegrity    )}    
-                                                </div>
+                {   !smallScreen    ?   <div className='infoDiv'>
 
-                                                <img id='infoValueLogo' className='boardProfileLogo' alt='the iconic flaming Skene Stunts S logo' src={logoS} />
+                                          
 
-                                            </>
-                    
-                                        :   <>
-                                                <h2  className='infoValueTitle animate'
-                                                    style={{marginBottom: '2.5vmax'}}>Core<br/>Values</h2>
-                                                { mobileValue('safety',         iconSafety        )}
-                                                { mobileValue('performance',    iconPerformance   )}
-                                                { mobileValue('integrity',      iconIntegrity     )}
-                                            </>
+                                            <div id='infoValuesDisplay'>
+                                                <div id='infoValueBox' className={value}>
+                                                    <p id='infoValueBlurb'>{valueBlurb}</p>    
+                                                </div>                
+                                                <h2  className='infoValueTitle animate'>Core<br/>Values</h2>
+                                            </div>
+                            
+                                            <div id='infoValuesSelect'>
+                                                <div id='infoValuesSelectBar' />
+                                                { valueSelector('safety',         iconSafety       )}
+                                                { valueSelector('performance',    iconPerformance  )}
+                                                { valueSelector('integrity',      iconIntegrity    )}    
+                                            </div>
 
-                    }
-                </div>
+                                            <Picture
+                                                     src={logo}
+                                                fallback={logoPng}
+                                                    type='image/webp'
+                                                     alt='Skene Stunts company logo'
+                                                      id='infoValueLogo'
+                                            />
+                                           
+
+                                        </div>
+                
+                                    :   <div className='infoDiv'>
+                                            <h2  className='infoValueTitle animate'
+                                                style={{marginBottom: '2.5vmax'}}>Core<br/>Values</h2>
+                                            { mobileValue('safety',         iconSafety        )}
+                                            { mobileValue('performance',    iconPerformance   )}
+                                            { mobileValue('integrity',      iconIntegrity     )}
+                                        </div>
+
+                }
 
 
 

@@ -122,13 +122,10 @@
         bottom: 5%;
         right: 20%;
         opacity: .2;
-        /* top: 20vmin; */
         z-index: 1;
         height: 85%;
-        /* width: 20vw; */
         filter: brightness(90)
                 drop-shadow(0 0 15px rgb(153, 149, 149));
-        /* border: 3px orange ridge; */
     }
 
     .boardProfileStripes {
