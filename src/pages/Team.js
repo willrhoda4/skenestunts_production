@@ -70,6 +70,10 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
         {/* <img className='boardProfileLogo' alt='the iconic flaming Skene Stunts S logo' src={logoS} /> */}
 
+        
+
+        <div className='boardProfileStripes' />
+
         <Picture
                   src={logo}
              fallback={logoPng}
@@ -77,8 +81,6 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
                   alt='Skene Stunts company logo'
             className='boardProfileLogo'
         />
-
-        <div className='boardProfileStripes' />
 
         <div className='boardPosterRack'>
             { boardPosters && !no_posters && boardPosters[index].slice(0,5).map(poster => poster) }

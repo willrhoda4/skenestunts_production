@@ -204,8 +204,8 @@ function Header({getData}) {
 
         // for screens less than 1000px wide, we only want one light.
         // otherwise, we want two.
-        window.innerWidth <= 1000 ? doubleSpotlight( 'headerBackground', 250, 10, 1, true )
-                                  : doubleSpotlight( 'headerBackground', 250, 10, 1, false);
+        window.innerWidth <= 1000 ? doubleSpotlight( 'header', 250, 10, 1, true )
+                                  : doubleSpotlight( 'header', 250, 10, 1, false);
 
     }, [])
 
@@ -221,10 +221,16 @@ function Header({getData}) {
 
         <div id='header'>   
 
+
+            {   backgroundId &&  <img    id='headerBackground'
+                                        alt='collage of movie posters'
+                                        src={backgroundUrl}
+                                 />
+            }
+
+
             <div id='title' style={{ margin: `0 ${titleMargin}vw`}}>      
 
-
-            
 
                 <Picture
                          src={flames}
@@ -234,6 +240,7 @@ function Header({getData}) {
                           id='flames'
                 />
 
+
                 <Picture
                          src={logo}
                     fallback={logoPng}
@@ -242,17 +249,13 @@ function Header({getData}) {
                           id='headerLogo'
                 />
 
+
                 <p id='slogan' className='with-bullets'>
                         <span>coordinators</span> <span>performers</span> <span>second-unit directors</span>
                 </p>
+                
 
             </div> 
-
-            {   backgroundId &&  <img    id='headerBackground'
-                                        alt='collage of movie posters'
-                                        src={backgroundUrl}
-                                 />
-            }
 
 
         </div>
