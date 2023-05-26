@@ -68,10 +68,9 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
       <div className='boardProfile' >    
 
-        {/* <img className='boardProfileLogo' alt='the iconic flaming Skene Stunts S logo' src={logoS} /> */}
 
         
-
+        {/* stripes and logo are absolutely-positoned background elements */}
         <div className='boardProfileStripes' />
 
         <Picture
@@ -82,9 +81,14 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
             className='boardProfileLogo'
         />
 
+
+
         <div className='boardPosterRack'>
             { boardPosters && !no_posters && boardPosters[index].slice(0,5).map(poster => poster) }
         </div>
+
+
+
 
         <div className='boardContent'>
 
@@ -126,9 +130,14 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
         </div>
 
+
+
+
         <div className='boardPosterRack'>
             { boardPosters && !no_posters && boardPosters[index].slice(5,10).map(poster => poster) }
         </div>
+
+
 
       </div>
     )

@@ -39,9 +39,7 @@
     .boardContent {
         display: grid;
         grid-template-rows: 6fr 4fr;
-        /* border-top: 1px black ridge; */
-        /* border-bottom: .5px black ridge; */
-        /* border: 3px green ridge; */
+        width: 100%;
         padding-top: 2vmin;
         background: whitesmoke;
         position: relative;
