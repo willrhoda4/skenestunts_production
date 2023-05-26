@@ -324,6 +324,7 @@ a {
               .imdbIcon {
                 height: 4vmin;
                 margin: 0 2vmin 0 1vmin;
+                z-index: 99;
             }
 
 
