@@ -69,7 +69,9 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
       <div className='boardProfile' >    
 
 
-
+        <div className='boardPosterRack'>
+            { boardPosters && !no_posters && boardPosters[index].slice(0,5).map(poster => poster) }
+        </div>
 
 
         <div className='boardContent'>
