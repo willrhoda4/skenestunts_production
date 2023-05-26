@@ -358,8 +358,6 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
                                 <button  id='infoBioButton' className='formButton optionButton'>connect with Skene Stunts</button>
                             </Link>   
 
-                            <button onClick={() => {throw new Error('Intentional error')}}>Trigger Error</button>
-
 
                         </div>
 
