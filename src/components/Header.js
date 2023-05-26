@@ -29,8 +29,8 @@ function Header({getData}) {
     const [ backgroundId,   setBackgroundId ] = useState(null);
     const [ titleMargin,    setTitleMargin  ] = useState(null);
 
-    const   backgroundUrl                     = `https://drive.google.com/uc?export=view&id=${backgroundId}`;
-
+    const   backgroundUrl                     = `https://drive.google.com/uc?export=view&id=13Wj_MmZhZqMqn198eP89v56ReUXAu9Gp`;
+    // const   backgroundUrl                     = `https://drive.google.com/uc?export=view&id=${backgroundId}`;
 
 
 
@@ -213,20 +213,20 @@ function Header({getData}) {
   
 
 
-
+    
     
     
     
     return (
 
-        <div id='header'>   
+        <div id='header' style={{backgroundImage: `url('${backgroundUrl}')`}}>   
 
-
+{/* 
             {   backgroundId &&  <img    id='headerBackground'
                                         alt='collage of movie posters'
                                         src={backgroundUrl}
                                  />
-            }
+            } */}
 
 
             <div id='title' style={{ margin: `0 ${titleMargin}vw`}}>      
@@ -253,7 +253,7 @@ function Header({getData}) {
                 <p id='slogan' className='with-bullets'>
                         <span>coordinators</span> <span>performers</span> <span>second-unit directors</span>
                 </p>
-                
+
 
             </div> 
 
