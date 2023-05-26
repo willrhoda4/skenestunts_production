@@ -8,6 +8,16 @@
 
 import                              './Construction.css';
 
+import Picture  from                './Picture';
+
+
+import logo     from                '../images/logo_error.webp';
+import logoPng  from                '../images/logo_error.png';
+
+
+
+
+
 import{ useState, useEffect } from 'react';
 
 
@@ -33,17 +43,27 @@ export default function ErrorBoundary  ({ children }) {
     }, []);
 
 
-    const errorPage = () => {
+    function errorPage () {
 
-        <div className='constructionPage'>
-            
-            <h2>Looks like someting went wrong...</h2>/
+        return (
 
-            {/* <img className='constructionLogo' alt='skene stunts logo' src={logo} />*/}
+            <div className='constructionPage' style={{background: 'white'}}>
+                
+                <h2>Looks like someting went wrong...</h2>
 
-            <p className='constructionGraf'>Sorry about this. Try refreshing the browser, and if the problem persists send us an email..</p> 
+                <Picture
+                         src={logo}
+                    fallback={logoPng}
+                        type='image/webp'
+                         alt='Skene Stunts company logo'
+                          id='errorLogo'
+                />
+                
+                <p className='constructionGraf'>Sorry about this. Try refreshing the browser, and if the problem persists send us an email..</p> 
 
-        </div>
+            </div>
+
+        )
     }
 
     if (hasError) { return errorPage(); }

@@ -28,3 +28,10 @@
         width: 60vw;
         text-align: center;
     }
+
+
+#errorLogo {
+
+    width: max(40vw, 400px);
+    margin: 2.5vw 0;
+}

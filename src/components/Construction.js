@@ -3,9 +3,18 @@
 
 
 
+
+
+
 import           './Construction.css';
 
-// import logo from '../images/logo.png';
+
+import Picture  from                './Picture';
+
+
+import logo     from                '../images/logo_error.webp';
+import logoPng  from                '../images/logo_error.png';
+
 
 
 // this component is a placeholder for when the site is down for maintenance.
@@ -17,11 +26,17 @@ export default function Construction () {
 
         <div className='constructionPage'>
             
-            <h2>Coming soon...</h2>
+            <h2>we're doing some maintenance...</h2>
 
-            {/* <img className='constructionLogo' alt='skene stunts logo' src={logo} />
+            <Picture
+                         src={logo}
+                    fallback={logoPng}
+                        type='image/webp'
+                         alt='Skene Stunts company logo'
+                          id='errorLogo'
+            />
 
-            <p className='constructionGraf'>Sorry for the inconvenience. We're doing our best to keep the downtime short, so be sure to check back soon.</p> */}
+            <p className='constructionGraf'>Sorry for the inconvenience. We're doing our best to keep the downtime short, so be sure to check back soon.</p>
 
         </div>
     )
