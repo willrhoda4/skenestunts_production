@@ -64,8 +64,7 @@
         width: 80%;
         object-fit: cover;
         margin: 2.5vmin 5vmin;
-        position: relative;
-        z-index: 99;
+  
         /* border: 3px aqua ridge; */
     }
 
@@ -85,8 +84,6 @@
 
     .boardAttribute {
         display: flex;
-        /* font-family: BarlowCondensed; */
-        /* font-size: 1.75vmin; */
         margin: 1vmin 0;
         align-items: center;
         z-index: 299;
@@ -104,7 +101,6 @@
 
 
     .boardProfileBlurb {
-        /* font-size: 5vmin; */
         padding: 0 .75em 0 7vw;
         text-overflow: clip;
         height: 100%;
@@ -124,7 +120,7 @@
         height: 100%;
         width: 76%;
         opacity: .2;
-        z-index: 1;
+        z-index: 0;
         filter: brightness(90)
                 drop-shadow(0 0 15px rgb(153, 149, 149));
     }
