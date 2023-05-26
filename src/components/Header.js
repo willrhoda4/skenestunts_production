@@ -25,6 +25,8 @@ import   flamesGif      from '../images/flames.gif';
 // we don't bother displaying it for Director's Chair.
 function Header({getData}) {
 
+        console.log('header api url => ',process.env.REACT_APP_API_URL);
+
 
     const [ backgroundId,   setBackgroundId ] = useState(null);
     const [ titleMargin,    setTitleMargin  ] = useState(null);
