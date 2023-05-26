@@ -224,11 +224,7 @@ function Header({getData}) {
             <div id='title' style={{ margin: `0 ${titleMargin}vw`}}>      
 
 
-            {   backgroundId &&  <img    id='headerBackground'
-                                        alt='collage of movie posters'
-                                        src={backgroundUrl}
-                                 />
-            }
+            
 
                 <Picture
                          src={flames}
@@ -251,6 +247,12 @@ function Header({getData}) {
                 </p>
 
             </div> 
+
+            {   backgroundId &&  <img    id='headerBackground'
+                                        alt='collage of movie posters'
+                                        src={backgroundUrl}
+                                 />
+            }
 
 
         </div>
