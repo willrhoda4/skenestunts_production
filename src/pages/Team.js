@@ -79,7 +79,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
 
         <div className='boardContent'>
-
+            
 
 
             <img className='boardImage'
@@ -94,13 +94,13 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
             <div className='boardContentTopRight'>
 
               <div className='boardNameLevel'>
-                  <h2 style={{fontFamily: 'BigShoulders', zIndex: '1'}}>{legal_name}</h2>
+                  <h2 style={{fontFamily: 'BigShoulders', zIndex: '1' }}>{legal_name}</h2>
                   <a      key={index}
                        target="_blank"
                           rel="noreferrer"
                          href={'https://www.imdb.com/name/'+imdb_id+'/'}
                   >
-                      <img className='imdbIcon' alt='IMDB logo' src={imdbIcon} />
+                      <img className='imdbIcon' alt='IMDB logo' src={imdbIcon} style={{zIndex: '99'}}/>
                   </a>
               </div>
               
@@ -182,6 +182,8 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
                 <h2 className='teamName'>{legal_name}</h2>
                 <div className='teamTitleLevel'>
                     <p>{title}</p>
+
+
                     <a     key={index}
                         target="_blank"
                           rel="noreferrer"
@@ -189,6 +191,8 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
                     >
                         <img className='imdbIcon' alt='IMDB logo' src={imdbIcon} />
                     </a>
+
+                  
                 </div>
             </div>
         </div>

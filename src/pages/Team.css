@@ -73,6 +73,7 @@
             width: 55%;
             top: 10%;
             left: 40%;
+            z-index: 2;
             /* border: 3px orange ridge; */
         }
 
@@ -332,6 +333,7 @@
                     margin: 5vmin  2.5vmin 5vmin 7.5vmin;
                     height: fit-content;
                     width: 80%;
+                    line-height: 1.5em;
                    
                     /* border: 3px fuchsia ridge; */
                 }
