@@ -108,18 +108,6 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
               { attributes() }
             </div>
 
-
-             {/* stripes and logo are absolutely-positoned background elements */}
-          <div className='boardProfileStripes' />
-
-            <Picture
-                      src={logo}
-                fallback={logoPng}
-                    type='image/webp'
-                      alt='Skene Stunts company logo'
-                className='boardProfileLogo'
-            />
-
           </div>
           
           <p className='boardProfileBlurb' >{profile}</p>
@@ -135,7 +123,16 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
 
 
-        
+         {/* stripes and logo are absolutely-positoned background elements */}
+         <div className='boardProfileStripes' />
+
+          <Picture
+                    src={logo}
+              fallback={logoPng}
+                  type='image/webp'
+                    alt='Skene Stunts company logo'
+              className='boardProfileLogo'
+          />
 
 
 
