@@ -31,8 +31,8 @@ function Header({getData}) {
     const [ backgroundId,   setBackgroundId ] = useState(null);
     const [ titleMargin,    setTitleMargin  ] = useState(null);
 
-    const   backgroundUrl                     = `https://drive.google.com/uc?export=view&id=13Wj_MmZhZqMqn198eP89v56ReUXAu9Gp`;
-    // const   backgroundUrl                     = `https://drive.google.com/uc?export=view&id=${backgroundId}`;
+    // const   backgroundUrl                     = `https://drive.google.com/uc?export=view&id=13Wj_MmZhZqMqn198eP89v56ReUXAu9Gp`;
+    const   backgroundUrl                     = `https://drive.google.com/uc?export=view&id=${backgroundId}`;
 
 
 
@@ -253,7 +253,7 @@ function Header({getData}) {
 
 
                 <p id='slogan' className='with-bullets'>
-                        <span>coordinators</span> <span>performers</span> <span>second-unit directors</span>
+                        <span>coordinators</span> <span>performers</span> <span>second unit directors</span>
                 </p>
 
 

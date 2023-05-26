@@ -69,26 +69,27 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
       <div className='boardProfile' >    
 
 
-        <div className='boardPosterRack'>
-            { boardPosters && !no_posters && boardPosters[index].slice(0,5).map(poster => poster) }
-        </div>
+       
+            { boardPosters && !no_posters ?   <div className='boardPosterRack'>
+                                                {boardPosters[index].slice(0,5).map(poster => poster)} 
+                                              </div>
+
+                                          :   <div className='boardRackSubstitute' />
+            }
 
 
         <div className='boardContent'>
 
-          <div className='boardContentTop'>
-
-            <div className='boardContentTopLeft'>
-
-                <img className='boardImage'
-                           alt={  image_alt } 
-                           src={ !uploaded_image ? image_url 
-                                                 : 'https://drive.google.com/uc?export=view&id=' + image_id
-                               } 
-                />
 
 
-            </div>
+            <img className='boardImage'
+                        alt={  image_alt } 
+                        src={ !uploaded_image ? image_url 
+                                              : 'https://drive.google.com/uc?export=view&id=' + image_id
+                            } 
+            />
+
+
 
             <div className='boardContentTopRight'>
 
@@ -108,22 +109,11 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
               { attributes() }
             </div>
 
-          </div>
           
           <p className='boardProfileBlurb' >{profile}</p>
 
-        </div>
 
-
-
-
-        <div className='boardPosterRack'>
-            { boardPosters && !no_posters && boardPosters[index].slice(5,10).map(poster => poster) }
-        </div>
-
-
-
-         {/* stripes and logo are absolutely-positoned background elements */}
+           {/* stripes and logo are absolutely-positoned background elements */}
          <div className='boardProfileStripes' />
 
           <Picture
@@ -133,6 +123,22 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
                     alt='Skene Stunts company logo'
               className='boardProfileLogo'
           />
+
+        </div>
+
+
+
+
+        { boardPosters && !no_posters ?   <div className='boardPosterRack'>
+                                                {boardPosters[index].slice(5,10).map(poster => poster)} 
+                                              </div>
+
+                                          :   <div className='boardRackSubstitute' />
+        }
+
+
+
+        
 
 
 
@@ -166,13 +172,11 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
         <div className='teamContentTop'>
 
-            <div className='teamContentLeft'>
                 <img className='teamImage' 
                            alt={image_alt} 
                            src={ !uploaded_image ? image_url 
                                                  : 'https://drive.google.com/uc?export=view&id='+image_id }  
                 />
-            </div>
             
             <div className='teamContentRight'>
                 <h2 className='teamName'>{legal_name}</h2>
