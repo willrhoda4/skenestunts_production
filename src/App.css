@@ -244,17 +244,7 @@ a {
     align-items: center;
   }
 
-    #footerLogo path {
-      filter: invert(100%);
-      transition: filter 0.3s;
-    }
-    
-    
-    #footerLogo:hover path {
-      filter: none;
-      color: red;
-
-    }
+   
         
 
    
