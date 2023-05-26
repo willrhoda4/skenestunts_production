@@ -89,18 +89,18 @@ app.post('/email',                  email.emailHandler,
                                     auth.registerReset                  );
 
 // image handlers
-// app.post('/teamPhoto',              upload.single('imageUpload'), 
-//                                     images.teamshot                     );
+app.post('/teamPhoto',              upload.single('imageUpload'), 
+                                    images.teamshot                     );
 
-// app.post('/background',             upload.single('imageUpload'),                         
-//                                     images.background                   );   
+app.post('/background',             upload.single('imageUpload'),                         
+                                    images.background                   );   
 
-// app.post('/performerPhotos',        upload.fields([
-//                                                     {name:'headshot'},
-//                                                     {name:'bodyshot'}
-//                                                   ]), 
-//                                     images.headshot, 
-//                                     images.bodyshot                     );
+app.post('/performerPhotos',        upload.fields([
+                                                    {name:'headshot'},
+                                                    {name:'bodyshot'}
+                                                  ]), 
+                                    images.headshot, 
+                                    images.bodyshot                     );
 
 
 // catch-all route to serve the index.html file for all routes
