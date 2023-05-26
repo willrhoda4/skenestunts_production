@@ -20,6 +20,7 @@
   
  
     .boardPosterRack {
+        position: relative;
         display: flex;
         flex-direction: column;
         height: 70vh;
@@ -37,6 +38,7 @@
         }
 
     .boardContent {
+        position: relative;
         display: grid;
         grid-template-rows: 6fr 4fr;
         width: 100%;
@@ -114,7 +116,7 @@
     }
 
 
-    
+
 
     .boardProfileLogo {
         position: absolute;
