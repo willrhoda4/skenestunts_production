@@ -5,16 +5,7 @@
 
 
 
-/*
-We decided against most lazy loading for this app, noting that
-implementing it only led to a 40ms improvement in load time,
-and significantly hurt the user experience with awkward loading pauses
-when changing pages or scrolling. 
 
-While the current initial load time isn't ideal, it's moderate enough
-that everything should generally be ready to go by the time the header animation
-finishes playing, and the user is ready to start interacting with the page.
-*/
 
 import                            './App.css';    
 
