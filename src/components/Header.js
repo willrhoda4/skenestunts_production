@@ -252,8 +252,23 @@ function Header({getData}) {
                 />
 
 
-                <p id='slogan' className='with-bullets'>
-                        <span>coordinators</span> <span>performers</span> <span>second unit directors</span>
+                <p id='slogan' >
+                    {
+                            window.innerWidth > 600     ?   <p className='with-bullets'>
+                                                                <span>coordinators</span>
+                                                                <span>performers</span> 
+                                                                <span>second unit directors</span>
+                                                            </p>
+
+                                                        :   <>
+                                                                <p className='with-bullets'>
+                                                                    <span>coordinators</span>
+                                                                    <span>performers</span> 
+                                                                </p>
+                                                                <p> second unit directors</p>
+                                                            </>
+                    }
+                   
                 </p>
 
 
