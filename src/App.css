@@ -245,7 +245,9 @@ a {
   }
 
    
-        
+        #footerLogo {
+          width: min(300px, 80vw);
+        }
 
    
 
