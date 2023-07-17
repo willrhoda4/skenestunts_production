@@ -76,6 +76,7 @@
         margin: auto 0;
       }
         .icon {
+          filter: brightness(1);
           transition: filter .4s;
         }
         .icon:hover {

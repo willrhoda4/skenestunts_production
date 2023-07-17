@@ -193,11 +193,15 @@ export default function ContactProducer({setContactDisplay}) {
                         noHelp={true}
                     />
                         
-                        <button className='formButton' 
-                                    type="submit" 
-                                onClick={(e) => sendEmail(e)}
-                                    style={{marginTop: '2em', alignSelf: 'center'}}
-                                >Send Email</button>
+                  
+
+                   {
+                        uploadStatus !== 200 &&  <button className='formButton' 
+                                                              type='submit' 
+                                                           onClick={(e) => sendEmail(e)}
+                                                             style={{marginTop: '2em', alignSelf: 'center'}}
+                                                 >Send Email</button>
+                   }
 
                 </form>
 

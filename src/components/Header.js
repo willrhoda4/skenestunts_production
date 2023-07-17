@@ -25,11 +25,10 @@ import   flamesGif      from '../images/flames.gif';
 // we don't bother displaying it for Director's Chair.
 function Header({getData}) {
 
-        console.log('header api url => ',process.env.REACT_APP_API_URL);
 
 
     const [ backgroundId,   setBackgroundId ] = useState(null);
-    const [ titleMargin,    setTitleMargin  ] = useState(null);
+
 
     // const   backgroundUrl                     = `https://drive.google.com/uc?export=view&id=13Wj_MmZhZqMqn198eP89v56ReUXAu9Gp`;
     const   backgroundUrl                     = `https://drive.google.com/uc?export=view&id=${backgroundId}`;
@@ -51,17 +50,7 @@ function Header({getData}) {
     }, [getData])
 
    
-   useEffect(() => {
-
-        const setWidth = () => setTitleMargin( ( ( (window.innerWidth - 400) / 1200 ) * 27.5 ) + 5 );
-
-        window.addEventListener('resize', setWidth);
-        setWidth();
-
-        return () => window.removeEventListener('resize', setWidth);
-
-
-   }, [])
+   
                            
   
 

@@ -404,7 +404,6 @@ export default function App() {
                                   
                                                         { location.pathname !== '/director' &&  
                                                           <div id='footer'>
-                                                            {/* <img id='footerLogo' alt='the iconic flaming Skene Stunts S logo' src={logoS} /> */}
                                                             <Picture
                                                                      src={logo}
                                                                 fallback={logoPng}
