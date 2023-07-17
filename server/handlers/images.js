@@ -12,12 +12,14 @@ const   path          = require('path');
 
 
 // use a Heroku config variable to dynamically generate some .json
+
+// retrieve Google credentials from Heroku config variable to generate a json keyfile.
 const keyFileContent = process.env.GDRIVE_CREDENTIALS;
 const keyFile        = path.join(__dirname, 'service-account-key.json');
-
-
-
                        fs.writeFileSync(keyFile, keyFileContent);
+
+
+
 
 // use .json to initiate driveService 
 const   scopes        = ['https://www.googleapis.com/auth/drive', 'profile'];

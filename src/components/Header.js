@@ -39,7 +39,7 @@ function Header({getData}) {
     // on initial render,
     // this effect gets the background image id from the database,
     // and sets it as the backgroundId state.
-    // this is hurts performance (slows largest contentful paint by 430ms according to lighthouse), 
+    // this hurts performance (slows largest contentful paint by 430ms according to lighthouse), 
     // but it's the cost of making the background image dynamic.
     // I've tried to compensate by dropping the title div asap and fading the background in after.
     useEffect(() => {
@@ -70,10 +70,10 @@ function Header({getData}) {
     useEffect(() => { 
         
         
-        //      elementId:  the css id of the element to be spotlighted.
-        //      size:       the size of the spotlight.
-        //      speed:      the speed of the spotlight.
-        //      scale:      the speed the spotlight will scale. (the scaling range is fixed)
+        //      elementId:  string.  the css id of the element to be spotlighted.
+        //      size:       integer. the size of the spotlight.       
+        //      speed:      integer. the speed of the spotlight.
+        //      scale:      integer. the speed the spotlight will scale. (the scaling range is fixed)
         //      oneLight:   boolean. if true, only one spotlight will be created.
         //      size2:      the optional size of the second spotlight.  (defaults to first value if null)
         //      speed2:     the optional speed of the second spotlight. (defaults to first value if null)
@@ -98,19 +98,18 @@ function Header({getData}) {
             const rightLight  =  fullSizedDiv();
             const litArea     =  fullSizedDiv();
 
-            // litArea should be absolute, to overlap the background image,
-            // and flex, to accommodate the lights properly.
-                  litArea.style.position  = 'absolute';
-                  litArea.style.display   = 'flex';
+                // litArea should be absolute, to overlap the background image,
+                // and flex, to accommodate the lights properly.
+                litArea.style.position  = 'absolute';
+                litArea.style.display   = 'flex';
                   
-                  // in any case, we want at least one light in the litArea.
-                               litArea.appendChild(leftLight);
+                // in any case, we want at least one light in the litArea.
+                litArea.appendChild(leftLight);
 
-                  // and unless oneLight is declared, we actually want two.
-                  !oneLight && litArea.appendChild(rightLight);
+                // and unless oneLight is declared, we actually want two.
+                !oneLight && litArea.appendChild(rightLight);
         
             // now we can prepend the litArea to the parent element.
-            // (add it to the top)
             document.getElementById(elementId).prepend(litArea);
     
     
@@ -118,7 +117,7 @@ function Header({getData}) {
             // next we can set the initial values for the lights.
 
 
-            // use offsetWidth and offsetHeight to get the size of the first light.
+            // use offsetWidth and offsetHeight to get the size of the first light area.
             // use the size prop to set the anchor size for the first light.
             // this is the size the light will keep coming back to.
             const leftWidth   =  leftLight.offsetWidth;
