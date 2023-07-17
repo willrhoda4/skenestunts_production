@@ -143,7 +143,7 @@ export default function ContactProducer({setContactDisplay}) {
                                                         <Notification type='bad' msg='ERROR!!! Looks like your message got stuck somewhere in the pipeline. Try again, and if the problem persists, please email skene.stunts.website@gmail.com from another application.' />
                                                         <button className='formButton' onClick={clearForm} >Reset Form</button>
                                                      </div> 
-                                }
+                                            }
         
         // any other 
         else                                { return null; }
@@ -213,11 +213,11 @@ export default function ContactProducer({setContactDisplay}) {
                     />
                         
                    {    
-                        uploadStatus !== 200 &&  <button className='formButton' 
-                                                              type='submit' 
-                                                           onClick={(e) => sendEmail(e)}
-                                                             style={{marginTop: '2em', alignSelf: 'center'}}
-                                                 >Send Email</button>
+                        uploadProgress !== 200 &&  <button className='formButton' 
+                                                                type='submit' 
+                                                             onClick={(e) => sendEmail(e)}
+                                                               style={{marginTop: '2em', alignSelf: 'center'}}
+                                                   >Send Email</button>
                    }
 
                 </form>

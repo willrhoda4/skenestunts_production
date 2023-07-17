@@ -78,6 +78,7 @@
         .icon {
           filter: brightness(1);
           transition: filter .4s;
+          backface-visibility: hidden;
         }
         .icon:hover {
           filter: brightness(0)
