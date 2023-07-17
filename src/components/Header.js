@@ -230,7 +230,7 @@ function Header({getData}) {
             } */}
 
 
-            <div id='title' style={{ margin: `0 ${titleMargin}vw`}}>      
+            <div id='title'>      
 
 
                 <Picture
