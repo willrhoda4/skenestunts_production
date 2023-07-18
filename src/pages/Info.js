@@ -222,7 +222,7 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
     const valueBlurb = value === 'integrity'     ? `We expect honesty, trust and respect from all of our team members and co-workers, and are dedicated to fully serving the technical and artistic needs of every project we work on, without compromising our human values. We regard every person on the production team as a valued collaborator, recognizing and appreciating the critical role they each play in the process.`
                      : value === 'safety'        ? `With a stellar safety record that stretches decades, Skene Stunts prides itself on observing world-class safety standards and consistently contributing to a safe work environment. We are committed to a harassment- and bully-free workplace and are allies to the under-represented. Our policy of inclusion insists that every project we work on be a safe space for all, regardless of race, gender or orientation.`
-                     : value === 'performance'   ? `We have an international reputation for executing exceptional stunt performances and sequences for film and television. Leveraging a solid resume of creative writing, directing and filmmaking, our stunts are deliberately designed to support and enhance your story. We’re determined to bring your vision to the screen, and we can also supply second-unit directors when required.`
+                     : value === 'performance'   ? `We have an international reputation for executing exceptional stunt performances and sequences for film and television. Leveraging a solid resume of creative writing, directing and filmmaking, our stunts are deliberately designed to support and enhance your story. We’re determined to bring your vision to the screen, and we can supply second unit directors when required.`
                      :                              null;
 
 
@@ -474,7 +474,9 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
                             rel="noreferrer"
                             href='https://www.facebook.com/Skene-Stunts-109369232473048'
                         > 
-                            <img className='infoSocialIcon animate' alt='facebook icon' src={iconFacebook} />
+                            <div className='infoSocialIcon animate'>
+                                <img alt='facebook icon' src={iconFacebook} />
+                            </div>
                         </a>
 
                         <div id='fb' className='infoPlatformWrapper'>
@@ -493,7 +495,9 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
                             rel="noreferrer"
                             href='https://www.instagram.com/skenestunts/'
                         > 
-                            <img className='infoSocialIcon animate' alt='instagram icon' src={iconInstagram} />
+                            <div className='infoSocialIcon animate'>
+                                <img alt='instagram icon' src={iconInstagram} />
+                            </div>
                                     <div id='ig' className='infoPlatformWrapper'>
                                         { photoData && photoData.slice(0,6).map((image, index) => <img className='infoGramImage'
                                                                                                             id={'example'+index}
