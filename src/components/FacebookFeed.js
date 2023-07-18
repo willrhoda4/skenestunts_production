@@ -35,21 +35,7 @@ export default function FacebookFeed ({name, url}) {
     }, [name, url]);
 
 
-    // checks if the facebook sdk has loaded every 250ms
-    // once it has, it parses the DOM for any facebook embeds.
-    // this prevents display errors when user navigates away from the page and back.
-    useEffect(() => { 
-        
-        function loadFeed () {
 
-            if (Object.hasOwnProperty(window, 'FB')) {  return window.FB.XFBML.parse();          }
-            else                                     {  return setTimeout(() => loadFeed, 250);  }
-        
-        }
-        
-        loadFeed();
-        
-    },[]);
 
 
     // returns the facebook feed component. 

@@ -127,7 +127,9 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
             if (Object.hasOwn(window, 'FB')) {  return window.FB.XFBML.parse();          }
             else                             {  return setTimeout(() => loadFeed, 250);  }
         
-        }loadFeed() 
+        }
+        
+        loadFeed() 
         
     },[]);
 
