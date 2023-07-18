@@ -513,7 +513,7 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
 
 
-                {/* mildly suggestive footer section to move user along to next foot of their journey. */}
+                {/* footer section to move user along to next foot of their journey. */}
                 <div className='infoDiv' >
 
                     <div id='infoNextPageMenu'>

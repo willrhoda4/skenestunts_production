@@ -509,7 +509,7 @@
 
             .infoSocialIcon {
                 height: 15vmin;
-                /* border: 3px red ridge; */
+                border: 3px red ridge;
                 margin: 5vmin auto;
                 width: 100%;
                 filter: invert(100%) blur(10px);
