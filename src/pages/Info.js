@@ -117,21 +117,7 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
 
 
-    // uses Facebook widget's embedded method to make sure the feed reloads 
-    // on every initial render for the Info component, once FB is loaded.
-    // if FB isn't loaded, wait 250ms then call function recursively.
-    useEffect(() => { 
-        
-        function loadFeed () {
-
-            if (Object.hasOwn(window, 'FB')) {  return window.FB.XFBML.parse();          }
-            else                             {  return setTimeout(() => loadFeed, 250);  }
-        
-        }
-        
-        loadFeed() 
-        
-    },[]);
+   
 
 
 
