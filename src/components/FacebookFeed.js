@@ -42,8 +42,8 @@ export default function FacebookFeed ({name, url}) {
         
         function loadFeed () {
 
-            if (Object.hasOwn(window, 'FB')) {  return window.FB.XFBML.parse();          }
-            else                             {  return setTimeout(() => loadFeed, 250);  }
+            if (Object.hasOwnProperty(window, 'FB')) {  return window.FB.XFBML.parse();          }
+            else                                     {  return setTimeout(() => loadFeed, 250);  }
         
         }
         
