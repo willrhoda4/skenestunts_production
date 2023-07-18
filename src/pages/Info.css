@@ -509,6 +509,7 @@
 
             .infoSocialIconWrapper {
                 height: 15vmin;
+                width: fit-content;
                 margin: 5vmin auto;
             }
 
