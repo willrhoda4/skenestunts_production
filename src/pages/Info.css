@@ -506,33 +506,22 @@
             padding-bottom: 10vmin;
             /* border: 3px lime ridge; */
         }
-/* 
-            .infoSocialIcon {
+
+            .infoSocialWrapper {
                 height: 15vmin;
-                margin: 5vmin auto;
-                width: 100%;
-                filter: invert(100%) blur(10px);
-                transition: filter 2s;
-            } */
+            }
 
-
-            .infoSocialIcon {
-                height: 15vmin;
-                margin: 5vmin auto;
-                width: 100%;
-              }
-              
-              .infoSocialIcon > svg {
-                height: 100%;
-                width: auto;
-                filter: invert(100%) blur(10px);
-                transition: filter 2s;
-              }
-
-              
-                .infoSocialIcon.animated {
-                    filter: none;
+                .infoSocialIcon {
+                    height: 100%;
+                    margin: 5vmin auto;
+                    width: 100%;
+                    filter: invert(100%) blur(10px);
+                    transition: filter 2s;
                 }
+
+                    .infoSocialIcon.animated {
+                        filter: none;
+                    }
 
             .infoPlatformWrapper {
                 /* border: 3px orange ridge; */

@@ -473,10 +473,10 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
                         <a  target="_blank"
                             rel="noreferrer"
                             href='https://www.facebook.com/Skene-Stunts-109369232473048'
-                        > 
-                            <div className='infoSocialIcon animate'>
-                                <img alt='facebook icon' src={iconFacebook} />
-                            </div>
+                        >
+                            <div className='infoSocialIconWrapper'>
+                                <img className='infoSocialIcon animate' alt='facebook icon' src={iconFacebook} />
+                            </div>     
                         </a>
 
                         <div id='fb' className='infoPlatformWrapper'>
@@ -494,10 +494,10 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
                         <a  target="_blank"
                             rel="noreferrer"
                             href='https://www.instagram.com/skenestunts/'
-                        > 
-                            <div className='infoSocialIcon animate'>
-                                <img alt='instagram icon' src={iconInstagram} />
-                            </div>
+                        >
+                            <div className='infoSocialIconWrapper'>
+                                <img className='infoSocialIcon animate' alt='instagram icon' src={iconInstagram} />
+                            </div>     
                                     <div id='ig' className='infoPlatformWrapper'>
                                         { photoData && photoData.slice(0,6).map((image, index) => <img className='infoGramImage'
                                                                                                             id={'example'+index}
