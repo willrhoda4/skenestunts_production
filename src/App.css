@@ -131,7 +131,7 @@ h5 {
 }
 
 p {
-  font-family: BarlowCondensed-Bold, Arial, Helvetica, sans-serif;
+  font-family: BarlowCondensed, Arial, Helvetica, sans-serif;
   font-size: 12px; /* Fallback for older browsers */
   font-size: clamp(20px, 3vmin, 30px); /* Modern browsers */
 }
