@@ -74,6 +74,7 @@
       #socialLinks {
         height: fit-content;
         margin: auto 0;
+        overflow: hidden; 
       }
         .icon {
           filter: brightness(1);
