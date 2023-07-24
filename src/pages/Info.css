@@ -512,13 +512,13 @@
                 width: fit-content;
                 margin: 5vmin auto;
             }
+
             .infoSocialIcon {
-                height: 20vh;
-                margin: 10vh 0;
+                height: 15vh;
+                margin: 7.5vh 0;
                 filter: invert(100%) blur(10px);
                 transition: filter 2s;
             }
-                
 
                     .infoSocialIcon.animated {
                         filter: none;
@@ -724,19 +724,16 @@
             right: 15vw;
         }
 
-        /* .infoDiv:nth-of-type(5) {
-            min-height: fit-content;
-          } */
 
             .infoSocialPlatform {
                 /* border: 3px blue ridge; */
                 padding: 0;
             }
 
-            /* .infoSocialIcon {
-                height: 20vh;
-                margin: 10vh 0;
-            } */
+                .infoSocialIcon {
+                    height: 20vh;
+                    margin: 10vh 0;
+                }
 
             .infoPlatformWrapper#ig, .infoPlatformWrapper#fb {
                 display: none;
