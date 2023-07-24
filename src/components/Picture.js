@@ -10,7 +10,12 @@ export default function Picture({ src, type, fallback, id, className, alt, style
 
 
 
-    return (  <img src={src} onError={(e) => (e.target.src = fallback)} alt={alt} className={className} style={style} />
+    return (  <img     src={src} 
+                   onError={(e) => (e.target.src = fallback)} 
+                       alt={alt} 
+                        id={id}
+                 className={className}
+                     style={style} />
         
       // <picture>
 
