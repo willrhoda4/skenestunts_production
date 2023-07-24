@@ -6,39 +6,31 @@
 
 
 
-// export default function Picture({ src, type, fallback, id, className, alt, style }) {
+export default function Picture({ src, type, fallback, id, className, alt, style }) {
 
 
 
-//     return (
+    return (  <img src={src} onError={(e) => (e.target.src = fallback)} alt={alt} className={className} style={style} />
         
-//       <picture>
+      // <picture>
 
-//         <source  srcSet={src} 
-//                     type={type} 
-//                       id={id} 
-//               className={className}
-//                   style={style}
-//                     alt={alt} 
-//         />
+      //   <source  srcSet={src} 
+      //               type={type} 
+      //                 id={id} 
+      //         className={className}
+      //             style={style}
+      //               alt={alt} 
+      //   />
 
-//         <img        src={fallback} 
-//                       id={id} 
-//               className={className}
-//                   style={style} 
-//                     alt={alt} 
-//         />
+      //   <img        src={fallback} 
+      //                 id={id} 
+      //         className={className}
+      //             style={style} 
+      //               alt={alt} 
+      //   />
 
-//       </picture>
+      // </picture>
 
-//     );
-//   }
+    );
+  }
 
-  export default function Picture({ src, fallback, id, className, alt, style }) {
-    return (
-      <picture>
-        <source srcSet={`${src}, ${fallback}`} type="image/webp" />
-        <img src={fallback} id={id} className={className} style={style} alt={alt} />
-      </picture>
-    )
-    }
