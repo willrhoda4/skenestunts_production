@@ -495,7 +495,7 @@
       background: white;
       display: flex;
       align-items: flex-start;
-      height: fit-content;
+      min-height: fit-content;
     }
 
         .infoSocialPlatform {
@@ -508,8 +508,7 @@
         }
 
             .infoSocialIconWrapper {
-                height: 15vmin;
-                min-height: fit-content;
+                min-height: 15vmin;
                 width: fit-content;
                 margin: 5vmin auto;
             }
@@ -725,9 +724,9 @@
             right: 15vw;
         }
 
-        .infoDiv:nth-of-type(5) {
+        /* .infoDiv:nth-of-type(5) {
             min-height: fit-content;
-          }
+          } */
 
             .infoSocialPlatform {
                 /* border: 3px blue ridge; */
@@ -864,3 +863,10 @@
     
 
       }
+
+
+
+
+     
+
+
