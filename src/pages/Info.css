@@ -550,15 +550,26 @@
 
                 }
 
-                    .infoGramImage {
+                    /* .infoGramImage {
                         height: 20vmin;
-                        display: block; /* transition doesn't work on Safari without this rule */
                         transition: transform .4s;
                     }
 
                         .infoGramImage:hover {
                             transform: scale(125%);
-                        }
+                        } */
+
+                        .infoGramImage:hover {
+                            transform: scale(1.25);
+                            -webkit-transform: scale(1.25); /* Add this line for Safari */
+                          }
+                
+                          .infoGramImage {
+                            height: 20vmin;
+                            display: block;
+                            transition: transform .4s;
+                            z-index: 1; /* Add this line */
+                          }
 
                   
                   
