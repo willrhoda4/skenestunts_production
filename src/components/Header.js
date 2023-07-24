@@ -231,18 +231,18 @@ function Header({getData}) {
                 />
 
 
-                {/* <Picture
+                <Picture
                          src={logo}
                     fallback={logoPng}
                         type='image/webp'
                          alt='Skene Stunts company logo'
                           id='headerLogo'
-                /> */}
+                />
 
-                <img src={logoPng}
+                {/* <img src={logoPng}
                 
                          alt='Skene Stunts company logo'
-                          id='headerLogo' />
+                          id='headerLogo' /> */}
 
 
                 <p id='slogan' >
