@@ -9,10 +9,10 @@
     height: 10vh;
     min-height: 65px;
     background: rgba(14, 13, 13, 0.5);
-    box-shadow:   2px 2px 5px 5px rgba(206, 58, 8, .15); 
-            /* inset 5em 10em 10em  rgb(48, 44, 44, .25),
+    box-shadow:   2px 2px 5px 5px rgba(206, 58, 8, .15), 
+            inset 5em 10em 10em  rgb(48, 44, 44, .25),
             inset 2.5em 5em 10em  rgba(235, 232, 230, 0.25),
-            inset -1em -2em 10em  rgb(46, 28, 28); */
+            inset -1em -2em 10em  rgb(46, 28, 28);
     background-image: linear-gradient(rgba(42, 43, 44, .8), rgba(24, 6, 19, 0.9)),
                       url('../images/diamondplate.webp');
     background-size: cover; 
@@ -82,7 +82,7 @@
         }
         .icon:hover {
           filter: brightness(0)
-                  drop-shadow(0 0 15px rgb(231, 21, 21));
+                  drop-shadow(0 0 5px rgb(231, 21, 21));
           }
           .social.icon {
             height: 2em;
