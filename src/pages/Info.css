@@ -505,11 +505,11 @@
             align-items: center;
             justify-content: center;
             padding-bottom: 10vmin;
-            /* border: 3px lime ridge; */
         }
 
             .infoSocialIconWrapper {
                 height: 15vmin;
+                min-height: fit-content;
                 width: fit-content;
                 margin: 5vmin auto;
             }
