@@ -82,7 +82,7 @@
         }
         .icon:hover {
           filter: brightness(0)
-                  drop-shadow(0 0 5px rgb(231, 21, 21));
+                  drop-shadow(0 0 10px rgb(231, 21, 21));
           }
           .social.icon {
             height: 2em;
