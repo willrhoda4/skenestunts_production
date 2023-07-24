@@ -554,11 +554,14 @@
                             height: 20vmin;
                             display: block;
                             transition: transform .4s;
+                            z-index: 1;
                           }
                  
 
                         .infoGramImage:hover {
                             transform: scale(1.25);
+                            -webkit-transform: scale(1.25); /* Add this line for Safari */
+                            z-index: 2;
                           }
                 
                         
