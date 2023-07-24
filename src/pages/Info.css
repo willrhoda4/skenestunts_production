@@ -554,6 +554,7 @@
                         height: 20vmin;
                         display: block;
                         transition: transform .4s;
+                        z-index: 1; /* Add this line */
                     }
                  
                         .infoGramImage:hover {
