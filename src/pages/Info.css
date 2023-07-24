@@ -552,6 +552,7 @@
 
                     .infoGramImage {
                         height: 20vmin;
+                        display: block; /* transition doesn't work on Safari without this rule */
                         transition: transform .4s;
                     }
 
