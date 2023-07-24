@@ -118,7 +118,7 @@ function NavBar({links, editing, setEditing}) {
                  href={url}
             >
                 <img       alt={platform + ' icon'}
-                     className='social icon'
+                     className='social icon'x   z
                            src={icon}
                 />
             </a>
