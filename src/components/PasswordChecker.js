@@ -206,9 +206,7 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
 
         <div className='passwordForm adminForm'>
             
-            <h2 className='passwordFormH2'
-                style={{ paddingBottom: '5vh' }}
-            >Sign in to continue</h2>
+            <h2 className='passwordFormH2'>Sign in to continue</h2>
         
             < TextField
                         name={ origin === '/director' ? 'login' : 'email' }

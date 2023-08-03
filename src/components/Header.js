@@ -239,10 +239,7 @@ function Header({getData}) {
                           id='headerLogo'
                 />
 
-                {/* <img src={logoPng}
-                
-                         alt='Skene Stunts company logo'
-                          id='headerLogo' /> */}
+             
 
 
                 <p id='slogan' >

@@ -29,7 +29,7 @@
         .fieldTitleH3 {
             overflow: hidden;
             white-space: nowrap;
-            font-size: 2em;
+            /* font-size: 2em; */
 
         }
 
@@ -115,7 +115,7 @@
 
     .instructions {
         font-family: BarlowCondensed;
-        font-size: 1.5em;
+        /* font-size: 1.5em; */
         width: 100%;
         height: fit-content;
         text-align: center;
