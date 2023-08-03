@@ -336,6 +336,6 @@ a {
         
     .formButton {
         background-image: linear-gradient(rgba(42, 43, 44, .8), rgba(24, 6, 19, 0.9)),
-                            url('../images/diamondplate.jpeg');
+                            url('./images/diamondplate.jpeg');
     }
 }
