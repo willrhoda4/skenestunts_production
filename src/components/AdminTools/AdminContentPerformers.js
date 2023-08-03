@@ -350,7 +350,7 @@ export default function Performers ({  currentData, loadData, adminStatus, board
                         
                         
                         {/* link to latest reel. doesn't appear if they haven't supplied one. */}
-                        { reel_url !== 'none    ' &&        <a target="_blank"
+                        { reel_url !== 'none'    &&        <a target="_blank"
                                                                     rel="noreferrer"
                                                                     href={reel_url}
                                                                     >
