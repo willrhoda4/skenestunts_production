@@ -119,7 +119,7 @@ h2 {
 
 h3 {
   font-family: BebasNeue, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 2.5em;
+  font-size: 5vmin;
 }
 
 
@@ -259,7 +259,7 @@ a {
           color: white;
           padding: .25em 1em;
           margin: 5vh 0;
-          font-size: 2em;
+          /* font-size: 2em; */
           font-family: BebasNeue;
           transition: box-shadow .5s ease-in;
           display: flex;

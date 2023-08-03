@@ -515,7 +515,7 @@
 
             .infoSocialIcon {
                 height: 15vh;
-                margin: 7.5vh 0;
+                margin: 7.5 vh 0;
                 filter: invert(100%) blur(10px);
                 transition: filter 2s;
             }
