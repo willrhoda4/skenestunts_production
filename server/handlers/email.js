@@ -186,7 +186,7 @@ function emailHandler (req, res, next) {
 
         console.log(`sending reset link to ${email}...\n`);
 
-        const url              = `${process.env.URL}/passwordReset?id=${resetId}&origin=${origin}&invite=${invite}&token=${token}`;
+        const url              = `${process.env.URL}passwordReset?id=${resetId}&origin=${origin}&invite=${invite}&token=${token}`;
 
         const resetLinkOptions = {        
                                            to:  email,
