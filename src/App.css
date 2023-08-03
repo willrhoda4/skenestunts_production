@@ -276,13 +276,13 @@ a {
               .formButton.optionButton {
                   font-family: BarlowCondensed;
                   text-align: left;
-                  font-size: 1.8em;
+                  /* font-size: 1.8em; */
                   width: 100%
               }
   
               .formButton.backToButton {
                   font-family: BarlowCondensed;
-                  font-size: 1.8em;
+                  /* font-size: 1.8em; */
                   margin: 7.5vh auto;
                   width: fit-content;
               }
