@@ -251,7 +251,9 @@ export default function TeamForm({loadData, currentData, table, columns, update,
         uniquePosters.size !== posters.length  ? setDuplicateError(true)
                                                : setDuplicateError(false);
 
-    }, [posters, uniquePosters.size])
+        noPosters                             && setDuplicateError(false);
+
+    }, [noPosters, posters, uniquePosters.size])
 
 
     // lines everything up for poster dropdowns

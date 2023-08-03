@@ -193,11 +193,11 @@ export default function PerformerForm ({performerOptions, performerData, perform
                             { currentPage !== 1  && currentPage !== 10 && <button id='lastPageButton' className='formButton' type="button" onClick={() => lastPage() }>{ <img alt='rewind icon' 
                                                                                                                                                                               className='buttonIcon'
                                                                                                                                                                               src={iconRewind}/>
-                                                                                                                                                                       }rev</button>}
+                                                                                                                                                                       }back</button>}
                             { currentPage !== 10 &&                       <button id='nextPageButton' className='formButton' type="button" onClick={() => nextPage() }>{ <img alt='rewind icon' 
                                                                                                                                                                               className='buttonIcon flipped'
                                                                                                                                                                               src={iconRewind}/>
-                                                                                                                                                                       }fwd</button>}
+                                                                                                                                                                       }next</button>}
                         </div>
 
                         {/* displays current page number */}
