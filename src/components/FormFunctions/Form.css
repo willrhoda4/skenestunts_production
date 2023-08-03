@@ -115,8 +115,8 @@
 
     .instructions {
         font-family: BarlowCondensed;
-        /* font-size: 1.5em; */
-        width: 100%;
+        font-size: 15px; /* Fallback for older browsers */
+        font-size: clamp(15px, 3vmin, 25px); /* Modern browsers */        width: 100%;
         height: fit-content;
         text-align: center;
         /* position: relative;

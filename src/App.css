@@ -260,6 +260,8 @@ a {
           padding: .25em 1em;
           margin: 5vh 0;
           /* font-size: 2em; */
+          font-size: 20px; /* Fallback for older browsers */
+          font-size: clamp(20px, 3vmin, 30px); /* Modern browsers */
           font-family: BebasNeue;
           transition: box-shadow .5s ease-in;
           display: flex;
@@ -327,9 +329,13 @@ a {
 
     .imdbIcon {
       height: 8vmin;
+    }
   }
 
-    /* p {
-        font-size: 1.5em;
-    } */
-  }
+  @media (not (webp)) {
+        
+    .formButton {
+        background-image: linear-gradient(rgba(42, 43, 44, .8), rgba(24, 6, 19, 0.9)),
+                            url('../images/diamondplate.jpeg');
+    }
+}
