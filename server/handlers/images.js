@@ -156,6 +156,8 @@ async function teamshot (req, res) {
                         .then(_res =>   {          
                                             id = _res.data.id
 
+                                            console.log(req.files);
+
                                             fs.unlink(req.files.imageUpload[0].path, (err) => { 
                                                 
                                                 if (err) {      console.error(err);
