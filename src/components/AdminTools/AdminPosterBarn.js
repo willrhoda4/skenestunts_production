@@ -152,7 +152,7 @@ export default function PosterBarn ({setCurrentData, getData, gopher}) {
                                             let promises = [];
 
                                             // retrieves posters for the new projects if they exist and adds them to the promises array.
-                                            for (let i = 0; i < newFlicks.length; i++) {                console.log(newFlicks[i]);
+                                            for (let i = 0; i < newFlicks.length; i++) {               
                                                
                                                 promises.push(
                                                     // Axios.post(`${url}py/getPoster`, [newFlicks[i]])
