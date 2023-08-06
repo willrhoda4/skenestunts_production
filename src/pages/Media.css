@@ -35,6 +35,7 @@
                 object-fit: contain;
                 object-position: center;
                 padding: 2vmin;
+                min-width: 100%;
             }
 
         .storyHeadline {
