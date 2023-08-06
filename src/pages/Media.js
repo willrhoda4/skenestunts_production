@@ -10,9 +10,8 @@ import {  useEffect,
           useState    }  from 'react';
 import {  Helmet      }  from 'react-helmet';
   
-import    logo           from '../images/logo_header.webp';
-import    logoPNG        from '../images/logo_header.png';
-
+import    logo           from '../images/logo.webpo';
+import    logoPNG        from '../images/logo.png';
 import    Loader         from '../components/Loader.js';
 import    Picture        from '../components/Picture.js'
 
@@ -55,6 +54,7 @@ export default function Media({getData}) {
                                        :  <Picture
                                                    src={logo}
                                               fallback={logoPNG}
+                                             className={'storyImage logo'}
                                                   type='image/webp'
                                                    alt='Skene Stunts company logo'
                                                     id='footerLogo'
