@@ -216,7 +216,7 @@ function newPerformer (request, response) {
 
     // callback function for data query
     // adds the performer_id to the beginning of the array during dataCallback.
-    const dataCallback  = (data) => { console.log('da data => ',data); passData.unshift(data[0].performer_id); };
+    const dataCallback  = (data) => { passData.unshift(data[0].performer_id); };
 
     return atomicQuery(      request, 
                              response,

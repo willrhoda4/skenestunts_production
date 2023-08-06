@@ -33,8 +33,8 @@ const   driveService  = google.drive({version: 'v3', auth});
 async function headshot (req, res, next) {
 
         
-    console.log(`uploading headshot for ${res.locals.performerName}`);
     res.locals.performerName = req.body.name;
+    console.log(`uploading headshot for ${res.locals.performerName}`);
     
     
     const fileMetaData = {
@@ -158,7 +158,7 @@ async function teamshot (req, res) {
 
                                             console.log(req.files);
 
-                                            fs.unlink(req.files.imageUpload[0].path, (err) => { 
+                                            fs.unlink(req.file, (err) => { 
                                                 
                                                 if (err) {      console.error(err);
                                                                 res.status(400).send(err);

@@ -17,7 +17,7 @@ const posters       = require('./handlers/posters.js'   );
 
 
 // import libraries
-const fs            = require('fs');
+// const fs            = require('fs');
 const path          = require('path');
 const express       = require('express'     );
 const cors          = require('cors'        );

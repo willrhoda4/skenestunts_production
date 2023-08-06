@@ -126,7 +126,7 @@ export default function AdminButtons ({ id,
     // copies a link to the faq item to the clipboard
     function copyLink () {
 
-        navigator.clipboard.writeText(`${process.env.URL}info?faq=`+cssId);
+        navigator.clipboard.writeText(`${process.env.REACT_APP_LINK_URL}info?faq=`+cssId);
     }
 
 

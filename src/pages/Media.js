@@ -10,9 +10,11 @@ import {  useEffect,
           useState    }  from 'react';
 import {  Helmet      }  from 'react-helmet';
   
-import    logo           from '../images/logo.png';
-import    Loader         from '../components/Loader.js';
+import    logo           from '../images/logo_header.webp';
+import    logoPNG        from '../images/logo_header.png';
 
+import    Loader         from '../components/Loader.js';
+import    Picture        from '../components/Picture.js'
 
 
 
@@ -50,7 +52,13 @@ export default function Media({getData}) {
                         <p><b>{outlet}</b></p>
                     </div>
                     { image !== 'logo' ? <img className='storyImage'      alt={alt}               src={image} />
-                                       : <img className='storyImage logo' alt='Skene Stunts logo' src={logo}  />
+                                       :  <Picture
+                                                   src={logo}
+                                              fallback={logoPNG}
+                                                  type='image/webp'
+                                                   alt='Skene Stunts company logo'
+                                                    id='footerLogo'
+                                          />
                     }
                     {/* headlines are capitalized for consistency. */}
                     <h3 className='storyHeadline'>{headline.toUpperCase()}</h3>

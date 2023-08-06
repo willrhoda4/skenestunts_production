@@ -272,7 +272,7 @@ export default function Page10 ({
                                        onClick={()  => setCurrentPage(9)}>{ <img alt='rewind icon' 
                                                                            className='buttonIcon'
                                                                                  src={iconRewind}/>
-                                                                          }rev</button>
+                                                                          }back</button>
                             <button  className='formButton submitButton' 
                                             id='formSubmitButton'
                                           type='button' 
