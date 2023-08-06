@@ -10,8 +10,8 @@ import {  useEffect,
           useState    }  from 'react';
 import {  Helmet      }  from 'react-helmet';
   
-import    logo           from '../images/logo.webp';
-import    logoPNG        from '../images/logo.png';
+import    logo           from '../images/logo_header.webp';
+import    logoPNG        from '../images/logo_header.png';
 import    Loader         from '../components/Loader.js';
 import    Picture        from '../components/Picture.js'
 
