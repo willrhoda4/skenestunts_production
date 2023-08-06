@@ -64,7 +64,7 @@ export default function Media({getData}) {
                     <h3 className='storyHeadline'>{headline.toUpperCase()}</h3>
                 </div>
             </a>
-        )
+        ) 
     }
 
 

@@ -32,6 +32,8 @@
 
             .storyImage.logo {
                 background: black;
+                object-fit: contain;
+                object-position: center;
                 padding: 2vmin;
             }
 
