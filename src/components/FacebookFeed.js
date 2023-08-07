@@ -19,20 +19,20 @@ export default function FacebookFeed ({name, url}) {
 
 
     // injects the facebook sdk script into the DOM when the component mounts.
-    useEffect(() => {
+    // useEffect(() => {
 
-        const script = document.createElement('script');
-              script.src='https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=1229119547492444&autoLogAppEvents=1';
-              script.crossorigin='anonymous';
-              script.nonce='DSHjCoBi';
-              script.async = true;
-              script.defer = true;                      
+    //     const script = document.createElement('script');
+    //           script.src='https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=1229119547492444&autoLogAppEvents=1';
+    //           script.crossorigin='anonymous';
+    //           script.nonce='DSHjCoBi';
+    //           script.async = true;
+    //           script.defer = true;                      
                         
-        document.body.prepend(script);
+    //     document.body.prepend(script);
 
-        return () => { document.body.removeChild(script); }
+    //     return () => { document.body.removeChild(script); }
 
-    });
+    // }, [name, url]);
 
 
 
