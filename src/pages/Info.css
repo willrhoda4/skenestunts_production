@@ -544,13 +544,14 @@
                 .infoPlatformWrapper#ig {
                     display: grid;
                     grid-template-columns: 1fr 1fr;
-                    /* gap: 2.5vmin; */
-                    /* border: 3px yellow ridge; */
-
+               
                 }
 
                       .infoGramImage {
                             height: 20vmin;
+                            width: 20vmin;
+                            object-fit: cover;
+                            object-position: top;
                             display: block;
                             transition: transform .4s;
                             z-index: 1;
@@ -563,8 +564,7 @@
                             z-index: 2;
                           }
                 
-                        
-
+                       
                   
                   
 
