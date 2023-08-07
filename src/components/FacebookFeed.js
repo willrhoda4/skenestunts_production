@@ -32,7 +32,7 @@ export default function FacebookFeed ({name, url}) {
 
         return () => { document.body.removeChild(script); }
 
-    }, [name, url]);
+    });
 
 
 
