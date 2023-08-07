@@ -130,7 +130,7 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
         return () => { document.body.removeChild(script); }
 
-    }, []);
+    });
    
 
 
