@@ -47,7 +47,7 @@ export default function AdminButtons ({ id,
 
 
     // deletes item from database.
-    function deleteItem () {   
+    function deleteItem () {   console.log(`table: ${table}, id: ${id}, rank: ${rank}`);
 
         // prevents the user from deleting the advice faq.
         if (table === 'info' && id === 'advice') { return window.alert(`You can't delete this FAQ!`); }
