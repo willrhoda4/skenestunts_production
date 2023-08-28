@@ -1,0 +1,51 @@
+Date : 2023-08-17 11:58:14
+Directory : /Users/williamrhoda/Documents/Code/Projects/skenestunts_production
+Total : 14 files,  20 codes, -7 comments, 10 blanks, all 23 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |          7 |         15 |          2 |         11 |         28 |
+| CSS        |          6 |         14 |         -9 |         -1 |          4 |
+| XML        |          1 |         -9 |          0 |          0 |         -9 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                          | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                             |         14 |         20 |         -7 |         10 |         23 |
+| server                                                                                                        |          2 |         -1 |          1 |          1 |          1 |
+| server (Files)                                                                                                |          1 |         -1 |          1 |          0 |          0 |
+| server/handlers                                                                                               |          1 |          0 |          0 |          1 |          1 |
+| src                                                                                                           |         12 |         21 |         -8 |          9 |         22 |
+| src (Files)                                                                                                   |          1 |          6 |         -1 |          1 |          6 |
+| src/components                                                                                                |          7 |         11 |          0 |         10 |         21 |
+| src/components (Files)                                                                                        |          4 |          7 |          1 |          9 |         17 |
+| src/components/AdminTools                                                                                     |          2 |          3 |          0 |          1 |          4 |
+| src/components/FormFunctions                                                                                  |          1 |          1 |         -1 |          0 |          0 |
+| src/images                                                                                                    |          1 |         -9 |          0 |          0 |         -9 |
+| src/pages                                                                                                     |          3 |         13 |         -7 |         -2 |          4 |
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                      | language   | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| /Users/williamrhoda/Documents/Code/Projects/skenestunts_production/server/handlers/images.js                  | JavaScript |          0 |          0 |          1 |          1 |
+| /Users/williamrhoda/Documents/Code/Projects/skenestunts_production/server/server.js                           | JavaScript |         -1 |          1 |          0 |          0 |
+| /Users/williamrhoda/Documents/Code/Projects/skenestunts_production/src/App.css                                | CSS        |          6 |         -1 |          1 |          6 |
+| /Users/williamrhoda/Documents/Code/Projects/skenestunts_production/src/components/AdminTools/AdminFormTeam.js | JavaScript |          1 |          0 |          1 |          2 |
+| /Users/williamrhoda/Documents/Code/Projects/skenestunts_production/src/components/AdminTools/AdminTools.css   | CSS        |          2 |          0 |          0 |          2 |
+| /Users/williamrhoda/Documents/Code/Projects/skenestunts_production/src/components/FacebookFeed.js             | JavaScript |          7 |          3 |          7 |         17 |
+| /Users/williamrhoda/Documents/Code/Projects/skenestunts_production/src/components/FormFunctions/Form.css      | CSS        |          1 |         -1 |          0 |          0 |
+| /Users/williamrhoda/Documents/Code/Projects/skenestunts_production/src/components/Header.js                   | JavaScript |         -2 |         -2 |          1 |         -3 |
+| /Users/williamrhoda/Documents/Code/Projects/skenestunts_production/src/components/PasswordForm.css            | CSS        |          1 |          0 |         -1 |          0 |
+| /Users/williamrhoda/Documents/Code/Projects/skenestunts_production/src/components/PasswordReset.js            | JavaScript |          1 |          0 |          2 |          3 |
+| /Users/williamrhoda/Documents/Code/Projects/skenestunts_production/src/images/logo_footer.svg                 | XML        |         -9 |          0 |          0 |         -9 |
+| /Users/williamrhoda/Documents/Code/Projects/skenestunts_production/src/pages/Info.css                         | CSS        |          3 |         -2 |         -1 |          0 |
+| /Users/williamrhoda/Documents/Code/Projects/skenestunts_production/src/pages/Media.css                        | CSS        |          1 |         -5 |          0 |         -4 |
+| /Users/williamrhoda/Documents/Code/Projects/skenestunts_production/src/pages/Media.js                         | JavaScript |          9 |          0 |         -1 |          8 |
+| Total                                                                                                         |            |         20 |         -7 |         10 |         23 |
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

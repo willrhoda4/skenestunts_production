@@ -99,7 +99,7 @@ skenstunts.com - The Readme File
 
 
             Posters: The poster barn is a museum of movie posters from projects the team has worked on. It's helpful
-                     for team members picking posters to put on their profiles. It can be updated simply by pushing
+                     for team members picking posters to put on their profiles. It can be updated by pushing
                      the 'update barn' button, which triggers a post request to the poster_gopher.
 
 
@@ -108,7 +108,7 @@ skenstunts.com - The Readme File
                         Ways to filter are as follows:
 
                             - strict boolean conditions (eg: skill or ethnicity searches)
-                            - case-insensitivte string conditions (eg: name or email searches)
+                            - case-insensitive string conditions (eg: name or email searches)
                             - numeric range conditions (eg: age or height searches)
 
                         Filters can be activated using the checkbox next to them.
@@ -121,7 +121,7 @@ skenstunts.com - The Readme File
 
                         Headshot/bodyshot thumbnails in search results can be momentarily expanded by clicking on them.
 
-                        Any team member can add a note to a performer, but note that there is only one note per peformer,
+                        Any team member can add a note to a performer, but note that there is only one note per performer,
                         meaning that any team member can overwrite (or add to) that note in the future.
 
                         Admin and board members can edit a performer's internal class, team members can just view it.
@@ -151,7 +151,7 @@ skenstunts.com - The Readme File
 
             chain icon:         copy FAQ link* to clipboard                  (FAQ section only)
                 
-                *this is a link that will take a user straight to the info page and right to the right part of the FAQ buffet
+                *a link that will take a user straight to the info page and right to the right part of the FAQ buffet
 
 
 
@@ -184,7 +184,7 @@ skenstunts.com - The Readme File
 
 
 
-    Environment Variables;
+    Environment Variables:
 
 
         The following environment variables need to be configured in production:
