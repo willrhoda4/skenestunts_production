@@ -82,6 +82,7 @@ app.post('/getPostersByLetter',  posters.getPostersByLetter             );
 app.post('/getDoublesPosters',   posters.getDoublesPosters              );
 app.get( '/getPosterList',       posters.getPosterList                  );
 app.post('/newPoster',           posters.newPoster                      );
+app.post('/newPosters',          posters.newPosters                     );
 
 
 // email handler

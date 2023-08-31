@@ -131,16 +131,12 @@ export default function PosterBarn ({setCurrentData, getData, gopher}) {
 
                                             // we'll call this function to log new posters in our database,
                                             // once the poster_gopher gets back to us with the facts.
-                                            const newPoster = (data) => {
+                                            const newPosters = (data) => {
 
-                                                const wrappedUp   = data[2] !== 'no poster'   ?   <Notification type='good' msg={`A poster for ${data[0]} was added to the database.`}                />
-                                                                                              :   <Notification type='bad'  msg={`Couldn't find a poster for ${data[0]}.`            }                />
 
-                                                const posterError =                               <Notification type='bad'  msg={`There was an error adding a poster for ${data[0]} to the database.`} />
-
-                                                Axios.post( `${process.env.REACT_APP_API_URL}newPoster`, data )
-                                                     .then( res =>  { setUpdateLog(updateLog => [...updateLog, wrappedUp   ] ) } )
-                                                    .catch( err =>  { setUpdateLog(updateLog => [...updateLog, posterError ] ) } )
+                                                Axios.post( `${process.env.REACT_APP_API_URL}newPosters`, data )
+                                                     .then( res =>  { setUpdateLog(updateLog => [...updateLog, <Notification type='good' msg={ res.data }                                                /> ] ); endUpdate('good') } )
+                                                    .catch( err =>  { setUpdateLog(updateLog => [...updateLog, <Notification type='bad'  msg={`There was an error adding your posters to the database.`} /> ] ); endUpdate('bad' ) } )
 
                                             }
 
@@ -150,37 +146,30 @@ export default function PosterBarn ({setCurrentData, getData, gopher}) {
                                                 // finds which projects are not in the database and adds them to an array
                                                 // continues if it finds a match.
                                                 // eslint-disable-next-line no-loop-func
-                                                if (databaseData.find(flick => flick.imdb_id === flickList[i])) { continue; }
-                                                else                                                            { newFlicks.push(flickList[i])}
+                                                if (databaseData.find(flick => flick.imdb_id === flickList[i])) { continue;                    }
+                                                else                                                            { newFlicks.push(flickList[i]) }
                                             }
 
-                                            let promises = [];
 
-                                            // retrieves posters for the new projects if they exist and adds them to the promises array.
-                                            for (let i = 0; i < newFlicks.length; i++) {               
-                                               
-                                                promises.push(
-                                                    // Axios.post(`${url}py/getPoster`, [newFlicks[i]])
-                                                    Axios.post(`${gopher}server/getPoster/`, { imdbId: newFlicks[i] })
-                                                    .then(res => {      
+                                            Axios.post(`${gopher}server/getPosters/`, { imdbIds: newFlicks })
+                                                .then( res => {
 
-                                                            // if there's an error, put up a notification, else add the data to the database.
-                                                            // if no poster is found, an entry with 'no poster' will be provided for image_url, to prevent repeat searches.
-                                                           res.status  === 400      ? setUpdateLog(updateLog => [...updateLog, <Notification type='bad'  msg={`There was an error retrieving a poster. Try again and, if the problem persists, call your guy.`}   />])
-                                                                                    : newPoster(res.data);   
-                                                        })
-                                                )
-                                            }
+                                                                // if the response is an error call the whole thing off.
+                                                                if (res.status === 400) {
+                                                                    return setUpdateLog(updateLog => 
+                                                                        [...updateLog, <Notification type='bad' msg={`There was an error retrieving your posters. Try again and, if the problem persists, call your guy.`} />]
+                                                                    );
+                                                                }
 
-                                            // when all the promises are fulfilled, end the update. You made it!
-                                            Promise.all(promises).catch( err => setUpdateLog(updateLog => [ ...updateLog, 
-                                                                                                            <Notification type='bad'  
-                                                                                                                           msg={`There was a problem getting your posters: \n\n${err}`}   
-                                                                                                            />
-                                                                                                          ]
-                                                                                            )  
-                                                                       )
-                                                               .finally(   () => endUpdate('good')   ); 
+                                                                // if the response is good, tell the user how many searches where successful.
+                                                                setUpdateLog(updateLog => 
+                                                                    [...updateLog, <Notification type='good' msg={`Managed to find data for ${res.data.length} posters. Updating database now...`} />]
+                                                                );
+
+                                                                // add the new posters to the database.
+                                                                newPosters(res.data);
+                                                              }
+                                                      )
                                 }
                             // catch blocks on catch blocks on catch blocks                   
                             }).catch(err => console.log(err))
