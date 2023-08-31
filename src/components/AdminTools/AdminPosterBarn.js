@@ -87,7 +87,6 @@ export default function PosterBarn ({setCurrentData, getData, gopher}) {
                     
                     console.log(`AllIMDB => ${allIMDB}`); 
                     console.log(`res.data => ${res.data} `);
-                    console.log(`total credits => ${res.data.total_credits} \n all films => ${res.data.all_films} `);
 
 
                             // the script should return an array with the total number of credits and a list of all the projects.
@@ -153,7 +152,7 @@ export default function PosterBarn ({setCurrentData, getData, gopher}) {
 
                                             Axios.post(`${gopher}server/getPosters/`, { imdbIds: newFlicks })
                                                 .then( res => {
-                                                                console.log(res.status, res.data);
+                                                                console.log('get posters response => ', res.status, res.data, res);
                                                                 // if the response is an error call the whole thing off.
                                                                 if (res.status === 400) {
                                                                     return setUpdateLog(updateLog => 
