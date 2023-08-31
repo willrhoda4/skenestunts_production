@@ -150,6 +150,8 @@ export default function PosterBarn ({setCurrentData, getData, gopher}) {
                                             }
 
 
+                                            console.log('newFlicks => ', newFlicks);
+
                                             Axios.post(`${gopher}server/getPosters/`, { imdbIds: newFlicks })
                                                 .then( res => {
                                                                 console.log('get posters response => ', res.status, res.data, res);
