@@ -36,7 +36,7 @@ const upload        = multer({ storage });
 
 const corsOptions = {
                       origin: ['https://skenestunts.com'],
-                      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+                      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',  
                       credentials: true,
                       optionsSuccessStatus: 204,
                     };
