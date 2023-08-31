@@ -153,7 +153,7 @@ export default function PosterBarn ({setCurrentData, getData, gopher}) {
 
                                             Axios.post(`${gopher}server/getPosters/`, { imdbIds: newFlicks })
                                                 .then( res => {
-
+                                                                console.log(res.status, res.data);
                                                                 // if the response is an error call the whole thing off.
                                                                 if (res.status === 400) {
                                                                     return setUpdateLog(updateLog => 
