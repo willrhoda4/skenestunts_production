@@ -84,9 +84,6 @@ export default function PosterBarn ({setCurrentData, getData, gopher}) {
             // calls a python script that retrieves the number of credits and projects for the Skene Stunts team from IMDB
             Axios.post(`${gopher}server/getFlicks/`, ({ team: allIMDB }))
                  .then( res => {       
-                    
-                    console.log(`AllIMDB => ${allIMDB}`); 
-                    console.log(`res.data => ${res.data} `);
 
 
                             // the script should return an array with the total number of credits and a list of all the projects.
