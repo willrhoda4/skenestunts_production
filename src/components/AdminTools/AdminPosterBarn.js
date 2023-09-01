@@ -115,63 +115,77 @@ export default function PosterBarn ({setCurrentData, getData, gopher}) {
                                 
                                // if res.data is not an array, there is a problem.
                                 if (typeof(databaseCount) !== 'number')        {  setUpdateLog(updateLog => [...updateLog, <Notification type='bad'  msg={`There was trouble loading your database. Try again, and if the problem persists call your guy.`} />]);
-                                                                                  endUpdate('bad');
+                                                                                  return endUpdate('bad');
                                                                                }
                                 // if the database has the same amount or more projects than IMDB,
                                 // there's no need to head back to IMDB for poster data.
                                 else if (databaseCount >= flickCount)          {  setUpdateLog(updateLog => [...updateLog, <Notification type='good' msg={`Your database already has ${databaseCount} projects in it, so you should be up to date.`} />]);
-                                                                                  endUpdate('good');
+                                                                                  return endUpdate('good');
                                                                                }
                                 // if the database has fewer projects than IMDB, we need to find the missing projects.                                           }
-                                else    {                                         setUpdateLog(updateLog => [...updateLog, <Notification type='wait' msg={`Your database only has ${databaseCount} projects in it. Let's see if we can find the missing ${flickCount - databaseCount}...`} />]);
+                                else    {    
+                                                                                  setUpdateLog(updateLog => [...updateLog, <Notification type='wait' msg={`Your database only has ${databaseCount} projects in it. Let's see if we can find the missing ${flickCount - databaseCount}...`} />]);
+                                
+                                
+                                    // we'll call this function to log new posters in our database,
+                                    // once the poster_gopher gets back to us with the facts.
+                                    const newPoster = (data) => {
+
+                                        const wrappedUp   =  data[2] !== 'no poster'   ?   <Notification type='good' msg={`A poster for ${data[0]} was added to the database.`}                />
+                                                                                       :   <Notification type='bad'  msg={`Couldn't find a poster for ${data[0]}.`            }                />
+                                        const posterError =                                <Notification type='bad'  msg={`There was an error adding a poster for ${data[0]} to the database.`} />
+                                        
+                                        Axios.post( `${process.env.REACT_APP_API_URL}newPoster`, data )
+                                             .then( res =>  { setUpdateLog(updateLog => [...updateLog, wrappedUp   ] ) } )
+                                            .catch( err =>  { setUpdateLog(updateLog => [...updateLog, posterError ] ) } )
+                                    }
 
 
 
-
-                                            // we'll call this function to log new posters in our database,
-                                            // once the poster_gopher gets back to us with the facts.
-                                            const newPosters = (data) => {
-
-
-                                                Axios.post( `${process.env.REACT_APP_API_URL}newPosters`, data )
-                                                     .then( res =>  { setUpdateLog(updateLog => [...updateLog, <Notification type='good' msg={ res.data }                                                /> ] ); endUpdate('good') } )
-                                                    .catch( err =>  { setUpdateLog(updateLog => [...updateLog, <Notification type='bad'  msg={`There was an error adding your posters to the database.`} /> ] ); endUpdate('bad' ) } )
-
-                                            }
+                                    // find which projects are not in the database and add them to an array
+                                    for (let i = 0; i < flickList.length; i++) {
+                                        
+                                        // eslint-disable-next-line no-loop-func                         
+                                        if (databaseData.find(flick => flick.imdb_id === flickList[i])) { continue;                    }
+                                        else                                                            { newFlicks.push(flickList[i]) }
+                                    }
 
 
-                                            for (let i = 0; i < flickList.length; i++) {
-
-                                                // finds which projects are not in the database and adds them to an array
-                                                // continues if it finds a match.
-                                                // eslint-disable-next-line no-loop-func
-                                                if (databaseData.find(flick => flick.imdb_id === flickList[i])) { continue;                    }
-                                                else                                                            { newFlicks.push(flickList[i]) }
-                                            }
+                                    // now that we have a list of missing projects, we can get their posters from IMDB.
+                                    // we'll use promises to make sure we get all the posters before we end the update.
 
 
-                                            console.log('newFlicks => ', newFlicks);
+                                    let promises = [];
 
-                                            Axios.post(`${gopher}server/getPosters/`, { imdbIds: newFlicks })
-                                                .then( res => {
-                                                                console.log('get posters response => ', res.status, res.data, res);
-                                                                // if the response is an error call the whole thing off.
-                                                                if (res.status === 400) {
-                                                                    return setUpdateLog(updateLog => 
-                                                                        [...updateLog, <Notification type='bad' msg={`There was an error retrieving your posters. Try again and, if the problem persists, call your guy.`} />]
-                                                                    );
-                                                                }
+                                    for (let i = 0; i < newFlicks.length; i++) {               
 
-                                                                // if the response is good, tell the user how many searches where successful.
-                                                                setUpdateLog(updateLog => 
-                                                                    [...updateLog, <Notification type='good' msg={`Managed to find data for ${res.data.length} posters. Updating database now...`} />]
-                                                                );
+                                        promises.push(
+                                            
+                                            // if there's an error, put up a notification, else add the data to the database.
+                                            // if no poster is found, an entry with 'no poster' will be provided for image_url.
+                                            // this is to prevent repeat searches.
+                                            Axios.post(`${gopher}server/getPoster/`, { imdbId: newFlicks[i] })
+                                                 .then(  res => {   newPoster(res.data);                    })
+                                                .catch(  err => {   setUpdateLog(updateLog => [ ...updateLog, 
+                                                                                                <Notification type='bad'  
+                                                                                                               msg={`There was an error retrieving a poster. Try again and, if the problem persists, call your guy.`}   
+                                                                                                />
+                                                                                              ]
+                                                                                ) } )
+                                        )
+                                    }
 
-                                                                // add the new posters to the database.
-                                                                newPosters(res.data);
-                                                              }
-                                                      )
-                                }
+
+                                // when all the promises are fulfilled, end the update. You made it!
+                                Promise.all(promises).catch( err => setUpdateLog(updateLog => [ ...updateLog, 
+                                                                                                <Notification type='bad'  
+                                                                                                               msg={`There was a problem getting your posters: \n\n${err}`}   
+                                                                                                />
+                                                                                              ]
+                                                                                )  
+                                                           )
+                                                   .finally(   () => endUpdate('good')   ); 
+                    }
                             // catch blocks on catch blocks on catch blocks                   
                             }).catch(err => console.log(err))
 

@@ -45,6 +45,7 @@ const newPoster = (request, response) => {
 
 
 // logs an array of new posters in the database amd returns a summary to the client.
+// we were unable to get this to work with the poster_gopher, due to rate limiting by IMDb.
 const newPosters = (request, response) => {
 
     // Get the array of poster data from the request body

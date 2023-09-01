@@ -34,18 +34,13 @@ const storage       = multer.diskStorage(
                                         )
 const upload        = multer({ storage });
 
-const corsOptions = {
-                      origin: ['https://skenestunts.com'],
-                      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',  
-                      credentials: true,
-                      optionsSuccessStatus: 204,
-                    };
+
 
 
 // ladies and gentlemen, start your app and initiate your middleware
 const app = express();     
                      
-      app.use(cors(corsOptions));    
+      app.use(cors());    
 
       app.use(compression());     // sets up gzip
 
