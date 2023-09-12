@@ -47,7 +47,7 @@ const Media           = lazy(() => import('./pages/Media.js'));
 const Admin           = lazy(() => import('./pages/Admin.js'));
 const UpdatePerformer = lazy(() => import('./pages/UpdatePerformer.js'));
 
-const Construction    = lazy(() => import('./components/Construction.js'));
+const Fallback        = lazy(() => import('./components/Fallback.js'));
 const PasswordReset   = lazy(() => import('./components/PasswordReset.js'));
 
 
@@ -90,8 +90,7 @@ export default function App() {
   }, []);  
 
 
-
-
+ 
   // this hook handles preconnections to external domains to improve performance.
   useEffect(() => {
 
@@ -335,7 +334,7 @@ export default function App() {
             </Helmet>
 
             { constructionMode                   &&
-              location.pathname !== '/director'   ? <Construction /> 
+              location.pathname !== '/director'   ? <Fallback type={'construction'} /> 
                                                  
                                                   : <div id="App">
 
@@ -392,6 +391,8 @@ export default function App() {
                                                                                                                             adminStatus={adminStatus}
                                                                                                                             setAdminStatus={setAdminStatus}
                                                                                                                             getData={getData}                          />  } /> 
+
+                                                                <Route path='*'                element={<Fallback           type={'404'}                                /> } /> 
 
                                                               </Routes>
 

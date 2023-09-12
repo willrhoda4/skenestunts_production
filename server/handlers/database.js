@@ -22,11 +22,27 @@ require('dotenv'      ).config();
 
 
 // use this configuration for deployment to Heroku
-const pool = new Pool({
-                        connectionString: process.env.DATABASE_URL,
-                        ssl:            { rejectUnauthorized: false }
-                      });
+// const pool = new Pool({
+//                         connectionString: process.env.DATABASE_URL,
+//                         ssl:            { rejectUnauthorized: false }
+//                       });
 
+
+
+// set NODE_ENV to 'production' to activate Heroku configuration.
+// otherwise, use local configuration.
+const pool = process.env.NODE_ENV === 'production' ? new Pool({
+                                                                connectionString: process.env.DATABASE_URL,
+                                                                ssl: { rejectUnauthorized: false },
+                                                             }) 
+                                                   : new Pool({
+                                                                user:     process.env.PG_USER,
+                                                                host:     process.env.PG_HOST,
+                                                                database: process.env.PG_DATABASE,
+                                                                password: process.env.PG_PASSWORD,
+                                                                port:     process.env.PG_PORT,
+                                                                ssl:      false
+                                                            });
 
 
 

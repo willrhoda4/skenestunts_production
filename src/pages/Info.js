@@ -62,6 +62,7 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
 
 
+   if (true) throw new Error('test error');
 
 
 
