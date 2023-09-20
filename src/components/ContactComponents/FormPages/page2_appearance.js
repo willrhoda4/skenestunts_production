@@ -25,6 +25,7 @@ export default function Page2 ({    rookie,
                                     setNewPhotos,
                                     setPageState, 
                                     setPageError,
+                                    setSamePhotos,
                                     performerClass, 
                                     performerOptions, 
                                     setPerformerClass   }) {
@@ -144,6 +145,18 @@ export default function Page2 ({    rookie,
         else                  { setPageError(false); }
 
     }, [birthYearError,headshotError,bodyshotError,reelError,weightError,heightError,genderError,hairError,eyesError,unionError,setPageError])
+
+
+
+    // sets the samePhotos state variable to true if the headshot and bodyshot are the same.
+    useEffect(() => {
+
+        if (headshot && bodyshot) {  headshot.name === bodyshot.name ? setSamePhotos(true)
+                                                                     : setSamePhotos(false);
+                                  }
+
+    }, [headshot, bodyshot, setSamePhotos])   
+
     
 
     // check for valid imdbId and sets default 'none' value if user opts out.
