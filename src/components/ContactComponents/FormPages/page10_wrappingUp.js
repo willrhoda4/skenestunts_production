@@ -259,7 +259,7 @@ export default function Page10 ({
                         noHelp={true}
                     />
                 </div>
-                {   (performerClass ==='D' || performerClass === 'C') &&
+                {   (performerClass ==='D' || performerClass === 'E') &&
                         <Notification type='idea' msg='Providing a link to a demo reel is the best way to give us a better sense of your abilities.' />
 
                 }

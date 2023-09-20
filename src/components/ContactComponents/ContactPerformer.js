@@ -78,7 +78,7 @@ export default function PerformerForm ({performerOptions, performerData, perform
         
         performerData  ?  setUpdate(performerData.performer_id)  :  setUpdate(false); 
     
-    }, [performerData, setPerformerClass])
+    }, [performerData])
 
     
     //prepares form state for returning performers updating profile

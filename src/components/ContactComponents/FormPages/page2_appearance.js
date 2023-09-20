@@ -231,10 +231,10 @@ export default function Page2 ({    rookie,
 
     /*
         sets the performerClass based on the performer's credentials.
-        IMDB members with reels are 'C' class.
+        Non-IMDB members without reels are 'E' class.
         IMDB members without reels are 'D' class.
         Non-IMDB members with reels are 'R' class.
-        Non-IMDB members without reels are 'E' class.
+        IMDB members with reels are 'C' class.
     */
     useEffect(() => {       
         
@@ -245,13 +245,22 @@ export default function Page2 ({    rookie,
              if (  performerClass === 'A' ||
                    performerClass === 'B' ||
                    performerClass === 'F'          ){ return;                 }
-        
-             if (  noImdb      &&  noReel         ) { setPerformerClass('E'); }
-        else if ( !imdbIdError &&  noReel         ) { setPerformerClass('D'); }
-        else if ( !imdbIdError && !reelError      ) { setPerformerClass('C'); }
-        else                                        { setPerformerClass('R'); }
 
-    }, [imdbIdError, noImdb, noReel, performerClass, reel, reelError, setPerformerClass])
+
+             if (  noImdb &&  noReel                                            ) { setPerformerClass('E'); }
+        else if ( !noImdb && !imdbIdError &&  imdbId !== 'none' &&  noReel      ) { setPerformerClass('D'); }        
+        else if (  noImdb && !noReel      &&  reel   !== 'none' && !reelError   ) { setPerformerClass('R'); }        
+        else if ( !noImdb && !imdbIdError &&  imdbId !== 'none' &&
+                  !noReel && !reelError   &&  reel   !== 'none'                 ) { setPerformerClass('C'); }        
+            
+        
+        //      if (  noImdb      &&  noReel         ) { setPerformerClass('E'); }
+        // else if ( !imdbIdError &&  noReel         ) { setPerformerClass('D'); }
+        // else if ( !imdbIdError && !reelError      ) { setPerformerClass('C'); }
+        // else                                        { setPerformerClass('R'); }          
+           console.log(performerClass, imdbIdError, reelError);
+
+    }, [imdbId, imdbIdError, noImdb, noReel, performerClass, reel, reelError, setPerformerClass])
 
     
     // lines everything up for checkboxes
