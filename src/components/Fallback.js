@@ -28,7 +28,7 @@ export default function Fallback ({type}) {
                   : type ==='construction'  ? 'we\'re doing some maintenance...'
                   :                           'Did you get lost?'
 
-    const apology = type === 'error'        ? 'Sorry about this. Try refreshing the browser, and if the problem persists email skene.stunts.website@gmail.com.'
+    const apology = type === 'error'        ? `We've recorded this error, and we'll do our best to get the problem fixed. In the meantime, try refreshing the window.`
                   : type ==='construction'  ? 'Sorry for the inconvenience. We\'re doing our best to keep the downtime short, so be sure to check back soon.'
                   :                           <a href='/'>Click here to head on home.</a>
 

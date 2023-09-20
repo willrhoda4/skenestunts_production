@@ -6,86 +6,36 @@
 
 
 
+import { Component } from 'react';
+import   Fallback    from './Fallback.js';
+import   Axios       from 'axios';
 
+class ErrorBoundary extends Component {
 
-
-
-
-
-
-import  React          from     'react';
-import  Fallback       from     './Fallback.js';
-
-
-
-
-class ErrorBoundary extends React.Component {
-    constructor(props) {
-      super(props);
-      // Initialize the component's state with hasError set to false.
-      this.state = { hasError: false };
-    }
-  
-    // This static method is called when an error is thrown in any of the child components.
-    static getDerivedStateFromError(error) {
-      // Update the state to indicate that an error has occurred.
-      // This will trigger a re-render to display the fallback UI.
-      return { hasError: true };
-    }
-  
-    render() {
-      // Check if an error has occurred.
-      if (this.state.hasError) {
-        // If an error has occurred, render the fallback UI.
-        return <Fallback type={'error'} />;
-      }
-  
-      // If no error has occurred, render the child components as usual.
-      return this.props.children;
-    }
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
   }
-  
-  export default ErrorBoundary;
 
+  // This static method is called when an error is thrown in any of the child components.
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
 
+  // This lifecycle method is called when an error is thrown in any of the child components.
+  // It handles the error by logging the error in the database and notifying the tech team via email.
+  componentDidCatch(error, errorInfo) {
 
+    Axios.post(`${process.env.REACT_APP_API_URL}addData`, ['error_log', ['error_message'], [error.message]]);
+    Axios.post(`${process.env.REACT_APP_API_URL}email`, { type: 'errorNotification', message: error.message });
+  }
 
+  // Renders the fallback UI if an error has occurred, otherwise renders the child components as usual.
+  render() {
 
-// import  Construction   from     './Construction';
+    if (this.state.hasError) {  return <Fallback type={'error'} />; } 
+    else                     {  return this.props.children;         }
+  }
+}
 
-
-// import{ useState, 
-//         useEffect }    from     'react';
-
-
-
-
-
-// export default function ErrorBoundary  ({ children }) {
-
-
-//     const [hasError, setHasError] = useState(false);
-
-//     useEffect(() => {
-
-//         const errorHandler = (error) => {
-
-//             console.error(error);
-//             setHasError(true);
-//         };
-
-//         window.addEventListener('error', errorHandler);
-
-//         return () => window.removeEventListener('error', errorHandler);
-
-//     }, []);
-
-
-    
-
-//     if (hasError) { return <Construction errorBoundary={true} />; }
-//     else          { return  children;                             }
-
-  
-// };
-
+export default ErrorBoundary;

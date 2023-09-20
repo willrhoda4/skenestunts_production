@@ -68,7 +68,10 @@ const checkPassword = (request, response) => {
     // grabs data from the performers table and runs passwordCheck before sending the response.
     function grabData () {  
 
-        const dataQuery      = `SELECT * FROM ${table}   WHERE   email      = $1`;  console.log(dataQuery);
+
+
+        const dataQuery      = `SELECT * FROM ${table} WHERE email = $1`;  
+        console.log(dataQuery);
 
 
         pool.query(dataQuery, [email], (err, res) => {
@@ -100,12 +103,12 @@ const checkPassword = (request, response) => {
         })
     }
 
-
+    // start the process
     grabData();
 
   
 }
-
+    
 
 
 // stores token in database in preparation for a response to 
@@ -195,23 +198,26 @@ const newPasswordLogin = (request, response) => {
 
 // creates a new user in the database.
 // inserts a new row into the performers table and a new row into the performer_passwords table.
-function newPerformer (request, response) {
+async function newPerformer (request, response) {
 
 
 
-    const columns  = request.body[0].join(', ');
-    const data     = request.body[1];
-    const password = request.body[2];
+    const columns    = request.body[0].join(', ');
+    const data       = request.body[1];
 
-    const values   = data.map((column, index) =>'$'+(index+1)).join(', ');
+    const password   = request.body[2];
+    const hashedPass = await bcrypt.hash(password, 10);
 
 
-    const dataQuery = `INSERT INTO performers (${columns}) VALUES (${values}) RETURNING performer_id;`;
-    const passQuery = `INSERT INTO performer_passwords (performer_id, password) VALUES ($1, $2);`;
+    const values     = data.map((column, index) =>'$'+(index+1)).join(', ');
+
+
+    const dataQuery  = `INSERT INTO performers (${columns}) VALUES (${values}) RETURNING performer_id;`;
+    const passQuery  = `INSERT INTO performer_passwords (performer_id, password) VALUES ($1, $2);`;
 
     // parameter values for password query
     // unshift adds the performer_id to the beginning of the array during dataCallback.
-    const passData  = [ password ];
+    const passData  = [ hashedPass ];
 
 
     // callback function for data query

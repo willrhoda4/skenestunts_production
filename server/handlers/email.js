@@ -8,7 +8,6 @@
 
 
 const nodemailer    = require('nodemailer');
-const crypto        = require('crypto');
 
 
 
@@ -17,7 +16,7 @@ const crypto        = require('crypto');
 // takes care of all email endpoints
 function emailHandler (req, res, next) {
 
-    console.log('launching the emailHandler.');
+    console.log('launching the emailHandler...');
 
     const { cc,
             name, 
@@ -88,25 +87,26 @@ function emailHandler (req, res, next) {
                                   : `Click below to proceed with you password reset. Ignore this email if you didn't make a reset request.`;
 
         const content = type === 'userEmail'      
-                     || type === 'producerEmail'  ?  `<p>
-                                                        <b>Name:</b>   ${name}<br>
-                                                        <b>Email:</b>   ${email}<br>
-                                                        <b>Phone #:</b> ${phone}<br>
-                                                        <b>Subject:</b> ${subject}<br>
-                                                        <b>Message:</b> ${message}
-                                                      </p>
-                                                      `
-
-                      : type === 'reachingOut'    ?  `<p>${message}</p>
-                                                      <br><br>
-                                                      `
-
-                      : type === 'resetEmail'     ?  `<p>${resetGraf}</p>
-                                                      <br><br>
-                                                      <p><a href="${url}">${resetTitle}</a></p>
-                                                      <br><br>
-                                                     `
-                      :                               null;
+                     || type === 'producerEmail'      ?  `<p>
+                                                            <b>Name:</b>    ${name}<br>
+                                                            <b>Email:</b>   ${email}<br>
+                                                            <b>Phone #:</b> ${phone}<br>
+                                                            <b>Subject:</b> ${subject}<br>
+                                                            <b>Message:</b> ${message}
+                                                          </p>
+                                                          `
+    
+                      : type === 'reachingOut'
+                     || type === 'errorNotification'  ?  `<p>${message}</p>
+                                                          <br><br>
+                                                          `
+    
+                      : type === 'resetEmail'         ?  `<p>${resetGraf}</p>
+                                                          <br><br>
+                                                          <p><a href="${url}">${resetTitle}</a></p>
+                                                          <br><br>
+                                                         `
+                      :                                  null;
 
                     
 
@@ -180,9 +180,9 @@ function emailHandler (req, res, next) {
     }
 
  
-    // BE SURE TO FLESH OUT EMAIL TEXT
+
     // sends password reset link     
-    async function sendResetLink(request, response) {
+    async function sendResetLink(request, response, next) {
 
         console.log(`sending reset link to ${email}...\n`);
 
@@ -201,8 +201,11 @@ function emailHandler (req, res, next) {
                             `reset link successfully sent.`, 
                             `error delivering password reset email.`,
                         );
+            next();
         
     }
+
+
 
 
 
@@ -226,15 +229,93 @@ function emailHandler (req, res, next) {
 
 
 
+
+
+
+    // sends email to performer directly from website
+    async function errorNotification(request, response) {
+
+        console.log(`notifying tech team of an error...\n`)
+
+        const reachOutOptions = {        to: 'willrhoda4@gmail.com',
+                                       from: `"Skene Stunts" ${process.env.EMAIL}`,
+                                    subject: 'Error Notification',
+                                       html: emailHTML()
+                                }
+        deliverEmail(    response, 
+                         reachOutOptions, 
+                        `Error notification successfully sent.`, 
+                        `Error sending error notification.`
+                    );
+    }
+
+
+
     // the type prop determines which function to execute.
     switch (type) {
 
-        case 'userEmail':       formMail(req, res);                         break;
-        case 'producerEmail':   formMail(req, res);                         break;
-        case 'reachingOut':     reachOut(req, res);                         break;
-        case 'resetEmail':      sendResetLink(req, res);                    break;
+        case 'userEmail':         formMail(req, res);                       break;
+        case 'producerEmail':     formMail(req, res);                       break;
+        case 'reachingOut':       reachOut(req, res);                       break;
+        case 'resetEmail':        sendResetLink(req, res, next);            break;
+        case 'errorNotification': errorNotification(req, res);              break;
         default:                res.status(400).send('Invalid email type'); break;  
     }
 }
 
 module.exports = { emailHandler };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const { atomicQuery } = require('./database');
+
+
+
+
+
+
+// // creates a new user in the database.
+// // inserts a new row into the performers table and a new row into the performer_passwords table.
+// async function logError (request, response) {
+
+
+
+//     const message    = request.body[0];
+
+
+
+
+
+
+//     const dataQuery  = `INSERT INTO error_log }) VALUES (${values}) RETURNING performer_id;`;
+//     const passQuery  = `INSERT INTO performer_passwords (performer_id, password) VALUES ($1, $2);`;
+
+//     // parameter values for password query
+//     // unshift adds the performer_id to the beginning of the array during dataCallback.
+//     const passData  = [ hashedPass ];
+
+
+//     // callback function for data query
+//     // adds the performer_id to the beginning of the array during dataCallback.
+//     const dataCallback  = (data) => { passData.unshift(data[0].performer_id); };
+
+//     return atomicQuery(      request, 
+//                              response,
+//                            [ dataQuery,   passQuery   ],
+//                            [ data,        passData    ],
+//                            [ dataCallback             ],
+//                             'rank successfully updated'
+//     );
+
+// }
