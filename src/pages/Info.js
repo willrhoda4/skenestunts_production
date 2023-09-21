@@ -65,7 +65,6 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
 
 
-
     // just a little bit of data fetching on load.
     useEffect(() => {
 

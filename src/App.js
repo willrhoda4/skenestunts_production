@@ -331,6 +331,8 @@ export default function App() {
               <link rel="canonical"    href="https://www.skenestunts.com/" />
             </Helmet>
 
+            <ErrorBoundary>
+
             { constructionMode                   &&
               location.pathname !== '/director'   ? <Fallback type={'construction'} /> 
                                                  
@@ -343,8 +345,6 @@ export default function App() {
                                   
                                   
                                                         <div id="main" ref={mainRef}>
-
-                                                          <ErrorBoundary>
 
                                                             <Suspense fallback={ <Loader /> }>
 
@@ -396,7 +396,6 @@ export default function App() {
 
                                                             </Suspense>
 
-                                                          </ErrorBoundary>
                                   
                                                         </div>
 
@@ -414,7 +413,9 @@ export default function App() {
                                                         }
                                   </div>     
             }
-        </>);
+
+            </ErrorBoundary>
+   </>);
 }
 
 
