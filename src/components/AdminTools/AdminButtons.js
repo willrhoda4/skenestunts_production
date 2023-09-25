@@ -106,9 +106,9 @@ export default function AdminButtons ({ id,
                     token:    token 
             };
 
-            Axios.post(`${process.env.REACT_APP_API_URL}email`, inviteBody                      )
-                 .then(  res =>   { console.log(res); setFloatingNotification('emailSent') ; }  )             
-                 .catch( err =>   { console.log(err); setFloatingNotification('emailError'); }  );
+            Axios.post(`${process.env.REACT_APP_API_URL}email`, inviteBody   )
+                 .then(  res =>   { setFloatingNotification('emailSent') ; }  )             
+                 .catch( err =>   { setFloatingNotification('emailError'); }  );
         }
 
         // table to use for the database update
@@ -131,7 +131,7 @@ export default function AdminButtons ({ id,
                                                             else                           {        inviteEmail(token);                   }
                                                          } 
                                               )
-                                        .catch( err =>     setFloatingNotification('emailError')                    );
+                                        .catch( err =>     setFloatingNotification('emailError')  );
      
     }
 
