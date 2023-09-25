@@ -92,21 +92,23 @@ export default function AdminButtons ({ id,
         // dispalys a notification on response saying whether the email failed to send or succeeded.
         function inviteEmail (token) {
 
+
             // data for the email
+            // note that pwTable isn't required here as the passwordReset component
+            // is trained to check the team table if the board table doesn't have a match.
             const inviteBody = {    
                     fk:      'team_id',
                     type:    'resetEmail',
                     email:    email,
                     invite:   true,
                     origin:  '/director',
-                    pwTable: 'team_passwords',
                     resetId:  id,
                     token:    token 
             };
 
-            Axios.post(`${process.env.REACT_APP_API_URL}email`, inviteBody                         )
-                 .then(  res =>   setFloatingNotification('emailSent')   )             
-                 .catch( err =>   setFloatingNotification('emailError')  );
+            Axios.post(`${process.env.REACT_APP_API_URL}email`, inviteBody                      )
+                 .then(  res =>   { console.log(res); setFloatingNotification('emailSent') ; }  )             
+                 .catch( err =>   { console.log(err); setFloatingNotification('emailError'); }  );
         }
 
         // table to use for the database update
@@ -119,8 +121,16 @@ export default function AdminButtons ({ id,
         const warning = `Confirm that you're ok with sending this team member an invite to Skene Stunts Director's Chair`;
 
 
-        window.confirm(warning) &&  Axios.post(`${process.env.REACT_APP_API_URL}registerReset`,  reqBody                                      )
-                                         .then( res =>   { console.log(res.data); inviteEmail(res.data[0].token); } )
+        window.confirm(warning) &&  Axios.post(`${process.env.REACT_APP_API_URL}registerReset`,  reqBody )
+                                         .then( res =>   { 
+                                                            const token = res.data[0].token;
+
+                                                            // if the token is not a string, there was an error.
+                                                            // if the token is a string, send the email.
+                                                            if (typeof token !== 'string') { return setFloatingNotification('dataError'); }
+                                                            else                           {        inviteEmail(token);                   }
+                                                         } 
+                                              )
                                         .catch( err =>     setFloatingNotification('emailError')                    );
      
     }

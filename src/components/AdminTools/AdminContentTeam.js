@@ -192,6 +192,7 @@ export default function Team ({
                 <div className={ fadingNotification ? 'floatingNotification fading' : 'floatingNotification' }>
                     {       
                             floatingNotification === 'emailError'   ?  <Notification type={'bad'}  msg={'There was an error sending the invitation.'} />
+                        :   floatingNotification === 'dataError'    ?  <Notification type={'bad'}  msg={'There was a problem registering the reset.'} />
                         :   floatingNotification === 'emailSent'    ?  <Notification type={'good'} msg={'Invitation successfully sent.'}              />
                         :                                               null
                     }

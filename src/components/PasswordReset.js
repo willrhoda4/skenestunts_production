@@ -115,13 +115,9 @@ export default function PasswordReset ({getData}) {
 
 
         
-
-
-
         function verifyReset () {
 
-            
-
+        
             getData( [ usersTable, [[ usersFk, parseInt(id) ]]] )
                  .then( res => {    console.log(res.data);
                                             
@@ -159,11 +155,9 @@ export default function PasswordReset ({getData}) {
         if (!( id && token && origin )) { return setStatus('urlProblem'); }
         
         // if all parameters are present, check if the password reset request exists in the database
-        else                            {      verifyReset();             }
+        else                            {        verifyReset();           }
  
      
-
-               
 
         
     // eslint-disable-next-line react-hooks/exhaustive-deps

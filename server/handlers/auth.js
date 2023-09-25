@@ -122,6 +122,7 @@ const registerReset = (request, response) => {
     const fk          =   request.body[1];
     const id          =   request.body[2];
 
+    // log a message to the console based on the table.
     const theDeal     =   table === 'performer_passwords' ? 'registering a performer-password reset request...'
                                                           : 'registering a reset or invitation for Director\'s Chair...';
 
@@ -130,12 +131,13 @@ const registerReset = (request, response) => {
     // generates token for invitation
     const inviteToken =   crypto.randomBytes(32).toString("hex");
     const columns     = [ fk,  'token',     'password',          'reset_at'         ].join(', ');
-    const values      = [ id,  inviteToken, 'pendingInvitation',  Date.now()        ]; 
+    const values      = [ id,  inviteToken, 'pendingReset',       Date.now()        ]; 
 
 
 
 
-
+    // add a new row to the performer_passwords table
+    // or update an existing row if the fk already exists.
     const query = `
                     INSERT INTO "${table}" (${columns}) 
                     VALUES ($1, $2, $3, $4::bigint) 

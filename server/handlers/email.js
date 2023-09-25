@@ -18,6 +18,8 @@ function emailHandler (req, res, next) {
 
     console.log('launching the emailHandler...');
 
+
+
     const { cc,
             name, 
             type,
@@ -60,12 +62,14 @@ function emailHandler (req, res, next) {
 
                 // if there's an error, log it and send a response or run cleanUpError if it exists.
                 if (err) {  console.error(`\n${errorMsg}\n${err.message}`);
+
                             if (!cleanUpError)   {    return response.status(400).send(errorMsg);   }
                             else                 {    cleanUpError();                               };
                             reject(err);
                          } 
                 // if there's no error, log it and send a response or run cleanUpSuccess if it exists.
                 else     {  console.log(`\n${successMsg}\n${info.response}`);
+
                             if (!cleanUpSuccess) {    return response.send(successMsg);             }
                             else                 {    cleanUpSuccess();                             };                     
                             resolve(info);
@@ -78,7 +82,7 @@ function emailHandler (req, res, next) {
     // userEmail producerEmail reachingOut, resetEmail
     function emailHTML (url) {
 
-        const logoUrl    = 'https://drive.google.com/uc?export=view&id=1PLvD9xcxJUxY_t-FZIkdV7sC68a-81T5';
+        const logoUrl    = 'http s://drive.google.com/uc?export=view&id=1PLvD9xcxJUxY_t-FZIkdV7sC68a-81T5';
 
         const resetTitle = invite ? 'initialize password' 
                                   : 'reset password';
