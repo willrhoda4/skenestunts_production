@@ -42,9 +42,12 @@ export default function TeamForm({loadData, currentData, table, columns, update,
     const [ email,              setEmail              ]  =  useState('');
     const [ imdbID,             setImdbID             ]  =  useState('');
 
+
+    // uploadedImage is true if an image is uploaded, false if a URL is provided.
+    // imageUpload is the file object, imageURL is the URL string.
+    // imageAlt is the image description.
     const [ uploadedImage,      setUploadedImage      ]  =  useState(false);
     const [ imageUpload,        setImageUpload        ]  =  useState(false);
-   
     const [ imageURL,           setImageURL           ]  =  useState('');
     const [ imageAlt,           setImageAlt           ]  =  useState('');
    
@@ -151,8 +154,10 @@ export default function TeamForm({loadData, currentData, table, columns, update,
                              ];
 
         
+        // adds extra setters for board members
         const setters = !board ? commonSetters : commonSetters.concat(extraSetters);
 
+        // if update is passed, set state to values from database
         if (update) {  
 
             
@@ -359,8 +364,8 @@ export default function TeamForm({loadData, currentData, table, columns, update,
         // which one depends on uploadedImage.
         else if ( (!update || (update && newImage) )   &&
                                                         (
-                                                            (!uploadedImage     &&  imageURLError       ) ||
-                                                            ( uploadedImage     &&  imageUploadError    )
+                                                            ( !uploadedImage && ( imageURLError    || !imageURL     ) ) ||
+                                                            (  uploadedImage && ( imageUploadError || !imageUpload  ) )
                                                         )
                 )                      { return setUploadStatus('imageError');      }
 
