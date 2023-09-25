@@ -135,17 +135,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
                                           :   <div className='boardRackSubstitute' />
         }
-
-
-
         
-
-
-
-
-
-
-
       </div>
     )
   }

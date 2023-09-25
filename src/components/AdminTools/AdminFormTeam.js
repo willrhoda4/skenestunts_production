@@ -363,7 +363,7 @@ export default function TeamForm({loadData, currentData, table, columns, update,
         // a new image must be uploaded, or a URL needs to be provided.
         // which one depends on uploadedImage.
         else if ( (!update || (update && newImage) )   &&
-                                                        (
+                                                        (      // conditions for image url followed by conditions for image upload
                                                             ( !uploadedImage && ( imageURLError    || !imageURL     ) ) ||
                                                             (  uploadedImage && ( imageUploadError || !imageUpload  ) )
                                                         )

@@ -7,7 +7,6 @@
 
 
 
-
 .boardProfile {
     display: flex;
     position: relative;
@@ -15,7 +14,7 @@
     width: max(70vw, 900px);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     overflow: hidden;
-    margin: max(50px, 10vw) 0;
+    margin: max(10vw, 50px) 0;
 }
   
  
@@ -27,7 +26,7 @@
     }
 
         .boardPoster {
-            width: auto;
+            width: max(5vmax,   70px);
             height: 20%;
             object-fit: cover;
         
