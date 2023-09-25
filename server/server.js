@@ -87,8 +87,7 @@ app.post('/newPosters',          posters.newPosters                     );
 
 
 // email handler
-app.post('/email',                  email.emailHandler,
-                                    auth.registerReset                  );
+app.post('/email',                  email.emailHandler,                 );
 
 // image handlers
 app.post('/teamPhoto',              upload.single('imageUpload'), 

@@ -14,7 +14,7 @@ const nodemailer    = require('nodemailer');
 
 
 // takes care of all email endpoints
-function emailHandler (req, res, next) {
+function emailHandler (req, res) {
 
     console.log('launching the emailHandler...');
 
@@ -186,7 +186,7 @@ function emailHandler (req, res, next) {
  
 
     // sends password reset link     
-    async function sendResetLink(request, response, next) {
+    async function sendResetLink(request, response) {
 
         console.log(`sending reset link to ${email}...\n`);
 
@@ -205,7 +205,6 @@ function emailHandler (req, res, next) {
                             `reset link successfully sent.`, 
                             `error delivering password reset email.`,
                         );
-            next();
         
     }
 
@@ -261,7 +260,7 @@ function emailHandler (req, res, next) {
         case 'userEmail':         formMail(req, res);                       break;
         case 'producerEmail':     formMail(req, res);                       break;
         case 'reachingOut':       reachOut(req, res);                       break;
-        case 'resetEmail':        sendResetLink(req, res, next);            break;
+        case 'resetEmail':        sendResetLink(req, res);                  break;
         case 'errorNotification': errorNotification(req, res);              break;
         default:                res.status(400).send('Invalid email type'); break;  
     }
