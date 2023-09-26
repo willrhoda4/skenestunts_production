@@ -34,7 +34,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
 
       // Adjusts the font size of the text in the board member profiles
-      function wrangleFonts() {                                 console.log('wrangling fonts', boardData)
+      function wrangleFonts() {                              
       
       
         // if the board data hasn't loaded yet, don't do anything
@@ -52,7 +52,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
                                   wrapperId, 
                                   childSelector,
                                   initialSize = 16,
-                                  maxIterations = 15) {                       console.log('adjusting font size')
+                                  maxIterations = 15) {                  
       
       
           // get the text and container elements
@@ -66,7 +66,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
       
       
       
-          if ( window.innerWidth < 1000 ) {                                 console.log('small screen')
+          if ( window.innerWidth < 1000 ) {                       
         
             if (!childSelector)   { text.style.fontSize = initialSize+'px'; }
       
@@ -86,7 +86,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
           let size            = initialSize;
       
           // loop until the text is just right or the max iterations is reached
-          while ( iterations  <  maxIterations ) {                      console.log('looping', iterations, size);
+          while ( iterations  <  maxIterations ) {                     
               
       
             // calculate the area of the text and container elements
@@ -126,7 +126,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
       
       
         // Adjust the font sizes of the board member profiles
-        for (let i = 0; i < boardData.length; i++) {        console.log('forlooping');
+        for (let i = 0; i < boardData.length; i++) {     
           adjustFontSize( '#blurb'+i,           '#blurbWrapper'+i ,         undefined, 20);
           adjustFontSize( '#boardAttributes'+i, '#boardAttributeWrapper'+i, 'p',       20);
         }
