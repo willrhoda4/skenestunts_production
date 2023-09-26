@@ -242,7 +242,7 @@ function Header({getData}) {
              
 
 
-                <p id='slogan' >
+                <div id='slogan' >
                     {
                             window.innerWidth > 600     ?   <p className='with-bullets'>
                                                                 <span>coordinators</span>
@@ -259,7 +259,7 @@ function Header({getData}) {
                                                             </>
                     }
                    
-                </p>
+                </div>
 
 
             </div> 

@@ -62,8 +62,6 @@
             width: max(17.5vmax, 250px);
             object-fit: cover;
             z-index: 2; 
-    
-            /* border: 3px aqua ridge; */
         }
 
         .boardContentTopRight {
@@ -73,49 +71,53 @@
             top: 10%;
             left: 40%;
             z-index: 2;
-            /* border: 3px orange ridge; */
         }
 
-
-            .boardNameLevel {
-                display: flex;
-                justify-content: left;
-                margin: 2.5vh 0 0;
+            .boardContentTopRightTop {
                 width: 100%;
-                align-items: center;
-                z-index: 1;
-                /* border: 3px blue ridge; */
+                height: 40%;
+            }
 
+
+                .boardNameLevel {
+                    display: flex;
+                    justify-content: left;
+                    margin: 2.5vh 0 0;
+                    width: 100%;
+                    align-items: center;
+                    z-index: 1;
+                }
+
+            .boardAttributeWrapper {
+                width: 100%;
+                height: 60%;
             }
 
             .boardAttribute {
                 display: flex;
                 margin: 1vmin 0;
                 align-items: center;
-                /* z-index: 99; */
-
-                /* border: 3px aqua ridge; */
             }
 
 
             .boardAttributes {
                 align-items: center;
-                margin: 2vmin 0;
-                /* border: 3px orange ridge; */
-
+                padding: 1vmin 0
             }
 
 
-        .boardProfileBlurb {
+        .boardProfileBlurbWrapper {
             position: absolute;
             top: 65%;
             left: 12.5%;
-            text-overflow: clip;
             height: 30%;
             width: 85%;
             z-index: 1;
-            line-height: 1em;
-            /* border: 3px fuchsia ridge; */
+        }
+
+        .boardProfileBlurb {
+            height: fit-content;
+            width: 100%;
         }
 
 
@@ -177,7 +179,6 @@
     width: 40vw;
     margin: 5vw;
     padding-top: 2.5vmin;
-    /* border: 3px pink ridge; */
     height: max(25vw, 250px);
   }
   
@@ -186,39 +187,29 @@
         display: flex;
         height: auto;
         margin-top: 2vmin;
-        /* border: 3px orange ridge; */
     }
 
         .teamPoster {
             height: 10vw;
             width: 20%;
-            /* border: 3px lime ridge; */
         }
 
     .teamContentTop {
         display: grid;
         grid-template-columns: 4fr 6fr;
         height: 100%;
-        /* border: 3px green ridge; */
         margin: 0 1vmin;
     }
     
     .teamContentLeft, .teamContentRight  {
         align-items: center;
         justify-content: center;
-        /* display: flex;
-        flex-direction: column; */
-        /* border: 3px yellow ridge; */
     }
     
         .teamContentRight {
             display: flex;
             flex-direction: column;
-            /* align-items: center;
-            justify-content: center; */
-           /* width: 100% */
-           height: 100%;
-           /* border: 3px orange ridge; */
+            height: 100%;
         }
 
     .teamImage {
@@ -227,7 +218,6 @@
         object-fit: cover;
         border-radius: 50%;
         margin: 10%
-        /* border: 3px aqua ridge; */
     }
 
 
@@ -238,10 +228,6 @@
         justify-content: left;
         width: 100%;
         align-items: center;
-
-        /* padding-left: 2em; */
-        /* margin: 10vh 0 2.5vh; */
-        /* border: 3px blue ridge; */
     }
 
     .teamName {
@@ -251,7 +237,6 @@
         font-family: BebasNeue;
         font-family: BarlowCondensed;
         font-weight: bold;
-        /* border: 3px orange ridge; */
     }
 
     .teamProfileBlurb {
@@ -260,8 +245,6 @@
         height: auto;
         width: 90%;
         margin: 2.5vmin auto;
-        /* text-overflow: clip; */
-        /* border: 3px fuchsia ridge; */
     }
 
     @media only screen and (max-width: 1000px) {
@@ -271,8 +254,7 @@
             flex-direction: column;
             position: relative;
             height: fit-content;
-            width: max(70vw, 400px);
-           
+            width: max(70vw, 400px);      
         }
           
          
@@ -283,48 +265,56 @@
             }
 
 
-            .boardPoster {
-                width: 20%;
-                height: auto;
-                object-fit: cover;
-            
-                /* border: 3px lime ridge; */
-            }
-    
-        .boardRackSubstitute {
-            height: 5vmax;
-            width: 100%;
-        }
+                .boardPoster {
+                    width: 20%;
+                    height: auto;
+                    object-fit: cover;
+                }
+        
+                .boardRackSubstitute {
+                    height: 5vmax;
+                    width: 100%;
+                }
 
 
         .boardContent {
             display: flex;
             flex-direction: column;
-            height: fit-content;
+            height: fit-content;            
+        }
+
+        .boardImage {
+            position: relative;
+            top: 0;
+            left: 0;  
+            align-self: flex-end;
+            margin: 2.5vmin;
+            height: max(20vmax, 350px);
+            width: max(20vmax, 350px);
         }
 
             .boardContentTopRight {
                 position: relative;
+                top: 0;
+                left: 0;
                 width: 80%;
                 margin-left: 7.5vmin;
-                left: 0;
-                top: 0;
-                /* border: 3px lime ridge; */
+                height: fit-content;
             }
     
-
+        
+    
+            .boardProfileBlurbWrapper {
+                position: relative;
+                top: 0;
+                left: 0;
+                height: fit-content;
+                width: 85%;
+                z-index: 1;
+            }
         
         
-                .boardImage {
-                    position: relative;
-                    top: 0;
-                    left: 0;  
-                    align-self: flex-end;
-                    margin: 2.5vmin;
-                    height: max(20vmax, 350px);
-                    width: max(20vmax, 350px);
-                    /* border: 3px aqua ridge; */
-                }
+              
 
                 .boardProfileBlurb {
                     position: relative;
@@ -334,13 +324,7 @@
                     height: fit-content;
                     width: 80%;
                     line-height: 1.5em;
-                   
-                    /* border: 3px fuchsia ridge; */
-                }
-
-
-        
-              
+                }        
 
     }
 
@@ -372,10 +356,8 @@
         }
 
 
-    .teamProfileBlurb {
-        
-        margin: 25px auto;
-       
+    .teamProfileBlurb {     
+        margin: 25px auto; 
     }
        
     }
@@ -407,31 +389,7 @@
     }
        
     }
-    /* @media only screen and (max-width: 600px) {
-        
-        .teamContent {
-            flex-direction: column;
-        }
-            .teamContentLeft {
-                width: 100%
-            }
-            .teamContentRight {
-            width: 100%
-            }
 
-        .teamNameLevel {
-            justify-content: center;
-            padding-left: 2em;
-            margin: 2.5vh 0 0;
-           
-        }       
-    
-        .teamImage {
-            max-height: 75vh;
-            width: auto;
-            margin-top: 5vmin;
-        }
-    } */
 
 
 
