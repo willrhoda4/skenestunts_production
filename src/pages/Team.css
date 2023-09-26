@@ -71,12 +71,14 @@
             top: 10%;
             left: 40%;
             z-index: 2;
-            padding-bottom: 10%;
+            /* padding-bottom: 10%; */
+            border: 3px red ridge;
         }
 
             .boardContentTopRightTop {
                 width: 100%;
                 height: 40%;
+                border: 3px yellow ridge;
             }
 
 
@@ -92,6 +94,7 @@
             .boardAttributeWrapper {
                 width: 100%;
                 height: 50%;
+                border: 3px aqua ridge;
             }
 
             .boardAttribute {

@@ -170,7 +170,7 @@ function wrangleFonts() {
 
       function attrLs (attribute, key) {
 
-        return <ls className={`boardAttribute attribute${index}${key}`}>
+        return <ls className={`boardAttribute`}>
                   <img alt='chevron bullet point' src={iconChevron} />
                   <p style={{zIndex: '1'}}>{attribute}</p>
                </ls>
@@ -233,6 +233,7 @@ function wrangleFonts() {
               </div>
 
               { attributes() }
+              
             </div>
 
           
