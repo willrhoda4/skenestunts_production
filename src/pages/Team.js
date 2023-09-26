@@ -132,19 +132,15 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
         }
       }
 
+      document.addEventListener('DOMContentLoaded', wrangleFonts());
 
-      document.addEventListener('DOMContentLoaded', function () {
-        // Your code here, including the call to wrangleFonts
-        wrangleFonts();
-      });
+      // Add an event listener for window resize
+      window.addEventListener('resize', wrangleFonts);
 
-    // Add an event listener for window resize
-    window.addEventListener('resize', wrangleFonts);
-
-    // Remove the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('resize', wrangleFonts);
-    };
+      // Remove the event listener when the component unmounts
+      return () => {
+        window.removeEventListener('resize', wrangleFonts);
+      };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [boardData]);
