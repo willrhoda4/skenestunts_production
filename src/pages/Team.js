@@ -58,7 +58,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
           // get the text and container elements
           const container     = document.querySelector(wrapperId);
           const text          = document.querySelector(textDivId);
-          const childElements = childSelector && text.querySelectorAll(childSelector);
+          const childElements = text.querySelectorAll(childSelector);   //error triggered here.
       
           // Make sure the text and container elements exist before proceeding.
           if (!(container && text))       { return; }
@@ -133,8 +133,10 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
       }
 
 
-    // adjust the font sizes on page load
-    wrangleFonts();
+      document.addEventListener('DOMContentLoaded', function () {
+        // Your code here, including the call to wrangleFonts
+        wrangleFonts();
+      });
 
     // Add an event listener for window resize
     window.addEventListener('resize', wrangleFonts);
