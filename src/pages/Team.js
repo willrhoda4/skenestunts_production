@@ -94,7 +94,7 @@ function wrangleFonts() {
 
       // assess how well the text fits in the container
       const tooBig          = containerArea/textArea > 1.2;     // if the container is 20% bigger than the text, it's too big
-      const tooSmall        = containerArea/textArea < 1;       // if the container is smaller than the text, it's too small
+      const tooSmall        = containerArea/textArea <  .9;     // if the container is 10% smaller than the text, it's too small
       const justRight       = !tooBig && !tooSmall;             // right in the goldilocks pocket
 
       // if the text is just right, break out of the loop
