@@ -46,7 +46,7 @@ function wrangleFonts() {
                             wrapperId, 
                             childSelector,
                             initialSize = 16,
-                            maxIterations = 15) { 
+                            maxIterations = 15) {                       console.log('adjusting font size')
 
 
     // get the text and container elements
@@ -60,7 +60,7 @@ function wrangleFonts() {
 
 
 
-    if ( window.innerWidth < 1000 ) { 
+    if ( window.innerWidth < 1000 ) {                                 console.log('small screen')
   
       if (!childSelector)   { text.style.fontSize = initialSize+'px'; }
 
@@ -80,7 +80,7 @@ function wrangleFonts() {
     let size            = initialSize;
 
     // loop until the text is just right or the max iterations is reached
-    while ( iterations  <  maxIterations ) {  
+    while ( iterations  <  maxIterations ) {                      console.log('looping', iterations, size);
         
 
       // calculate the area of the text and container elements
@@ -233,7 +233,7 @@ function wrangleFonts() {
               </div>
 
               { attributes() }
-              
+
             </div>
 
           
