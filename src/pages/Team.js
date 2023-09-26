@@ -21,115 +21,120 @@ import   Loader       from '../components/Loader';
 
 
 
+
 export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
 
 
 
 
-// Adjusts the font size of the text in the board member profiles
-function wrangleFonts() {
-
-
-  // if the board data hasn't loaded yet, don't do anything
-  if (!boardData) { return; }
-  
-  
-  // Accepts css selectors for the text and wrapper elements,
-  // adjusts the font size of the text element to fit the wrapper element
-  // childSelector is an optional parameter that allows the font size of 
-  // the text element's designated children to be adjusted, instead of the text element itself.
-  // initialSize is the starting font size in px
-  // and it also sets the constant size for small screens.
-  // maxIterations is the number of tries the function gets.
-  function adjustFontSize(  textDivId, 
-                            wrapperId, 
-                            childSelector,
-                            initialSize = 16,
-                            maxIterations = 15) {                       console.log('adjusting font size')
-
-
-    // get the text and container elements
-    const container     = document.querySelector(wrapperId);
-    const text          = document.querySelector(textDivId);
-    const childElements = text.querySelectorAll(childSelector);
-
-    // Make sure the text and container elements exist before proceeding.
-    if (!(container && text))       { return; }
-
-
-
-
-    if ( window.innerWidth < 1000 ) {                                 console.log('small screen')
-  
-      if (!childSelector)   { text.style.fontSize = initialSize+'px'; }
-
-      else                  { for (const child of childElements) { child.style.fontSize = initialSize+'px'; } }
-
-      return;
-  
-    }
-
-
-
-    // set the initial font size
-    text.style.fontSize = initialSize+'px';
-
-    // declare variables for the loop
-    let iterations      = 0;
-    let size            = initialSize;
-
-    // loop until the text is just right or the max iterations is reached
-    while ( iterations  <  maxIterations ) {                      console.log('looping', iterations, size);
-        
-
-      // calculate the area of the text and container elements
-      const containerHeight = container.offsetHeight;
-      const containerWidth  = container.offsetWidth;
-      const containerArea   = containerHeight * containerWidth;
-
-      const textHeight      = text.scrollHeight;
-      const textWidth       = text.scrollWidth;
-      const textArea        = textHeight * textWidth;
-
-      // assess how well the text fits in the container
-      const tooBig          = containerArea/textArea > 1.2;     // if the container is 20% bigger than the text, it's too big
-      const tooSmall        = containerArea/textArea < 1;       // if the container is smaller than the text, it's too small
-      const justRight       = !tooBig && !tooSmall;             // right in the goldilocks pocket
-
-      // if the text is just right, break out of the loop
-      // else, increment the iterations and continue the loop
-      if (justRight)        { break;        }   
-      else                  { iterations++; }
-  
-      // adjust the font size up or down depending on the problem
-      tooBig ?  size += 1 
-             :  size -= 1;
-
-      const  newSize        =  size +  'px';
-
-
-      // adjust the font size of the text element
-      // if there is no child selector, adjust the text element
-      // else, adjust the font size of the text element's designated children
-      if (!childSelector)   { text.style.fontSize = newSize; }
-
-      else                  { for (const child of childElements) { child.style.fontSize = newSize; } }
-    }
-  }
-
-
-  // Adjust the font sizes of the board member profiles
-  for (let i = 0; i < boardData.length; i++) {
-    adjustFontSize( '#blurb'+i,           '#blurbWrapper'+i ,         undefined, 20);
-    adjustFontSize( '#boardAttributes'+i, '#boardAttributeWrapper'+i, 'p',       20);
-  }
-}
-
+  // manages font sizes for board bios and attributes
   useEffect(() => {
 
 
-    wrangleFonts(); // Adjust font sizes on initial load
+
+      // Adjusts the font size of the text in the board member profiles
+      function wrangleFonts() {                                 console.log('wrangling fonts', boardData)
+      
+      
+        // if the board data hasn't loaded yet, don't do anything
+        if (!boardData) { return; }
+        
+        
+        // Accepts css selectors for the text and wrapper elements,
+        // adjusts the font size of the text element to fit the wrapper element
+        // childSelector is an optional parameter that allows the font size of 
+        // the text element's designated children to be adjusted, instead of the text element itself.
+        // initialSize is the starting font size in px
+        // and it also sets the constant size for small screens.
+        // maxIterations is the number of tries the function gets.
+        function adjustFontSize(  textDivId, 
+                                  wrapperId, 
+                                  childSelector,
+                                  initialSize = 16,
+                                  maxIterations = 15) {                       console.log('adjusting font size')
+      
+      
+          // get the text and container elements
+          const container     = document.querySelector(wrapperId);
+          const text          = document.querySelector(textDivId);
+          const childElements = text.querySelectorAll(childSelector);
+      
+          // Make sure the text and container elements exist before proceeding.
+          if (!(container && text))       { return; }
+      
+      
+      
+      
+          if ( window.innerWidth < 1000 ) {                                 console.log('small screen')
+        
+            if (!childSelector)   { text.style.fontSize = initialSize+'px'; }
+      
+            else                  { for (const child of childElements) { child.style.fontSize = initialSize+'px'; } }
+      
+            return;
+        
+          }
+      
+      
+      
+          // set the initial font size
+          text.style.fontSize = initialSize+'px';
+      
+          // declare variables for the loop
+          let iterations      = 0;
+          let size            = initialSize;
+      
+          // loop until the text is just right or the max iterations is reached
+          while ( iterations  <  maxIterations ) {                      console.log('looping', iterations, size);
+              
+      
+            // calculate the area of the text and container elements
+            const containerHeight = container.offsetHeight;
+            const containerWidth  = container.offsetWidth;
+            const containerArea   = containerHeight * containerWidth;
+      
+            const textHeight      = text.scrollHeight;
+            const textWidth       = text.scrollWidth;
+            const textArea        = textHeight * textWidth;
+      
+            // assess how well the text fits in the container
+            const tooBig          = containerArea/textArea > 1.2;     // if the container is 20% bigger than the text, it's too big
+            const tooSmall        = containerArea/textArea < 1;       // if the container is smaller than the text, it's too small
+            const justRight       = !tooBig && !tooSmall;             // right in the goldilocks pocket
+      
+            // if the text is just right, break out of the loop
+            // else, increment the iterations and continue the loop
+            if (justRight)        { break;        }   
+            else                  { iterations++; }
+        
+            // adjust the font size up or down depending on the problem
+            tooBig ?  size += 1 
+                   :  size -= 1;
+      
+            const  newSize        =  size +  'px';
+      
+      
+            // adjust the font size of the text element
+            // if there is no child selector, adjust the text element
+            // else, adjust the font size of the text element's designated children
+            if (!childSelector)   { text.style.fontSize = newSize; }
+      
+            else                  { for (const child of childElements) { child.style.fontSize = newSize; } }
+          }
+        }
+      
+      
+        // Adjust the font sizes of the board member profiles
+        for (let i = 0; i < boardData.length; i++) {        console.log('forlooping');
+          adjustFontSize( '#blurb'+i,           '#blurbWrapper'+i ,         undefined, 20);
+          adjustFontSize( '#boardAttributes'+i, '#boardAttributeWrapper'+i, 'p',       20);
+        }
+      }
+
+
+    // adjust the font sizes on page load
+    wrangleFonts();
 
     // Add an event listener for window resize
     window.addEventListener('resize', wrangleFonts);
@@ -140,7 +145,7 @@ function wrangleFonts() {
     };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [boardData]);
 
 
 
@@ -170,15 +175,15 @@ function wrangleFonts() {
 
       function attrLs (attribute, key) {
 
-        return <ls className={`boardAttribute`}>
+        return <li className={`boardAttribute`}>
                   <img alt='chevron bullet point' src={iconChevron} />
                   <p style={{zIndex: '1'}}>{attribute}</p>
-               </ls>
+               </li>
       }
 
       return (  <div  id={`boardAttributeWrapper${index}`} className='boardAttributeWrapper'>
                   <ul id={`boardAttributes${index}`}       className='boardAttributes'>
-                    { attrArray.map( (attribute, key) => { return attrLs(attribute, key) } ) }
+                    { attrArray.map( (attribute, key) => { return <div key={key}>{attrLs(attribute, key)}</div> } ) }
                   </ul>
                 </div>
              )
@@ -339,14 +344,14 @@ function wrangleFonts() {
               { !(boardData && teamData)  ?   <Loader />
                                           :   <>
                                                   {   boardData.filter(double => double.publish)
-                                                              .map(  (double, index) => { return   <div key={index}>
+                                                               .map(  (double, index) => { return   <div key={double.imdb_id}>
                                                                                                       { makeBoardProfile( double, index ) }
                                                                                                     </div> 
                                                                                         } ) 
                                                   }
                                                       <div id='teamGrid'>
                                                         { teamData.filter(double => double.publish)
-                                                                  .map(  (double, index) => { return  <div key={index}>
+                                                                  .map(  (double, index) => { return  <div key={double.imdb_id}>
                                                                                                         { makeTeamProfile(  double, index ) }
                                                                                                       </div> 
                                                                                             } ) 
