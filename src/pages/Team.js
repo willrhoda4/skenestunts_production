@@ -132,7 +132,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
         }
       }
 
-      document.addEventListener('DOMContentLoaded', wrangleFonts());
+      document.addEventListener('DOMContentLoaded', () => wrangleFonts);
 
       // Add an event listener for window resize
       window.addEventListener('resize', wrangleFonts);
