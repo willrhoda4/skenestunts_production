@@ -58,14 +58,14 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
           // get the text and container elements
           const container     = document.querySelector(wrapperId);
           const text          = document.querySelector(textDivId);
-          const childElements = text.querySelectorAll(childSelector);   //error triggered here.
+          const childElements = text.querySelectorAll(childSelector); 
       
           // Make sure the text and container elements exist before proceeding.
           if (!(container && text))       { return; }
       
       
-      
-      
+       
+          // for small screens, set the font size to the initial size and return
           if ( window.innerWidth < 1000 ) {                       
         
             if (!childSelector)   { text.style.fontSize = initialSize+'px'; }
@@ -132,7 +132,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
         }
       }
 
-      document.addEventListener('DOMContentLoaded', wrangleFonts());
+      document.addEventListener('DOMContentLoaded', wrangleFonts);
 
       // Add an event listener for window resize
       window.addEventListener('resize', wrangleFonts);
