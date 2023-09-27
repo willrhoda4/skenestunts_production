@@ -316,8 +316,11 @@ export default function App() {
 
 
 
- 
-
+  // toggles construction mode for public-facing site 
+  // based on current path and constructionMode state.
+  const closedForConstruction = constructionMode                   && 
+                                location.pathname !== '/director'  &&
+                                location.pathname !== '/passwordReset';
 
 
  
@@ -333,10 +336,9 @@ export default function App() {
 
             <ErrorBoundary>
 
-            { constructionMode                   &&
-              location.pathname !== '/director'   ? <Fallback type={'construction'} /> 
+            { closedForConstruction   ?     <Fallback type={'construction'} /> 
                                                  
-                                                  : <div id="App">
+                                      :     <div id="App">
 
                                                         { location.pathname !== '/director' &&  <Header  getData={getData}  /> }
                                   
