@@ -132,7 +132,8 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
         }
       }
 
-      document.addEventListener('DOMContentLoaded', wrangleFonts());
+      // Call the function once boardData has loaded
+      wrangleFonts();
 
       // Add an event listener for window resize
       window.addEventListener('resize', wrangleFonts);
@@ -181,7 +182,6 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
       return (  <div  id={`boardAttributeWrapper${index}`} className='boardAttributeWrapper'>
                   <ul id={`boardAttributes${index}`}       className='boardAttributes'>
-                    {/* { attrArray.map( (attribute, key) => { return <div key={key}>{attrLs(attribute, key)}</div> } ) } */}
                     { attributeLs(attribute_1) }
                     { attributeLs(attribute_2) }
                     { attributeLs(attribute_3) }
