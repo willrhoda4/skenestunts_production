@@ -169,9 +169,9 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
     // generates the attribute list for each  profile
     function attributes () {
 
-      const    attrArray = [attribute_1, attribute_2, attribute_3];
+      // const    attrArray = [attribute_1, attribute_2, attribute_3];
 
-      function attrLs (attribute, key) {
+      function attributeLs (attribute) {
 
         return <li className={`boardAttribute`}>
                   <img alt='chevron bullet point' src={iconChevron} />
@@ -181,7 +181,10 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
       return (  <div  id={`boardAttributeWrapper${index}`} className='boardAttributeWrapper'>
                   <ul id={`boardAttributes${index}`}       className='boardAttributes'>
-                    { attrArray.map( (attribute, key) => { return <div key={key}>{attrLs(attribute, key)}</div> } ) }
+                    {/* { attrArray.map( (attribute, key) => { return <div key={key}>{attrLs(attribute, key)}</div> } ) } */}
+                    { attributeLs(attribute_1) }
+                    { attributeLs(attribute_2) }
+                    { attributeLs(attribute_3) }
                   </ul>
                 </div>
              )
