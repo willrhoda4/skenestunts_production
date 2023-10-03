@@ -25,3 +25,4 @@ yarn-error.log*
 
 server/gsheets_credentials.json
 server/gdrive_credentials.json
+server/.env
