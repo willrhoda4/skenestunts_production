@@ -42,7 +42,7 @@ export default function FacebookFeed ({name, url}) {
         
         function loadFeed () {
 
-            if (Object.hasOwn(window, 'FB')) {  return window.FB.XFBML.parse();          }
+            if (window.hasOwnProperty('FB')) {  return window.FB.XFBML.parse();          }
             else                             {  return setTimeout(() => loadFeed, 250);  }
         
         }
