@@ -38,6 +38,7 @@ const upload        = multer({ storage });
 const corsOptions = {
      
   methods:             'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders:     ['Content-Type', 'Authorization'],
   credentials:          true,
   optionsSuccessStatus: 204,
   origin: function (origin, callback) {
@@ -46,7 +47,11 @@ const corsOptions = {
       'http://www.skenestunts.com',
       'https://www.skenestunts.com',
       'http://www.skenestunts.ca',
-      'https://www.skenestunts.ca'
+      'https://www.skenestunts.ca',
+      'http://skenestunts.ca',
+      'https://skenestunts.ca',
+      'http://skenestunts.com',
+      'https://skenestunts.com'
     ];
 
     if (  !origin                          || 
