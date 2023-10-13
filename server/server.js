@@ -34,12 +34,37 @@ const storage       = multer.diskStorage(
 const upload        = multer({ storage });
 
 
+// configure cors
+const corsOptions = {
+     
+  methods:             'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials:          true,
+  optionsSuccessStatus: 204,
+  origin: function (origin, callback) {
+
+    const allowedOrigins = [
+      'http://www.skenestunts.com',
+      'https://www.skenestunts.com',
+      'http://www.skenestunts.ca',
+      'https://www.skenestunts.ca'
+    ];
+
+    if (  !origin                          || 
+           allowedOrigins.includes(origin) || 
+           origin.includes('localhost')    ){ callback(null, true);                       } 
+           
+    else                                    { callback(new Error('Not allowed by CORS')); }
+  },
+  
+};
+
 
 
 // ladies and gentlemen, start your app and initiate your middleware
 const app = express();     
                      
-      app.use(cors());    
+
+      app.use(cors(corsOptions));
 
       app.use(compression());     // sets up gzip
 
