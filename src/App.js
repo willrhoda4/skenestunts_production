@@ -273,7 +273,7 @@ export default function App() {
   // token needs to be refreshed every 60 days, or it will expire and become unrenewable.
   useEffect(() => {
 
-    let gramGetter  = 'https://graph.instagram.com/me/media?fields=media_url&access_token='+instaToken;
+    let gramGetter  = 'https://graph.instagram.com/me/media?fields=media_url,media_type&access_token='+instaToken;
     let tokenGetter = 'https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&&access_token='+instaToken;
 
 
@@ -286,7 +286,7 @@ export default function App() {
     // store the pictures in state, 
     // then send another get request to get a new token.
     else             {  Axios.get(gramGetter)
-                             .then( res => {  setPhotoData(res.data.data); 
+                             .then( res => {  setPhotoData( res.data.data.filter( pic => pic.media_type !== 'VIDEO' ) ); 
                                               return Axios.get(tokenGetter);
                                            }
                                   )

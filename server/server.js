@@ -23,8 +23,16 @@ const cors          = require('cors'        );
 const bodyParser    = require('body-parser' );
 const multer        = require('multer'      );
 const compression   = require('compression' );
+const rateLimit     = require('express-rate-limit');
 
                       
+
+
+
+
+
+
+
 // brace yourself for file uploads
 const storage       = multer.diskStorage(
                                             { destination:  (req, file, cb) => { cb(null, 'server/uploads')   },
@@ -64,6 +72,16 @@ const corsOptions = {
 };
 
 
+// Set up rate limiter
+const limiter = rateLimit({
+
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100                  // limit each IP to 100 requests per windowMs.
+
+});
+
+
+
 
 // ladies and gentlemen, start your app and initiate your middleware
 const app = express();     
@@ -89,7 +107,21 @@ const app = express();
         next();
       });
 
-   
+      // Set up security headers
+      app.use((req, res, next) => {
+
+        res.setHeader( 'X-Content-Type-Options',  'nosniff'            );
+        res.setHeader( 'X-Frame-Options',         'DENY'               );
+        res.setHeader( 'Content-Security-Policy', "default-src 'self'" );
+        
+        next();
+      });
+
+// ... rest of your code
+
+
+ 
+app.use(limiter);
 
 // test route
 app.get('/check',                (req, res) => res.send('checkitout!')  );
