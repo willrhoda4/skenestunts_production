@@ -82,7 +82,7 @@ function emailHandler (req, res) {
     // userEmail producerEmail reachingOut, resetEmail
     function emailHTML (url) {
 
-        const logoUrl    = 'http s://drive.google.com/uc?export=view&id=1PLvD9xcxJUxY_t-FZIkdV7sC68a-81T5';
+        const logoUrl    = 'https://drive.google.com/uc?export=view&id=1PLvD9xcxJUxY_t-FZIkdV7sC68a-81T5';
 
         const resetTitle = invite ? 'initialize password' 
                                   : 'reset password';
