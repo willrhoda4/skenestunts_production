@@ -6,6 +6,8 @@
 
 
 
+import   CloudImage         from '../../CloudImage';
+
 import { useState, 
          useEffect,
          useMemo    }       from 'react';
@@ -258,7 +260,6 @@ export default function Page2 ({    rookie,
         // else if ( !imdbIdError &&  noReel         ) { setPerformerClass('D'); }
         // else if ( !imdbIdError && !reelError      ) { setPerformerClass('C'); }
         // else                                        { setPerformerClass('R'); }          
-           console.log(performerClass, imdbIdError, reelError);
 
     }, [imdbId, imdbIdError, noImdb, noReel, performerClass, reel, reelError, setPerformerClass])
 
@@ -309,6 +310,7 @@ export default function Page2 ({    rookie,
                         noHelp={true}
                 />
 
+                        
         
                 {/* during an update when newPhotos hasn't been selected,
                     display existing performer photos and offer a button to
@@ -318,17 +320,15 @@ export default function Page2 ({    rookie,
                                         <div className='flexRow' style={{alignItems: 'center', justifyContent: 'space-between', width: '80%'}}>
                                             <div className='flexColumn'>
                                                 <h5>Headshot</h5>
-                                                <img className='adminPerformerPhoto' 
-                                                        alt={ 'existing headshot for performer' } 
-                                                        src={'https://drive.google.com/uc?export=view&id=' + existingShots[0]}
-                                                /> 
+                                                <div className='adminPerformerPhoto' >
+                                                    <CloudImage id={existingShots[0]} />
+                                                </div>
                                             </div>
-                                            <div className='flexColumn'>
+                                            <div className='flexColumn' style={{ margin: '1em'}}>
                                                 <h5>Bodyshot</h5>
-                                                <img className='adminPerformerPhoto' 
-                                                        alt={ 'existing bodyshot for performer' } 
-                                                        src={'https://drive.google.com/uc?export=view&id=' + existingShots[1]}
-                                                /> 
+                                                <div className='adminPerformerPhoto' >
+                                                    <CloudImage id={existingShots[1]} />
+                                                </div>
                                             </div>  
                                             <button className='formButton'
                                                         type='button' 

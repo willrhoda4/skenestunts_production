@@ -21,7 +21,16 @@ import   iconPlay      from '../images/icon_play.svg'
 
 // this component is the password form for performer updates and Director's Chair.
 // don't confuse it with PasswordReset, which is the form for resetting a forgotten password.
-export default function PasswordChecker({table, pwTable, fk, dataSetter, getData, setPerformerClass}) {
+export default function PasswordChecker( {
+                                            fk, 
+                                            table, 
+                                            getData, 
+                                            pwTable, 
+                                            updateJwt,
+                                            expiredJwt,
+                                            dataSetter, 
+                                            setPerformerClass,
+                                        } ) {
 
 
     
@@ -38,7 +47,7 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
 
 
     //set origin to current path
-    useEffect(() => {  setOrigin(location.pathname);  }, [location])
+    useEffect(() => {  setOrigin( location.pathname );  }, [ location ] )
 
 
 
@@ -52,7 +61,7 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
         if (pwField) {    
 
             const handleKeyPress = e => {
-
+ 
                 if (e.key === 'Enter') {
 
                     e.preventDefault();
@@ -89,8 +98,13 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
 
         e.preventDefault();
 
-        const authenticateUser = (data) => {
+        const authenticateUser = () => {
 
+
+            // update the jwt status for the user
+            // update the performerClass state for performers,
+            // and update the user data for everyone.
+            updateJwt();
             origin !== '/director' && setPerformerClass(data.performer_class);
             return dataSetter(data);
         }
@@ -104,7 +118,7 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
                                            res.data  === 'no match'      ? setStatus('passwordError')
                                 :          res.data  === 'no email'      ? setStatus('emailError')
                                 :          res.data  === 'no password'   ? dataSetter('noPassword')
-                                :   typeof(res.data) === 'object'        ? authenticateUser(res.data)
+                                :   typeof(res.data) === 'object'        ? authenticateUser()
                                 :                                          setStatus('programError');
                                      
                             }
@@ -127,14 +141,14 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
         let reqPwTable = pwTable;
 
 
-        // if a valid email hasn't been supplised yet, display error notification and return.
+        // if a valid email hasn't been supplied yet, display error notification and return.
         if (email.length === 0 || emailError) { return setStatus('noEmail'); }
         
         
         // otherwise, display loading notification and continue.
         setStatus('loading');
 
-
+p
         // called after a successful database update
         // to send the email with the reset link.
         function resetEmail (id, token) {
@@ -235,18 +249,19 @@ export default function PasswordChecker({table, pwTable, fk, dataSetter, getData
 
             {   
               status === 'checking'         ? <Notification type={'wait'} msg={`Verifying password, this should only take a second...`}                             />
-            : status === 'passwordError'    ? <Notification type={'bad'}  msg={`You've entered an invalid password.`}                                               />
-            : status === 'noPassword'       ? <Notification type={'bad'}  msg={`There's been a database error. Please refresh and try again.`}                      />
-            : status === 'noEmail'          ? <Notification type={'bad'}  msg={`Type in the email you used during signup, so we can send you a reset link.`}        />
-            : status === 'emailError'       ? <Notification type={'bad'}  msg={`This email doesn't exist in our database.`}                                         />
-            : status === 'deliveryError'    ? <Notification type={'bad'}  msg={`There was a problem delivering your reset link.\n`+
+            : status === 'passwordError'    ? <Notification type={'bad' } msg={`You've entered an invalid password.`}                                               />
+            : status === 'noPassword'       ? <Notification type={'bad' } msg={`There's been a database error. Please refresh and try again.`}                      />
+            : status === 'noEmail'          ? <Notification type={'bad' } msg={`Type in the email you used during signup, so we can send you a reset link.`}        />
+            : status === 'emailError'       ? <Notification type={'bad' } msg={`This email doesn't exist in our database.`}                                         />
+            : status === 'deliveryError'    ? <Notification type={'bad' } msg={`There was a problem delivering your reset link.\n`+
                                                                                `Please try again and notify us via email form if it persists.`}                     />
-            : status === 'programError'     ? <Notification type={'bad'}  msg={`There's been a problem with the program.\n`+
+            : status === 'programError'     ? <Notification type={'bad' } msg={`There's been a problem with the program.\n`+
                                                                                `Please try again and notify us via email form if it persists.`}                     />
-            : status === 'databaseError'    ? <Notification type={'bad'}  msg={`Looks like we're having trouble with our database.\n`+
+            : status === 'databaseError'    ? <Notification type={'bad' } msg={`Looks like we're having trouble with our database.\n`+
                                                                                `Please try again and notify us via email form if it persists.`}                     />
             : status === 'loading'          ? <Notification type={'wait'} msg={`Processing your request...`}                                                        />
             : status === 'resetReady'       ? <Notification type={'good'} msg={`A password-reset link has been emailed to you.`}                                    />
+            : expiredJwt                    ? <Notification type={'bad' } msg={`Looks like your token expired. Please log in again `}                               />
             :                                  null
             }
             

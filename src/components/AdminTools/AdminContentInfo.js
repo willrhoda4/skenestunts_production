@@ -76,6 +76,7 @@ export default function Info  ({
         )
     }
 
+    const attributionStyle = { padding: '.5em 0 0 2em', fontStyle: 'italic' };
     return (
         <>
         { currentData.length !== 0 && 
@@ -91,7 +92,7 @@ export default function Info  ({
         {   currentData.length !== 0 && 
             currentData.at(-1).hasOwnProperty('value') && <div id='quoteWrapper'>
                                                                 <p>{currentData.at(-2).value}</p>
-                                                                <p>{currentData.at(-1).value}</p>
+                                                                <p style={attributionStyle}>{currentData.at(-1).value}</p>
                                                            </div>
         }
         </>

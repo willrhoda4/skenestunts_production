@@ -8,11 +8,14 @@
 
 import                      '../components/AdminTools/AdminTools.css';
 import                      '../components/PasswordForm.css';
-import   Axios         from 'axios';
 import { useState, 
          useEffect   } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth     } from '../hooks/useAuth.js';
+
 import { Helmet      } from 'react-helmet';
+import   Axios         from 'axios';
+
 
 import TextField       from '../components/FormFunctions/TextField.js';
 import Notification    from '../components/Notification.js';
@@ -26,7 +29,10 @@ export default function PasswordReset ({getData}) {
 
 
 
-    const navigate = useNavigate();
+    const     navigate    = useNavigate();
+
+    const [ ,,updateJwt ] = useAuth();
+
     
 
     // extract parameters from url
@@ -51,19 +57,11 @@ export default function PasswordReset ({getData}) {
     const [ fk,             setFk             ] = useState(false);
 
 
-    // sets table and fk for http request based on origin
-    // useEffect(() => {
-
-    //     setTable(   origin === '/director' ? 'board_passwords' : 'performer_passwords'  );
-    //     setFk(      origin === '/director' ? 'team_id'         : 'performer_id'         );
-
-    // }, [origin]);
-
 
     
     // identify dom elements for following effect hook.
-    let pwField   = document.getElementById('pwField');
-    let submitBtn = document.getElementById('formSubmitButton');
+    let pwField                                 = document.getElementById('pwField');
+    let submitBtn                               = document.getElementById('formSubmitButton');
 
 
     // adds event listener to password field to submit form when you smash the enter key
@@ -123,9 +121,10 @@ export default function PasswordReset ({getData}) {
                                             
                              // if user has no password reset requests, they are not authenticated
                              if (res.data.length === 0)    {    // for Director's Chair resets, check the team table if it isn't on the board table.
-                                                                if (usersTable === 'board_passwords')   {   console.log('block ran');
-                                                                                                            usersTable = 'team_passwords';
+                                                                if (usersTable === 'board_passwords')   {   
+                                                                                                                     usersTable = 'team_passwords';
                                                                                                             setTable(usersTable);
+
                                                                                                             return verifyReset();
                                                                                                         }
                                                                 // if it's not on the team table either, they aren't scheduled for a password reset.
@@ -140,6 +139,9 @@ export default function PasswordReset ({getData}) {
 
                                                                 // if user has a password reset request, check if it has expired
                                                                 else if ( Date.now() - res.data[0].reset_at > 900000 ) { return setStatus('expired');       }
+
+                                                                // then check if their token is valid
+                                                                else if (res.data[0].token !== token                 ) { return setStatus('tokenProblem')   }
 
                                                                 // if user has a password reset request and it has not expired, they are authenticated
                                                                 else                                                   { return setStatus('authenticated'); }
@@ -182,9 +184,9 @@ export default function PasswordReset ({getData}) {
         else  {                                          // clears any previous error messages
                                                          setFormStatus('');
             // sends password reset request to database
-            Axios.post(`${process.env.REACT_APP_API_URL}resetPassword`, [ id, password1, table, fk ])
-                 .then( res => { setFormStatus('reset');                                           })
-                .catch( err => { setFormStatus('resetError')                                       })
+            Axios.post(`${process.env.REACT_APP_API_URL}resetPassword`, [ id, password1, table, fk, token ] )
+                 .then( res => { updateJwt(); setFormStatus('reset');                                     } )
+                .catch( err => { setFormStatus('resetError')                                              } )
         }
     }
 
@@ -218,6 +220,7 @@ export default function PasswordReset ({getData}) {
                   status === 'urlProblem'        ?  <Notification type={'bad'} msg={'There\'s a problem with your reset url. Try resetting again to get a fresh link.' }                /> 
                 : status === 'unscheduled'       ?  <Notification type={'bad'} msg={'We have no record of you requesting this reset. Try resetting again,.' }                           />   
                 : status === 'expired'           ?  <Notification type={'bad'} msg={'Your token has expired. Reset again and make it back in less than 15 minutes.' }                   />   
+                : status === 'tokenProblem'      ?  <Notification type={'bad'} msg={'Your token is invalid. Try resetting your password again to refresh it.' }                         />   
                 : status === 'databaseError'     ?  <Notification type={'bad'} msg={'There\'s been a data error. Please let us know via email form so we can get it fixed for you.'}    />  
                 : status === 'authenticated'     ?  <div className='passwordForm adminForm'>
 
@@ -245,7 +248,7 @@ export default function PasswordReset ({getData}) {
                                                     <button id='formSubmitButton' className='formButton' type='button' onClick={(e) => resetPassword(e)}>Reset Password</button>
                                             
                                                             {  
-                                                                formStatus === 'reset'       ? <Notification type={'wait'} msg={`Password successfully reset, you should be redirected shortly...`} />
+                                                              formStatus === 'reset'       ? <Notification type={'wait'} msg={`Password successfully reset, you should be redirected shortly...`} />
                                                             : formStatus === 'inputError'  ? <Notification type={'bad' } msg={`Both password fields need to be filled out.`}                      />
                                                             : formStatus === 'matchError'  ? <Notification type={'bad' } msg={`Passwords must be an exact match.`}                                />
                                                             : formStatus === 'resetError'  ? <Notification type={'bad' } msg={`There's been a problem with your reset. \n

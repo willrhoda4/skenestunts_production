@@ -36,9 +36,9 @@ class ErrorBoundary extends Component {
       ${error.stack}
 
     `;
-
-    Axios.post(`${process.env.REACT_APP_API_URL}addData`, ['error_log', ['error_message'], [errorMessage]]);
-    Axios.post(`${process.env.REACT_APP_API_URL}email`, { type: 'errorNotification', message: errorMessage });
+    // commented out for development purposes
+    // Axios.post(`${process.env.REACT_APP_API_URL}addData`, ['error_log', ['error_message'], [errorMessage]]);
+    // Axios.post(`${process.env.REACT_APP_API_URL}email`, { type: 'errorNotification', message: errorMessage });
   }
 
   // Renders the fallback UI if an error has occurred, otherwise renders the child components as usual.

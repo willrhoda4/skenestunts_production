@@ -75,9 +75,9 @@ export default function AdminButtons ({ id,
     function promoteItem () {
 
         
-        Axios.post(`${process.env.REACT_APP_API_URL}reRankData`,  [ reqTable, pkName, id, rank, rank+1 ])
-             .then(  res => { console.log(res); loadData(table); }                               )
-             .catch( err => console.log(err)                                                     );  
+        Axios.post(`${process.env.REACT_APP_API_URL}reRankData`,  [ reqTable, pkName, id, rank, rank+1 ] )
+             .then(  res => loadData(table)                                                              )         
+             .catch( err => console.log(err)                                                             );  
      
     }
 

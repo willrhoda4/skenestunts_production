@@ -6,8 +6,12 @@
 
 
 import   Axios             from 'axios';
+import   jwtDecode         from 'jwt-decode';
+
+
 import { useEffect, 
          useState   }      from 'react';
+import { useAuth    }      from '../hooks/useAuth.js';
 
 import { Helmet     }      from 'react-helmet';
 
@@ -54,9 +58,26 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
   const [ authenticated,  setAuthenticated  ] = useState(false);
   const [ boardMember,    setBoardMember    ] = useState(false);
 
+  // jwtStatus tells us if the token is valid, invalid, or expired
+  // updateJwt is a passed to PasswordChecker as a handler
+  const [ getJwtToken,    
+          jwtStatus,  
+          updateJwt                         ] = useAuth();
+
+ // condition to toggle between PasswordChecker and ContactPerformer
+  // invalidJwt is true if the token is invalid or expired
+  // we specifcy explicit status' with strings in lieu of a boolean
+  // because we want PasswordChecker to render if the token is invalid,
+  // but display a message if the token is expired.
+  const   invalidJwt   =  jwtStatus() === 'invalid'
+                       || jwtStatus() === 'expired';
+
+  const   validJwt     =  jwtStatus() === 'valid';
+
+  const   jwt          =  jwtDecode(getJwtToken());
 
 
-  //loads data for editing
+  //loads data for editing 
   function loadData   (table, orderBy='rank', filters, limit) {
 
   
@@ -68,7 +89,7 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
 
     let reqBody      = table === 'profile' ? [  profileTable,    [[ 'team_id', authenticated.team_id ]]                                       ]
                      : table === 'info'    ? [ 'faq',               null,                                { orderBy: 'rank' }                  ] 
-                     : table === 'posters' ? [  table,              null,                                { orderBy: [ 'title', true] }        ] 
+                     : table === 'posters' ? [  table,              null,                                { orderBy: [ 'title', true ] }       ] 
                      : table === 'misc'    ? [  table,              null                                                                      ]
                      :                       [  table,              filters,                             { orderBy: orderBy, limit: limit }   ];
 
@@ -82,7 +103,8 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
     // rounds up and amalgemates faq and quote data for the info page.
     // note that this hack is the reason why the AdminButtons component
     // makes special provisions for the info page.
-      if (table === 'info')    {  Axios.all([  getData(reqBody),
+      if (table === 'info')    {      Axios.all([  
+                                                   getData(reqBody),
                                                    getData(quoteBody), 
                                                    getData(quoteByBody) 
                                                 ]                                                 )
@@ -111,83 +133,65 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
 
 
 
-  // activates admin status if user's imdb id matches Janice Skene.
+
+
+
+
+
+
+
+
   useEffect(() => {
 
-      authenticated && authenticated.imdb_id === 'nm0804052' ? setAdminStatus(true)      
-                                                             : setAdminStatus(false);
+    if ( validJwt && jwt )  {
+                              const role = jwt.role;
 
-  }, [authenticated, setAdminStatus]);
+                              setBoardMember(role === 'admin' || role === 'board');
+                              setAdminStatus(role === 'admin');
+    
+                            } 
+      else                  {           
+                              setAuthenticated(null);
+                              setBoardMember(false);
+                              setAdminStatus(false);
+                            }
+}, [ jwt ]);
 
 
 
-  // checks if user is a board member and sets boardMember state accordingly
-  useEffect(() => {
 
-    if (authenticated && authenticated.hasOwnProperty('profile')) { setBoardMember(true); }
 
-    // if (authenticated) { setBoardMember( authenticated.imdb_id === 'nm0804055' || /*  Rick Skene   */
-    //                                      authenticated.imdb_id === 'nm0804052' || /*  Jan Skene */
-    //                                      authenticated.imdb_id === 'nm7777777' || /*  Jan Skene */
-    //                                      authenticated.imdb_id === 'nm1819605' || /*  Daniel Skene */
-    //                                      authenticated.imdb_id === 'nm1451329'    /*  Sean Skene   */ 
-    //                                    );
-    //                    }
-    }, [authenticated]);
 
-  // checks if token is valid for password reset
+
+
+
+
+
+
+
+
+
+
+  // logs user in after password resets if jwt is valid
   useEffect(() => {
 
 
     // if token is present, checks if it is valid
-    if (token) {
+    if ( jwt && validJwt ) {
 
-      const reqBody   = [   'board_passwords',   [['token', token]],   {  columns: 'team_id, reset_at' }   ];
+      // team role uses the team table, board and admin roles use the board table.
+      const dataTable = jwt.role === 'team' ? 'team' : 'board';
 
-      const checkToken = () => {
-  
-        // grab data from reqBody[0] table
-        getData(reqBody).then( res => {              console.log(res.data);
-
-                  // if token is not preseent and unique in board_passwords, 
-                  // check team_passwords before declaring 'dataError'.
-                  if (res.data.length !== 1) { 
-                                                if (reqBody[0] === 'board_passwords') {
-                                                                                        reqBody[0] = 'team_passwords';
-                                                                                        return checkToken();
-                                                                                      }
-                                                else                                  {
-                                                                                        return setAuthenticated('dataError'); 
-                                                                                      }
-                                             }
-                  else                       {
-
-                    const { team_id, reset_at } = res.data[0];
-
-                    // if token is present and unique, checks if it has expired.
-                    // 900000 milliseconds = 15 minutes
-                    if ( !invite && Date.now() - parseInt(reset_at) > 900000 ) { return setAuthenticated('expired'); }
-
-
-                    const dataTable =      reqBody[0] === 'board_passwords' ? 'board' : 'team';
-
-
-                    // if token is present, unique and not expired, sets authenticated to the team member's data.
-                    getData([ dataTable, [['team_id', team_id]] ])
-                      .then(  res =>  {      
-                                              // if team_id is not present and unique, sets authenticated to 'dataError'.
-                                              if (res.data.length !== 1) { setAuthenticated('dataError'); } 
-                                              else                       { setAuthenticated(res.data[0]); }
-                                      }                                                                       
-                                )
-                  }
-                  })         
-            .catch( err =>  { console.log(err); setAuthenticated('dataError'); } )
-      }
-
-      checkToken();
-
+      getData( [ dataTable, [ ['team_id', team_id ] ] ] )
+        .then(  res =>  {      
+                              // if team_id is not present and unique, sets authenticated to 'dataError'.
+                              if ( res.data.length !== 1 ) {  setAuthenticated( 'dataError' ); } 
+                              else                         {  setAuthenticated( res.data[0] ); }
+                        }                                                                       
+             )
+       .catch( err =>   { console.log( err ); setAuthenticated( 'dataError' ); } )
     }
+  
 
   }, [getData, invite, token])
 
@@ -253,7 +257,7 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                                                getData={    getData          }
                                            />
                                          
-        :  <>
+        :  validJwt && jwt               ? <>
             
                               {   editing === 'misc'        ? <AdminView           loadData={loadData} 
                                                                                 currentData={currentData}
@@ -265,7 +269,7 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                               
                               :   editing === 'posters'     ? <AdminView           loadData={loadData} 
                                                                                 currentData={currentData}
-                                                                            setCurrentData={setCurrentData}
+                                                                             setCurrentData={setCurrentData}
                                                                                       table={editing}
                                                                                      pkName='poster_id'
                                                                                   AdminForm={PosterBarn}
@@ -281,7 +285,7 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                                                                      pkName='article_id'
                                                                                   AdminForm={AdminFormMedia}
                                                                                   Generator={Media}
-                                                                                    columns={[ 'headline', 'date', 'outlet', 'article_url', 'image_url', 'image_description' ]}
+                                                                                    columns={[ 'headline', 'date', 'outlet', 'article_url', 'image_description' ]}
                                                               />
 
                                 : editing === 'info'        ? <AdminView           loadData={loadData} 
@@ -356,6 +360,7 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                 : <p>Nada</p>
                               }
                           </>
+            : <Notification type='bad' msg='Looks like your token is invalid. Please log in again.' />
       }
     </>
   );

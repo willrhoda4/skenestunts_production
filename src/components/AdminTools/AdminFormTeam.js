@@ -6,19 +6,21 @@
 
 
 
-import                       './AdminTools.css'
+import                           './AdminTools.css'
+
+import   cloudinaryUpload   from '../../utils/cloudinaryUpload.js'
 
 import   React, 
        { useState, 
-         useEffect }    from 'react'; 
-import   Axios          from 'axios';
+         useEffect }        from 'react'; 
+import   Axios              from 'axios';
 
-import   TextArea       from '../FormFunctions/TextArea.js';
-import   TextField      from '../FormFunctions/TextField.js';
-import   Toggle         from '../FormFunctions/Toggle.js';
-import   FileUploader   from '../FormFunctions/FileUploader.js';
-import   Notification   from '../Notification.js';
-import   Checkbox       from '../FormFunctions/Checkbox';
+import   TextArea           from '../FormFunctions/TextArea.js';
+import   TextField          from '../FormFunctions/TextField.js';
+import   Toggle             from '../FormFunctions/Toggle.js';
+import   FileUploader       from '../FormFunctions/FileUploader.js';
+import   Notification       from '../Notification.js';
+import   Checkbox           from '../FormFunctions/Checkbox';
 
 
 
@@ -44,7 +46,8 @@ export default function TeamForm({loadData, currentData, table, columns, update,
 
 
     // uploadedImage is true if an image is uploaded, false if a URL is provided.
-    // imageUpload is the file object, imageURL is the URL string.
+    // imageUpload is the file object, 
+    // imageURL is the URL string.
     // imageAlt is the image description.
     const [ uploadedImage,      setUploadedImage      ]  =  useState(false);
     const [ imageUpload,        setImageUpload        ]  =  useState(false);
@@ -302,7 +305,8 @@ export default function TeamForm({loadData, currentData, table, columns, update,
     
 
 
-    const uploadProfile = (e) => {
+    async function uploadProfile (e) {
+        
 
         e.preventDefault();
 
@@ -411,18 +415,16 @@ export default function TeamForm({loadData, currentData, table, columns, update,
         
 
         // board members require extra state for attributes, additional posters and their profile.
-        let parameters = board ? commonState.concat(extraState) : commonState;
+        let parameters      =   board ? commonState.concat(extraState) : commonState;
 
 
 
 
         // HTTP requests
         const reqTable       = board ? 'board' : 'team';
-
-        const uploadPhotoReq = (data)         => Axios.post(`${process.env.REACT_APP_API_URL}teamPhoto`,        data                                                     )
         
         const uploadDataReq  = (cols, params) => Axios.post(`${process.env.REACT_APP_API_URL}addData`,     [ reqTable, cols, params, ]                                   )
-                                                                                                         //   'team_id' and  team_id
+        
         const updateDataReq  = (cols, params) => Axios.put( `${process.env.REACT_APP_API_URL}updateData`,  [ reqTable, cols, params, [   [ pkName, update.at(-1) ]  ]  ] )
 
         const sendData       = update ? updateDataReq
@@ -439,53 +441,37 @@ export default function TeamForm({loadData, currentData, table, columns, update,
                                             setUploadStatus('httpError');
                                         }
 
-        let   fd             = new FormData();
-
 
         // adds rank for new team/board members
-        if (!update) { 
-                            columns        = columns.concat(   [ 'rank']               );
-                            parameters     = parameters.concat([ currentData.length+1 ]);  
-                    }
+        if (!update) {
+                        columns        = columns.concat(   [ 'rank']               );
+                        parameters     = parameters.concat([ currentData.length+1 ]); 
+                     }
 
-
-        // adds image url to parameters if necessary
-        if ( !uploadedImage && 
-            !(update && !newImage) ) {  
-                                        columns    = columns.concat(   ['image_url'] );
-                                        parameters = parameters.concat([ imageURL  ] ); 
-                                    }             
-
-
-        // prepares form data for image upload if necessary             
-        if (  uploadedImage &&
-            !(update && !newImage) )    {
-                                            fd.append('name',                                    name);
-                                            fd.append('imageUpload', imageUpload,    imageUpload.name);
-                                        }
-
-
-
-
-        // sends data to database, starting with uploading image if necessary
-        if (  uploadedImage &&
-            !(update && !newImage) ){ 
-                                        uploadPhotoReq(fd).then( res =>    {
-                                                                                columns = columns.concat(['image_id']);
-                                                                                parameters = parameters.concat([res.data]);
-
-                                                                                return sendData(columns, parameters);
-                                                                            })
-                                                          .then(  ()  =>    {  cleanUp();    })
-                                                         .catch( err =>     {  failure(err); });
-                                    }
-                                                
-        else                        {
-                                        sendData(columns, parameters).then( res => cleanUp()    )
-                                                                    .catch( err => failure(err) ); 
-                                    }
-                                                        
+        // uploads image to Cloudinary if necessary
+        if (!(update && !newImage) ) {
         
+            try {       
+
+                    // passes either the uploaded image or the image URL to cloudinaryUpload
+                    // the function returns a versioned public ID for the image.    
+                    const nuPic   = uploadedImage ? imageUpload : imageURL;
+                    const nuPicId = await cloudinaryUpload(nuPic, `${name}_profile`, reqTable);
+
+                    // adds image_id to columns and parameters
+                    columns       = columns.concat(   ['image_id'] );
+                    parameters    = parameters.concat([ nuPicId  ] ); 
+         
+            } catch (error)   {  console.log(error); }
+        } 
+                                        
+
+
+        // sends data to database
+        sendData(columns, parameters).then( res => cleanUp()    )
+                                    .catch( err => failure(err) ); 
+
+
     }
 
 

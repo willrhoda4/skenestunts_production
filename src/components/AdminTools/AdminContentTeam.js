@@ -10,6 +10,7 @@ import   AdminButtons    from './AdminButtons.js';
 import   AdminFormTeam   from './AdminFormTeam.js';
 
 import   Notification    from '../Notification.js';  
+import   CloudImage     from '../CloudImage.js';
 
 import { useState, 
          useEffect  }    from 'react';
@@ -17,14 +18,14 @@ import { useState,
 import   imdbIcon        from '../../images/imdb_icon.svg';
 
 
-export default function Team ({     
+export default function Team ( {     
                                     table,
                                     pkName, 
                                     columns,
                                     posters, 
                                     loadData,  
                                     currentData,
-                                    adminStatus    }) { 
+                                    adminStatus    } ) { 
        
 
     
@@ -95,10 +96,7 @@ export default function Team ({
                     imdb_id,
                     team_id,
                     image_id,
-                    image_alt,
-                    image_url,
-                    legal_name, 
-                    uploaded_image     } = double;
+                    legal_name } = double;
 
         // prepares data to be passed to TeamForm component for updates
         const       doubleData           = columns.map(key => double[key]).concat([team_id]); 
@@ -106,18 +104,17 @@ export default function Team ({
         return (
 
             <li key={index} className='adminItem'>
+
+
+               
                 
                 <div className='adminTeamGrid'>
-                    {/* profile image drawn from Skene Stunts Google Drive or a URL of the team member's choice,
-                        depending on uploaded_image. */}
-                    {   
-                        uploaded_image   ?      <img className='adminTeamThumbnail' 
-                                                           alt={ 'existing headshot for performer' } 
-                                                           src={ 'https://drive.google.com/uc?export=view&id=' + image_id }
-                                                /> 
 
-                                            :   <img className='adminTeamThumbnail' alt={image_alt} src={image_url} />
-                    }
+                     {/* thumbnail image of profile */}
+                    <div className='adminTeamThumbnail'>
+                        <CloudImage id={image_id} />
+                    </div>
+                 
 
                     <div className='adminTeamControls'>    
 

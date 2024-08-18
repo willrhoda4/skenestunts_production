@@ -6,14 +6,16 @@
 
 
 import { useState,  
-         useEffect  }   from 'react';
-import   Axios          from 'axios';
+         useEffect  }       from 'react';
+import   Axios              from 'axios';
 
-import   TextField      from '../../FormFunctions/TextField.js';
-import   TextArea       from '../../FormFunctions/TextArea.js';
-import   Notification   from '../../Notification.js';
+import   TextField          from '../../FormFunctions/TextField.js';
+import   TextArea           from '../../FormFunctions/TextArea.js';
+import   Notification       from '../../Notification.js';
 
-import   iconRewind     from '../../../images/icon_rewind.svg';
+import   cloudinaryUpload   from '../../../utils/cloudinaryUpload.js';
+
+import   iconRewind         from '../../../images/icon_rewind.svg';
 
 
 // Page 10 is the last page of the form. 
@@ -31,7 +33,6 @@ export default function Page10 ({
 
     
     const [  uploadProgress, setUploadProgress  ] = useState(0);
-    const [  uploading,      setUploading       ] = useState(false);
 
     const [  valuesLoaded,   setValuesLoaded    ] = useState(false);
     const [  updateCount,    setUpdateCount     ] = useState(0);
@@ -70,38 +71,16 @@ export default function Page10 ({
     useEffect(() => { setWhatElseError(whatElse.length  >   500); }, [whatElse]);
 
 
-    // waits for imageIds to land in state, then submits the rest of the data.
-   
-
-
-    // throws up an apologetic notification if image uploading takes longer than 30 seconds.
-    useEffect(() => {    
-
-        let takingTooLong;
-
-        if (uploading) { takingTooLong = setTimeout(() => { 
-                                                            if ( uploadProgress !==  200 &&
-                                                                 uploadProgress !==  400 &&
-                                                                 uploadProgress !==  412 ){ setUploadProgress(408); }  
-                                                         }, 30000); }
-
-        return () => clearTimeout(takingTooLong);
-
-    }, [uploading, uploadProgress])
-
-
-
 
     const uploadProfile = (e) => {
 
-        setUploading(true);
         
         // declare variables for updateData/newPerformer requests
         let columnList;
         let databaseState;
 
         // attaches a submitted_when or updated_when timestamp to the formState
-        let allState        = formState.concat([ Date.now() ])
+        let allState        = formState.flat().concat( [ Date.now() ] )
 
         // attaches a submitted_when or updated_when column name to the column list
         let flatColumns     = !update ? columns.flat().concat([ 'submitted_when' ])
@@ -122,7 +101,6 @@ export default function Page10 ({
             Axios.post( `${process.env.REACT_APP_API_URL}newPerformer`, [ columnList, databaseState, password ])
                  .then(   res => { setUploadProgress(res.status); console.log(res);  })
                  .catch(  err => { console.log(err); setUploadProgress(400);         })
-                 .finally( () => { setUploading(false);                              });
 
         }
 
@@ -130,57 +108,63 @@ export default function Page10 ({
         // updateData request requires a performer_id filter array  to be passed in at index 3.
         const updateProfile = () => {
 
-            Axios.put( `${process.env.REACT_APP_API_URL}updateData`, ['performers', columnList, databaseState, [['performer_id', update]]])
-                 .then(   res => { setUploadProgress(res.status); console.log(res); })
-                 .catch(  err => { console.log(err); setUploadProgress(400);        })
-                 .finally( () => { setUploading(false);                             });
+            Axios.put( `${ process.env.REACT_APP_API_URL }updateData`, 
+                        [ 'performers', columnList, databaseState, [ [ 'performer_id', update ] ] ] )
+                 .then(   res => { 
+                                    setUploadProgress(res.status); console.log(res);
+                                    // invalidate jwt after successful update
+                                    document.cookie = 'jwt=; Max-Age=0'; 
+                                                                                    } )
+                 .catch(  err => { console.log(err); setUploadProgress(400);        } )
 
         }
 
 
         // uploadPhotos request requires a headshot, and bodyshot loaded into a FormData object.
-        const uploadPhotos = () => {
+        const uploadPhotos = async () => {   
+            console.log('uploadPhotos');
 
-            let fd = new FormData();
-                fd.append('name',     formState[1]+'_'+formState[0]     );
-                fd.append('headshot', formState[8],    formState[8].name);
-                fd.append('bodyshot', formState[9],    formState[9].name);
+            try {           
 
-                                                                        // onUploadProgress is a function that updates the uploadProgress state
-                                                                        // for display in the uploadProgress notification.
-            Axios.post( `${process.env.REACT_APP_API_URL}performerPhotos`,  fd, {  onUploadProgress: progressEvent => {  
-                                                                            setUploadProgress( Math.floor(progressEvent.loaded / progressEvent.total * 100 ) );
-                                                                        }
-                                                                     }
-                      )
-                 .then( res => { 
-                                    // if the upload is successful, update the notification to let the user know.
-                                    setUploadProgress(100);
+                // set the uploadProgress to 1 to display upload notification
+                setUploadProgress(1);
 
-                                    // wrap the imageIds in an array, and insert them into the databaseState at the appropriate index.
-                                    // take the flatColumns list as is.
-                                    const imageIds = [ res.data[0], res.data[1] ]
+                // use the cloudinaryUpload function to upload the headshot
+                const headshotId = await cloudinaryUpload(allState[8], `${allState[1]}_${allState[0]}_headshot`, 'headshots');
+                
+                // use the cloudinaryUpload function to upload the bodyshot
+                const bodyshotId = await cloudinaryUpload(allState[9], `${allState[1]}_${allState[0]}_bodyshot`, 'bodyshots');
+                
+                // if the upload is successful, update the notification to let the user know
+                setUploadProgress(100);
 
-                                    databaseState  = [].concat(  allState.slice(0,8),   imageIds, allState.slice(10) );
-                                    columnList     = flatColumns;
-                                            
-                                    // if this is a new performer, call newPerformer(), otherwise call updateProfile().
-                                    update ? updateProfile() : newPerformer();    
-                               }
-                      )             // if the upload fails, update the notification to let the user know.
-                .catch( err => {    console.log(err);
-                                    setUploading(false);
-                                    setUploadProgress(412);    
-                               })
-        }
+                // wrap the imageIds in an array, and insert them into the databaseState at the appropriate index
+                const imageIds   = [ headshotId, bodyshotId ];
+
+                databaseState    = [].concat(allState.slice(0, 8), imageIds, allState.slice(10));
+                columnList       = flatColumns;
+
+                // If this is a new performer, call newPerformer(), otherwise call updateProfile()
+                update ? updateProfile() : newPerformer();
+
+
+            } catch (error) {
+
+                console.log(error);
+                setUploadProgress(412);
+            }
+        };
+
+
+
+       
 
         
 
         // if the note is too long (in any case), or the password is too short (in the case of a new performer),
         // throw up an error notification and return.
-
-             if ( ( update &&  whatElseError) ||
-                  (!update && (whatElseError  || passwordError) ) ) { return setUploadProgress(-1);  }
+             if ( ( update &&  whatElseError ) ||
+                  (!update && (whatElseError   || passwordError) ) ) { return setUploadProgress(-1);  }
        
         // unless this is an update with no new photos, start by uploading the photos.
         // the uploadPhotos function will taker care of calling updateProfile or newPerformer when it's done.
@@ -201,7 +185,7 @@ export default function Page10 ({
         else if ( uploadProgress ===  -1  ) { return <Notification type='bad'  msg={'Make sure both lights are shining green before you submit.'} />                                           }
 
         // upload in progress  
-        else if ( uploadProgress  <   100 ) { return <Notification type='wait' msg={`Image uploads ${uploadProgress}% complete`} />                                                             }
+        else if ( uploadProgress ===   1 ) { return <Notification type='wait' msg={`Image uploads in progress...`} />                                                                          }
 
         // upload complete, but database still working
         else if ( uploadProgress ===  100 ) { return <Notification type='wait' msg={'Loading profile into database...'} />                                                                     }
@@ -297,3 +281,40 @@ export default function Page10 ({
 
 
 
+/**
+ *  // uploadPhotos request requires a headshot, and bodyshot loaded into a FormData object.
+        const uploadPhotos = () => {
+
+            let fd = new FormData();
+                fd.append('name',     formState[1]+'_'+formState[0]     );
+                fd.append('headshot', formState[8],    formState[8].name);
+                fd.append('bodyshot', formState[9],    formState[9].name);
+
+                                                                        // onUploadProgress is a function that updates the uploadProgress state
+                                                                        // for display in the uploadProgress notification.
+            Axios.post( `${process.env.REACT_APP_API_URL}performerPhotos`,  fd, {  onUploadProgress: progressEvent => {  
+                                                                            setUploadProgress( Math.floor(progressEvent.loaded / progressEvent.total * 100 ) );
+                                                                        }
+                                                                     }
+                      )
+                 .then( res => { 
+                                    // if the upload is successful, update the notification to let the user know.
+                                    setUploadProgress(100);
+
+                                    // wrap the imageIds in an array, and insert them into the databaseState at the appropriate index.
+                                    // take the flatColumns list as is.
+                                    const imageIds = [ res.data[0], res.data[1] ]
+
+                                    databaseState  = [].concat(  allState.slice(0,8),   imageIds, allState.slice(10) );
+                                    columnList     = flatColumns;
+                                            
+                                    // if this is a new performer, call newPerformer(), otherwise call updateProfile().
+                                    update ? updateProfile() : newPerformer();    
+                               }
+                      )             // if the upload fails, update the notification to let the user know.
+                .catch( err => {    console.log(err);
+                                    setUploading(false);
+                                    setUploadProgress(412);    
+                               })
+        }
+ */

@@ -144,8 +144,11 @@ const getDoublesPosters = (request, response) => {
     // they haven't selected any posters and we can just return an empty array.
     if ( ids.length === 0 ) return response.send([]);
 
+    // build an SQL IN clause with placeholders for the id values,
     const idsList = ids.join(', ');
-
+    
+    // then use a CASE statement to assign a rank to each id.
+    // this ensures that posters are returned in the order they were selected.
     const cases  = ids.map( (id, index) => `WHEN ${id} THEN ${index+1}`).join(' ');
 
     let   query  = `       SELECT       * 
@@ -153,7 +156,7 @@ const getDoublesPosters = (request, response) => {
                             WHERE  ${  column   } 
                                IN (${  idsList  })
                     ORDER BY CASE  ${  column   }
-                        ${ cases }
+                                   ${  cases    }
                     END;
                     ` 
 

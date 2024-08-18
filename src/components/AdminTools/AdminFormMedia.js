@@ -6,16 +6,19 @@
 
 
 
-import './AdminTools.css'
+import                           './AdminTools.css'
 
-import   React, 
-       { useState, 
-         useEffect } from 'react'; 
-import   Axios       from 'axios';
+import   React,         
+       { useState,      
+         useEffect }        from 'react'; 
+import   Axios              from 'axios';
 
-import TextField    from '../FormFunctions/TextField.js';
-import DatePicker   from '../FormFunctions/DatePicker.js';
-import Notification from '../Notification.js';
+import   TextField          from '../FormFunctions/TextField.js';
+import   DatePicker         from '../FormFunctions/DatePicker.js';
+import   Checkbox           from '../FormFunctions/Checkbox.js';
+import   Notification       from '../Notification.js';
+
+import   cloudinaryUpload   from '../../utils/cloudinaryUpload.js';
 
 
 export default function MediaForm({loadData, currentData, setCurrentData, table, columns, update, pkName}) {
@@ -27,6 +30,8 @@ export default function MediaForm({loadData, currentData, setCurrentData, table,
     const [ articleURL,      setArticleURL      ] = useState('');
     const [ imageURL,        setImageURL        ] = useState('');
     const [ imageAlt,        setImageAlt        ] = useState('');
+
+    const [ newImage,        setNewImage        ] = useState(false);
 
     const [ headlineError,   setHeadlineError   ] = useState(false);
     const [ dateError,       setDateError       ] = useState(false);
@@ -112,7 +117,7 @@ export default function MediaForm({loadData, currentData, setCurrentData, table,
 
 
 
-    const uploadArticle = (e) => {
+    async function uploadArticle (e) {
        
         e.preventDefault();
 
@@ -128,34 +133,72 @@ export default function MediaForm({loadData, currentData, setCurrentData, table,
         else                     {        setFormStatus(false);         }
 
 
-        let columnList =   columns;
-        let parameters = [ headline, date, outlet, articleURL, imageURL, imageAlt ];
-        
+        // prepare the data for the upload request.
+        let   columnList   =   columns;
 
+        let   parameters   = [ headline, date, outlet, articleURL, imageAlt ];
+
+        const updloadStory = ( cols, params ) => Axios.post( `${process.env.REACT_APP_API_URL}addData`,    [ table, cols, params ]                                );
+        
+        const updateStory  = ( cols, params ) => Axios.put(  `${process.env.REACT_APP_API_URL}updateData`, [ table, cols, params, [ [ pkName, update.at(-1) ] ] ] );
+        
+        const sendStory    =   update ? updateStory : updloadStory;
+
+
+
+
+        // if we are adding a new record, we need to add the rank column to the list of columns
         if (!update) {
 
-            // if we are adding a new record, we need to add the rank column to the list of columns
             columnList = columnList.concat( ['rank']               );
-            parameters = parameters.concat( [currentData.length+1] );
-            
-            Axios.post( `${process.env.REACT_APP_API_URL}addData`,  [table, columnList, parameters]    )
-                    .then(  res => { setFormStatus('uploaded'); loadData(table); }              )
-                    .catch( err =>   setFormStatus('uploadError')                               );
-                
-        } else {
+            parameters = parameters.concat( [currentData.length+1] );          
+        } 
 
-            // if we are updating an existing record, we need to add the primary key to the request body as a filter .
-            Axios.put( `${process.env.REACT_APP_API_URL}updateData`, [ table, columnList, parameters, [[ pkName, update.at(-1)]] ] )
-                                                                    .then(  res => { 
-                                                                                        console.log(res);
-                                                                                        loadData(table); 
-                                                                                        setFormStatus('updated')
-                                                                                    }
-                                                                            )
-                                                                    .catch( err => { console.log(err); setFormStatus('httpError'); } );
+
+
+        // if we are uploading a new image, we need to upload it to Cloudinary first.
+        if ( !(update && !newImage) ) {
+
+
+            try         {
+
+                            const imageId  = imageURL === 'logo' ? imageURL
+                                                                 : await cloudinaryUpload( imageURL, headline, table );
+                     
+                            parameters     = parameters.concat( [ imageId  ] );
+                            columnList     = columnList.concat( ['image_id'] );
+                        }
+            catch (err) {   
+                            console.log(err); 
+                            setFormStatus('imageError'); 
+                        }
         }
 
+
+
+        sendStory( columnList, parameters )
+            .then( res => { 
+                            console.log(res);
+                            loadData(table); 
+                            setFormStatus('uploaded');
+                          }
+                 )
+           .catch( err => { 
+                            console.log(err); 
+                            setFormStatus('uploadError'); 
+                          } 
+                 );
+
+
+        
+
     }
+
+
+
+
+
+
 
     return(
             <div className='adminForm'>
@@ -202,14 +245,26 @@ export default function MediaForm({loadData, currentData, setCurrentData, table,
                     />
                     
 
-                    < TextField
-                        name='image URL'
-                        state={imageURL}
-                        setter={setImageURL}
-                        error={imageURLError}
-                        instructions={`Enter 'logo' to substitute the company logo`}
-                        noHelp={true}
-                    />
+
+                     {/* Next two conditional blocks handle the image upload process. */}
+                     {   update && !newImage    ?   <div style={ { marginBottom: '2em' } }>
+                                                        < Checkbox    
+                                                              name={ 'update profile photo' }
+                                                             state={  newImage              }
+                                                            setter={  setNewImage           }
+                                                        />
+                                                    </div>
+                    
+                                                :   < TextField
+                                                        name='image URL'
+                                                        state={imageURL}
+                                                        setter={setImageURL}
+                                                        error={imageURLError}
+                                                        instructions={`Enter 'logo' to substitute the company logo`}
+                                                        noHelp={true}
+                                                    />
+                    }
+                    {   update && newImage      &&  <p id='oldImageGraf' onClick={() => setNewImage(false)}>stick with old image</p>    }
                     
 
                     < TextField
@@ -224,12 +279,12 @@ export default function MediaForm({loadData, currentData, setCurrentData, table,
 
 {
                             formStatus === 'inputError'  ? <Notification type='bad'  msg='Looks like something is filled out incorrectly. Make sure all the lights are shining green, then try again.' />
-                        :   formStatus === 'uploadError' ? <Notification type='bad'  msg='There was a problem uploading your article. Try refreshing the page before you reattempt.' />
-                        :   formStatus === 'uploaded'    ? <Notification type='good' msg='Article successfully uploaded!' />
-                        :   formStatus === 'updated'     ? <Notification type='good' msg='Article successfully updated!' />
+                        :   formStatus === 'imageError'  ? <Notification type='bad'  msg='Looks like there was a problem uploading the image to your cloud server.' />
+                        :   formStatus === 'uploadError' ? <Notification type='bad'  msg='There was a problem uploading your information. Try refreshing the page before you reattempt.' />
+                        :   formStatus === 'uploading'   ? <Notification type='wait' msg='Uploading article now...' />
+                        :   formStatus === 'uploaded'    ? <Notification type='good' msg={`Article successfully ${ update ? 'updated' : 'uploaded'}!`} />
                         :   formStatus === 'dataError'   ? <Notification type='bad'  msg='A data error has occured. Try refreshing the page and reattempting.' />
-                        :   formStatus === 'httpError'   ? <Notification type='bad'  msg='A network error has occured. Try refreshing the page and reattempting.' />
-                        :                                  null
+                        :                                   null
                     }
                     
 

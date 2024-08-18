@@ -6,6 +6,7 @@
 
 
 import   Notification      from '../Notification.js';
+import   CloudImage        from '../CloudImage.js';
 
 import   imdbIcon          from '../../images/imdb_icon.png';
 import   dropdownIcon      from '../../images/icon_dropdown.svg';
@@ -83,7 +84,6 @@ export default function Performers ({  currentData, loadData, adminStatus, board
                 // last updated when. defaults to 'unupdated' if never updated.
                 const updateDate  = update_count === 0 ? 'unupdated'
                                                        : new Date(parseInt(updated_when)).toLocaleDateString()+` (${update_count})`
-                // checks if team member is sean, daniel or rick.
              
 
 
@@ -101,15 +101,15 @@ export default function Performers ({  currentData, loadData, adminStatus, board
                                                                                     prop === 'hispanic'        ||
                                                                                     prop === 'east_asian'      ||
                                                                                     prop === 'indigenous'      ||
-                                                                                    prop === 'south_asian'      ) { ethnicities.push(<p>{prop.replace('_', ' ')}</p>)    }
+                                                                                    prop === 'south_asian'      ) { ethnicities.push(<p key={prop} >{ prop.replace('_', ' ')    }</p>) }
 
                                                                                     // licenses trap
                                                                           else if ( prop === 'air_brake'       ||
                                                                                     prop.startsWith('class_')  ||
-                                                                                    prop.endsWith('_trailer')   ) { licenses.push(<p>{prop.replaceAll('_', ' ')}</p>)    }
+                                                                                    prop.endsWith('_trailer')   ) {    licenses.push(<p key={prop} >{ prop.replaceAll('_', ' ') }</p> ) }
                                                                                    
                                                                                     // skills trap
-                                                                          else                                    { skills.push(<p>{prop.replaceAll('_', ' ')}</p>)      }
+                                                                          else                                    {      skills.push(<p key={prop} >{ prop.replaceAll('_', ' ') }</p> ) }
 
 
 
@@ -119,7 +119,7 @@ export default function Performers ({  currentData, loadData, adminStatus, board
         const attributes = [ ethnicities, licenses, skills ];
 
         for (let i =0; i < attributes.length; i++ ) {
-            if (attributes[i].length === 0) { attributes[i].push(<p>None</p>) };
+            if (attributes[i].length === 0) { attributes[i].push(<p key='none'>None</p>) };
         }
 
 
@@ -129,32 +129,31 @@ export default function Performers ({  currentData, loadData, adminStatus, board
 
         return( 
         
-            <li className='adminItem'>
+            <li key={index} className='adminItem'>
 
                 {/* this is the always-visible unexpanded portion of profile */}
                 <div className='adminPerformerGrid'>
 
 
                     {/* performer headshot thumbnail */}
-                    <div style={{width: '100%', position: 'relative'}}>
-                        <img className='adminPerformerThumbnail' 
-                                    alt={ 'headshot for '+name } 
-                                    src={'https://drive.google.com/uc?export=view&id=' + headshot}
-                        /> 
-                    </div>   
+                    <div style={{height: '10vh', width: '100%', position: 'relative'}}>
+                        <CloudImage id={headshot}  />
+                    </div> 
 
 
                     {/* performer bodyshot thumbnail */}
-                    <div style={{width: '100%', position: 'relative'}}>
-                        <img className='adminPerformerThumbnail' 
-                                    alt={ 'bodyshot for '+name } 
-                                    src={'https://drive.google.com/uc?export=view&id=' + bodyshot}
-                                    />
-                    </div>      
+                    <div style={{height: '10vh', width: '100%', position: 'relative'}}>
+                        <CloudImage id={bodyshot}  />
+                    </div> 
+
+
+
+
 
 
                     {/* performer name, weight, height, age */}
-                    <p className='adminPerformerGridItem'>{name}</p>
+                    <p className='adminPerformerGridItem'
+                           style={{ paddingLeft: '.5em' }}>{name}</p>
                     <p className='adminPerformerGridItem'>{weight} lbs</p>
                     <p className='adminPerformerGridItem'>{height}"</p>
                     <p className='adminPerformerGridItem'>{age}</p>
@@ -187,24 +186,22 @@ export default function Performers ({  currentData, loadData, adminStatus, board
                     <div className='adminPerformerPhotoRow'>
                     
                         {/* performer headshot large */}
-                        <img className='adminPerformerPhoto' 
-                                    alt={ 'headshot for '+name } 
-                                    src={'https://drive.google.com/uc?export=view&id=' + headshot}
-                        /> 
+                        <div className='adminPerformerPhoto' >
+                            <CloudImage id={headshot} />
+                        </div>
+
 
                         {/* performer bodyshot large */}
-                        <img className='adminPerformerPhoto' 
-                                    alt={ 'bodyshot for '+name } 
-                                    src={'https://drive.google.com/uc?export=view&id=' + bodyshot}
-                        />   
-
+                        <div className='adminPerformerPhoto' >
+                            <CloudImage id={bodyshot} />
+                        </div>
+                        
                     </div>
 
                     {/* Layer 2: The Info Row */}
                     <div className='adminPerformerInfoRow'>
 
-                        <tabl
-                        e className='adminPerformerTable'>
+                        <table className='adminPerformerTable'>
                             <tbody>
                                 {/* Performer Hair */}
                                 <tr>
@@ -232,7 +229,7 @@ export default function Performers ({  currentData, loadData, adminStatus, board
                                     <td><p  className='adminPerformerAttribute'> {submitDate}</p></td>
                                 </tr>
                             </tbody>
-                        </tabl>
+                        </table>
 
 
                         <table className='adminPerformerTable'>
@@ -285,21 +282,21 @@ export default function Performers ({  currentData, loadData, adminStatus, board
                         {/* Performer Ethnicities */}
                         <h5 style={{fontSize: '4vmin'}}>Ethnicities</h5>
                         <div className='adminPerformerSkills'>
-                            { ethnicities.map(ethnicity => ethnicity) }
+                            { ethnicities }
                         </div>
 
 
                         {/* Performer Skills */}
                         <h5 style={{fontSize: '4vmin'}}>Skills</h5>
                         <div className='adminPerformerSkills'>
-                            { skills.map(skill => skill)              }
+                            { skills }
                         </div>
 
 
                         {/* Performer Licenses */}
                         <h5 style={{fontSize: '4vmin'}}>Licenses</h5>
                         <div className='adminPerformerSkills'>
-                            { licenses.map(license => license)        }
+                            { licenses }
                         </div>
 
 

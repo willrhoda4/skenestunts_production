@@ -12,6 +12,7 @@ import { useEffect }  from 'react';
 import { Helmet }     from 'react-helmet';
 
 import   Picture      from '../components/Picture';
+import   CloudImage   from '../components/CloudImage';
 
 import   imdbIcon     from '../images/imdb_icon.png';
 import   iconChevron  from '../images/icon_chevronsRight.svg'
@@ -105,7 +106,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
       
             // if the text is just right, break out of the loop
             // else, increment the iterations and continue the loop
-            if (justRight)        { break;        }   
+            if  ( justRight )     { break;        }   
             else                  { iterations++; }
         
             // adjust the font size up or down depending on the problem
@@ -155,15 +156,13 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
     const {  profile,
              title,
-             uploaded_image,
              image_id,
+             image_alt,
              attribute_1,
              attribute_2,
              attribute_3,
              no_posters,
              imdb_id,
-             image_alt,
-             image_url,
              legal_name, } = double;
 
 
@@ -210,12 +209,9 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
             
 
 
-            <img className='boardImage'
-                        alt={  image_alt } 
-                        src={ !uploaded_image ? image_url 
-                                              : 'https://drive.google.com/uc?export=view&id=' + image_id
-                            } 
-            />
+            <div className='boardImage'>
+                <CloudImage id={image_id} alt={image_alt} />
+            </div>
 
 
 
@@ -283,12 +279,10 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
     // variables for each team member from the database
     const {   
               title,
-              uploaded_image,
               no_posters,
               image_id,
-              imdb_id,
               image_alt,
-              image_url,
+              imdb_id,
               legal_name, } = double;
 
              
@@ -298,11 +292,9 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
         <div className='teamContentTop'>
 
-                <img className='teamImage' 
-                           alt={image_alt} 
-                           src={ !uploaded_image ? image_url 
-                                                 : 'https://drive.google.com/uc?export=view&id='+image_id }  
-                />
+            <div className='adminTeamThumbnail'>
+                <CloudImage id={image_id} alt={image_alt} />
+            </div>
             
             <div className='teamContentRight'>
                 <h2 className='teamName'>{legal_name}</h2>

@@ -46,18 +46,25 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
 
 
-   
+   // data for reel component
+   // calculated angle for subheading skew
    const [  reel,            setReel         ] = useState(false);
    const [  reelH2Skew,      setReelH2Skew   ] = useState(0);
 
+   // current value being displayed
    const [  value,           setValue        ] = useState('safety');
 
+   // FAQ data
+   // id for the faq that's open
    const [  FAQs,            setFAQs         ] = useState(false);
    const [  displayedFAQ,    setDisplayedFAQ ] = useState(false);
 
+   // quote to be displayed
+   // quote author
    const [  quote,           setQuote        ] = useState('');
    const [  quoteBy,         setQuoteBy      ] = useState('');
 
+   // tracks whether screen is < 700px for display purposes
    const [  smallScreen,     setSmallScreen  ] = useState(false);
 
 
@@ -90,11 +97,11 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
              }))   
         
-    }, [getData])
+    }, [ getData ] )
 
 
 
-    // when user arrives at site via an FAQ link generated in the Director's Chair:
+    //  when user arrives at site via an FAQ link generated in the Director's Chair:
     //  get the FAQ id from the URL,
     //  wait for the FAQs to load,
     //  open the FAQ in question, 
@@ -110,7 +117,7 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
                                                 faq.scrollIntoView();
                                                 faqRef.current.scrollIntoView(false);  
                                               }
-    }, [FAQs, displayedFAQ, faqRef])
+    }, [ FAQs, displayedFAQ, faqRef ] )
 
 
 
@@ -227,7 +234,7 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
 
     // generates selector shields for the values section of the page.
-    function valueSelector(valueIs, icon) {
+    function valueSelector( valueIs, icon ) {
 
         return (
 
@@ -537,9 +544,4 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
     )
 }
-
-
-
-
-
 

@@ -14,6 +14,7 @@ import    logo           from '../images/logo_header.webp';
 import    logoPNG        from '../images/logo_header.png';
 import    Loader         from '../components/Loader.js';
 import    Picture        from '../components/Picture.js'
+import    CloudImage     from '../components/CloudImage.js';
 
 
 
@@ -50,7 +51,9 @@ export default function Media({getData}) {
                         <p style={{fontSize: '1.25em'}}>{date.slice(0,10)}</p>
                         <p><b>{outlet}</b></p>
                     </div>
-                    { image !== 'logo' ? <img className='storyImage'      alt={alt}               src={image} />
+                    { image !== 'logo' ?  <div className='storyImage'>
+                                            <CloudImage id={image} />
+                                          </div>  
                                        :  <Picture
                                                    src={logo}
                                               fallback={logoPNG}
@@ -82,14 +85,14 @@ export default function Media({getData}) {
         <div id='media' className='page'>
             { mediaData.length === 0  ? <Loader />
                                       : <div id='mediaGrid'>
-                                            {mediaData.map(story => makeStory( story.headline,
-                                                                              story.date,
-                                                                              story.outlet,
-                                                                              story.article_url,
-                                                                              story.image_url,
-                                                                              story.image_description,
-                                                                              story.article_id
-                                                                            ))}
+                                            { mediaData.map(story => makeStory( story.headline,
+                                                                                story.date,
+                                                                                story.outlet,
+                                                                                story.article_url,
+                                                                                story.image_id,
+                                                                                story.image_description,
+                                                                                story.article_id
+                                                                            ) ) }
                                         </div>
             }
 

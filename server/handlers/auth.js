@@ -9,6 +9,9 @@
 const { pool }        = require('./database');
 const   bcrypt        = require('bcrypt');
 const   crypto        = require('crypto');
+const   jwt           = require('jsonwebtoken');
+
+
 const { simpleQuery,
         atomicQuery } = require('./database');
 
@@ -17,102 +20,163 @@ const { simpleQuery,
 
 
 
-// check password against database and sends response data if it jives.
-const checkPassword = (request, response) => {
 
 
-    let   table          = request.body[0];
-    const email          = request.body[1];
-    let   pwTable        = request.body[2];
-    const pwTableFk      = request.body[3];
-    const password       = request.body[4];
-
-    // const dataQuery      = `SELECT * FROM ${table}   WHERE   email      = $1`
-    // const pwQuery        = `SELECT * FROM ${pwTable} WHERE ${pwTableFk} = $1`
-
-
-    console.log(`verifying password for ${email}...\n`);
-   
-
-
-    // once data is retrieved for profile updates, passwordCheck checks the password before sending the response.
-    async function passwordCheck (id) {
-
-        const pwQuery        = `SELECT * FROM ${pwTable} WHERE ${pwTableFk} = $1`;  console.log(pwQuery);
-
-
-        pool.query(pwQuery, [id], async (err, res) => {
-
-                 if (err)                       {  
-                                                    console.log(err.message); 
-                                                    return response.status(400).send(err.message); 
-                                                }
-            else if (res.rows.length === 0)     {
-                                                    console.log(`password for ${email} not found in database.\n`);
-                                                    return response.send('no password');
-                                                } 
-            else                                {
-
-                const stashedPass = res.rows[0].password;
-                
-                const match       = await bcrypt.compare(password, stashedPass);
+// helper function to generate a JWT token for resetPassword and login.
+function returnToken( user, table ) {
     
-                if (match) {  console.log(`password for ${email} matches!`      );   return true;   }   
-                else       {  console.log(`password for ${email} doesn't match.`);   return false;  }  
+    const email = user.email;
     
-            }
-        })
-    }
+    const role  = ( table === 'board' && user.imdb_id === 'nm0804052' ) ? 'admin'
+                  : table === 'performers'                              ? 'performer'
+                  :                                                        table;
 
 
-    // grabs data from the performers table and runs passwordCheck before sending the response.
-    function grabData () {  
-
-
-
-        const dataQuery      = `SELECT * FROM ${table} WHERE email = $1`;  
-        console.log(dataQuery);
-
-
-        pool.query(dataQuery, [email], (err, res) => {
-                
-                     if (err)                   { 
-                                                    console.log(err.message); 
-                                                    return response.status(400).send(err.message); 
-                                                }
-                else if (res.rows.length === 0) {
-                                                    // for Director's Chair login attempts, if the email 
-                                                    // isn't found in the board table, check the team table
-                                                    // before sending a response.
-                                                    if (table === 'board')  {  
-                                                                                table   = 'team';
-                                                                                pwTable = 'team_passwords';
-                                                                                return     grabData();
-                                                                            }
-
-
-                                                    console.log(`data for ${email} not found in database.\n${table+ pwTable}`);
-                                                    return response.send('no email');
-                                                } 
-                else                            {
-                                                    const id = res.rows[0][pwTableFk];       
-                    
-                                                    passwordCheck(id) ? response.send(res.rows[0]) 
-                                                                      : response.send('no match');
-                                                }
-        })
-    }
-
-    // start the process
-    grabData();
-
-  
+    const payload = { email, role };
+    
+    return jwt.sign( 
+                        payload, 
+                        process.env.JWT_SECRET, 
+                      { expiresIn: '2h' }
+                   );
 }
+
+
+
+
+
+
+
+
+
+// returns data and token for a user providing the correct email and password.
+const login = (request, response) => {
+
+
+    let   table     = request.body[0];
+    const email     = request.body[1];
+    let   pwTable   = request.body[2];
+    const pwTableFk = request.body[3];
+    const password  = request.body[4];
+
+    // declare user data variable.
+    let user;
+
+    console.log(`Attempting login for ${email}...\n`);
+
+
+
+    // first helper function grabs data from the database.
+    async function grabData(table, email) {
+
+        const dataQuery  = `SELECT * FROM ${table} WHERE email = $1`;
+        const dataResult = await pool.query(dataQuery, [email]);
+
+        // if no data is found in the board table, check the team table.
+        if ( dataResult.rows.length === 0 ) {
+
+            if (table === 'board') {
+                                        table = 'team';
+                                        return grabData(table, email);
+                                   }
+
+            console.log(`Data for ${email} not found in database.\n`);
     
+            return null;
+
+        }
+
+        return dataResult.rows[0];
+    }
+
+
+    // second helper function checks password against database.
+    async function checkPassword(pwTable, pwTableFk, id, password) {
+        
+        const pwQuery  = `SELECT * FROM ${pwTable} WHERE ${pwTableFk} = $1`;
+        const pwResult = await pool.query(pwQuery, [id]);
+
+        if ( pwResult.rows.length === 0 ) {
+
+            console.log(`Password not found in database.\n`);
+    
+            return false;
+        }
+
+        const stashedPass = pwResult.rows[0].password;
+    
+        return bcrypt.compare(password, stashedPass)
+    }
+
+
+    // // third helper function returns a token for the user.
+    // function returnToken( user ) {
+
+    //     // for every table, we can find the email in its namesake column.
+    //     const email = user.email;
+
+    //     // but the id columns aren't always named the same.
+    //     const id    =               table === 'performers' ? 'performer_id' : 'team_id';
+
+    //     // Jan's imdb_id is nm0804052, and she gets admin status.
+    //     // we truncate performers to 'performer' for readability.
+    //     // everyone else's status is based on the table.
+    //     const role  = (             table === 'board' 
+    //                       && user.imdb_id === 'nm0804052'  ) ? 'admin'
+    //                        :        table === 'performers'   ? 'performer'
+    //                        :        table            
+
+    //     const payload = { id, email, role };
+       
+    //     return jwt.sign(
+    //                         payload,
+    //                         process.env.JWT_SECRET,
+    //                       { expiresIn: '2h' }
+    //                    );
+    // }
+    
+
+
+                                
+    grabData( table, email )
+       .then( data =>      {    // start by grabbing data from the database.
+                                if ( !data ) return response.send( 'no email' );
+                                    
+
+                                user      = data;
+                                const  id = user[pwTableFk];
+                                return checkPassword( pwTable, pwTableFk, id, password );
+                           }
+            )
+       .then( match     => {    // once we have the data, check the password.
+                                if ( !match ) return response.send( 'no match' );
+
+                                console.log(`Password for ${email} matches!\n`);
+
+                                const token = returnToken( user );
+                                
+                                // if the password matches, send back the user data and token.
+                                response.send( { user, token } );
+                           }
+            )
+      .catch( err =>       {    // catch any errors that occur during the process.
+                                console.log( err.message );
+                                return response.status( 400 ).send( err.message );
+                           }
+            );
+};
+
+
+    
+
+
+
+
+
 
 
 // stores token in database in preparation for a response to 
-// an email invitation to Director's Charir
+// an email invitation to Director's Chair
 // or a performer (or team) password-reset request.
 const registerReset = (request, response) => {
 
@@ -158,22 +222,118 @@ const registerReset = (request, response) => {
 // resets password   
 const resetPassword = async (request, response) => {
     
-    let id         =  request.body[0];
-    let newPass    =  request.body[1];
-    let table      =  request.body[2];
-    let fk         =  request.body[3];
 
-    let hashedPass =  await bcrypt.hash(newPass, 10);
-    let query      = `UPDATE ${table} SET password = $1 WHERE ${fk} = $2`;
-
-    console.log(`resetting password for ${table}...`)
+    const id         = request.body[0];
+    const newPass    = request.body[1];
+    const table      = request.body[2];
+    const fk         = request.body[3];
+    const resetToken = request.body[4];
 
 
-    pool.query(query, [hashedPass, id], (err, res) => {
-        if (err) { console.log(err.stack);                      response.send(err.message);      } 
-        else     { console.log('password successfully reset');  response.send('password reset'); }
-    })
-}
+    // before we get started, let's make sure the table is valid.
+    const validTable =  table === 'team_passwords'    || 
+                        table === 'board_passwords'   || 
+                        table === 'performer_passwords';
+
+    if ( !validTable ) return response.status( 400 ).send( 'invalid table specified' );
+
+
+
+    // then determine the correct user table based on the password table
+    const userTable = table === 'team_passwords'      ? 'team'
+                    : table === 'board_passwords'     ? 'board'
+                    : table === 'performer_passwords' ? 'performers'
+                    :                                    null
+  
+
+
+    // step 1: validate the reset token
+    const tokenQuery = `SELECT token, reset_at FROM ${table} WHERE ${fk} = $1`;
+    
+    try {
+
+        const tokenResult = await pool.query( tokenQuery, [ id ] );
+        
+        if (tokenResult.rows.length === 0)  {
+                                                console.log('Reset token not found in the database');
+                                                return response.status(400).send('Invalid reset token');
+                                            }
+
+        const { token, reset_at } = tokenResult.rows[0];
+        
+        const invalidToken = token !== resetToken 
+
+        const expiredToken = Date.now() - new Date( reset_at ).getTime() > 900000;
+
+        // make sure the token matches and isn't more than 15 minutes old
+        if ( invalidToken || expiredToken ) {  
+                                                console.log('Reset token is invalid or expired');
+                                                return response.status(400).send('Invalid or expired reset token');
+                                            }
+
+    } catch ( err )                         {
+
+                                                console.log(err.stack);
+                                                return response.status(500).send('Error validating reset token');
+                                            }
+
+
+
+
+    // step 2: hash the new password and update it in the database
+    
+    // hash the new password with bcrypt
+    const hashedPass  = await bcrypt.hash( newPass, 10 );
+
+    // update the password in the correct table, and clear the reset token
+    const updateQuery = `UPDATE ${ table } SET password = $1, reset_token = NULL, reset_at = NULL WHERE ${ fk } = $2`;
+
+
+    try             {
+                        await pool.query( updateQuery, [ hashedPass, id ] );
+                        console.log( 'Password successfully reset' );
+                    }
+    catch ( err )   {
+                        console.log(err.stack);
+                        return response.status(500).send('Error updating password');
+                    }
+
+
+
+    // step 3: finally, fetch the user data from the correct table and return a JWT token
+    const userQuery = `SELECT email, imdb_id FROM ${ userTable } WHERE ${ fk } = $1`;
+    
+    try         {
+                    const userResult = await pool.query( userQuery, [ id ] );
+
+                    if (userResult.rows.length === 0) {
+                        console.log('User not found in the database');
+                        return response.status(400).send('User not found');
+                    }
+
+                    const user  = userResult.rows[0];
+                    const token = returnToken(user, userTable);
+
+                    // step 4: send the JWT token as an HttpOnly cookie
+                    response.cookie(
+                                        'jwt', 
+                                         token, 
+                                            {
+                                                httpOnly:  true,
+                                                secure:    process.env.NODE_ENV === 'production', // ensure this is true in production
+                                                maxAge:    2 * 60 * 60 * 1000,                    // token expiry in milliseconds (2 hours)
+                                                sameSite: 'Strict'                                // prevents CSRF
+                                            }
+                                    )
+                               .send(       {   message: 'Password reset successful' } );
+
+                } 
+    catch (err) {
+                    console.log( err.stack );
+                    return response.status( 500 ).send( 'Error generating JWT token' );
+                }
+
+};
 
 
 
@@ -247,7 +407,7 @@ async function newPerformer (request, response) {
   
 module.exports = {  
                     newPerformer,
-                    checkPassword, 
+                    login, 
                     registerReset,
                     resetPassword,
                     newPasswordLogin,

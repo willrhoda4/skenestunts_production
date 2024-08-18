@@ -6,6 +6,14 @@
 
 
 
+
+
+
+
+
+
+
+
 import React, { useEffect, useMemo } from 'react';
 
 
@@ -18,39 +26,67 @@ import React, { useEffect, useMemo } from 'react';
 export default function FacebookFeed ({name, url}) {
 
 
-    // injects the facebook sdk script into the DOM when the component mounts.
-    useEffect(() => {
 
-        const script = document.createElement('script');
-              script.src='https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=1229119547492444&autoLogAppEvents=1';
-              script.crossorigin='anonymous';
-              script.nonce='DSHjCoBi';
-              script.async = true;
-              script.defer = true;                      
-                        
+
+  // injects the facebook sdk script and fb-root div into the DOM when the component mounts.
+  useEffect(() => {
+
+    
+    // if fb-root div does not exist, create it and add it to the DOM.
+    if ( !document.getElementById('fb-root') ) {
+          
+        const fbRoot    = document.createElement('div');
+              fbRoot.id = 'fb-root';
+        
+        document.body.prepend(fbRoot);
+        
+    }
+
+
+    // if the script tag does not exist, create it and add it to the DOM.
+    const scriptId   = 'facebook-jssdk';
+
+    if ( !document.getElementById( scriptId ) ) {
+
+        const script             =  document.createElement('script');
+              script.id          =  scriptId;
+              script.src         = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0';
+              script.crossOrigin = 'anonymous';
+              script.nonce       = 'qnkdXd6A';
+              script.async       =  true;
+              script.defer       =  true;
+
         document.body.prepend(script);
 
-        return () => { document.body.removeChild(script); }
+    }
 
-    }, [name, url]);
+    return () => {
+
+        const existingScript = document.getElementById(scriptId);
+        if  ( existingScript ) document.body.removeChild(existingScript);
+    };
+
+  }, []);
 
 
-    // checks if the facebook sdk has loaded every 250ms
-    // once it has, it parses the DOM for any facebook embeds.
-    // this prevents display errors when user navigates away from the page and back.
-    useEffect(() => { 
-        
-        function loadFeed () {
+ 
+  useEffect(() => {
 
-            if (window.hasOwnProperty('FB')) {  return window.FB.XFBML.parse();          }
-            else                             {  return setTimeout(() => loadFeed, 250);  }
-        
+
+    if (window.FB && window.FB.XFBML) {
+        try {
+            window.FB.XFBML.parse();
+        } catch (e) {
+            console.error('FB.XFBML.parse() error:', e);
         }
-        
-        loadFeed();
-        
-    },[]);
+    }
 
+    // Bandaid fix to clear errors from FB SDK appearing in Chromium browsers
+    const timerId = setTimeout(() => console.clear(), 3000);
+    // Cleanup function to clear the timeout
+    return () => clearTimeout(timerId);
+
+}, [url]);
 
 
 
@@ -89,5 +125,4 @@ export default function FacebookFeed ({name, url}) {
 
 
 }
-
 

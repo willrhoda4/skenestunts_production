@@ -15,8 +15,8 @@ export default function Picture({ src, type, fallback, id, className, alt, style
                        alt={alt} 
                         id={id}
                  className={className}
-                     style={style} />
-        
+                     style={ style ?? { maxWidth: '100%' }} />
+         
               // this configuration may become relevant in the future,
               // but for now it just causes problems with Tor browser.
               // <picture>

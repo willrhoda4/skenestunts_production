@@ -19,6 +19,8 @@ import   logoPng        from '../images/logo_header.png'
 import   flames         from '../images/flames.webp';
 import   flamesGif      from '../images/flames.gif';
 
+import   CloudImage     from './CloudImage.js';
+
 
 
 // this component is the hero header for the forward-facing site.
@@ -26,26 +28,19 @@ import   flamesGif      from '../images/flames.gif';
 function Header({getData}) {
 
 
-
-    const [ backgroundId,   setBackgroundId ] = useState(null);
-
-
-    // const   backgroundUrl                     = `https://drive.google.com/uc?export=view&id=13Wj_MmZhZqMqn198eP89v56ReUXAu9Gp`;
-    const   backgroundUrl                     = `https://drive.google.com/uc?export=view&id=${backgroundId}`;
+    // we'll default to 'current_background' so the image can start to load immediately,
+    // but we'll prepend the version number stored in the database once it's available,
+    // for cache busting purposes.
+    const [ backgroundId,   setBackgroundId ] = useState('current_background');
 
 
 
-    // on initial render,
-    // this effect gets the background image id from the database,
-    // and sets it as the backgroundId state.
-    // this hurts performance (slows largest contentful paint by 430ms according to lighthouse), 
-    // but it's the cost of making the background image dynamic.
-    // I've tried to compensate by dropping the title div asap and fading the background in after.
+    // retrieves background public_id from the database.
     useEffect(() => {
 
-        getData(['misc', [['description', 'background']]]    )
-          .then(  res => setBackgroundId(res.data[0].value)  )
-         .catch(  err => console.log(err)                    );
+        getData( [ 'misc', [ [ 'description', 'background' ] ] ] )
+          .then(  res => setBackgroundId( res.data[0].value  )   )
+         .catch(  err => console.log(err)                        );
 
     }, [getData])
 
@@ -91,6 +86,7 @@ function Header({getData}) {
                 // and flex, to accommodate the lights properly.
                 litArea.style.position  = 'absolute';
                 litArea.style.display   = 'flex';
+                litArea.style.zIndex    = '1';
                   
                 // in any case, we want at least one light in the litArea.
                 litArea.appendChild(leftLight);
@@ -206,17 +202,16 @@ function Header({getData}) {
     
     
     
-    
     return (
 
-        <div id='header' style={{backgroundImage: `url('${backgroundUrl}')`}}>   
+        <div id='header'>   
 
-{/* 
-            {   backgroundId &&  <img    id='headerBackground'
-                                        alt='collage of movie posters'
-                                        src={backgroundUrl}
-                                 />
-            } */}
+
+
+            <div id='headerBackground'> 
+                <CloudImage id={backgroundId} />  
+            </div>
+
 
 
             <div id='title'>      

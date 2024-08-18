@@ -7,10 +7,11 @@
 
 
 import { useEffect, 
-         useState }   from 'react'
-// import   Axios        from 'axios';
-import   Notification from '../Notification';
+         useState }    from 'react'
 
+
+import   Notification from '../Notification';
+import   CloudImage   from '../CloudImage';
 
 
 export default function Profile ({currentData, posters}) {     
@@ -27,14 +28,12 @@ export default function Profile ({currentData, posters}) {
                 publish,
                 imdb_id,
                 image_id,
-                image_url,
                 image_alt,
                 legal_name,
                 no_posters,
                 attribute_1,
                 attribute_2,
-                attribute_3,
-                uploaded_image
+                attribute_3
             
             } = currentData[0];
             
@@ -76,16 +75,10 @@ export default function Profile ({currentData, posters}) {
     return ( 
             <>
                 {/* display photo at top of profile */}
-                { uploaded_image ?  <img className='adminPerformerPhoto' 
-                                               alt={ ' headshot for team member' } 
-                                               src={'https://drive.google.com/uc?export=view&id=' + image_id}
-                                    />  
-                                 
-                                 :  <img className='adminPerformerPhoto' 
-                                               alt={ 'existing headshot for performer' } 
-                                               src={image_url}
-                                    />            
-                }
+                <div className='adminPerformerProfile'>
+                    <CloudImage id={image_id} />
+                </div>
+
                 <p>{image_alt}</p>
 
                 {/* display name, title, and IMBD ID and email for all team/board members */}

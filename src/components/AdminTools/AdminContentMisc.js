@@ -7,7 +7,8 @@
 import { useEffect, useState } from 'react';
 
 import Notification from '../Notification';
-
+// import { image } from '@cloudinary/url-gen/qualifiers/source';
+import CloudImage from '../CloudImage';
 
 
 export default function AdminContentMisc ({currentData}) {
@@ -48,10 +49,9 @@ export default function AdminContentMisc ({currentData}) {
     return (<>
     
 
-        <img   alt='demo background'
-                                      style={{width: '100%', height: '100%', objectFit: 'cover'}}
-                                        src={'https://drive.google.com/uc?export=view&id='+backgroundId }
-                                 />
+        <CloudImage    id={ backgroundId }
+                    style={ { width: '100%', height: '100%', objectFit: 'cover' } }
+        />
 
         {
             constructionMode ? <Notification type='bad'  msg='While construction mode is engaged, skenestunts.com is not be available to the public. Use the checkbox in the adjacent form to turn it off.' />
