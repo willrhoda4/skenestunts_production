@@ -84,7 +84,12 @@ async function uploadBackground(e) {
                           ];
                           
         // update the background id in the misc table, then set the upload status to success                  
-        await Axios.put(`${serverURL}updateData`, reqBody);
+        await Axios.put(    `${ serverURL }updateData`, 
+                                reqBody, 
+                              { withCredentials: true } 
+                       );
+
+
         setUploadStatus('success'); 
         loadData(table);
  
@@ -109,7 +114,10 @@ const updateConstructionMode= (e) => {
 
    e.preventDefault();
 
-   const changeMode = (newMode) => Axios.put( `${process.env.REACT_APP_API_URL}updateData`, [ table, ['active'], [newMode], [['description', 'construction_mode']] ]);
+   const changeMode = (newMode) => Axios.put( `${ process.env.REACT_APP_API_URL }updateData`,
+                                                [ table, ['active'], [newMode], [ ['description', 'construction_mode'] ] ],
+                                                { withCredentials: true }
+                                            );
 
                                                    // throw up a notification to let the user know the mode is updating.
                                                    setModeStatus('updating');
@@ -166,7 +174,7 @@ return (<div className='adminForm'>
 
 
        {
-               modeStatus === 'updating' ? <Notification type='wait' msg='Switching modes. This should only take a second...' />
+               modeStatus === 'updating' ? <Notification type='wait' msg='Switching modes . This should only take a second...' />
            :   modeStatus === 'error'    ? <Notification type='bad'  msg='There was an issue connecting with the database. Refresh the page and try agin.' />
            :   modeStatus === 'updated'  ? <Notification type='good' msg={ constructionMode ? 'Construction mode engaged'
                                                                                             : 'Construction mode disengaged'
@@ -186,4 +194,4 @@ return (<div className='adminForm'>
 
 }/*
 
-*/
+*/  

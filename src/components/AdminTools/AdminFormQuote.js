@@ -63,7 +63,10 @@ export default function QuoteForm({
 
 
         // this is the function that will be called to update both parts of the quote.
-        const updateMisc = (desc, value) => Axios.put(`${process.env.REACT_APP_API_URL}updateData`, [ 'misc', ['value'], [value], [['description', desc]] ])
+        const updateMisc = (desc, value) => Axios.put(`${ process.env.REACT_APP_API_URL }updateData`, 
+                                                        [ 'misc', [ 'value' ], [ value ], [ [ 'description', desc ]] ],
+                                                        { withCredentials: true }
+                                                     );
 
 
         // this is the function that will be called if the update is successful.

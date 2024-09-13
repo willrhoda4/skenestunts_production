@@ -89,22 +89,28 @@ export default function ReelForm({loadData, currentData, setCurrentData, table, 
             columnList = columnList.concat( ['rank']               );
             parameters = parameters.concat( [currentData.length+1] );
             
-            Axios.post( `${process.env.REACT_APP_API_URL}addData`,  [table, columnList, parameters]                    )
-                 .then(  res => { setFormStatus('uploaded'); loadData(table); }              )
-                 .catch( err =>   setFormStatus('uploadError')                               );
+            Axios.post( `${ process.env.REACT_APP_API_URL }addData`,  
+                          [ table, columnList, parameters ],
+                          { withCredentials: true }
+                      )
+                 .then(  res => { setFormStatus('uploaded'); loadData(table); } )
+                 .catch( err =>   setFormStatus('uploadError')                  );
              
         } else {
 
             // if this is an update, add the primary key name and value to the end of the 
             // request body, as a filter.
-            Axios.put( `${process.env.REACT_APP_API_URL}updateData`, [ table, columnList, parameters, [[ pkName, update.at(-1)]] ])
-                                                                    .then(  res => { 
-                                                                                        console.log(res);
-                                                                                        loadData(table); 
-                                                                                        setFormStatus('updated')
-                                                                                    }
-                                                                         )
-                                                                    .catch( err => { console.log(err); setFormStatus('httpError'); } );
+            Axios.put( `${ process.env.REACT_APP_API_URL }updateData`,
+                         [ table, columnList, parameters, [ [ pkName, update.at(-1) ] ] ],
+                         { withCredentials: true }                       
+                     )
+                .then(  res => { 
+                                    console.log(res);
+                                    loadData(table); 
+                                    setFormStatus('updated')
+                                }
+                      )
+                .catch( err => { console.log(err); setFormStatus('httpError'); } );
         }
 
 

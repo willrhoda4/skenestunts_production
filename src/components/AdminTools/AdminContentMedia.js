@@ -49,9 +49,7 @@ export default function Media ( {currentData, loadData, table, pkName, columns} 
                 <div className='adminMediaItem'>
 
                     {/* defaults to Skene Stunts logo if no image url is available */}
-                    { image !== 'logo' ? <div className='adminMediaImage'>
-                                            <CloudImage id={image} alt={alt} />
-                                         </div>
+                    { image !== 'logo' ? <CloudImage id={image} alt={alt} wrapClass='adminMediaImage' />
                                        : <div className='adminMediaImage' style={{ background: 'black' }}>
                                             <Picture
                                                       src={logo}

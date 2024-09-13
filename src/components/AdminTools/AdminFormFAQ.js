@@ -91,21 +91,27 @@ export default function FAQForm({
             columnList = columnList.concat( ['rank']               );
             parameters = parameters.concat( [currentData.length+1] );
             
-            Axios.post( `${process.env.REACT_APP_API_URL}addData`,  ['faq', columnList, parameters]                     )
-                 .then(   res => { setFormStatus('uploaded'); loadData(table); }              )
-                 .catch(  err =>   setFormStatus('uploadError')                               );
+            Axios.post( `${  process.env.REACT_APP_API_URL  }addData`,  
+                          ['faq', columnList, parameters ],
+                          { withCredentials: true }
+                      )
+                 .then(   res => { setFormStatus('uploaded'); loadData(table); } )
+                 .catch(  err =>   setFormStatus('uploadError')                  );
                 
         } else {
             // If this is an update, the primary key is the last element of the update array.
-            Axios.put( `${process.env.REACT_APP_API_URL}updateData`, [ 'faq', columnList, parameters, [[ pkName, update.at(-1)]] ])
-                                                                    .then(  res => { 
-                                                                                        console.log(res);
-                                                                                        loadData(table); 
-                                                                                        setFormStatus('updated')
-                                                                                    }
-                                                                            )
-                                                                    .catch( err => { console.log(err); setFormStatus('httpError'); } );
-        }
+            Axios.put( `${  process.env.REACT_APP_API_URL  }updateData`,
+                         [ 'faq', columnList, parameters, [ [ pkName, update.at(-1) ] ] ],
+                         { withCredentials: true }
+                     )
+                .then(  res => { 
+                                    console.log(res);
+                                    loadData(table); 
+                                    setFormStatus('updated')
+                                }
+                        )
+                .catch( err => { console.log(err); setFormStatus('httpError'); } );
+}
 
     }
 

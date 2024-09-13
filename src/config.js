@@ -7,8 +7,8 @@
 
 const config = {
 
-    apiUrl: 'https://skenestunts.herokuapp.com/'
+  apiUrl: 'https://skenestunts.herokuapp.com/'
     
-  };
-  
-  export default config;
+};
+
+export default config;

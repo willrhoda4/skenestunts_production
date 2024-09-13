@@ -320,15 +320,11 @@ export default function Page2 ({    rookie,
                                         <div className='flexRow' style={{alignItems: 'center', justifyContent: 'space-between', width: '80%'}}>
                                             <div className='flexColumn'>
                                                 <h5>Headshot</h5>
-                                                <div className='adminPerformerPhoto' >
-                                                    <CloudImage id={existingShots[0]} />
-                                                </div>
+                                                    <CloudImage id={existingShots[0]} wrapClass='adminPerformerPhoto' />
                                             </div>
                                             <div className='flexColumn' style={{ margin: '1em'}}>
                                                 <h5>Bodyshot</h5>
-                                                <div className='adminPerformerPhoto' >
-                                                    <CloudImage id={existingShots[1]} />
-                                                </div>
+                                                    <CloudImage id={existingShots[1]} wrapClass='adminPerformerPhoto' />
                                             </div>  
                                             <button className='formButton'
                                                         type='button' 

@@ -31,7 +31,7 @@ import { noteForm,
 
 
 
-export default function Performers ({  currentData, loadData, adminStatus, boardMember, gopher  }) { 
+export default function Performers ( {  currentData, loadData, adminStatus, boardMember, gopher  } ) { 
 
 
     const [ adminNote,     setAdminNote   ] = useState(false);
@@ -241,7 +241,7 @@ export default function Performers ({  currentData, loadData, adminStatus, board
                                 </tr>
                                 {/* Performer Pronouns – truncates 'prefer not to disclose' to 'not disclosed' for brevity in display. */}
                                 <tr>
-                                    <td><h5 className='adminPerformerAttribute'>Pronouns:</h5></td> 
+                                    <td><h5 className='adminPerformerAttribute'>Pronouns:</h5></td>                             
                                     <td><p  className='adminPerformerAttribute'>{ pronouns === 'prefer not to disclose' ? 'not disclosed'
                                                                                                                         :  pronouns }</p></td>
                                 </tr>

@@ -60,7 +60,10 @@ export default function ReelForm({loadData, currentData, setCurrentData, table, 
         const columnList = columns.concat(['rank']);
         const parameters = [ title, caption, embedURL, currentData.length+1];
       
-        Axios.post(`${url}addData`,  [table, columnList, parameters] )
+        Axios.post( `${ url }addData`,
+                      [ table, columnList, parameters ],
+                      { withCredentials: true }
+                  )
              .then( res => { loadData(table); });
         
     }

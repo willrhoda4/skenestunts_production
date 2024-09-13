@@ -28,12 +28,12 @@ export default function TeamForm({loadData, currentData, table, columns, update,
 
 
 
-
+    
 
     // to differentiate between team and board forms
     // second condition covers profile updates
-    const   board                                       = table === 'board' || (update && update.length > 14);
-
+    const   board                                        = table === 'board' || (update && update.length > 14);
+ 
     // stores list of titles for dropdown menu
     const [ credits,           setCredits             ]  =  useState([]);
     
@@ -117,9 +117,11 @@ export default function TeamForm({loadData, currentData, table, columns, update,
     useEffect(() => {
 
 
-        Axios.get(`${process.env.REACT_APP_API_URL}getPosterList`                  )
-            .then(  res => { setCredits(res.data); }     )
-            .catch( err => { console.log(err);     }     );
+        Axios.get(`${ process.env.REACT_APP_API_URL }getPosterList`,
+                    { withCredentials: true },
+                 )
+            .then(  res => { setCredits(res.data); } )
+            .catch( err => { console.log(err);     } );
     }, [])
 
     
@@ -423,9 +425,15 @@ export default function TeamForm({loadData, currentData, table, columns, update,
         // HTTP requests
         const reqTable       = board ? 'board' : 'team';
         
-        const uploadDataReq  = (cols, params) => Axios.post(`${process.env.REACT_APP_API_URL}addData`,     [ reqTable, cols, params, ]                                   )
+        const uploadDataReq  = (cols, params) => Axios.post(`${ process.env.REACT_APP_API_URL }addData`,
+                                                              [ reqTable, cols, params, ],
+                                                              { withCredentials: true }                                   
+                                                           )
         
-        const updateDataReq  = (cols, params) => Axios.put( `${process.env.REACT_APP_API_URL}updateData`,  [ reqTable, cols, params, [   [ pkName, update.at(-1) ]  ]  ] )
+        const updateDataReq  = (cols, params) => Axios.put( `${ process.env.REACT_APP_API_URL }updateData`,
+                                                              [ reqTable, cols, params, [   [ pkName, update.at(-1) ]  ]  ],
+                                                              { withCredentials: true } 
+                                                          )                 
 
         const sendData       = update ? updateDataReq
                                       : uploadDataReq;

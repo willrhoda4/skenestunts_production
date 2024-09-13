@@ -4,6 +4,11 @@
 
 
 
+import CloudImage from "../CloudImage";
+
+
+
+
 export default function posters ({currentData, demoteItem, promoteItem}) {
 
 
@@ -24,8 +29,15 @@ export default function posters ({currentData, demoteItem, promoteItem}) {
                    rel="noreferrer"
                   href={'https://www.imdb.com/title/' + id + '/'}
             >
+                
+
                 <div className='barnPosterWrapper' key={index}>
-                    <img className='barnPoster' alt={'movie poster for ' + title} src={image} />
+                    <CloudImage
+                        id={  image                       }
+                        key={ index                       }
+                        alt={ 'movie poster for ' + title }
+                        className={ 'barnPoster'          }
+                    />
                     {/* tidies up data from IMDB */}
                     <p>{title.replaceAll('&apos;',`'`).replaceAll('&amp;','&')}</p>
                 </div>
@@ -45,7 +57,7 @@ export default function posters ({currentData, demoteItem, promoteItem}) {
                                                 
                                                                                                                         makePoster( poster.title, 
                                                                                                                                     poster.imdb_id, 
-                                                                                                                                    poster.image_url, 
+                                                                                                                                    poster.cloudinary_id, 
                                                                                                                                     index
                                                                                                                                 )
                                                                                                                     )

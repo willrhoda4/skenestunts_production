@@ -44,9 +44,12 @@ function noteForm (id, note, setter, loadDat) {
         // update the database.
         // the response will be handled by the notification component,
         // but the note itself won't refresh until another query is made.
-        Axios.put( `${process.env.REACT_APP_API_URL}updateData`, [ 'performers', ['admin_notes'], [note], [['performer_id', id ]] ] )
-             .then(  res => { setNote('noted');   })
-             .catch( err => { setNote('error');   });             
+        Axios.put( `${ process.env.REACT_APP_API_URL }updateData`,
+                     [ 'performers', [ 'admin_notes' ], [ note ], [ [ 'performer_id', id ] ] ],
+                     { withCredentials: true }
+                  )
+             .then(  res => { setNote('noted'); } )
+             .catch( err => { setNote('error'); } );             
     }
 
     return (
@@ -91,9 +94,12 @@ function deletePerformer (id, loadData) {
     const warning = `Are you sure you don't just want to make this performer a class F? Proceeding will totally delete them from your database.`;
     
     // eslint-disable-next-line no-restricted-globals
-    window.confirm(warning) &&  Axios.post(`${process.env.REACT_APP_API_URL}deleteData`, [ 'performers', 'performer_id', id ])
-                                     .then(  res => { loadData('performers');             })
-                                     .catch( err => { console.log(err);                   })
+    window.confirm(warning) &&  Axios.post(`${ process.env.REACT_APP_API_URL }deleteData`, 
+                                             [ 'performers', 'performer_id', id ],
+                                             { withCredentials: true }
+                                          )
+                                     .then(  res => { loadData('performers'); } )
+                                     .catch( err => { console.log(err);       } )
 }
 
 
@@ -109,12 +115,15 @@ function updateClass (id) {
 
     classIcon.className = 'adminPerformerIcon updating';
 
-    Axios.put(`${process.env.REACT_APP_API_URL}updateData`, [ 'performers', [' performer_class' ], [ newClass ], [[ 'performer_id', id ]] ])
-         .then(  res => { 
-                          classIcon.style.display = 'none';
-                          checkIcon.style.display = 'inline';   
-                          console.log(res);                   })
-         .catch( err => { console.log(err);                   })
+    Axios.put(`${ process.env.REACT_APP_API_URL }updateData`, 
+                [ 'performers', [ ' performer_class' ], [ newClass ], [ [ 'performer_id', id ] ] ],
+                { withCredentials: true }
+             )
+        .then(  res => { 
+                         classIcon.style.display = 'none';
+                         checkIcon.style.display = 'inline';   
+                         console.log(res);                   })
+        .catch( err => { console.log(err);                   })
 }
 
 
@@ -127,9 +136,12 @@ function countCredits (id, setter) {
 
     setter('counting');
 
-    Axios.post(`${process.env.REACT_APP_API_URL}`, [[id]]                     )
-         .then(  res => { setter(res.data[0]);     })
-         .catch( err => { console.log(err);        })
+    Axios.post(`${ process.env.REACT_APP_API_URL }`,
+                 [ [ id ] ],
+                 { withCredentials: true }
+              )
+         .then(  res => { setter(res.data[0]); } )
+         .catch( err => { console.log(err);    } )
 }
 
 
@@ -163,9 +175,12 @@ function emailForm (id, email, status, setter, inputStyle, formStyle) {
         setter('sending');                                                      
             
         // attempt to send the email, and update the form notification accordingly.
-        Axios.post(`${process.env.REACT_APP_API_URL}email`,  { email, subject, message, type, cc  })
-             .then(   res => { setter('done');  console.log(res);       })
-             .catch(  err => { setter('error'); console.log(err);       });            
+        Axios.post(`${ process.env.REACT_APP_API_URL }email`,
+                     { email, subject, message, type, cc  },
+                     { withCredentials: true }
+                  )
+             .then(   res => { setter('done');  console.log(res); } )
+             .catch(  err => { setter('error'); console.log(err); } );            
     }
 
     return (

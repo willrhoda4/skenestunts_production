@@ -37,13 +37,13 @@ export const useFetchInstagramData = ( getData, instaToken, setInstaToken, setPh
                     // next, refresh the Instagram token
                     return Axios.get( tokenGetter );
                 })
-                .then( res => {
+                .then( res => { 
 
                     const nuToken = res.data.access_token;
 
 
                     if (res.data.access_token.length > 0) {
-                        return Axios.put(`${process.env.REACT_APP_API_URL}public/updateIGToken`, { nuToken } );
+                        return Axios.put(`${process.env.REACT_APP_API_URL}updateIGToken`, { nuToken } );
                     }
                 })
                 .catch(error => console.error("Error refreshing Instagram token:", error));

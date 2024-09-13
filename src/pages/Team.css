@@ -88,6 +88,14 @@
                     z-index: 1;
                 }
 
+
+                    .boardName {
+                        font-family: BigShoulders;
+                        z-index: 1;
+                        white-space: nowrap;
+                        overflow: hidden;
+                    }
+
             .boardAttributeWrapper {
                 width: 100%;
                 height: 50%;

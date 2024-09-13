@@ -52,7 +52,7 @@ export default function FacebookFeed ({name, url}) {
               script.id          =  scriptId;
               script.src         = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0';
               script.crossOrigin = 'anonymous';
-              script.nonce       = 'qnkdXd6A';
+              script.nonce       = 'abc123';
               script.async       =  true;
               script.defer       =  true;
 

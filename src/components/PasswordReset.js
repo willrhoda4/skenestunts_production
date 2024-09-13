@@ -11,8 +11,6 @@ import                      '../components/PasswordForm.css';
 import { useState, 
          useEffect   } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth     } from '../hooks/useAuth.js';
-
 import { Helmet      } from 'react-helmet';
 import   Axios         from 'axios';
 
@@ -31,7 +29,6 @@ export default function PasswordReset ({getData}) {
 
     const     navigate    = useNavigate();
 
-    const [ ,,updateJwt ] = useAuth();
 
     
 
@@ -42,17 +39,17 @@ export default function PasswordReset ({getData}) {
     const   invite                              = new URLSearchParams(window.location.search).get('invite') === 'true' ? true : false;  
     
     
-    // set table and fk for http request based on origin
-   
+    
     const [ status,         setStatus         ] = useState('');
     const [ formStatus,     setFormStatus     ] = useState('');
     
     const [ password1,      setPassword1      ] = useState('');
     const [ password2,      setPassword2      ] = useState('');
-
+    
     const [ password1Error, setPassword1Error ] = useState(false); 
     const [ password2Error, setPassword2Error ] = useState(false); 
-
+    
+    // set table and fk for http request based on origin
     const [ table,          setTable          ] = useState(false);
     const [ fk,             setFk             ] = useState(false);
 
@@ -185,8 +182,8 @@ export default function PasswordReset ({getData}) {
                                                          setFormStatus('');
             // sends password reset request to database
             Axios.post(`${process.env.REACT_APP_API_URL}resetPassword`, [ id, password1, table, fk, token ] )
-                 .then( res => { updateJwt(); setFormStatus('reset');                                     } )
-                .catch( err => { setFormStatus('resetError')                                              } )
+                 .then( res => { setFormStatus('reset');                                                  } )
+                .catch( err => { setFormStatus('resetError');                                             } )
         }
     }
 
@@ -196,9 +193,9 @@ export default function PasswordReset ({getData}) {
     // keeps invite and token in url so user can be authenticated on the next page.
     useEffect(() => {
 
-        if (formStatus === 'reset') { navigate(`../${origin}?invite=${invite}&token=${token}`, { replace: true }); }
+        if (formStatus === 'reset') { navigate(`../${origin}?successfulReset=true`, { replace: true } ); }
 
-    }, [formStatus, invite, navigate, origin, token])
+    }, [ formStatus, invite, navigate, origin, token ] )
     
 
 

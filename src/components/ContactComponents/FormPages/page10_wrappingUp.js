@@ -98,7 +98,9 @@ export default function Page10 ({
         // newPerformer request requires a password to be passed in at index 2.
         const newPerformer = () => {
 
-            Axios.post( `${process.env.REACT_APP_API_URL}newPerformer`, [ columnList, databaseState, password ])
+            Axios.post( `${ process.env.REACT_APP_API_URL }newPerformer`,
+                          [ columnList, databaseState, password ],
+                      )
                  .then(   res => { setUploadProgress(res.status); console.log(res);  })
                  .catch(  err => { console.log(err); setUploadProgress(400);         })
 
@@ -109,12 +111,10 @@ export default function Page10 ({
         const updateProfile = () => {
 
             Axios.put( `${ process.env.REACT_APP_API_URL }updateData`, 
-                        [ 'performers', columnList, databaseState, [ [ 'performer_id', update ] ] ] )
-                 .then(   res => { 
-                                    setUploadProgress(res.status); console.log(res);
-                                    // invalidate jwt after successful update
-                                    document.cookie = 'jwt=; Max-Age=0'; 
-                                                                                    } )
+                         [ 'performers', columnList, databaseState, [ [ 'performer_id', update ] ] ],
+                         { withCredentials: true }
+                      )
+                 .then(   res => { setUploadProgress(res.status); console.log(res); } )
                  .catch(  err => { console.log(err); setUploadProgress(400);        } )
 
         }
@@ -219,7 +219,7 @@ export default function Page10 ({
                               </>
                             : <>
                                 <p>Thanks for taking the time to update your profile. Current information is a huge help to us during the hiring process.</p>
-                                <p style={{margin:'1em 0 2em'}}>As always, we appreciate you taking a minute to double-check your facts before submission.</p>
+                                <p style={{margin:'1em 0 2em'}}>As always, we appreciate you taking a minute to double-b your facts before submission.</p>
                               </> 
                 } 
 

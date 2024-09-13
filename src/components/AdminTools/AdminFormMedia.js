@@ -138,9 +138,15 @@ export default function MediaForm({loadData, currentData, setCurrentData, table,
 
         let   parameters   = [ headline, date, outlet, articleURL, imageAlt ];
 
-        const updloadStory = ( cols, params ) => Axios.post( `${process.env.REACT_APP_API_URL}addData`,    [ table, cols, params ]                                );
+        const updloadStory = ( cols, params ) => Axios.post( `${ process.env.REACT_APP_API_URL }addData`,   
+                                                               [ table, cols, params ],
+                                                               { withCredentials: true } 
+                                                           );
         
-        const updateStory  = ( cols, params ) => Axios.put(  `${process.env.REACT_APP_API_URL}updateData`, [ table, cols, params, [ [ pkName, update.at(-1) ] ] ] );
+        const updateStory  = ( cols, params ) => Axios.put(  `${ process.env.REACT_APP_API_URL }updateData`,
+                                                               [ table, cols, params, [ [ pkName, update.at(-1) ] ] ],
+                                                               { withCredentials: true }  
+                                                          );
         
         const sendStory    =   update ? updateStory : updloadStory;
 

@@ -51,9 +51,7 @@ export default function Media({getData}) {
                         <p style={{fontSize: '1.25em'}}>{date.slice(0,10)}</p>
                         <p><b>{outlet}</b></p>
                     </div>
-                    { image !== 'logo' ?  <div className='storyImage'>
-                                            <CloudImage id={image} />
-                                          </div>  
+                    { image !== 'logo' ?  <CloudImage id={image} wrapClass='storyImage'/>
                                        :  <Picture
                                                    src={logo}
                                               fallback={logoPNG}

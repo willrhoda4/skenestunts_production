@@ -30,7 +30,7 @@ import   Notification  from '../Notification.js';
 
 import   iconRewind    from '../../images/icon_rewind.svg';
 
-import   jwtDecode     from 'jwt-decode';
+import { jwtDecode }   from 'jwt-decode';
 
 
 

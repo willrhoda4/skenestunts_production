@@ -54,8 +54,11 @@ export default function AdminButtons ({ id,
 
         let warning = 'Are you sure you want to delete this item from the database?';
 
-        window.confirm(warning) &&  Axios.post(`${process.env.REACT_APP_API_URL}deleteData`,  [ reqTable, pkName, id, rank ])
-                                         .then(res => {     loadData(table)    });   
+        window.confirm(warning) &&  Axios.post( `${ process.env.REACT_APP_API_URL }deleteData`,  
+                                                  [ reqTable, pkName, id, rank ], 
+                                                  { withCredentials: true }
+                                              )
+                                         .then(res => {     loadData(table)    } );   
     }
 
 
@@ -64,9 +67,12 @@ export default function AdminButtons ({ id,
     function demoteItem () {
 
                 
-        Axios.post(`${process.env.REACT_APP_API_URL}reRankData`,  [ reqTable, pkName, id, rank, rank-1 ] )  
-             .then(  res => {  loadData(table);  }                                                       )
-             .catch( err => console.log(err)                                                             );  
+        Axios.post( `${ process.env.REACT_APP_API_URL}reRankData`,  
+                      [ reqTable, pkName, id, rank, rank-1 ],
+                      { withCredentials: true } 
+                  )  
+             .then(  res => { loadData(table); } )
+             .catch( err => console.log(err)     );  
   
     }
 
@@ -75,9 +81,12 @@ export default function AdminButtons ({ id,
     function promoteItem () {
 
         
-        Axios.post(`${process.env.REACT_APP_API_URL}reRankData`,  [ reqTable, pkName, id, rank, rank+1 ] )
-             .then(  res => loadData(table)                                                              )         
-             .catch( err => console.log(err)                                                             );  
+        Axios.post( `${ process.env.REACT_APP_API_URL }reRankData`,  
+                      [ reqTable, pkName, id, rank, rank+1 ],
+                      { withCredentials: true }
+                  )
+             .then(  res => loadData(table)  )         
+             .catch( err => console.log(err) );  
      
     }
 
@@ -106,7 +115,10 @@ export default function AdminButtons ({ id,
                     token:    token 
             };
 
-            Axios.post(`${process.env.REACT_APP_API_URL}email`, inviteBody   )
+            Axios.post( `${ process.env.REACT_APP_API_URL }email`,
+                            inviteBody,
+                          { withCredentials: true }
+                      )
                  .then(  res =>   { setFloatingNotification('emailSent') ; }  )             
                  .catch( err =>   { setFloatingNotification('emailError'); }  );
         }
@@ -121,7 +133,10 @@ export default function AdminButtons ({ id,
         const warning = `Confirm that you're ok with sending this team member an invite to Skene Stunts Director's Chair`;
 
 
-        window.confirm(warning) &&  Axios.post(`${process.env.REACT_APP_API_URL}registerReset`,  reqBody )
+        window.confirm(warning) &&  Axios.post(`${ process.env.REACT_APP_API_URL }registerReset`,
+                                                   reqBody,
+                                                 { withCredentials: true }
+                                                )
                                          .then( res =>   { 
                                                             const token = res.data[0].token;
 

@@ -3,6 +3,8 @@
 
 
 
+const { pool } = require( './database' );
+
 
 // updates the Instagram token value in the database
 async function updateToken ( req, res ) {
@@ -25,4 +27,4 @@ async function updateToken ( req, res ) {
 
 
 
-module.exports = updateToken; 
+module.exports = { updateToken }

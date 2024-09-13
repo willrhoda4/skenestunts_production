@@ -9,7 +9,6 @@ require('dotenv'      ).config();
 
 
 
-console.log(`\nTHE PASSWORD is ${process.env.PG_PASSWORD}\n`);
 
 
 
@@ -241,7 +240,8 @@ const getData = (request, response) => {
                  }
 
 
-    console.log(`query: ${query}\n`);
+                                // strips out any extraneous whitespace
+    console.log(`query: ${query.replace(/\s+/g, ' ')}\n`);
 
 
     return simpleQuery(response, query, parameters);

@@ -26,12 +26,12 @@ export default function PasswordChecker( {
                                             table, 
                                             getData, 
                                             pwTable, 
-                                            updateJwt,
-                                            expiredJwt,
                                             dataSetter, 
+                                            setAuthRole,
+                                            setAdminStatus,
+                                            setBoardMember,
                                             setPerformerClass,
-                                        } ) {
-
+                                         } ) {
 
     
     const [ email,            setEmail           ] = useState('');
@@ -98,27 +98,36 @@ export default function PasswordChecker( {
 
         e.preventDefault();
 
-        const authenticateUser = () => {
+        const authenticateUser = ( data ) => {
 
+            const { user, role } = data;
 
-            // update the jwt status for the user
-            // update the performerClass state for performers,
-            // and update the user data for everyone.
-            updateJwt();
-            origin !== '/director' && setPerformerClass(data.performer_class);
-            return dataSetter(data);
+            // console.log('user:', user);
+            // console.log('role:', role);
+
+            // if the user is a performer, set their performer class
+            origin !== '/director' && setPerformerClass( user.performer_class );
+
+            // set the user's role and board status according to the role returned from the backend
+            setAuthRole(    role                                 );
+            setAdminStatus( role === 'admin'                     );
+            setBoardMember( role === 'admin' || role === 'board' );
+
+            // stash the user data in state                                   
+            return dataSetter( user );
         }
         
         // dislays loading notification
         setStatus('checking');
 
-        Axios.post(`${process.env.REACT_APP_API_URL}checkPassword`, [ table, email, pwTable, fk, password ] )
+        Axios.post(`${process.env.REACT_APP_API_URL}checkPassword`, [ table, email, pwTable, fk, password ], { withCredentials: true } )
              .then(  res => {     
+
                                     // update notification according to response from backend
                                            res.data  === 'no match'      ? setStatus('passwordError')
                                 :          res.data  === 'no email'      ? setStatus('emailError')
                                 :          res.data  === 'no password'   ? dataSetter('noPassword')
-                                :   typeof(res.data) === 'object'        ? authenticateUser()
+                                :   typeof(res.data) === 'object'        ? authenticateUser(res.data)
                                 :                                          setStatus('programError');
                                      
                             }
@@ -148,7 +157,7 @@ export default function PasswordChecker( {
         // otherwise, display loading notification and continue.
         setStatus('loading');
 
-p
+
         // called after a successful database update
         // to send the email with the reset link.
         function resetEmail (id, token) {
@@ -261,7 +270,6 @@ p
                                                                                `Please try again and notify us via email form if it persists.`}                     />
             : status === 'loading'          ? <Notification type={'wait'} msg={`Processing your request...`}                                                        />
             : status === 'resetReady'       ? <Notification type={'good'} msg={`A password-reset link has been emailed to you.`}                                    />
-            : expiredJwt                    ? <Notification type={'bad' } msg={`Looks like your token expired. Please log in again `}                               />
             :                                  null
             }
             

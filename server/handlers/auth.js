@@ -12,8 +12,7 @@ const   crypto        = require('crypto');
 const   jwt           = require('jsonwebtoken');
 
 
-const { simpleQuery,
-        atomicQuery } = require('./database');
+const { simpleQuery } = require('./database');
 
 
 
@@ -24,21 +23,31 @@ const { simpleQuery,
 
 // helper function to generate a JWT token for resetPassword and login.
 function returnToken( user, table ) {
-    
-    const email = user.email;
-    
-    const role  = ( table === 'board' && user.imdb_id === 'nm0804052' ) ? 'admin'
-                  : table === 'performers'                              ? 'performer'
-                  :                                                        table;
 
-
-    const payload = { email, role };
+    console.log( ' \n\n\n\nRETURN TOKEN RAN!!!! \n\n\n\n')
+    console.log('USER IMDB ID:', user.imdb_id);
+    console.log('USER TABLE:', table);
     
-    return jwt.sign( 
-                        payload, 
-                        process.env.JWT_SECRET, 
-                      { expiresIn: '2h' }
-                   );
+    
+    // admin privileges for Jan, 
+    // and shorten performers to performer, for readability.
+    // just return board/team for the board and team
+    const role    = ( user.imdb_id === 'nm0804052' ) ? 'admin'
+                    : table        === 'performers'  ? 'performer'
+                    :                                   table;
+
+    // we'll use the performer_id for performers and the imdb_id for board/team.
+    const id      = user[ role === 'performer' ? 'performer_id'  : 'imdb_id' ];
+
+    const payload = { id, role };
+    
+    const token   = jwt.sign( 
+                                  payload, 
+                                  process.env.JWT_SECRET, 
+                                { expiresIn: '2h' }
+                            );
+
+    return { role, token };
 }
 
 
@@ -50,7 +59,7 @@ function returnToken( user, table ) {
 
 
 // returns data and token for a user providing the correct email and password.
-const login = (request, response) => {
+async function login ( request, response ) {
 
 
     let   table     = request.body[0];
@@ -59,24 +68,22 @@ const login = (request, response) => {
     const pwTableFk = request.body[3];
     const password  = request.body[4];
 
-    // declare user data variable.
-    let user;
 
-    console.log(`Attempting login for ${email}...\n`);
-
+    console.log(`\nAttempting login for ${email}...\n`    );
 
 
     // first helper function grabs data from the database.
-    async function grabData(table, email) {
+    async function grabData() {
 
         const dataQuery  = `SELECT * FROM ${table} WHERE email = $1`;
-        const dataResult = await pool.query(dataQuery, [email]);
+        const dataResult = await pool.query( dataQuery, [ email ] );
 
         // if no data is found in the board table, check the team table.
         if ( dataResult.rows.length === 0 ) {
 
             if (table === 'board') {
-                                        table = 'team';
+                                        table   = 'team';
+                                        pwTable = 'team_passwords';
                                         return grabData(table, email);
                                    }
 
@@ -93,8 +100,8 @@ const login = (request, response) => {
     // second helper function checks password against database.
     async function checkPassword(pwTable, pwTableFk, id, password) {
         
-        const pwQuery  = `SELECT * FROM ${pwTable} WHERE ${pwTableFk} = $1`;
-        const pwResult = await pool.query(pwQuery, [id]);
+        const pwQuery  = `SELECT * FROM ${pwTable} WHERE ${pwTableFk} = $1`;       
+        const pwResult = await pool.query( pwQuery, [ id ] );
 
         if ( pwResult.rows.length === 0 ) {
 
@@ -109,61 +116,93 @@ const login = (request, response) => {
     }
 
 
-    // // third helper function returns a token for the user.
-    // function returnToken( user ) {
 
-    //     // for every table, we can find the email in its namesake column.
-    //     const email = user.email;
+    try {
 
-    //     // but the id columns aren't always named the same.
-    //     const id    =               table === 'performers' ? 'performer_id' : 'team_id';
 
-    //     // Jan's imdb_id is nm0804052, and she gets admin status.
-    //     // we truncate performers to 'performer' for readability.
-    //     // everyone else's status is based on the table.
-    //     const role  = (             table === 'board' 
-    //                       && user.imdb_id === 'nm0804052'  ) ? 'admin'
-    //                        :        table === 'performers'   ? 'performer'
-    //                        :        table            
+        // 1. attempt to grab the user data from the database using the provided email.
+        let user = await grabData(table, email);
 
-    //     const payload = { id, email, role };
-       
-    //     return jwt.sign(
-    //                         payload,
-    //                         process.env.JWT_SECRET,
-    //                       { expiresIn: '2h' }
-    //                    );
-    // }
-    
+        // 2. if no user data is found (i.e., the email doesn't exist), send the response "no email" and stop further execution.
+        if (!user) return response.send('no email');  
+
+        // 3. extract the ID (either performer_id or imdb_id) from the user data.
+        const id = user[ pwTableFk ];
+
+        // 4. check if the provided password matches the stored password for the user.
+        const match = await checkPassword( pwTable, pwTableFk, id, password );
+
+        // 5. if the password doesn't match, send "no match" as the response and stop further execution.
+        if (!match) {
+            console.log('Password does not match');
+            return response.send('no match');
+        } 
+            
+
+        // 6. if the password matches, proceed with generating a JWT token and determining the user role.
+        const { role, token } = returnToken(user, table);
+
+        // 7. set the JWT token as an HTTP-only cookie and send the user data and role back in the response.
+        return response.cookie(
+            'jwt', 
+            token, 
+            {
+                httpOnly:  true,                                   // prevents access to the cookie via JavaScript (enhances security)
+                secure:    process.env.NODE_ENV === 'production',  // ensures the cookie is sent over HTTPS in production
+                maxAge:    2 * 60 * 60 * 1000,                     // cookie expires in 2 hours (set in milliseconds)
+                sameSite: 'Lax',                                   // prevents CSRF attacks by limiting cross-site requests
+            }
+        ).send( { user, role } );
+
+    } catch ( err ) {
+
+        // logs the error message for debugging purposes
+        console.log( err.message );  
+
+        // sends an error response with a status code of 400 and the error message to the client.
+        return response.status(400).send( err.message );
+    }
 
 
                                 
-    grabData( table, email )
-       .then( data =>      {    // start by grabbing data from the database.
-                                if ( !data ) return response.send( 'no email' );
+    // grabData()
+    //    .then( data =>      {    // start by grabbing data from the database.
+    //                             if ( !data ) return response.send( 'no email' );
                                     
 
-                                user      = data;
-                                const  id = user[pwTableFk];
-                                return checkPassword( pwTable, pwTableFk, id, password );
-                           }
-            )
-       .then( match     => {    // once we have the data, check the password.
-                                if ( !match ) return response.send( 'no match' );
-
-                                console.log(`Password for ${email} matches!\n`);
-
-                                const token = returnToken( user );
+    //                             user      = data;
+    //                             const  id = user[ pwTableFk];
+    //                             return checkPassword( pwTable, pwTableFk, id, password );
+    //                        }
+    //         )
+    //    .then( match     => {    
+    //                             console.log('\nSTILL RUNNING\n')
                                 
-                                // if the password matches, send back the user data and token.
-                                response.send( { user, token } );
-                           }
-            )
-      .catch( err =>       {    // catch any errors that occur during the process.
-                                console.log( err.message );
-                                return response.status( 400 ).send( err.message );
-                           }
-            );
+    //                             // once we have the data, check the password.
+    //                             if ( !match ) return response.send( 'no match' );
+
+    //                             console.log(`Password for ${email} matches!\n`);
+
+    //                             const { role, token } = returnToken( user, table );
+                                
+    //                             // if the password matches, attach an http cookie and send back the user data.
+    //                             response.cookie( 
+    //                                                 'jwt', 
+    //                                                  token, 
+    //                                                    {
+    //                                                      httpOnly: true,
+    //                                                      secure:   process.env.NODE_ENV === 'production', // ensure the cookie is only sent over HTTPS in production
+    //                                                      maxAge:   2 * 60 * 60 * 1000,                    // 2 hours
+    //                                                      sameSite: 'Lax'                                  // make 'None' in production (when secure: true), 'Lax' in development
+    //                                                                                                       // this is demanded by the browser to prevent CSRF attacks
+    //                                                    }
+    //                                            ).send( { user, role } );                           }
+    //         )
+    //   .catch( err =>       {    // catch any errors that occur during the process.
+    //                             console.log( err.message );
+    //                             return response.status( 400 ).send( err.message );
+    //                        }
+    //         );
 };
 
 
@@ -338,63 +377,7 @@ const resetPassword = async (request, response) => {
 
 
 
-// logs user in after password reset
-const newPasswordLogin = (request, response) => {
 
-    let table = request.body[0];
-    let idKey = request.body[1];
-    let id    = request.body[2];
-
-    let query = `SELECT * FROM ${table} WHERE ${idKey} = $1`
-
-    console.log(`logging user in with new password...`);
-
-    pool.query(query, [id], (err, res) => {
-        if (err) { console.log(err.stack);              response.send(err.message); } 
-        else     { console.log('login successful!');    response.send(res.rows);    }
-    })
-}
-
-
-
-
-// creates a new user in the database.
-// inserts a new row into the performers table and a new row into the performer_passwords table.
-async function newPerformer (request, response) {
-
-
-
-    const columns    = request.body[0].join(', ');
-    const data       = request.body[1];
-
-    const password   = request.body[2];
-    const hashedPass = await bcrypt.hash(password, 10);
-
-
-    const values     = data.map((column, index) =>'$'+(index+1)).join(', ');
-
-
-    const dataQuery  = `INSERT INTO performers (${columns}) VALUES (${values}) RETURNING performer_id;`;
-    const passQuery  = `INSERT INTO performer_passwords (performer_id, password) VALUES ($1, $2);`;
-
-    // parameter values for password query
-    // unshift adds the performer_id to the beginning of the array during dataCallback.
-    const passData  = [ hashedPass ];
-
-
-    // callback function for data query
-    // adds the performer_id to the beginning of the array during dataCallback.
-    const dataCallback  = (data) => { passData.unshift(data[0].performer_id); };
-
-    return atomicQuery(      request, 
-                             response,
-                           [ dataQuery,   passQuery   ],
-                           [ data,        passData    ],
-                           [ dataCallback             ],
-                            'rank successfully updated'
-    );
-
-}
 
 
 
@@ -406,9 +389,7 @@ async function newPerformer (request, response) {
 
   
 module.exports = {  
-                    newPerformer,
                     login, 
                     registerReset,
                     resetPassword,
-                    newPasswordLogin,
                  };

@@ -1,0 +1,18 @@
+Skene Stunts Todos
+
+
+
+Figure out login problem for admin dashboard
+Set maximum width in pixels for mobile mode to allow for super-wide screens
+Diagnose why headshots aren’t appearing in dashboard. Consider  Cloudinary
+Checkmark icon for notifications in dashboard
+Headshots Profiles
+Why are team member updates defaulting to no posters???
+Profile Spacing Problems
+IMDB logo not displaying on team
+Make sure names stay on one row for profiles
+JSON Web Tokens
+Reconfigure routing
+Give micro service a once over
+Implement Sentry
+Why are team members imdc numbers popping up in profiles?

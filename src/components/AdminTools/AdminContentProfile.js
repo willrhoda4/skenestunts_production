@@ -75,9 +75,7 @@ export default function Profile ({currentData, posters}) {
     return ( 
             <>
                 {/* display photo at top of profile */}
-                <div className='adminPerformerProfile'>
-                    <CloudImage id={image_id} />
-                </div>
+                    <CloudImage id={image_id} wrapClass='adminPerformerProfile' />
 
                 <p>{image_alt}</p>
 

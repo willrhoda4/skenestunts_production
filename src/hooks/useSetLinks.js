@@ -1,7 +1,16 @@
+
+
+
+
+
+
 // hooks/useSetLinks.js
 import { useEffect } from 'react';
 
+
+// This hook sets the links that are displayed in the navigation bar based on the current location and the admin status.
 export const useSetLinks = (location, adminStatus, setLinks) => {
+
     useEffect(() => {
         if (location.pathname !== '/director') {
             setLinks(['info', 'contact', 'gallery', 'reels', 'media', 'team']);

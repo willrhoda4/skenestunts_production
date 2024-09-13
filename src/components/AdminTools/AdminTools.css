@@ -210,7 +210,7 @@
         .adminTeamThumbnail {
            width: 100%;
            position: relative;
-           height: 10vh;
+           height: 15vh;
            object-fit: cover;
         }
 

@@ -111,9 +111,7 @@ export default function Team ( {
                 <div className='adminTeamGrid'>
 
                      {/* thumbnail image of profile */}
-                    <div className='adminTeamThumbnail'>
-                        <CloudImage id={image_id} />
-                    </div>
+                        <CloudImage id={image_id} className='adminTeamThumbnail'/>
                  
 
                     <div className='adminTeamControls'>    

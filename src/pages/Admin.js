@@ -6,7 +6,6 @@
 
 
 import   Axios             from 'axios';
-import   jwtDecode         from 'jwt-decode';
 
 
 import { useEffect, 
@@ -44,15 +43,15 @@ import Misc                from '../components/AdminTools/AdminContentMisc.js';
 
 
 
-export default function Admin({performerOptions, editing, adminStatus, setAdminStatus, posters, getData}) {
+export default function Admin( { performerOptions, editing, adminStatus, setAdminStatus, posters, getData } ) {
 
 
   // api url for poster_gopher. 
   // used for retrieving posters and credit counts from IMDB.
-  const   gopher                              = 'https://poster-gopher.vercel.app/';
+  const   gopher                              = process.env.REACT_APP_POSTER_GOPHER;
 
-  const   token                               = new URLSearchParams(window.location.search).get('token'); 
-  const   invite                              = new URLSearchParams(window.location.search).get('invite') === 'true' ? true : false; 
+  const   successfulReset                     = !!(new URLSearchParams(window.location.search).get('successfulReset') === 'true');
+
 
   const [ currentData,    setCurrentData    ] = useState([]);
   const [ authenticated,  setAuthenticated  ] = useState(false);
@@ -60,41 +59,45 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
 
   // jwtStatus tells us if the token is valid, invalid, or expired
   // updateJwt is a passed to PasswordChecker as a handler
-  const [ getJwtToken,    
-          jwtStatus,  
-          updateJwt                         ] = useAuth();
+  const [ authRole,       setAuthRole       ] = useAuth();
 
- // condition to toggle between PasswordChecker and ContactPerformer
-  // invalidJwt is true if the token is invalid or expired
-  // we specifcy explicit status' with strings in lieu of a boolean
-  // because we want PasswordChecker to render if the token is invalid,
-  // but display a message if the token is expired.
-  const   invalidJwt   =  jwtStatus() === 'invalid'
-                       || jwtStatus() === 'expired';
+  const   validAuthRole                       =  authRole === 'admin' 
+                                              || authRole === 'board' 
+                                              || authRole === 'team';
 
-  const   validJwt     =  jwtStatus() === 'valid';
+  // simple effect hook to clear adminStatus and boardMember states
+  // if the authRole state is null. this revokes privileges anytime
+  // our useAuth interceptor receives a 401 from the server.
+  useEffect(() => {
 
-  const   jwt          =  jwtDecode(getJwtToken());
+    if ( authRole === null ) {
 
+      setAdminStatus(false);
+      setBoardMember(false);
+    
+    }
+
+  }, [ authRole, setAdminStatus, setBoardMember ] );
+ 
 
   //loads data for editing 
-  function loadData   (table, orderBy='rank', filters, limit) {
+  function loadData   ( table, orderBy='rank', filters, limit ) {
 
-  
+   
     // sets request boody for getData request
     // note that the 'profile' table requires a team_id from an authenticated user
     // and the 'info' table requires a special hack to amalgamate the faq and quote data
     // and the 'posters' table needs to be ordered ascendingly in order satisfy alphabetic sensibilities.
     let profileTable = boardMember ? 'board' : 'team';
 
-    let reqBody      = table === 'profile' ? [  profileTable,    [[ 'team_id', authenticated.team_id ]]                                       ]
-                     : table === 'info'    ? [ 'faq',               null,                                { orderBy: 'rank' }                  ] 
-                     : table === 'posters' ? [  table,              null,                                { orderBy: [ 'title', true ] }       ] 
-                     : table === 'misc'    ? [  table,              null                                                                      ]
-                     :                       [  table,              filters,                             { orderBy: orderBy, limit: limit }   ];
-
-    let quoteBody    =                       [ 'misc',           [[ 'description', 'info_quote']]                                             ];
-    let quoteByBody  =                       [ 'misc',           [[ 'description', 'info_quote_by']]                                          ];
+    let reqBody      = table === 'profile' ? [  profileTable,    [ [ 'team_id', authenticated.team_id ] ]                                       ]
+                     : table === 'info'    ? [ 'faq',                 null,                                { orderBy: 'rank' }                  ] 
+                     : table === 'posters' ? [  table,                null,                                { orderBy: [ 'title', true ] }       ] 
+                     : table === 'misc'    ? [  table,                null                                                                      ]
+                     :                       [  table,                filters,                             { orderBy: orderBy, limit: limit }   ];
+ 
+    let quoteBody    =                        [ 'misc',          [ [ 'description', 'info_quote'      ] ]                                       ];
+    let quoteByBody  =                        [ 'misc',          [ [ 'description', 'info_quote_by'   ] ]                                       ];
 
 
 
@@ -140,61 +143,32 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
 
 
 
-
-  useEffect(() => {
-
-    if ( validJwt && jwt )  {
-                              const role = jwt.role;
-
-                              setBoardMember(role === 'admin' || role === 'board');
-                              setAdminStatus(role === 'admin');
-    
-                            } 
-      else                  {           
-                              setAuthenticated(null);
-                              setBoardMember(false);
-                              setAdminStatus(false);
-                            }
-}, [ jwt ]);
+    // logs user in after password resets if jwt is valid
+    useEffect(() => {
 
 
+      if ( successfulReset ) {
 
+          Axios.get( '/loginTeam' )
+              .then( response => {
+                                    const { user, role } = response.data;
+                    
+                                    // Update the authenticated state
+                                    setAuthenticated(user);
+                                    setAuthRole(role);
+                                    setBoardMember(role === 'admin' || role === 'board');
+                                    setAdminStatus(role === 'admin');
+                                 }
+                   )
+             .catch( err      => {
+                                    console.log(err);
+                                    setAuthenticated('dataError');
+                                 }
+                   );
+      }
 
-
-
-
-
-
-
-
-
-
-
-
-
-  // logs user in after password resets if jwt is valid
-  useEffect(() => {
-
-
-    // if token is present, checks if it is valid
-    if ( jwt && validJwt ) {
-
-      // team role uses the team table, board and admin roles use the board table.
-      const dataTable = jwt.role === 'team' ? 'team' : 'board';
-
-      getData( [ dataTable, [ ['team_id', team_id ] ] ] )
-        .then(  res =>  {      
-                              // if team_id is not present and unique, sets authenticated to 'dataError'.
-                              if ( res.data.length !== 1 ) {  setAuthenticated( 'dataError' ); } 
-                              else                         {  setAuthenticated( res.data[0] ); }
-                        }                                                                       
-             )
-       .catch( err =>   { console.log( err ); setAuthenticated( 'dataError' ); } )
-    }
+  }, [successfulReset, setAuthenticated, setBoardMember, setAdminStatus, setAuthRole] );
   
-
-  }, [getData, invite, token])
-
 
 
 
@@ -254,10 +228,12 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                                                pwTable={  'board_passwords'  }
                                                                     fk={  'team_id'          }
                                                             dataSetter={   setAuthenticated  }
-                                                               getData={    getData          }
+                                                           setAuthRole={   setAuthRole       }
+                                                        setBoardMember={   setBoardMember    }
+                                                        setAdminStatus={   setAdminStatus    }
                                            />
                                          
-        :  validJwt && jwt               ? <>
+        :  validAuthRole                 ? <>
             
                               {   editing === 'misc'        ? <AdminView           loadData={loadData} 
                                                                                 currentData={currentData}
@@ -274,7 +250,7 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                                                                      pkName='poster_id'
                                                                                   AdminForm={PosterBarn}
                                                                                   Generator={Posters}
-                                                                                    columns={[ 'title', 'imdb_id', 'image_url' ]}
+                                                                                    columns={[ 'title', 'imdb_id', 'cloudinary_id' ]}
                                                                                      gopher={gopher}
                                                                                     getData={getData}
                                                               />  
@@ -360,7 +336,7 @@ export default function Admin({performerOptions, editing, adminStatus, setAdminS
                                 : <p>Nada</p>
                               }
                           </>
-            : <Notification type='bad' msg='Looks like your token is invalid. Please log in again.' />
+            : <Notification type='bad' msg={`Looks like your token is invalid. Please log in again.`} />
       }
     </>
   );

@@ -6,7 +6,7 @@
 
 #navbar {
     width: 100vw;
-    height: 10vh;
+    height: 90px;
     min-height: 65px;
     background: rgba(14, 13, 13, 0.5);
     box-shadow:   2px 2px 5px 5px rgba(206, 58, 8, .15), 
