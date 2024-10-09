@@ -107,7 +107,7 @@ export default function PasswordChecker( {
             origin !== '/director' && setPerformerClass( user.performer_class );
 
             // set the user's role and board status according to the role returned from the backend
-            setAuthRole(    role                                 );
+            setAuthRole(    role                                 ); 
             setAdminStatus( role === 'admin'                     );
             setBoardMember( role === 'admin' || role === 'board' );
 

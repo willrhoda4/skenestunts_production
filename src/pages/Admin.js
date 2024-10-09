@@ -46,10 +46,7 @@ import Misc                from '../components/AdminTools/AdminContentMisc.js';
 export default function Admin( { performerOptions, editing, adminStatus, setAdminStatus, posters, getData } ) {
 
 
-  // api url for poster_gopher. 
-  // used for retrieving posters and credit counts from IMDB.
-  const   gopher                              = process.env.REACT_APP_POSTER_GOPHER;
-
+ 
   const   successfulReset                     = !!(new URLSearchParams(window.location.search).get('successfulReset') === 'true');
 
 
@@ -251,7 +248,6 @@ export default function Admin( { performerOptions, editing, adminStatus, setAdmi
                                                                                   AdminForm={PosterBarn}
                                                                                   Generator={Posters}
                                                                                     columns={[ 'title', 'imdb_id', 'cloudinary_id' ]}
-                                                                                     gopher={gopher}
                                                                                     getData={getData}
                                                               />  
                               
@@ -313,7 +309,6 @@ export default function Admin( { performerOptions, editing, adminStatus, setAdmi
                                                                                 adminStatus={adminStatus}
                                                                                 boardMember={boardMember}
                                                                                   Generator={Performers}
-                                                                                     gopher={gopher}
                                                                            performerOptions={performerOptions}
                                                                                     columns={performerOptions.columns}
                                                               />

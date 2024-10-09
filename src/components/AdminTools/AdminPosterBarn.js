@@ -30,6 +30,7 @@ export default function PosterBarn( { setCurrentData, getData, gopher } ) {
 
     // helper function to display error messages
     function throwError() {
+        
         setUpdateLog( updateLog => [    ...updateLog, 
                                        <Notification type="bad" 
                                                       msg="There was a problem connecting to the database." 
@@ -76,7 +77,7 @@ export default function PosterBarn( { setCurrentData, getData, gopher } ) {
                         const newTitles = outputs.new_titles;
                          
                               newTitles.length === 0 ?  setUpdateLog( updateLog => [ ...updateLog, <Notification type="good" msg="No new posters found. Your database is up to date." /> ] )
-                                                     :  setUpdateLog( updateLog => [ ...updateLog, <Notification type="good" msg={`Added titles: ${ newTitles.join(', ') }`} /> ] );
+                                                     :  setUpdateLog( updateLog => [ ...updateLog, <Notification type="good" msg={`Added titles: ${ newTitles.join(', ') }`}          /> ] );
                                                 
                     } else {
 
@@ -115,19 +116,19 @@ export default function PosterBarn( { setCurrentData, getData, gopher } ) {
 
             // trigger the GitHub Actions workflow
             const res = await Axios.post(
-                `${GITHUB_API_URL}workflows/{workflow_id}/dispatches`,
+                `${GITHUB_API_URL}workflows/${GITHUB_WORKFLOW_ID}/dispatches`,
                 { ref: 'main' }, // branch to run the workflow on
                 {
                     headers: {
                         Authorization: `Bearer ${GITHUB_TOKEN}`,
-                        Accept: 'application/vnd.github.v3+json',
+                        Accept:        'application/vnd.github.v3+json',
                     },
                 }
             );
 
             // get the workflow ID and start polling for updates
-            const workflowId = res.data.id;
-            pollWorkflow( workflowId );
+            const runId = res.data.id;
+            pollWorkflow( runId );
 
         } catch ( error ) {
             
