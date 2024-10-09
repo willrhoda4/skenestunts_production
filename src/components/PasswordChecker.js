@@ -102,8 +102,6 @@ export default function PasswordChecker( {
 
             const { user, role } = data;
 
-            // console.log('user:', user);
-            // console.log('role:', role);
 
             // if the user is a performer, set their performer class
             origin !== '/director' && setPerformerClass( user.performer_class );
@@ -120,7 +118,7 @@ export default function PasswordChecker( {
         // dislays loading notification
         setStatus('checking');
 
-        Axios.post(`${process.env.REACT_APP_API_URL}checkPassword`, [ table, email, pwTable, fk, password ], { withCredentials: true } )
+        Axios.post(`${process.env.REACT_APP_API_URL}checkPassword`, [ table, email, pwTable, fk, password ] )
              .then(  res => {     
 
                                     // update notification according to response from backend

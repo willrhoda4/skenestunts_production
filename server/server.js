@@ -161,11 +161,12 @@ app.post('/getData',             checkTable,
                                  db.getData                     );
 
 // auth routes
-app.post('/newPerformer',        performer.newPerformer         );
 app.post('/checkPassword',       auth.login                     );
 app.post('/resetPassword',       auth.resetPassword             );
 app.post('/registerReset',       auth.registerReset             );
 
+// performer route
+app.post('/newPerformer',        performer.newPerformer         );
 
 // email route    
 app.post('/email',               email.emailHandler             );
