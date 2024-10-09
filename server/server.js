@@ -132,7 +132,7 @@ const app = express();
             default-src 'self';
             style-src   'self' 'unsafe-inline';
             script-src  'self' 'unsafe-inline' 'unsafe-eval'      https://connect.facebook.net        https://www.googletagmanager.com;
-            connect-src 'self'  https://www.google-analytics.com  https://graph.instagram.com         https://api.cloudinary.com          htts://www.skenestunts.com;
+            connect-src 'self'  https://www.google-analytics.com  https://graph.instagram.com         https://api.cloudinary.com          https://www.skenestunts.com;
             img-src     'self'  data: https://m.media-amazon.com  https://scontent.cdninstagram.com   https://res.cloudinary.com;
             frame-src   'self'  https://player.vimeo.com          https://www.facebook.com;
           `.replace(/\s+/g, ' ').trim() // Minimize whitespace for better performance
