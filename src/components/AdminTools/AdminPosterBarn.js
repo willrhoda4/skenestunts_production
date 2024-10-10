@@ -101,7 +101,7 @@ export default function PosterBarn( { setCurrentData, getData, gopher } ) {
                 throwError();
                 clearInterval( intervalId );
             }
-        }, 10000 );
+        }, 5000 );
     }
 
 
@@ -125,7 +125,7 @@ export default function PosterBarn( { setCurrentData, getData, gopher } ) {
                     },
                 }
             );
-
+                    console.log(res);
             // get the workflow ID and start polling for updates
             const runId = res.data.id;
             pollWorkflow( runId );
