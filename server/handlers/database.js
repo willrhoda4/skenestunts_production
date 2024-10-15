@@ -134,16 +134,16 @@ function simpleQuery(response, query, parameters, cleanUp, next) {
         else     {
 
                     if  (cleanUp) {
-                                    console.log(`moving on to cleanUp function...`);
+                                    // console.log(`moving on to cleanUp function...`);
                                     cleanUp(res.rows, response);
                                   }
 
                     if  (next)    {
-                                    console.log(`now moving on to next middleware.`);
+                                    // console.log(`now moving on to next middleware.`);
                                     next();
                                   }
                     else          {
-                                    console.log(`now sending response.\n`);
+                                    // console.log(`now sending response.\n`);
                                     response.send(res.rows);
                                   }
         }
