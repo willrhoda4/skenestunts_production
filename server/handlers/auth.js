@@ -40,6 +40,9 @@ function returnToken( user, table ) {
     const id      = user[ role === 'performer' ? 'performer_id'  : 'imdb_id' ];
 
     const payload = { id, role };
+
+    console.log('ID:', id);
+    console.log('ROLE:', role);
     
     const token   = jwt.sign( 
                                   payload, 
@@ -84,7 +87,7 @@ async function login ( request, response ) {
             if (table === 'board') {
                                         table   = 'team';
                                         pwTable = 'team_passwords';
-                                        return grabData(table, email);
+                                        return grabData();
                                    }
 
             console.log(`Data for ${email} not found in database.\n`);
@@ -100,6 +103,7 @@ async function login ( request, response ) {
     // second helper function checks password against database.
     async function checkPassword(pwTable, pwTableFk, id, password) {
         
+
         const pwQuery  = `SELECT * FROM ${pwTable} WHERE ${pwTableFk} = $1`;       
         const pwResult = await pool.query( pwQuery, [ id ] );
 
@@ -147,10 +151,10 @@ async function login ( request, response ) {
             'jwt', 
             token, 
             {
-                httpOnly:  true,                                   // prevents access to the cookie via JavaScript (enhances security)
-                secure:    process.env.NODE_ENV === 'production',  // ensures the cookie is sent over HTTPS in production
-                maxAge:    2 * 60 * 60 * 1000,                     // cookie expires in 2 hours (set in milliseconds)
-                sameSite: 'Lax',                                   // prevents CSRF attacks by limiting cross-site requests
+                httpOnly:  true,                                                     // prevents access to the cookie via JavaScript (enhances security)
+                secure:    process.env.NODE_ENV === 'production',                    // ensures the cookie is sent over HTTPS in production
+                maxAge:    2 * 60 * 60 * 1000,                                       // cookie expires in 2 hours (set in milliseconds)
+                sameSite:  process.env.NODE_ENV === 'production' ? 'Lax' : 'None',   // prevents CSRF attacks by limiting cross-site requests
             }
         ).send( { user, role } );
 
