@@ -155,7 +155,6 @@ async function login ( request, response ) {
                 secure:    process.env.NODE_ENV === 'production',                    // ensures the cookie is sent over HTTPS in production
                 maxAge:    2 * 60 * 60 * 1000,                                       // cookie expires in 2 hours (set in milliseconds)
                 sameSite:  process.env.NODE_ENV === 'production' ? 'None' : 'Lax',   // prevents CSRF attacks by limiting cross-site requests
-                domain:   '.skenestunts.com',                                        // note the leading dot
             }
         ).send( { user, role } );
 

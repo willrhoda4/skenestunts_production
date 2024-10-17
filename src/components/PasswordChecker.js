@@ -118,7 +118,10 @@ export default function PasswordChecker( {
         // dislays loading notification
         setStatus('checking');
 
-        Axios.post(`${process.env.REACT_APP_API_URL}checkPassword`, [ table, email, pwTable, fk, password ] )
+        Axios.post(`${process.env.REACT_APP_API_URL}checkPassword`, 
+                     [ table, email, pwTable, fk, password ],
+                     { withCredentials: true }
+                  )
              .then(  res => {     
 
                                     // update notification according to response from backend
