@@ -51,7 +51,7 @@ const cookieParser                 = require('cookie-parser');
 const corsOptions = {
 
   methods:             'GET,HEAD,PUT,PATCH,POST,DELETE',
-  allowedHeaders:     ['Content-Type', 'Authorization'],
+  allowedHeaders:     ['Content-Type', 'Authorization', 'x-reset-token'],
   credentials:          true,
   optionsSuccessStatus: 204,
   origin: function (origin, callback) {
@@ -163,8 +163,8 @@ app.post('/getData',             checkTable,
 
 // auth routes
 app.post('/checkPassword',       auth.login                     );
-app.post('/resetPassword',       auth.resetPassword             );
 app.post('/registerReset',       auth.registerReset             );
+app.post('/resetPassword',       auth.resetPassword             );
 
 // performer route
 app.post('/newPerformer',        performer.newPerformer         );

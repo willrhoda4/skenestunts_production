@@ -122,7 +122,7 @@ export default function MediaForm({loadData, currentData, setCurrentData, table,
         e.preventDefault();
 
 
-        // drop everything an d throw up a notification if there are any errors,
+        // drop everything and throw up a notification if there are any errors,
         // take it down and proceed with caution if there isn't.
         if   (  articleURLError ||
                 headlineError   ||
@@ -167,7 +167,7 @@ export default function MediaForm({loadData, currentData, setCurrentData, table,
 
 
             try         {
-
+                            // we an pass in the string 'logo' to use the company logo as the image.
                             const imageId  = imageURL === 'logo' ? imageURL
                                                                  : await cloudinaryUpload( imageURL, headline, table );
                      
@@ -184,7 +184,7 @@ export default function MediaForm({loadData, currentData, setCurrentData, table,
 
         sendStory( columnList, parameters )
             .then( res => { 
-                            console.log(res);
+                            console.log(res); 
                             loadData(table); 
                             setFormStatus('uploaded');
                           }

@@ -52,9 +52,6 @@ export default function PasswordReset ({getData}) {
     // set table and fk for http request based on origin
     const [ table,          setTable          ] = useState(false);
     const [ fk,             setFk             ] = useState(false);
-
-
-
     
     // identify dom elements for following effect hook.
     let pwField                                 = document.getElementById('pwField');
@@ -64,11 +61,11 @@ export default function PasswordReset ({getData}) {
     // adds event listener to password field to submit form when you smash the enter key
     useEffect(() => {
 
-        if (pwField) {    
+        if ( pwField ) {    
             
-            pwField.addEventListener('keypress', function(e) {
+            pwField.addEventListener( 'keypress', function(e) {
             
-                if (e.key === 'Enter') {
+                if (e.key === 'Enter' ) {
                 
                     e.preventDefault();
                     submitBtn.click();
@@ -112,9 +109,15 @@ export default function PasswordReset ({getData}) {
         
         function verifyReset () {
 
+            console.log('verifying...\n')            
+            console.log(process.env.REACT_APP_RESET_TOKEN);  // Check if the token is correctly loaded
+
+
         
-            getData( [ usersTable, [[ usersFk, parseInt(id) ]]] )
-                 .then( res => {    console.log(res.data);
+            getData( [ usersTable, [ [ usersFk, parseInt( id ) ] ] ],
+                     { 'x-reset-token': process.env.REACT_APP_RESET_TOKEN, }
+                   )
+              .then( res => {  
                                             
                              // if user has no password reset requests, they are not authenticated
                              if (res.data.length === 0)    {    // for Director's Chair resets, check the team table if it isn't on the board table.
@@ -140,13 +143,13 @@ export default function PasswordReset ({getData}) {
                                                                 // then check if their token is valid
                                                                 else if (res.data[0].token !== token                 ) { return setStatus('tokenProblem')   }
 
-                                                                // if user has a password reset request and it has not expired, they are authenticated
+                                                                // if user has a password reset request and it has not expired, they are authenticated:
                                                                 else                                                   { return setStatus('authenticated'); }
                                                            }
                                                                 // if user has more than one password reset request, there's a problem with the database
                         else                               {                                                             return setStatus('databaseError'); }
-                    })
-                .catch( err => console.log(err) )
+              } )
+          .catch( err => console.log(err) )
 
         }
 

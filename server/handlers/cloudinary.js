@@ -33,10 +33,10 @@ function getSignature (request, response) {
 // then we'll bundle it with the api_key and signature, and send it as
 // a response object for the client to use in their upload request.
 const params     = {
-                       public_id: request.body[0],
+                       public_id:    request.body[0],
                        asset_folder: request.body[1],
-                       timestamp: Math.round( ( new Date().getTime() / 1000 ) ),
-                       overwrite: true, 
+                       timestamp:    Math.round( ( new Date().getTime() / 1000 ) ),
+                       overwrite:    true, 
                   }
 
 

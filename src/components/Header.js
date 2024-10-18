@@ -50,7 +50,7 @@ function Header({ getData }) {
 
             {/* the background image is dynamically loaded based on the backgroundId */}
             <div id="headerBackground">
-                <CloudImage id={backgroundId} />
+                <CloudImage id={backgroundId}  />
             </div>
 
             {/* title section with images and text */}

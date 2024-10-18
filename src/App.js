@@ -86,10 +86,15 @@ const   posters                                   = [ boardPosters, teamPosters 
 
 
 
-const getData = useCallback( async reqBody => {
+const getData = useCallback( async (reqBody, headers) => {
     
-    try           { return await Axios.post(`${process.env.REACT_APP_API_URL}getData`, reqBody); } 
-    
+
+    try           { return await Axios.post(    `${process.env.REACT_APP_API_URL}getData`, 
+                                                reqBody, 
+                                                headers ? { headers: headers } : {}
+
+                                           ); 
+                  } 
     catch (error) { return await Promise.reject(error);                                          }
 
 }, []);

@@ -81,12 +81,14 @@ export default function Admin( { performerOptions, editing, adminStatus, setAdmi
   function loadData   ( table, orderBy='rank', filters, limit ) {
 
    
-    // sets request boody for getData request
+    // sets request body for getData request
     // note that the 'profile' table requires a team_id from an authenticated user
     // and the 'info' table requires a special hack to amalgamate the faq and quote data
     // and the 'posters' table needs to be ordered ascendingly in order satisfy alphabetic sensibilities.
     let profileTable = boardMember ? 'board' : 'team';
 
+    console.log('profileTable:', profileTable);
+    console.log('authenticated:', authenticated);
     let reqBody      = table === 'profile' ? [  profileTable,    [ [ 'team_id', authenticated.team_id ] ]                                       ]
                      : table === 'info'    ? [ 'faq',                 null,                                { orderBy: 'rank' }                  ] 
                      : table === 'posters' ? [  table,                null,                                { orderBy: [ 'title', true ] }       ] 
@@ -146,9 +148,12 @@ export default function Admin( { performerOptions, editing, adminStatus, setAdmi
 
       if ( successfulReset ) {
 
-          Axios.get( '/loginTeam' )
+          Axios.get( `${process.env.REACT_APP_API_URL}loginTeam`, { withCredentials: true } )
               .then( response => {
                                     const { user, role } = response.data;
+
+                                    console.log('successful login:', user, role);
+                                    console.log('currentData:', currentData);
                     
                                     // Update the authenticated state
                                     setAuthenticated(user);

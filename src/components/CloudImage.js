@@ -21,7 +21,7 @@ export default function CloudImage ( { id, alt, wrapClass, className} ) {
   return <div className={wrapClass}> 
             <AdvancedImage cldImg={img} 
                               alt={alt}
-                              style={className ? {} : { width: '100%', height: '100%', objectFit: 'cover' }} 
+                              style={className ? {} : { width: '100%', height: '100%', objectFit: 'cover', border: '3px purple ridge'}} 
                               className={className}
             />
           </div>

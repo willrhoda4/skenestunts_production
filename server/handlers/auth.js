@@ -16,8 +16,13 @@ const { simpleQuery } = require('./database');
 
 
 
-
-
+// config obhject for the JWT cookies
+const cookieOptions = {
+                        httpOnly:  true,                                                     // prevents access to the cookie via JavaScript (enhances security)
+                        secure:    process.env.NODE_ENV === 'production',                    // ensures the cookie is sent over HTTPS in production
+                        maxAge:    2 * 60 * 60 * 1000,                                       // cookie expires in 2 hours (set in milliseconds)
+                        sameSite:  process.env.NODE_ENV === 'production' ? 'None' : 'Lax',   // prevents CSRF attacks by limiting cross-site requests
+                      }
 
 
 
@@ -150,12 +155,7 @@ async function login ( request, response ) {
         return response.cookie(
             'jwt', 
             token, 
-            {
-                httpOnly:  true,                                                     // prevents access to the cookie via JavaScript (enhances security)
-                secure:    process.env.NODE_ENV === 'production',                    // ensures the cookie is sent over HTTPS in production
-                maxAge:    2 * 60 * 60 * 1000,                                       // cookie expires in 2 hours (set in milliseconds)
-                sameSite:  process.env.NODE_ENV === 'production' ? 'None' : 'Lax',   // prevents CSRF attacks by limiting cross-site requests
-            }
+            cookieOptions
         ).send( { user, role } );
 
     } catch ( err ) {
@@ -329,7 +329,7 @@ const resetPassword = async (request, response) => {
     const hashedPass  = await bcrypt.hash( newPass, 10 );
 
     // update the password in the correct table, and clear the reset token
-    const updateQuery = `UPDATE ${ table } SET password = $1, reset_token = NULL, reset_at = NULL WHERE ${ fk } = $2`;
+    const updateQuery = `UPDATE ${ table } SET password = $1, token = NULL, reset_at = NULL WHERE ${ fk } = $2`;
 
 
     try             {
@@ -361,12 +361,7 @@ const resetPassword = async (request, response) => {
                     response.cookie(
                                         'jwt', 
                                          token, 
-                                            {
-                                                httpOnly:  true,
-                                                secure:    process.env.NODE_ENV === 'production', // ensure this is true in production
-                                                maxAge:    2 * 60 * 60 * 1000,                    // token expiry in milliseconds (2 hours)
-                                                sameSite: 'Strict'                                // prevents CSRF
-                                            }
+                                         cookieOptions
                                     )
                                .send(       {   message: 'Password reset successful' } );
 
@@ -377,15 +372,6 @@ const resetPassword = async (request, response) => {
                 }
 
 };
-
-
-
-
-
-
-
-
-
 
 
 
