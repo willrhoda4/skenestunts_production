@@ -184,9 +184,12 @@ export default function PasswordReset ({getData}) {
         else  {                                          // clears any previous error messages
                                                          setFormStatus('');
             // sends password reset request to database
-            Axios.post(`${process.env.REACT_APP_API_URL}resetPassword`, [ id, password1, table, fk, token ] )
-                 .then( res => { setFormStatus('reset');                                                  } )
-                .catch( err => { setFormStatus('resetError');                                             } )
+            Axios.post(`${ process.env.REACT_APP_API_URL }resetPassword`, 
+                         [ id, password1, table, fk, token ],
+                         { withCredentials: true }  
+                      )
+                 .then( res => { setFormStatus('reset');      } )
+                .catch( err => { setFormStatus('resetError'); } )
         }
     }
 
@@ -231,6 +234,7 @@ export default function PasswordReset ({getData}) {
                                                             state={password1}
                                                             setter={setPassword1}
                                                             error={password1Error}
+                                                            noHelp={true}
                                                         instructions='Minimum of eight characters'
                                                                 type='password'
                                                     />
@@ -241,6 +245,7 @@ export default function PasswordReset ({getData}) {
                                                             state={password2}
                                                             setter={setPassword2}
                                                             error={password2Error}
+                                                            noHelp={true}
                                                         instructions='Exactly as you just entered it'
                                                                 type='password' 
                                                     />

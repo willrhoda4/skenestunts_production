@@ -153,9 +153,9 @@ async function login ( request, response ) {
 
         // 7. set the JWT token as an HTTP-only cookie and send the user data and role back in the response.
         return response.cookie(
-            'jwt', 
-            token, 
-            cookieOptions
+                               'jwt', 
+                                token, 
+                                cookieOptions
         ).send( { user, role } );
 
     } catch ( err ) {
@@ -363,7 +363,7 @@ const resetPassword = async (request, response) => {
                                          token, 
                                          cookieOptions
                                     )
-                               .send(       {   message: 'Password reset successful' } );
+                               .send( {  message: 'Password reset successful' } );
 
                 } 
     catch (err) {
