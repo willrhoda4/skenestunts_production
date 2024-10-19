@@ -138,7 +138,7 @@ return (
                                     : <div id="App">
 
                                             { location.pathname !== '/director' && <Header getData={getData} /> }
-
+    
                                             <NavBar 
                                                 links={links} 
                                                 editing={editing} 
