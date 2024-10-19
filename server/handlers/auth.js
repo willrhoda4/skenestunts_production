@@ -168,45 +168,6 @@ async function login ( request, response ) {
     }
 
 
-                                
-    // grabData()
-    //    .then( data =>      {    // start by grabbing data from the database.
-    //                             if ( !data ) return response.send( 'no email' );
-                                    
-
-    //                             user      = data;
-    //                             const  id = user[ pwTableFk];
-    //                             return checkPassword( pwTable, pwTableFk, id, password );
-    //                        }
-    //         )
-    //    .then( match     => {    
-    //                             console.log('\nSTILL RUNNING\n')
-                                
-    //                             // once we have the data, check the password.
-    //                             if ( !match ) return response.send( 'no match' );
-
-    //                             console.log(`Password for ${email} matches!\n`);
-
-    //                             const { role, token } = returnToken( user, table );
-                                
-    //                             // if the password matches, attach an http cookie and send back the user data.
-    //                             response.cookie( 
-    //                                                 'jwt', 
-    //                                                  token, 
-    //                                                    {
-    //                                                      httpOnly: true,
-    //                                                      secure:   process.env.NODE_ENV === 'production', // ensure the cookie is only sent over HTTPS in production
-    //                                                      maxAge:   2 * 60 * 60 * 1000,                    // 2 hours
-    //                                                      sameSite: 'Lax'                                  // make 'None' in production (when secure: true), 'Lax' in development
-    //                                                                                                       // this is demanded by the browser to prevent CSRF attacks
-    //                                                    }
-    //                                            ).send( { user, role } );                           }
-    //         )
-    //   .catch( err =>       {    // catch any errors that occur during the process.
-    //                             console.log( err.message );
-    //                             return response.status( 400 ).send( err.message );
-    //                        }
-    //         );
 };
 
 
@@ -354,8 +315,8 @@ const resetPassword = async (request, response) => {
                         return response.status(400).send('User not found');
                     }
 
-                    const user  = userResult.rows[0];
-                    const token = returnToken(user, userTable);
+                    const   user    = userResult.rows[0];
+                    const { token } = returnToken(user, userTable);
 
                     // step 4: send the JWT token as an HttpOnly cookie
                     response.cookie(
