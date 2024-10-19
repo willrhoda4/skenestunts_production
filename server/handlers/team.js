@@ -27,6 +27,8 @@ async function autoLogin (request, response ) {
         const   decoded    = jwt.verify(token, process.env.JWT_SECRET);
         const { id, role } = decoded;
 
+
+        console.log(`autoLogin: ${role} ${id}`);
         // step 3: determine the appropriate table based on the role
         const validRoles = ['team', 'board', 'admin'];
 
@@ -39,9 +41,7 @@ async function autoLogin (request, response ) {
         // step 4: query the database with the extracted id
         const result = await pool.query( query, [ id ] );
 
-        if ( result.rows.length     !== 1   && 
-             id !== 'nm0804052'              ) return response.status(404).json( { message: 'User not found or not unique' } );
-             // ^^^workaround to allow for an extra admin account.
+        if ( result.rows.length !== 1 ) return response.status(404).json( { message: 'User not found or not unique' } );
 
         const user = result.rows[0];
 

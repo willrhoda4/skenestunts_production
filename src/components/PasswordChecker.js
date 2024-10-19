@@ -120,7 +120,7 @@ export default function PasswordChecker( {
 
         // send the email and password to the backend for verification
         // note that { withCredentials: true } is necessary even though we don't have credentials yet.
-        // without it, the client will silently ignore the Set-Cookie header from the server.
+        // without it, the client will silently ignore the Set-Cookie header returned by the server.
         Axios.post(`${process.env.REACT_APP_API_URL}checkPassword`, 
                      [ table, email, pwTable, fk, password ],
                      { withCredentials: true }

@@ -87,7 +87,7 @@ export default function Admin( { performerOptions, editing, adminStatus, setAdmi
     // and the 'posters' table needs to be ordered ascendingly in order satisfy alphabetic sensibilities.
     let profileTable = boardMember ? 'board' : 'team';
 
-    console.log('profileTable:', profileTable);
+    console.log('profileTable:', profileTable); 
     console.log('authenticated:', authenticated);
     let reqBody      = table === 'profile' ? [  profileTable,    [ [ 'team_id', authenticated.team_id ] ]                                       ]
                      : table === 'info'    ? [ 'faq',                 null,                                { orderBy: 'rank' }                  ] 
@@ -153,7 +153,7 @@ export default function Admin( { performerOptions, editing, adminStatus, setAdmi
                                     const { user, role } = response.data;
 
                                     console.log('successful login:', user, role);
-                                    console.log('currentData:', currentData);
+                                    // console.log('currentData:', currentData);
                     
                                     // Update the authenticated state
                                     setAuthenticated(user);
@@ -327,7 +327,7 @@ export default function Admin( { performerOptions, editing, adminStatus, setAdmi
                                                                                   AdminForm={AdminFormTeam}
                                                                                   Generator={Profile}
                                                                                     columns={profileColumns}
-                                                                                     update={ currentData[0].hasOwnProperty('email')        &&
+                                                                                     update={ currentData[0] && currentData[0].hasOwnProperty('email')        &&
                                                                                               profileColumns.map( key => currentData[0][key]  )
                                                                                                             .concat( [authenticated.team_id]  )
                                                                                             }

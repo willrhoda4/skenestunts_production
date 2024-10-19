@@ -159,7 +159,7 @@ function NavBar({links, editing, setEditing}) {
                                                 </div>
           }
 
-            {/* update performer tab for forward-facing site. 
+            {/* update performer tab for forward-facing site. Un
                 don't bother displaying it when an update is already happening. */}
             { location.pathname !== '/updatePerformer' &&
               location.pathname !== '/director'        &&

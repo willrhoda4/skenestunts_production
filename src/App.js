@@ -132,7 +132,7 @@ return (
             <meta name="description" content="Skene Stunts has been delivering excellence to the Canadian film and commercial industry for over 35 years." />
             <link rel="canonical" href="https://www.skenestunts.com/" />
         </Helmet>
-
+        
         <ErrorBoundary>
             { closedForConstruction ? <Fallback type={'construction'} />
                                     : <div id="App">
