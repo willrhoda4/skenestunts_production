@@ -105,12 +105,12 @@ export default function Admin( { performerOptions, editing, adminStatus, setAdmi
     // rounds up and amalgemates faq and quote data for the info page.
     // note that this hack is the reason why the AdminButtons component
     // makes special provisions for the info page.
-      if (table === 'info')    {      Axios.all([  
-                                                   getData(reqBody),
-                                                   getData(quoteBody), 
-                                                   getData(quoteByBody) 
-                                                ]                                                 )
-                                           .then( Axios.spread((...responses) => { 
+         if ( table === 'info' )       { Axios.all( [  
+                                                      getData(reqBody),
+                                                      getData(quoteBody), 
+                                                      getData(quoteByBody) 
+                                                    ]                                                 )
+                                             .then( Axios.spread((...responses) => { 
 
                                                     const data    = responses[0].data;
                                                     const quote   = responses[1].data;
@@ -122,6 +122,15 @@ export default function Admin( { performerOptions, editing, adminStatus, setAdmi
                                                                             ));
                                                                                                 }))
                                           .catch( errors => console.log(errors)                   );
+                                       }
+    // the performers table requires essentially the same treatment as the rest,
+    // but since it requires authentication, we need to use a different endpoint.
+    else if ( table === 'performers' ) {  Axios.post( `${ process.env.REACT_APP_API_URL }getAdminData`, 
+                                                          reqBody,  
+                                                        { withCredentials: true }
+                                                    )
+                                               .then(  res => setCurrentData(res.data) )
+                                              .catch(  err =>  console.log(err)        ); 
                                    }
     else                           { getData(reqBody).then(  res => setCurrentData(res.data) )
                                                     .catch(  err =>  console.log(err)        );
