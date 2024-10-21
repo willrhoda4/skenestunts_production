@@ -9,10 +9,16 @@
 
 
 
+/*
+Step 1: Include the JavaScript SDK on your page once, ideally right after the opening body tag.
 
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v21.0"></script>
 
+Step 2: Place this code wherever you want the plugin to appear on your page.
 
-
+<div class="fb-page" data-href="https://www.facebook.com/skenestunts" data-tabs="timeline" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
+*/
 
 import React, { useEffect, useMemo } from 'react';
 
@@ -50,9 +56,9 @@ export default function FacebookFeed ({name, url}) {
 
         const script             =  document.createElement('script');
               script.id          =  scriptId;
-              script.src         = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0';
+              script.src         = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v21.0';
               script.crossOrigin = 'anonymous';
-              script.nonce       = 'abc123';
+            //   script.nonce       = 'abc123';
               script.async       =  true;
               script.defer       =  true;
 
@@ -81,10 +87,10 @@ export default function FacebookFeed ({name, url}) {
         }
     }
 
-    // Bandaid fix to clear errors from FB SDK appearing in Chromium browsers
-    const timerId = setTimeout(() => console.clear(), 3000);
-    // Cleanup function to clear the timeout
-    return () => clearTimeout(timerId);
+    // // Bandaid fix to clear errors from FB SDK appearing in Chromium browsers
+    // const timerId = setTimeout(() => console.clear(), 3000);
+    // // Cleanup function to clear the timeout
+    // return () => clearTimeout(timerId);
 
 }, [url]);
 

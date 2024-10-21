@@ -123,25 +123,44 @@ const app = express();
       app.use((req, res, next) => {
         // Basic security headers
         res.setHeader('X-Content-Type-Options', 'nosniff');
-        res.setHeader('X-Frame-Options', 'DENY');
+        // res.setHeader('X-Frame-Options', 'DENY');
+        res.setHeader('X-Frame-Options', 'SAMEORIGIN');
 
-        // minimal yet effective Content-Security-Policy
-        res.setHeader(
-          'Content-Security-Policy',
-          `
-            default-src 'self';
-            style-src   'self' 'unsafe-inline';
-            script-src  'self' 'unsafe-inline' 'unsafe-eval'      https://connect.facebook.net        https://www.googletagmanager.com;
-            connect-src 'self'  https://www.google-analytics.com  https://graph.instagram.com         https://api.cloudinary.com          
-                                https://api.github.com            https://www.skenestunts.com;
-            img-src     'self'  data: https://m.media-amazon.com  https://scontent.cdninstagram.com   https://res.cloudinary.com;
-            frame-src   'self'  https://player.vimeo.com          https://www.facebook.com;
-          `.replace(/\s+/g, ' ').trim() // minimize whitespace for better performance
-        );
 
+        // // minimal yet effective Content-Security-Policy
+        // res.setHeader(
+        //   'Content-Security-Policy',
+        //   `
+        //     default-src 'self';
+        //     style-src   'self' 'unsafe-inline';
+        //     script-src  'self' 'unsafe-inline' 'unsafe-eval'      https://connect.facebook.net        https://www.googletagmanager.com;
+        //     connect-src 'self'  https://www.google-analytics.com  https://graph.instagram.com         https://api.cloudinary.com          
+        //                         https://api.github.com            https://www.skenestunts.com;
+        //     img-src     'self'  data: https://m.media-amazon.com  https://scontent.cdninstagram.com   https://res.cloudinary.com;
+        //     frame-src   'self'  https://player.vimeo.com          https://www.facebook.com;
+        //   `.replace(/\s+/g, ' ').trim() // minimize whitespace for better performance
+        // );
+
+      res.setHeader(
+        'Content-Security-Policy',
+        `
+          default-src  'self';
+          style-src    'self' 'unsafe-inline';
+          script-src   'self' 'unsafe-inline' 'unsafe-eval' https://connect.facebook.net https://connect.facebook.com https://static.xx.fbcdn.net https://www.googletagmanager.com;
+          frame-src    'self' https://player.vimeo.com https://www.facebook.com https://www.facebook.com/plugins/;
+          connect-src  'self' https://www.facebook.com https://graph.facebook.com https://www.google-analytics.com https://graph.instagram.com https://api.cloudinary.com https://api.github.com https://www.skenestunts.com;
+
+          img-src 'self' data: https://m.media-amazon.com https://scontent.cdninstagram.com https://res.cloudinary.com https://www.facebook.com https://scontent.xx.fbcdn.net;
+        `.replace(/\s+/g, ' ').trim() // minimize whitespace for better performance
+      );
         next();
       });
 
+
+
+
+
+   
 
 
 

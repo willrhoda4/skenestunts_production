@@ -67,7 +67,7 @@ export default function PerformerForm ( { performerOptions, performerData, perfo
     const [  newPhotos,        setNewPhotos        ] = useState(false);
     const [  samePhotos,       setSamePhotos       ] = useState(false);
 
-    const [  getJwtToken , ,                       ] = useAuth();
+    // const [  getJwtToken , ,                       ] = useAuth();
    
     // formState and formSetters are used to set and retrieve form data.
     const formState    =  [ pageState1,    pageState2,    pageState3,    pageState4,    pageState5,    pageState6,    pageState7,    pageState8,    pageState9,    pageState10    ];
@@ -78,30 +78,41 @@ export default function PerformerForm ( { performerOptions, performerData, perfo
     const columns      =  performerOptions.columns
 
 
-    // initiates update state if performerData is passed in and jwt matches.
+    // // initiates update state if performerData is passed in and jwt matches.
+    // useEffect(() => {
+
+    //     // get the jwt from cookies
+    //     const jwt = getJwtToken() && jwtDecode( getJwtToken() );
+        
+    //     if (  jwt  )  {
+
+    //         try          {
+    //                         // compare the jwt email with the performerData email
+    //                         // if they match, set the update state to the performer_id
+    //                         // if they don't match, set update to false
+    //                         ( performerData && jwt.email === performerData.email ) ? setUpdate(performerData.performer_id)
+    //                                                                                : setUpdate(false);
+    //                       }
+    //         catch (error) {
+    //                         console.error('Error decoding JWT:', error);
+    //                         setUpdate(false);
+    //                       }
+    //     }   else          { setUpdate(false); }
+
+
+    // }, [ performerData, setUpdate, getJwtToken ] );
+    
+
+    // initiates update state if performerData is passed in.
     useEffect(() => {
 
-        // get the jwt from cookies
-        const jwt = getJwtToken() && jwtDecode( getJwtToken() );
+        const gotPerformerData = performerData && performerData.performer_id;
         
-        if (  jwt  )  {
+        gotPerformerData ? setUpdate(performerData.performer_id)
+                         : setUpdate(false);                                      
 
-            try          {
-                            // compare the jwt email with the performerData email
-                            // if they match, set the update state to the performer_id
-                            // if they don't match, set update to false
-                            ( performerData && jwt.email === performerData.email ) ? setUpdate(performerData.performer_id)
-                                                                                   : setUpdate(false);
-                          }
-            catch (error) {
-                            console.error('Error decoding JWT:', error);
-                            setUpdate(false);
-                          }
-        }   else          { setUpdate(false); }
+    }, [performerData])
 
-
-    }, [ performerData, setUpdate, getJwtToken ] );
-    
 
     
     //prepares form state for returning performers updating profile
@@ -142,7 +153,9 @@ export default function PerformerForm ( { performerOptions, performerData, perfo
         // if page 1 is error free, check if email is available.
         else if ( currentPage === 1                 ) {    
                                                             setShowErrorMsg('emailChecking');
-                                                            getData([ 'performers', [['email', pageState1[2]]] ])
+                                                            getData( [ 'performers', [ [ 'email', pageState1[2] ] ] ],
+                                                                     { 'x-reset-token': process.env.REACT_APP_RESET_TOKEN, }
+                                                                   )
                                                               .then( res => {   
                                                                                                                                 // if an existing email is used during a new registration,
                                                                                                                                 // prompt user to update their profile instead.

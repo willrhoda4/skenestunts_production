@@ -23,7 +23,7 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
 
 
     // url param flag to indicate that the user has been sent back with a valid jwt after a password reset
-    const successfulReset                        = !!(new URLSearchParams(window.location.search).get('successfulReset') === 'true');
+    const     successfulReset                    = !!(new URLSearchParams(window.location.search).get('successfulReset') === 'true');
 
     // state to store the performer's information   
     const [   performerData,  setPerformerData ] = useState(null);
@@ -31,7 +31,7 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
     // useAuth hook to track the user's role for the client
     const [   authRole,       setAuthRole      ] = useAuth();
 
-    const     noPerformer                        =  authRole !== 'performer'
+    const     notPerformer                       =  authRole !== 'performer'
  
    
 
@@ -40,7 +40,7 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
     useEffect(() => {
 
 
-        // if the user is authenticated as a performe   r, we'll try to get their data from the database without asking for credentials
+        // if the user is authenticated as a performer, we'll try to get their data from the database without asking for credentials
         if ( successfulReset ) {
 
 
@@ -82,14 +82,14 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
 
 
             <div id='updatePerformerWrapper'>
-                {       noPerformer   &&   successfulReset  ?   <Notification type='wait' msg='Hang tight while we get you logged in...'                               />
+                {       notPerformer   &&  successfulReset  ?   <Notification type='wait' msg='Hang tight while we get you logged in...'                               />
                     :   performerData === 'expired'         ?   <Notification type='bad'  msg='Your token has expired. Try resetting your password again.'             /> 
                     :   performerData === 'dataError'       ?   <Notification type='bad'  msg='A databse error has occured. Please try resetting your password again.' /> 
-                    :   noPerformer                         ?   <PasswordChecker              table={  'performers'                     }
+                    :   notPerformer                        ?   <PasswordChecker              table={  'performers'                     }
                                                                                             pwTable={  'performer_passwords'            }
                                                                                                  fk={  'performer_id'                   }
                                                                                          dataSetter={   setPerformerData                }
-                                                                                        setAuthRole={   setAuthRole                     }
+                                                                                        setAuthRole={   setAuthRole                     }    
 
                                                                 />
 

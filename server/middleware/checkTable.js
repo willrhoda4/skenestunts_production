@@ -1,9 +1,13 @@
 
 
 
+
+
+
 // we use this to validate getData and getAdminData queries.
 // for getData, we only allow access to a whitelist of tables.
-// for getAdminData, we allow access to the whitelist and a graylist.
+// for getAdminData, we allow access to the whitelist and a graylist.   
+// for password tables, we only allow access with a resetToken.
 function checkTable ( request, response, next ) {
 
 
@@ -41,14 +45,18 @@ function checkTable ( request, response, next ) {
         'performer_passwords', 
     ];
 
+    // a token can be used to access password tables, and can also be used
+    // to access the greylist without a jwt.
+    const requiresToken = greylist.concat(passwordTables).includes(table);
+
 
 
     // if we don't meet muster, return an error.
     // otherwise, move on to the next handler.
     if (
-           ( path === '/getData'      && whitelist.includes(table)                    )
-        || ( path === '/getData'      && passwordTables.includes(table) && validToken )
-        || ( path === '/getAdminData' && greylist.includes(table)                     )
+           ( path === '/getData'      && whitelist.includes(table)   )
+        || ( path === '/getData'      && requiresToken && validToken )
+        || ( path === '/getAdminData' && greylist.includes(table)    )
        
        )   { return next();                                     } 
     else   { return response.status(400).send('invalid table'); }

@@ -47,7 +47,7 @@ function Header({ getData }) {
     return (
     
         <div id="header" ref={spotlightRef}>
-
+        
             {/* the background image is dynamically loaded based on the backgroundId */}
             <div id="headerBackground">
                 <CloudImage id={backgroundId}  />
