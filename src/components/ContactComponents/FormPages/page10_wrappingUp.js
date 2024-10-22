@@ -110,9 +110,9 @@ export default function Page10 ({
         // updateData request requires a performer_id filter array  to be passed in at index 3.
         const updateProfile = () => {
 
-            Axios.put( `${ process.env.REACT_APP_API_URL }updateData`, 
-                         [ 'performers', columnList, databaseState, [ [ 'performer_id', update ] ] ],
-                         { withCredentials: true }
+            Axios.put( `${ process.env.REACT_APP_API_URL }updatePerformer`, 
+                         { performerId: update, columnList, databaseState },
+                         { withCredentials: true                          }
                       )
                  .then(   res => { setUploadProgress(res.status); console.log(res); } )
                  .catch(  err => { console.log(err); setUploadProgress(400);        } )

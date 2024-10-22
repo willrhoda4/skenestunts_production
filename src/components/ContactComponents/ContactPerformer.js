@@ -22,7 +22,6 @@ import Page10 from './FormPages/page10_wrappingUp';
 
 import { useState, 
          useEffect }   from 'react'; 
-import { useAuth   }   from '../../hooks/useAuth.js';
          
 import { Link      }   from 'react-router-dom'; 
 
@@ -30,7 +29,6 @@ import   Notification  from '../Notification.js';
 
 import   iconRewind    from '../../images/icon_rewind.svg';
 
-import { jwtDecode }   from 'jwt-decode';
 
 
 
@@ -78,29 +76,6 @@ export default function PerformerForm ( { performerOptions, performerData, perfo
     const columns      =  performerOptions.columns
 
 
-    // // initiates update state if performerData is passed in and jwt matches.
-    // useEffect(() => {
-
-    //     // get the jwt from cookies
-    //     const jwt = getJwtToken() && jwtDecode( getJwtToken() );
-        
-    //     if (  jwt  )  {
-
-    //         try          {
-    //                         // compare the jwt email with the performerData email
-    //                         // if they match, set the update state to the performer_id
-    //                         // if they don't match, set update to false
-    //                         ( performerData && jwt.email === performerData.email ) ? setUpdate(performerData.performer_id)
-    //                                                                                : setUpdate(false);
-    //                       }
-    //         catch (error) {
-    //                         console.error('Error decoding JWT:', error);
-    //                         setUpdate(false);
-    //                       }
-    //     }   else          { setUpdate(false); }
-
-
-    // }, [ performerData, setUpdate, getJwtToken ] );
     
 
     // initiates update state if performerData is passed in.

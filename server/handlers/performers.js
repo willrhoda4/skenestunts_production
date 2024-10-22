@@ -72,17 +72,17 @@ async function updatePerformer ( request, response) {
         const tokenId = decoded.id;
 
         // destruct the request body
-        const { performer_id, columnList, databaseState } = request.body;
+        const { performerId, columnList, databaseState } = request.body;
 
-        // check if the performer_id in the request matches the one in the JWT
-        if ( tokenId !== performer_id ) return response.status(403).json( { message: 'Permission denied' } );
+        // check if the performerId in the request matches the one in the JWT
+        if ( tokenId !== performerId ) return response.status(403).json( { message: 'Permission denied' } );
 
         // construct the SQL query for updating the performer profile
         const setClause =  columnList.map( ( col, idx ) => `${ col } = $${ idx + 1 }`).join(', ');
         const sqlQuery  = `UPDATE performers SET ${setClause} WHERE performer_id = $${columnList.length + 1}`;
 
-        // combine databaseState with the performer_id for the parameters
-        const parameters = [ ...databaseState, performer_id ];
+        // combine databaseState with the performerId for the parameters
+        const parameters = [ ...databaseState, performerId ];
 
         // execute the update query
         await db.query(sqlQuery, parameters);
