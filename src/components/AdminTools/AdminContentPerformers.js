@@ -329,12 +329,13 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                         
 
                         {/* note icon to summonm note form */}
-                        <img className='adminPerformerIcon' 
-                                    alt='note icon' 
-                                    src={noteIcon} 
-                                onClick={ () => { setAdminNote(admin_notes); setNoting(noting => !noting); } }
-                        />
-                        
+                        {
+                            boardMember && <img className='adminPerformerIcon' 
+                                                      alt='note icon' 
+                                                      src={noteIcon} 
+                                                  onClick={ () => { setAdminNote(admin_notes); setNoting(noting => !noting); } }
+                                            />
+                        }
 
                         {/* delete icon to delete performer. only available to users with adminStatus. */}
                         {   adminStatus &&
@@ -362,9 +363,9 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
 
                             {/* icon is just for show. doesn't link out. */}
                             <img className='adminPerformerIcon'     
-                                        alt='bar chart icon' 
-                                        style={{cursor: 'auto'}}
-                                        src={levelIcon} 
+                                       alt='bar chart icon' 
+                                     style={{cursor: 'auto'}}
+                                       src={levelIcon} 
                             />
 
 
@@ -396,9 +397,9 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                                                     {/* checkmark icon will appear to show that status has been updated */}
                                                     <img className='adminPerformerIcon checkIcon'
                                                                 id={'checkIcon'+performer_id}
-                                                            alt='checkmark icon' 
-                                                            style={{display: 'none'}}
-                                                            src={checkIcon} 
+                                                               alt='checkmark icon' 
+                                                             style={{display: 'none'}}
+                                                               src={checkIcon} 
                                                     />
                                                 </>
 
@@ -435,6 +436,12 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                                                                 <img className='adminPerformerIcon' alt='IMDB logo' src={imdbIcon} />
                                                             </a>
 
+                                                            {/* 
+                                                            
+                                                                this feature is currently disabled, until such a time that a better solution
+                                                                can be found for counting credits. the current solution is too slow.
+                                                            
+                                                            
                                                             {
                                                                             // if no imdb credits have been counted yet, display link to count credits.
                                                              !creditCount ?  <p    style={{cursor: 'pointer'}}
@@ -446,7 +453,7 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                                                                            :    creditCount === 'counting' ? <p>counting...</p>
                                                                                                            : <p>{creditCount} stunt credits</p>
                                                                 
-                                                            }
+                                                            } */}
                                                         </div>
                         }
 

@@ -27,7 +27,7 @@ import   Axios            from 'axios';
 
 // conjures a note form inside performer profiles.
 // this is for internal use only, and is not visible to the public.
-function noteForm (id, note, setter, loadDat) {
+function noteForm (id, note, setter) {
 
 
     // helper function that updates the note in the database.
@@ -132,6 +132,9 @@ function updateClass (id) {
 
 // triggers a python script that counts the number of
 // stunt credits a performer has on IMDB.
+
+// this feature is currently disabled, until such a time that a better solution
+// can be found for counting credits. the current solution is too slow.                                                
 function countCredits (id, setter) {
 
     setter('counting');

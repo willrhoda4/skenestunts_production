@@ -212,27 +212,23 @@ app.post('/getAdminData',        authorizeToken('team'),
                                  checkTable,
                                  db.getData                     );
 
+app.put( '/updateData',          authorizeToken('team'),
+db.updateData                                                   );
+
+
+// ====================== AUTH ROUTES ===============
+
 app.get( '/loginTeam',           authorizeToken('team'),
                                  team.autoLogin                 );
 
-// poster routes
+// ===================== POSTER ROUTES =====================
 app.post('/getDoublesPosters',   posters.getDoublesPosters      );  // this route is public, but stored here for organization
 
 app.post('/getPostersByLetter',  authorizeToken('team'),
                                  posters.getPostersByLetter     );
 app.get('/getPosterList',        authorizeToken('team'),
                                  posters.getPosterList          );
-// app.post('/newPoster',           authorizeToken('team'),
-//                                  posters.newPoster              );
-// app.post('/newPosters',          authorizeToken('team'),
-//                                  posters.newPosters             );
 
-
-// ===================== BOARD ROUTES =====================
-
-// database routes
-app.put( '/updateData',          authorizeToken('board'),
-                                 db.updateData                  );
 
 
 // ===================== ADMIN ROUTES =====================
