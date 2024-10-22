@@ -98,24 +98,35 @@ export default function PasswordChecker( {
 
         e.preventDefault();
 
+        // helper function to authenticate the user
         const authenticateUser = ( data ) => {
 
+            // destructure the user data
             const { user, role } = data;
 
+            // set the user's role in the client
+            setAuthRole( role ); 
 
-            // if the user is a performer, set their performer class
-            origin !== '/director' && 
-            setPerformerClass      &&
-            user.performer_class   && setPerformerClass( user.performer_class );
+            // if the user is attempting to access the admin dashboard, set the admin status and board member status
+            if ( origin === '/director' ) {
 
-            // set the user's role and board status according to the role returned from the backend
-            setAuthRole(    role                                 ); 
-            setAdminStatus( role === 'admin'                     );
-            setBoardMember( role === 'admin' || role === 'board' );
+                setAdminStatus( role === 'admin'                     );
+                setBoardMember( role === 'admin' || role === 'board' );
+
+            // otherwise, setPerformerClass for performer updates    
+            } else {
+                
+                setPerformerClass      &&
+                user.performer_class   && setPerformerClass( user.performer_class );
+
+            }
 
             // stash the user data in state                                   
             return dataSetter( user );
+        
         }
+
+
         
         // dislays loading notification
         setStatus('checking');
