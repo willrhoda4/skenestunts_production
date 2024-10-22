@@ -104,7 +104,9 @@ export default function PasswordChecker( {
 
 
             // if the user is a performer, set their performer class
-            origin !== '/director' && setPerformerClass( user.performer_class );
+            origin !== '/director' && 
+            setPerformerClass      &&
+            user.performer_class   && setPerformerClass( user.performer_class );
 
             // set the user's role and board status according to the role returned from the backend
             setAuthRole(    role                                 ); 
@@ -118,7 +120,6 @@ export default function PasswordChecker( {
         // dislays loading notification
         setStatus('checking');
 
-        console.log('sending request...');
 
         // send the email and password to the backend for verification
         // note that { withCredentials: true } is necessary even though we don't have credentials yet.
@@ -127,7 +128,7 @@ export default function PasswordChecker( {
                      [ table, email, pwTable, fk, password ],
                      { withCredentials: true }
                   )
-             .then(  res => {     console.log(res.data)
+             .then(  res => {     
 
                                     // update notification according to response from backend
                                            res.data  === 'no match'      ? setStatus('passwordError')
@@ -180,9 +181,9 @@ export default function PasswordChecker( {
                     token:    token 
             };
 
-            Axios.post(`${process.env.REACT_APP_API_URL}email`, inviteBody               )
-                 .then(  res => { setStatus('resetReady');   } )
-                 .catch( err => { setStatus('programError'); } )
+            Axios.post(`${process.env.REACT_APP_API_URL}email`, inviteBody )
+                 .then(  res => { setStatus('resetReady');   }             )
+                 .catch( err => { setStatus('programError'); }             );
         }
 
     
@@ -193,7 +194,7 @@ export default function PasswordChecker( {
             let resetId;
 
             // checks database for email
-            getData([ reqTable, [[ 'email', email ]] ])
+            getData( [ reqTable, [ [ 'email', email ] ] ] )
             .then(  res => {  
                                        //email not found                               
                                     if (res.data.length === 0)      {

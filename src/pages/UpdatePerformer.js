@@ -89,7 +89,8 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
                                                                                             pwTable={  'performer_passwords'            }
                                                                                                  fk={  'performer_id'                   }
                                                                                          dataSetter={   setPerformerData                }
-                                                                                        setAuthRole={   setAuthRole                     }    
+                                                                                        setAuthRole={   setAuthRole                     }  
+                                                                                  setPerformerClass={   setPerformerClass               }  
 
                                                                 />
 
