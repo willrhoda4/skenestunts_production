@@ -74,8 +74,6 @@ async function updatePerformer ( request, response) {
         // destruct the request body
         const { performerId, columnList, databaseState } = request.body;
 
-        console.log(`performerId: ${performerId}\n tokenId: ${tokenId}\n decoded: ${decoded}`);
-
         // check if the performerId in the request matches the one in the JWT
         if ( tokenId !== performerId ) return response.status(403).json( { message: 'Permission denied' } );
 
@@ -86,11 +84,8 @@ async function updatePerformer ( request, response) {
         // combine databaseState with the performerId for the parameters
         const parameters = [ ...databaseState, performerId ];
 
-        console.log('sqlQuery:', sqlQuery);
-        console.log('parameters:', parameters);
-
         // execute the update query
-        await db.query(sqlQuery, parameters);
+        await db.pool.query(sqlQuery, parameters);
 
         // clear the JWT cookie and return a success message
         response.clearCookie( 'jwt' )
