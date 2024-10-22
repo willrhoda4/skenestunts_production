@@ -118,6 +118,8 @@ export default function PasswordChecker( {
         // dislays loading notification
         setStatus('checking');
 
+        console.log('sending request...');
+
         // send the email and password to the backend for verification
         // note that { withCredentials: true } is necessary even though we don't have credentials yet.
         // without it, the client will silently ignore the Set-Cookie header returned by the server.
@@ -125,7 +127,7 @@ export default function PasswordChecker( {
                      [ table, email, pwTable, fk, password ],
                      { withCredentials: true }
                   )
-             .then(  res => {     
+             .then(  res => {     console.log(res.data)
 
                                     // update notification according to response from backend
                                            res.data  === 'no match'      ? setStatus('passwordError')
