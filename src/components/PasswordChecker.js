@@ -202,7 +202,7 @@ export default function PasswordChecker( {
             let resetId;
 
             // checks database for email
-            Axios.post( { table: reqTable, email } )
+            Axios.post( `${process.env.REACT_APP_API_URL}checkEmail`, { table: reqTable, email } )
             .then(  res => {  
                                     //email not found                               
                                     if (res.data.length === 0)      {
