@@ -59,7 +59,7 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
             Axios.get('/loginPerformer') 
                 .then(  res => {            
                                     
-                                    const user = res.data[0];                    
+                                    const user = res.data.user;                    
                                     
                                     console.log('\nuser:\n',user);
                                     
