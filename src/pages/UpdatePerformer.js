@@ -86,20 +86,19 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
                     :   performerData === 'expired'         ?   <Notification type='bad'  msg='Your token has expired. Try resetting your password again.'             /> 
                     :   performerData === 'dataError'       ?   <Notification type='bad'  msg='A databse error has occured. Please try resetting your password again.' /> 
                     :   notPerformer                        ?   <PasswordChecker              
-                                                                                   fk={  'performer_id'                   }
-                                                                                table={  'performers'                     }
-                                                                              pwTable={  'performer_passwords'            }
-                                                                              getData={   getData                         }   
-                                                                           dataSetter={   setPerformerData                }
-                                                                          setAuthRole={   setAuthRole                     }  
-                                                                    setPerformerClass={   setPerformerClass               }  
+                                                                                   fk={  'performer_id'                    }
+                                                                                table={  'performers'                      }
+                                                                              pwTable={  'performer_passwords'             }
+                                                                           dataSetter={   setPerformerData                 }
+                                                                          setAuthRole={   setAuthRole                      }  
+                                                                    setPerformerClass={   setPerformerClass                }  
                                                                 />
 
-                        :                                       <ContactPerformer   performerOptions={  performerOptions                } 
-                                                                                       performerData={  performerData                   } 
-                                                                                      performerClass={  performerClass                  }
-                                                                                   setPerformerClass={  setPerformerClass               }
-                                                                                             getData={  getData                         }
+                        :                                       <ContactPerformer   performerOptions={  performerOptions   } 
+                                                                                       performerData={  performerData      } 
+                                                                                      performerClass={  performerClass     }
+                                                                                   setPerformerClass={  setPerformerClass  }
+                                                                                             getData={  getData            }
                                                                 />
                     }
             </div>

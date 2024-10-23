@@ -239,7 +239,6 @@ export default function Admin( { performerOptions, editing, adminStatus, setAdmi
                                                           fk={  'team_id'          }
                                                        table={  'board'            }
                                                      pwTable={  'board_passwords'  }
-                                                     getData={   getData           }   
                                                   dataSetter={   setAuthenticated  }
                                                  setAuthRole={   setAuthRole       }
                                               setBoardMember={   setBoardMember    }

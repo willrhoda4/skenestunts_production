@@ -177,8 +177,9 @@ app.post('/resetPassword',       auth.resetPassword             );
 // performer route
 app.post('/newPerformer',        performer.newPerformer         );
 
-// email route    
+// email routes    
 app.post('/email',               email.emailHandler             );
+app.post('/checkEmail',          email.checkEmail               );
 
 
 // image routes   

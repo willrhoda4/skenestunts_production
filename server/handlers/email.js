@@ -6,7 +6,7 @@
 
 
 
-
+const { pool }      = require('./database');
 const nodemailer    = require('nodemailer');
 
 
@@ -266,7 +266,27 @@ function emailHandler (req, res) {
     }
 }
 
-module.exports = { emailHandler };
+
+function checkEmail ( req, res ) {
+
+    const { email, table } = req.body;
+
+    console.log(`checking table ${table} for email ${email}...`);
+
+    const query = `SELECT * FROM ${table} WHERE email = $1`;
+
+    pool.query( query, [ email ], ( err, result ) => {
+
+        if ( err ) { 
+            
+            console.error( err ); 
+            return res.status( 400 ).send( 'error checking email' ); 
+        
+        } else { return res.send( result.rows ); }
+    } );    
+}
+
+module.exports = { emailHandler, checkEmail };
 
 
 

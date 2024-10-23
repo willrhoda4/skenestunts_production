@@ -24,7 +24,6 @@ import   iconPlay      from '../images/icon_play.svg'
 export default function PasswordChecker( {
                                             fk, 
                                             table, 
-                                            getData, 
                                             pwTable, 
                                             dataSetter, 
                                             setAuthRole,
@@ -157,8 +156,6 @@ export default function PasswordChecker( {
 
 
 
-    // table, pwTable, fk, dataSetter, getData, url
-    // sends email with reset link if email is found in database.
     function resetPassword () {
 
         // we declare these here so they can be redefined for
@@ -205,9 +202,9 @@ export default function PasswordChecker( {
             let resetId;
 
             // checks database for email
-            getData( [ reqTable, [ [ 'email', email ] ] ] )
+            Axios.post( { table: reqTable, email } )
             .then(  res => {  
-                                       //email not found                               
+                                    //email not found                               
                                     if (res.data.length === 0)      {
                                                                         // for Director's Chair login attempts, if the email
                                                                         // isn't found in the board table, check the team table.
