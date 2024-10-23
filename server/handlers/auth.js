@@ -222,7 +222,16 @@ const registerReset = (request, response) => {
 
 
 
-// resets password   
+/*
+takes care of database operations for resetting a password.
+
+id:         the id of the user whose password is being reset.
+newPass:    the new password.
+table:      the table where the password is stored.
+fk:         the foreign key for the password table.
+resetToken: the reset token that was sent to the user.
+
+*/
 const resetPassword = async (request, response) => {
     
 
@@ -253,6 +262,7 @@ const resetPassword = async (request, response) => {
     // step 1: validate the reset token
     const tokenQuery = `SELECT token, reset_at FROM ${table} WHERE ${fk} = $1`;
     
+
     try {
 
         const tokenResult = await pool.query( tokenQuery, [ id ] );
@@ -264,11 +274,11 @@ const resetPassword = async (request, response) => {
 
         const { token, reset_at } = tokenResult.rows[0];
         
+        // make sure the token matches and isn't more than 15 minutes old
         const invalidToken = token !== resetToken 
 
         const expiredToken = Date.now() - new Date( reset_at ).getTime() > 900000;
 
-        // make sure the token matches and isn't more than 15 minutes old
         if ( invalidToken || expiredToken ) {  
                                                 console.log('Reset token is invalid or expired');
                                                 return response.status(400).send('Invalid or expired reset token');
@@ -304,7 +314,9 @@ const resetPassword = async (request, response) => {
 
 
     // step 3: finally, fetch the user data from the correct table and return a JWT token
-    const userQuery = `SELECT email, imdb_id FROM ${ userTable } WHERE ${ fk } = $1`;
+    const jwtId = userTable === 'performers' ? 'performer_id' : 'imdb_id';
+    
+    const userQuery = `SELECT email, ${ jwtId } FROM ${ userTable } WHERE ${ fk } = $1`;
     
     try         {
                     const userResult = await pool.query( userQuery, [ id ] );

@@ -203,7 +203,7 @@ export default function PasswordReset ({getData}) {
     // keeps invite and token in url so user can be authenticated on the next page.
     useEffect(() => {
 
-        if (formStatus === 'reset') { navigate(`..r/${origin}?successfulReset=true`, { replace: true } ); }
+        if (formStatus === 'reset') { navigate(`${origin}?successfulReset=true`, { replace: true } ); }
 
     }, [ formStatus, invite, navigate, origin, token ] )
     
