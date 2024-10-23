@@ -6,7 +6,7 @@
 
 import                          './UpdatePerformer.css';
 import { useState,
-         useEffect }       from 'react';
+         useEffect, useCallback }       from 'react';
 import { useAuth   }       from '../hooks/useAuth.js';
 
 import { Helmet    }       from 'react-helmet';
@@ -31,8 +31,20 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
     // useAuth hook to track the user's role for the client
     const [   authRole,       setAuthRole      ] = useAuth();
 
-    const     notPerformer                       = () => authRole !== 'performer'
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const     notPerformer                       = useCallback(() => authRole !== 'performer')
    
+
+
+    useEffect(() => {
+        
+        console.log('performerData:', performerData);
+        console.log('performerClass:', performerClass);
+        console.log('authRole:', authRole);
+        console.log('successfulReset:', successfulReset);
+        console.log('notPerformer:', notPerformer());
+
+    }, [performerData, performerClass, authRole, successfulReset, notPerformer])
 
     // if the user has been sent back with a valid jwt after a password reset,
     // then go ahead and put their data in state without asking for credentials.
@@ -43,10 +55,14 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
         if ( successfulReset ) {
 
 
-
+        
             Axios.get('/loginPerformer') 
                 .then(  res => {            
-                                    const user = res.data[0];                         
+                                    
+                                    const user = res.data[0];                    
+                                    
+                                    console.log('\nuser:\n',user);
+                                    
                                     if ( !user )      {     return setPerformerData('dataError');   } 
                                                                 
                                     else              {    
@@ -85,7 +101,7 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
                 {       notPerformer() &&  successfulReset  ?   <Notification type='wait' msg='Hang tight while we get you logged in...'                               />
                     :   performerData === 'expired'         ?   <Notification type='bad'  msg='Your token has expired. Try resetting your password again.'             /> 
                     :   performerData === 'dataError'       ?   <Notification type='bad'  msg='A databse error has occured. Please try resetting your password again.' /> 
-                    :   notPerformer                        ?   <PasswordChecker              
+                    :   notPerformer()                      ?   <PasswordChecker              
                                                                                    fk={  'performer_id'                    }
                                                                                 table={  'performers'                      }
                                                                               pwTable={  'performer_passwords'             }
