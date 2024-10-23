@@ -115,14 +115,14 @@ async function autoLoginPerformer ( request, response ) {
     try {
     
         // step 2: extract the .id property from the token
-        const   decoded       = jwt.verify(token, process.env.JWT_SECRET);
-        const { performerId } = decoded.id;
+        const   decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const { id }    = decoded.id;
 
-        console.log('\n\nperformerId:', performerId);
+        console.log('\n\nperformerId:', id);
 
         // step 3: make a database query to the performers table
         const query = 'SELECT * FROM performers WHERE performer_id = $1';
-        const result = await db.pool.query(query, [ performerId ] );
+        const result = await db.pool.query(query, [ id ] );
 
         // step 4: return the user data barring any errors
         if ( result.rows.length === 0 ) return response.status(404).json( { message: 'user not found' } );
