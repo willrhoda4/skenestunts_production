@@ -31,8 +31,7 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
     // useAuth hook to track the user's role for the client
     const [   authRole,       setAuthRole      ] = useAuth();
 
-    const     notPerformer                       =  authRole !== 'performer'
- 
+    const     notPerformer                       = () => authRole !== 'performer'
    
 
     // if the user has been sent back with a valid jwt after a password reset,
@@ -83,7 +82,7 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
 
 
             <div id='updatePerformerWrapper'>
-                {       notPerformer   &&  successfulReset  ?   <Notification type='wait' msg='Hang tight while we get you logged in...'                               />
+                {       notPerformer() &&  successfulReset  ?   <Notification type='wait' msg='Hang tight while we get you logged in...'                               />
                     :   performerData === 'expired'         ?   <Notification type='bad'  msg='Your token has expired. Try resetting your password again.'             /> 
                     :   performerData === 'dataError'       ?   <Notification type='bad'  msg='A databse error has occured. Please try resetting your password again.' /> 
                     :   notPerformer                        ?   <PasswordChecker              
