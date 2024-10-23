@@ -217,7 +217,7 @@ export default function PasswordChecker( {
                                                                                                     return        registerReset(); 
                                                                                                   }
                                         
-                                                                         // otherwise display error notification
+                                                                        // otherwise display error notification
                                                                         return setStatus( 'emailError' );                            
                                                                     }
                                 else if (res.data.length === 1)     {   

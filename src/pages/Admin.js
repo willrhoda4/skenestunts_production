@@ -231,17 +231,19 @@ export default function Admin( { performerOptions, editing, adminStatus, setAdmi
 
       <Helmet>
         <meta name="robots" content="noindex" />
-      </Helmet>
+      </Helmet> 
 
       {    authenticated === 'expired'   ? <Notification type='bad' msg='Your token has expired. Try resetting your password again.' />
         :  authenticated === 'dataError' ? <Notification type='bad' msg='There was a database error. Try resetting your password again.' />
-        : !authenticated                 ? <PasswordChecker      table={  'board'            }
-                                                               pwTable={  'board_passwords'  }
-                                                                    fk={  'team_id'          }
-                                                            dataSetter={   setAuthenticated  }
-                                                           setAuthRole={   setAuthRole       }
-                                                        setBoardMember={   setBoardMember    }
-                                                        setAdminStatus={   setAdminStatus    }
+        : !authenticated                 ? <PasswordChecker      
+                                                          fk={  'team_id'          }
+                                                       table={  'board'            }
+                                                     pwTable={  'board_passwords'  }
+                                                     getData={   getData           }   
+                                                  dataSetter={   setAuthenticated  }
+                                                 setAuthRole={   setAuthRole       }
+                                              setBoardMember={   setBoardMember    }
+                                              setAdminStatus={   setAdminStatus    }
                                            />
                                          
         :  validAuthRole                 ? <>

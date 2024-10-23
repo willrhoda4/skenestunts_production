@@ -85,13 +85,14 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
                 {       notPerformer   &&  successfulReset  ?   <Notification type='wait' msg='Hang tight while we get you logged in...'                               />
                     :   performerData === 'expired'         ?   <Notification type='bad'  msg='Your token has expired. Try resetting your password again.'             /> 
                     :   performerData === 'dataError'       ?   <Notification type='bad'  msg='A databse error has occured. Please try resetting your password again.' /> 
-                    :   notPerformer                        ?   <PasswordChecker              table={  'performers'                     }
-                                                                                            pwTable={  'performer_passwords'            }
-                                                                                                 fk={  'performer_id'                   }
-                                                                                         dataSetter={   setPerformerData                }
-                                                                                        setAuthRole={   setAuthRole                     }  
-                                                                                  setPerformerClass={   setPerformerClass               }  
-
+                    :   notPerformer                        ?   <PasswordChecker              
+                                                                                   fk={  'performer_id'                   }
+                                                                                table={  'performers'                     }
+                                                                              pwTable={  'performer_passwords'            }
+                                                                              getData={   getData                         }   
+                                                                           dataSetter={   setPerformerData                }
+                                                                          setAuthRole={   setAuthRole                     }  
+                                                                    setPerformerClass={   setPerformerClass               }  
                                                                 />
 
                         :                                       <ContactPerformer   performerOptions={  performerOptions                } 
