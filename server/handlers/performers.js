@@ -118,6 +118,8 @@ async function autoLoginPerformer ( request, response ) {
         const decoded     = jwt.verify(token, process.env.JWT_SECRET);
         const performerId = decoded.id;
 
+        console.log('\n\nperformerId:', performerId);
+
         // step 3: make a database query to the performers table
         const query = 'SELECT * FROM performers WHERE performer_id = $1';
         const result = await db.pool.query(query, [ performerId ] );
