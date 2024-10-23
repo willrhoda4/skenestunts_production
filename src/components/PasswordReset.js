@@ -109,8 +109,6 @@ export default function PasswordReset ({getData}) {
         
         function verifyReset () {
 
-            console.log('verifying...\n')            
-            console.log(process.env.REACT_APP_RESET_TOKEN);  // Check if the token is correctly loaded
 
 
         

@@ -120,7 +120,7 @@ async function autoLoginPerformer ( request, response ) {
 
         // step 3: make a database query to the performers table
         const query = 'SELECT * FROM performers WHERE performer_id = $1';
-        const result = await db.query(query, [ performerId ] );
+        const result = await db.pool.query(query, [ performerId ] );
 
         // step 4: return the user data barring any errors
         if ( result.rows.length === 0 ) return response.status(404).json( { message: 'user not found' } );

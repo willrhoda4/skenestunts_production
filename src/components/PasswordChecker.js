@@ -203,7 +203,7 @@ export default function PasswordChecker( {
 
             // checks database for email
             Axios.post( `${process.env.REACT_APP_API_URL}checkEmail`, { table: reqTable, email } )
-            .then(  res => {  
+                 .then(  res => {  
                                     //email not found                               
                                     if (res.data.length === 0)      {
                                                                         // for Director's Chair login attempts, if the email
