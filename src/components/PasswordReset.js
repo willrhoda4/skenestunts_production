@@ -170,13 +170,19 @@ export default function PasswordReset ({getData}) {
     // sends password reset request to database if password fields are filled out and match.
     function resetPassword (e) {
 
+
+        console.log('resetting password...');
+        console.log('id:', id);
+        console.log('table:', table);
+        console.log('fk:', fk);
+
         e.preventDefault();
 
-            //checks if password fields are filled out
-             if (     password1Error ||
-                      password2Error          ) { return setFormStatus('inputError'); }
-    
-            //checks if passwords match
+        //checks if password fields are filled out
+            if (    password1Error ||
+                    password2Error            ) { return setFormStatus('inputError'); }
+
+        //checks if passwords match
         else if (     password1 !== password2 ) { return setFormStatus('matchError'); }
 
         else  {                                          // clears any previous error messages
@@ -197,7 +203,7 @@ export default function PasswordReset ({getData}) {
     // keeps invite and token in url so user can be authenticated on the next page.
     useEffect(() => {
 
-        if (formStatus === 'reset') { navigate(`../${origin}?successfulReset=true`, { replace: true } ); }
+        if (formStatus === 'reset') { navigate(`..r/${origin}?successfulReset=true`, { replace: true } ); }
 
     }, [ formStatus, invite, navigate, origin, token ] )
     
@@ -225,42 +231,42 @@ export default function PasswordReset ({getData}) {
                 : status === 'databaseError'     ?  <Notification type={'bad'} msg={'There\'s been a data error. Please let us know via email form so we can get it fixed for you.'}    />  
                 : status === 'authenticated'     ?  <div className='passwordForm adminForm'>
 
-                                                    <h2 className='passwordFormH2'>{ invite ? 'Welcome to Skene Stunts' : 'Reset your password'}</h2>
-                                                    
-                                                    < TextField
-                                                            name='new password'
-                                                            state={password1}
-                                                            setter={setPassword1}
-                                                            error={password1Error}
-                                                            noHelp={true}
-                                                        instructions='Minimum of eight characters'
-                                                                type='password'
-                                                    />
-                                            
-                                                    < TextField
-                                                                id='pwField'
-                                                                name='confirm password'
-                                                            state={password2}
-                                                            setter={setPassword2}
-                                                            error={password2Error}
-                                                            noHelp={true}
-                                                        instructions='Exactly as you just entered it'
-                                                                type='password' 
-                                                    />
-                                            
-                                                    <button id='formSubmitButton' className='formButton' type='button' onClick={(e) => resetPassword(e)}>Reset Password</button>
-                                            
-                                                            {  
-                                                              formStatus === 'reset'       ? <Notification type={'wait'} msg={`Password successfully reset, you should be redirected shortly...`} />
-                                                            : formStatus === 'inputError'  ? <Notification type={'bad' } msg={`Both password fields need to be filled out.`}                      />
-                                                            : formStatus === 'matchError'  ? <Notification type={'bad' } msg={`Passwords must be an exact match.`}                                />
-                                                            : formStatus === 'resetError'  ? <Notification type={'bad' } msg={`There's been a problem with your reset. \n
-                                                                                                                                Please try again, and notify us via email form if it persists.`}   />
-                                                            :                                 null
-                                                            }
-                                                </div>     
+                                                        <h2 className='passwordFormH2'>{ invite ? 'Welcome to Skene Stunts' : 'Reset your password'}</h2>
+                                                        
+                                                        < TextField
+                                                                    name='new password'
+                                                                   state={password1}
+                                                                  setter={setPassword1}
+                                                                   error={password1Error}
+                                                                  noHelp={true}
+                                                            instructions='Minimum of eight characters'
+                                                                    type='password'
+                                                        />
+                                                
+                                                        < TextField
+                                                                      id='pwField'
+                                                                    name='confirm password'
+                                                                   state={password2}
+                                                                  setter={setPassword2}
+                                                                   error={password2Error}
+                                                                  noHelp={true}
+                                                            instructions='Exactly as you just entered it'
+                                                                    type='password' 
+                                                        />
+                                                
+                                                        <button id='formSubmitButton' className='formButton' type='button' onClick={(e) => resetPassword(e)}>Reset Password</button>
+                                                
+                                                                {  
+                                                                  formStatus === 'reset'       ? <Notification type={'wait'} msg={`Password successfully reset, you should be redirected shortly...`} />
+                                                                : formStatus === 'inputError'  ? <Notification type={'bad' } msg={`Both password fields need to be filled out.`}                      />
+                                                                : formStatus === 'matchError'  ? <Notification type={'bad' } msg={`Passwords must be an exact match.`}                                />
+                                                                : formStatus === 'resetError'  ? <Notification type={'bad' } msg={`There's been a problem with your reset. \n
+                                                                                                                                    Please try again, and notify us via email form if it persists.`}   />
+                                                                :                                 null
+                                                                }
+                                                    </div>     
 
-                :                              null                                                               
+                    :                              null                                                               
                 }
 
             </div>

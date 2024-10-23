@@ -29,11 +29,10 @@ const cookieOptions = {
 // helper function to generate a JWT token for resetPassword and login.
 function returnToken( user, table ) {
 
-    console.log( ' \n\n\n\nRETURN TOKEN RAN!!!! \n\n\n\n')
-    console.log('USER IMDB ID:', user.imdb_id);
-    console.log('USER TABLE:', table);
-    
-    
+    console.log('\n\nRETURNING TOKEN FOR:');
+    console.log('performer_id:', user.performer_id);
+    console.log(user);
+
     // admin privileges for Jan, 
     // and shorten performers to performer, for readability.
     // just return board/team for the board and team
