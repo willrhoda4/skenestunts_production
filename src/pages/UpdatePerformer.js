@@ -51,6 +51,7 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
                                     if ( !user )      {     return setPerformerData('dataError');   } 
                                                                 
                                     else              {    
+                                                                   setAuthRole( 'performer' ); 
                                                                    setPerformerClass( user.performer_class  );     
                                                             return setPerformerData(  user                  );
                                                       }
@@ -62,7 +63,7 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
         }
 
 
-    }, [ setPerformerClass, successfulReset ] )
+    }, [ setPerformerClass, successfulReset, setAuthRole ] )
 
 
 
