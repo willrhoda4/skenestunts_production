@@ -115,8 +115,8 @@ async function autoLoginPerformer ( request, response ) {
     try {
     
         // step 2: extract the .id property from the token
-        const decoded     = jwt.verify(token, process.env.JWT_SECRET);
-        const performerId = decoded.id;
+        const   decoded       = jwt.verify(token, process.env.JWT_SECRET);
+        const { performerId } = decoded.id;
 
         console.log('\n\nperformerId:', performerId);
 
