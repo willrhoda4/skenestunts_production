@@ -178,7 +178,7 @@ function emailForm (id, email, status, setter, inputStyle, formStyle) {
         setter('sending');                                                      
             
         // attempt to send the email, and update the form notification accordingly.
-        Axios.post(`${ process.env.REACT_APP_API_URL }email`,
+        Axios.post(`${ process.env.REACT_APP_API_URL }adminEmail`,
                      { email, subject, message, type, cc  },
                      { withCredentials: true }
                   )

@@ -29,6 +29,7 @@ const   instagram                  = require('./handlers/instagram');
 const  authorizeToken              = require('./middleware/authorizeToken');
 const  authorizeGitHub             = require('./middleware/authorizeGitHub');
 const  checkTable                  = require('./middleware/checkTable');
+const  checkEmailType              = require('./middleware/checkEmailType');
          
          
          
@@ -178,7 +179,9 @@ app.post('/resetPassword',       auth.resetPassword             );
 app.post('/newPerformer',        performer.newPerformer         );
 
 // email routes    
-app.post('/email',               email.emailHandler             );
+app.post('/email',               checkEmailType,
+                                 email.emailHandler             );
+
 app.post('/checkEmail',          email.checkEmail               );
 
 
@@ -242,12 +245,10 @@ app.post('/reRankData',          authorizeToken('admin'),
 app.post('/addData',             authorizeToken('admin'),
                                  db.addData                    );
 
-
-// Routes that require authorization with specific roles
-// app.use('/performer', authorizeToken( 'performer' ), performerRouter  );
-// app.use('/team',      authorizeToken( 'team'      ), teamRouter       );
-// app.use('/board',     authorizeToken( 'board'     ), boardRouter      );
-// app.use('/admin',     authorizeToken( 'admin'     ), adminRouter      );
+// email route
+app.post('/adminEmail',          authorizeToken('admin'),
+                                 checkEmailType,
+                                 email.emailHandler            );
 
 
 // catch-all route to serve the index.html file for all routes

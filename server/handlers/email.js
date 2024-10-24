@@ -234,26 +234,6 @@ function emailHandler (req, res) {
 
 
 
-
-    // sends email to performer directly from website
-    async function errorNotification(request, response) {
-
-        console.log(`notifying tech team of an error...\n`)
-
-        const reachOutOptions = {        to: 'willrhoda4@gmail.com',
-                                       from: `"Skene Stunts" ${process.env.EMAIL}`,
-                                    subject: 'Error Notification',
-                                       html: emailHTML()
-                                }
-        deliverEmail(    response, 
-                         reachOutOptions, 
-                        `Error notification successfully sent.`, 
-                        `Error sending error notification.`
-                    );
-    }
-
-
-
     // the type prop determines which function to execute.
     switch (type) {
 
@@ -261,7 +241,6 @@ function emailHandler (req, res) {
         case 'producerEmail':     formMail(req, res);                       break;
         case 'reachingOut':       reachOut(req, res);                       break;
         case 'resetEmail':        sendResetLink(req, res);                  break;
-        case 'errorNotification': errorNotification(req, res);              break;
         default:                res.status(400).send('Invalid email type'); break;  
     }
 }
