@@ -87,10 +87,10 @@ export default function FacebookFeed ({name, url}) {
         }
     }
 
-    // // Bandaid fix to clear errors from FB SDK appearing in Chromium browsers
-    // const timerId = setTimeout(() => console.clear(), 3000);
-    // // Cleanup function to clear the timeout
-    // return () => clearTimeout(timerId);
+    // Bandaid fix to clear errors from FB SDK appearing in Chromium browsers
+    const timerId = setTimeout(() => console.clear(), 3000);
+    // Cleanup function to clear the timeout
+    return () => clearTimeout(timerId);
 
 }, [url]);
 

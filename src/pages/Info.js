@@ -68,6 +68,15 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
    const [  smallScreen,     setSmallScreen  ] = useState(false);
 
 
+   const [isFirefox, setIsFirefox] = useState(false);
+
+   useEffect(() => {
+       // Detect if the browser is Firefox
+       const userAgent = navigator.userAgent.toLowerCase();
+       if (userAgent.indexOf('firefox') > -1) {
+           setIsFirefox(true);
+       }
+   }, []);
 
 
 
@@ -486,9 +495,9 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
                         <div id='fb' className='infoPlatformWrapper'>
 
-                            <FacebookFeed name='Skene Stunts' 
+                          {  !isFirefox && <FacebookFeed name='Skene Stunts' 
                                            url='https://www.facebook.com/Skene-Stunts-109369232473048' 
-                            />
+                            />}
 
                         </div>
                     </div>
@@ -504,12 +513,13 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
                                 <img className='infoSocialIcon animate' alt='instagram icon' src={iconInstagram} />
                             </div>     
                                     <div id='ig' className='infoPlatformWrapper'>
-                                        { photoData && photoData.slice(0,6).map((image, index) => <img className='infoGramImage'
-                                                                                                            id={'example'+index}
-                                                                                                            key={index}
-                                                                                                            alt='example instagram content'
-                                                                                                            src={image.media_url}
-                                                                                                />
+                                        { !isFirefox && photoData && 
+                                           photoData.slice(0,6).map( ( image, index ) => <img className='infoGramImage'
+                                                                                                     id={'example'+index}
+                                                                                                     key={index}
+                                                                                                     alt='example instagram content'
+                                                                                                     src={image.media_url}
+                                                                                         />
                                                                                )
                                         }
                                     </div>

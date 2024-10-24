@@ -269,7 +269,7 @@ export default function PasswordChecker( {
             
             <p className='resetLink' 
                 style={{marginTop: '5vmin'}}
-                onClick={resetPassword}>ResetPassword</p>
+                onClick={resetPassword}>Reset Password</p>
 
             {   
               status === 'checking'         ? <Notification type={'wait'} msg={`Verifying password, this should only take a second...`}                             />
