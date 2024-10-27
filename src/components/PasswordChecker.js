@@ -225,7 +225,7 @@ export default function PasswordChecker( {
                                                                     // if there's an error, display error notification.
                                                                         return Axios.post( `${process.env.REACT_APP_API_URL}registerReset`, [ reqPwTable, fk, resetId ]    )
                                                                                     .then(    res => { resetEmail(resetId, res.data[0].token); }                           ); 
-                                                                    }  
+                                                                    }   
                                 else                                {   return setStatus( 'databaseError' );
                                                                     }                 
                            }

@@ -29,9 +29,7 @@ const cookieOptions = {
 // helper function to generate a JWT token for resetPassword and login.
 function returnToken( user, table ) {
 
-    console.log('\n\nRETURNING TOKEN FOR:');
-    console.log('performer_id:', user.performer_id);
-    console.log(user);
+    console.log('returning token for:\nuser: ', user);
 
     // admin privileges for Jan, 
     // and shorten performers to performer, for readability.
@@ -45,8 +43,8 @@ function returnToken( user, table ) {
 
     const payload = { id, role };
 
-    console.log('ID:', id);
-    console.log('ROLE:', role);
+    console.log('id:', id);
+    console.log('role:', role);
     
     const token   = jwt.sign( 
                                   payload, 
@@ -100,6 +98,8 @@ async function login ( request, response ) {
 
         }
 
+        console.log(`Data for ${email} found in database.\n`);
+
         return dataResult.rows[0];
     }
 
@@ -119,6 +119,8 @@ async function login ( request, response ) {
         }
 
         const stashedPass = pwResult.rows[0].password;
+
+        console.log(`Password for ${email} found in database.\n`);
     
         return bcrypt.compare(password, stashedPass)
     }
@@ -142,14 +144,16 @@ async function login ( request, response ) {
 
         // 5. if the password doesn't match, send "no match" as the response and stop further execution.
         if (!match) {
-            console.log('Password does not match');
+            console.log('Password does not match\n');
             return response.send('no match');
         } 
             
+        console.log('Password matches\n');
 
         // 6. if the password matches, proceed with generating a JWT token and determining the user role.
         const { role, token } = returnToken(user, table);
 
+        console.log('responding with user data and token...\n');
         // 7. set the JWT token as an HTTP-only cookie and send the user data and role back in the response.
         return response.cookie(
                                'jwt', 
