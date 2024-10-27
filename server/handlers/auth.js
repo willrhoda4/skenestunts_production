@@ -31,12 +31,13 @@ function returnToken( user, table ) {
 
     console.log('returning token for:\nuser: ', user);
 
+    // shorten performers to performer, for readability.
     // admin privileges for Jan, 
-    // and shorten performers to performer, for readability.
     // just return board/team for the board and team
-    const role    = ( user.imdb_id === 'nm0804052' ) ? 'admin'
-                    : table        === 'performers'  ? 'performer'
-                    :                                   table;
+    // also note that the order here is significant, as it allows Jan to edit her profile as a performer.
+    const role =   table        === 'performers'  ? 'performer'
+               : ( user.imdb_id === 'nm0804052' ) ? 'admin'
+               :                                     table;
 
     // we'll use the performer_id for performers and the imdb_id for board/team.
     const id      = user[ role === 'performer' ? 'performer_id'  : 'imdb_id' ];
