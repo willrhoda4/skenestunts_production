@@ -32,15 +32,15 @@ export default function Team ( {
     
                            
     const [ expanded,              setExpanded              ] = useState(false);
-    // const [ adminPosters,          setAdminPosters          ] = useState([]); 
 
     // controls the floating notification that appears when a team member
     // is successfully or unsuccessfully invited to Director's Chair.
     const [ floatingNotification,  setFloatingNotification  ] = useState(false);
     const [ fadingNotification,    setFadingNotification    ] = useState(false);
 
-    const posterList = table === 'board' ? posters[0] : posters[1];
+    const   posterList                                        = table === 'board' ? posters[0] : posters[1];
 
+    const   adminPoster                                       = (poster, index) => <div className='adminTeamPoster' key={index}>{poster}</div>;
 
     // close the current form if the table changes.
     // this hook keeps the program from running off the rails 
@@ -62,28 +62,6 @@ export default function Team ( {
 
 
 
-    // generates a poster rack for each team member using data from React components passed down from the App component.                                    
-    // useEffect(() => {
-
-    //     // grabs the proper array of arrays
-    //     const posterData = table === 'board' ? posters[0] : posters[1];
-
-
-    //     setAdminPosters(posterData.map( posterArray => {
-
-    //                                                 // slice off the team_id  at the end of the array                                             
-    //                             return posterArray.slice(0,-1).map( poster => {
-                                    
-    //                                  return <img
-    //                                                     key={poster.key}
-    //                                                     src={poster.props.src}
-    //                                               className={'adminTeamPoster'}
-    //                                                     alt={poster.props.alt}
-    //                                         />
-    //                             });
-    //                   }))
-
-    // }, [posters, table]);
     
   
 
@@ -100,7 +78,7 @@ export default function Team ( {
                     legal_name } = double;
 
         // prepares data to be passed to TeamForm component for updates
-        const       doubleData   = columns.map( key => double[ key ] ).concat( [ team_id ] ); 
+        const       doubleData   = columns.map(key => double[key]).concat([team_id]); 
 
         return (
 
@@ -159,14 +137,15 @@ export default function Team ( {
                                                             adminStatus={adminStatus}
                                                 />
 
+                                             
                                                 {/* five posters for team members, 10 for the board */}
                                                 <div className='adminTeamPosterRack'>
-                                                    { posterList.length === currentData.length && posterList[index].slice(0,5).map(poster => poster) }
+                                                    { posterList.length === currentData.length && posterList[index].slice(0,5).map((poster, index) => adminPoster(poster, index)) }
                                                 </div>
 
                                                 {   table === 'board' &&
                                                         <div className='adminTeamPosterRack'>
-                                                            { posterList.length === currentData.length && posterList[index].slice(5,10).map(poster => poster) }
+                                                            { posterList.length === currentData.length && posterList[index].slice(5,10).map((poster, index) => adminPoster(poster, index)) }
                                                         </div>
                                                 }
                                             </>

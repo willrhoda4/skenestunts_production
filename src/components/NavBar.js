@@ -150,7 +150,7 @@ function NavBar({links, editing, setEditing}) {
           { location.pathname !== '/director' ? <nav id='socialLinks'>
                                                         {  socialLink('facebook',  'https://www.facebook.com/Skene-Stunts-109369232473048/', iconFacebook  )  }
                                                         {  socialLink('instagram', 'https://www.instagram.com/skenestunts/',                 iconInstagram )  }
-                                                        {  socialLink('vimeo',     'https://player.vimeo.com/video/168591523',               iconVimeo     )  }
+                                                        {  socialLink('vimeo',     'https://vimeo.com/user144528473',                        iconVimeo     )  }
                                                 </nav>
 
                                               : <div id='adminNavbarRight'>

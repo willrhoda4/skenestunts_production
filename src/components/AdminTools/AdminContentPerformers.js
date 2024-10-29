@@ -376,12 +376,12 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                                                     {/* class dropdown */}
                                                     <select key={performer_id} id={'newPerformerClass'+performer_id} defaultValue={performer_class}>
                                                         <option value={'A'}>A — team member</option>
-                                                        <option value={'B'}>B — good books</option>
+                                                        <option value={'B'}>B — endorsed</option>
                                                         <option value={'C'}>C — IMDB ID and reel</option>
                                                         <option value={'D'}>D — IMDB ID no reel</option>
                                                         <option value={'R'}>R — reel but no IMDB  ID</option>
                                                         <option value={'E'}>E — rookie</option>
-                                                        <option value={'F'}>F — bad books</option>
+                                                        <option value={'F'}>F — listed</option>
                                                     </select>
 
 
