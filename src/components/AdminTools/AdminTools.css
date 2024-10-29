@@ -225,13 +225,13 @@
 
         .adminTeamPosterRack {
             display: flex;
+            height: 100px;
             width: 100%;
             justify-content: space-between
         }
 
             .adminTeamPoster {
-                height: 10vmin;
-                max-height: 10vmin;
+                height: 100%;
                 width: 20%;
             }
 
