@@ -105,13 +105,28 @@ export default function useFontWrangler( { ids, initialSize = 16, maxIterations 
       });
     }
 
+
+    // Utility: Debounce function
+function debounce(func, delay) {
+  let timeout;
+  return (...args) => {
+  clearTimeout(timeout);
+  timeout = setTimeout(() => func(...args), delay);
+  };
+  }
+
+
+  const debouncedResize = debounce(adjustFontSize, 200); // Debounce function
+
     // call `adjustFontSize` immediately when the component mounts.
     adjustFontSize();
 
     // add an event listener to adjust the font size whenever the window is resized.
-    window.addEventListener('resize', adjustFontSize);
+    window.addEventListener('resize', debouncedResize);
 
     // cleanup: Remove the resize event listener when the component unmounts.
-    return () => window.removeEventListener( 'resize', adjustFontSize );
+    return () => window.removeEventListener('resize', debouncedResize);
+    
   }, [ ids, initialSize, maxIterations, childSelector ] );
 }
+

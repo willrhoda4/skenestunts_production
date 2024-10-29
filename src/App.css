@@ -275,6 +275,7 @@ a {
               }
       
               .formButton.optionButton {
+                  cursor: pointer;
                   font-family: BarlowCondensed;
                   text-align: left;
                   /* font-size: 1.8em; */

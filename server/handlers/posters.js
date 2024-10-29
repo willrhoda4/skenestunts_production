@@ -141,11 +141,11 @@ const getDoublesPosters = (request, response) => {
     const column = request.body[0];
     const ids    = request.body[1].filter( id => id.length > 0 );
 
-    // if ids filter request.body[2] all the way down to zero, 
+    // if ids filters request.body[2] all the way down to zero, 
     // they haven't selected any posters and we can just return an empty array.
     if ( ids.length === 0 ) return response.send([]);
 
-    // build an SQL IN clause with placeholders for the id values,
+    // build a SQL IN clause with placeholders for the id values,
     const idsList = ids.join(', ');
     
     // then use a CASE statement to assign a rank to each id.

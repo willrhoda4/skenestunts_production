@@ -179,6 +179,8 @@ export default function Page1 ({pageState, setPageState, setPageError, performer
                 noHelp={true}
             />
 
+            <p style={{ fontSize: '1em', marginBottom: '2em' }}>Please be sure to indicate your current province of residence.</p>
+
             < StringDropdown
                 name='pronouns'
                 state={pronouns}

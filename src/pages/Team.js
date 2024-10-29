@@ -31,6 +31,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
   // use the hook to wrangle font sizes
   useFontWrangler( { ids: blurbIds                         } );
+  // useFontWrangler( { ids: [ 'teamName' ]                   } );
   useFontWrangler( { ids: attributeIds, childSelector: 'p' } );
 
 
@@ -98,18 +99,26 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
               <div className='boardContentTopRightTop'>
 
-                <div className='boardNameLevel'>
+                <div className='boardNameTitle'>
+                    
+                  <div className='boardNameWrapper'>
                     <h2 className='boardName' >{legal_name}</h2>
-                    <a      key={index}
-                        target="_blank"
-                            rel="noreferrer"
-                          href={'https://www.imdb.com/name/'+imdb_id+'/'}
-                    >
-                        <img className='imdbIcon' alt='IMDB logo' src={imdbIcon} style={{zIndex: '99'}}/>
-                    </a>
-                </div>
+                  </div>
                 
-                <h3 style={{fontSize: '2em', zIndex: '99'}}>{title}</h3>
+                  <h3 style={{fontSize: '2em', zIndex: '99'}}>{title}</h3>
+                
+                </div>
+
+                <a     
+                        key={index}
+                     target="_blank"
+                        rel="noreferrer"
+                       href={'https://www.imdb.com/name/'+imdb_id+'/'}
+                  className='profileIcon'
+                >
+                      <img className='imdbIcon' alt='IMDB logo' src={imdbIcon} style={{zIndex: '99'}}/>
+                </a>
+
 
               </div>
 

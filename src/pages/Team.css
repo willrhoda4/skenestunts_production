@@ -71,34 +71,59 @@
             top: 10%;
             left: 40%;
             z-index: 2;
+            border: 3px orange ridge;
+            position: relative;
         }
 
             .boardContentTopRightTop {
                 width: 100%;
                 height: 40%;
+                border: 3px blue ridge;
+                position: absolute;
+                top: 0;
             }
 
 
-                .boardNameLevel {
-                    display: flex;
-                    justify-content: left;
-                    margin: 2.5vh 0 0;
-                    width: 100%;
-                    align-items: center;
+                .boardNameTitle {
+                    width: 88%;
                     z-index: 1;
+                    position: absolute;
+                    left: 0;
+                    display: flex;
+                    flex-direction: column;
+                    border: 3px red ridge;
                 }
 
+                    .boardNameWrapper {
+                        border: 3px lime ridge;
+                        width: 100%;
+                    }
 
-                    .boardName {
-                        font-family: BigShoulders;
-                        z-index: 1;
-                        white-space: nowrap;
-                        overflow: hidden;
+                        .boardName {
+                            font-family: BigShoulders;
+                            width: 100%;
+                            z-index: 1;
+                            white-space: nowrap;
+                            overflow: hidden;
+                        }
+
+                    .profileIcon {
+                        position: absolute;
+                        right: 0;
+                        top: 35%;
+                        height: 30%;
+                        width: 10%;
+                        display: flex;
+                        align-items: center;
+                        border: 3px red ridge;
                     }
 
             .boardAttributeWrapper {
                 width: 100%;
                 height: 50%;
+                border: 3px blue ridge;    
+                position: absolute;
+                bottom: 0;     
             }
 
             .boardAttribute {
@@ -185,6 +210,7 @@
     border-top: 4px red ridge;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     width: 40vw;
+    max-width: 800px;
     margin: 5vw;
     padding-top: 2.5vmin;
     height: max(25vw, 250px);
