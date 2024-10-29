@@ -49,7 +49,7 @@ export function useLoadPosters ( boardData, boardPosters, setBoardPosters, teamD
                                                                     id={  poster.cloudinary_id               }
                                                                     key={ poster.poster_id                   }
                                                                     alt={ 'movie poster for ' + poster.title }
-                                                                    className={ posterClass                  }
+                                                                    // className={ posterClass                  }
                                                                 />
                                                             )
                                                 )

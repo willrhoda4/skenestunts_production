@@ -29,10 +29,10 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
   const blurbIds     = boardData && boardData.map( (_, index) => `blurb${index}`           );
   const attributeIds = boardData && boardData.map( (_, index) => `boardAttributes${index}` );
 
-  // use the hook to wrangle font sizes
-  useFontWrangler( { ids: blurbIds                         } );
-  // useFontWrangler( { ids: [ 'teamName' ]                   } );
-  useFontWrangler( { ids: attributeIds, childSelector: 'p' } );
+  // // use the hook to wrangle font sizes
+  // useFontWrangler( { ids: blurbIds                         } );
+  // // useFontWrangler( { ids: [ 'teamName' ]                   } );
+  // useFontWrangler( { ids: attributeIds, childSelector: 'p' } );
 
 
   // generates board member profiles
