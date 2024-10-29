@@ -231,7 +231,8 @@
 
             .adminTeamPoster {
                 height: 10vmin;
-                width: 100%;
+                max-height: 10vmin;
+                width: 20%;
             }
 
         .adminTeamContent {
