@@ -10,7 +10,8 @@ import   AdminButtons    from './AdminButtons.js';
 import   AdminFormTeam   from './AdminFormTeam.js';
 
 import   Notification    from '../Notification.js';  
-import   CloudImage     from '../CloudImage.js';
+import   CloudImage      from '../CloudImage.js';
+import   cloudPoster     from '../../utils/cloudPoster.js';
 
 import { useState, 
          useEffect  }    from 'react';
@@ -40,7 +41,6 @@ export default function Team ( {
 
     const   posterList                                        = table === 'board' ? posters[0] : posters[1];
 
-    const   adminPoster                                       = (poster, index) => <div className='adminTeamPoster' key={index}>{poster}</div>;
 
     // close the current form if the table changes.
     // this hook keeps the program from running off the rails 
@@ -140,12 +140,12 @@ export default function Team ( {
                                              
                                                 {/* five posters for team members, 10 for the board */}
                                                 <div className='adminTeamPosterRack'>
-                                                    { posterList.length === currentData.length && posterList[index].slice(0,5).map((poster, index) => adminPoster(poster, index)) }
+                                                    { posterList.length === currentData.length && posterList[index].slice(0,5).map((poster, index) => cloudPoster(poster, 'adminTeamPoster')) }
                                                 </div>
 
                                                 {   table === 'board' &&
                                                         <div className='adminTeamPosterRack'>
-                                                            { posterList.length === currentData.length && posterList[index].slice(5,10).map((poster, index) => adminPoster(poster, index)) }
+                                                            { posterList.length === currentData.length && posterList[index].slice(5,10).map((poster, index) => cloudPoster(poster, 'adminTeamPoster')) }
                                                         </div>
                                                 }
                                             </>

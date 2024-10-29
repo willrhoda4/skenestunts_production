@@ -12,7 +12,8 @@ import { Helmet }        from 'react-helmet';
    
 import   Picture         from '../components/Picture';
 import   CloudImage      from '../components/CloudImage';
-   
+import   cloudPoster     from '../utils/cloudPoster';
+
 import   imdbIcon        from '../images/imdb_icon.png';
 import   iconChevron     from '../images/icon_chevronsRight.svg'
 import   logo            from '../images/logo_background.webp';
@@ -33,6 +34,12 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
   // useFontWrangler( { ids: blurbIds                         } );
   // // useFontWrangler( { ids: [ 'teamName' ]                   } );
   // useFontWrangler( { ids: attributeIds, childSelector: 'p' } );
+
+
+
+
+
+
 
 
   // generates board member profiles
@@ -85,7 +92,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
       <div className='boardProfile' >    
        
             { boardPosters && !no_posters ?   <div className='boardPosterRack'>
-                                                {boardPosters[index].slice(0,5).map(poster => poster)} 
+                                                {boardPosters[index].slice(0,5).map(poster => cloudPoster(poster, 'boardPoster'))} 
                                               </div>
 
                                           :   <div className='boardRackSubstitute' />
@@ -147,7 +154,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
 
 
         { boardPosters && !no_posters ?   <div className='boardPosterRack'>
-                                                {boardPosters[index].slice(5,10).map(poster => poster)} 
+                                                {boardPosters[index].slice(5,10).map(poster => cloudPoster(poster, 'boardPoster'))} 
                                               </div>
 
                                           :   <div className='boardRackSubstitute' />
@@ -199,7 +206,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
         </div>
 
         <div className='teamPosterRack'>                      {/* sliced here to ditch team_id at the last index, which is there for the profile component */}
-            { teamPosters && !no_posters && teamPosters[index].slice(0,5).map(poster => poster) }
+            { teamPosters && !no_posters && teamPosters[index].slice(0,5).map(poster => cloudPoster(poster, 'teamPoster')) }
         </div>
 
       </div>

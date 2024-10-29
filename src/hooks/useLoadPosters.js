@@ -7,7 +7,6 @@
 import { useEffect } from 'react';
 import   Axios       from 'axios';
 
-import   CloudImage from '../components/CloudImage';
 
 
 
@@ -35,25 +34,13 @@ export function useLoadPosters ( boardData, boardPosters, setBoardPosters, teamD
 
             const promises = teamPosters.map( ( posters, index ) => {
 
-                // team members have 5 poster, board members have 10
-                const posterClass = posters.length > 5 ? 'boardPoster' : 'teamPoster';
 
                 // get the poster data from the database
                 return Axios.post(`${process.env.REACT_APP_API_URL}getDoublesPosters`, [ 'poster_id', posters ] )
                             .then( res => 
                                     
-                                    // generate an array of poster images 
                                     // and append the imdb_id for the sake of the profile component
-                                    res.data.map( poster => (
-                                                                <CloudImage
-                                                                    id={  poster.cloudinary_id               }
-                                                                    key={ poster.poster_id                   }
-                                                                    alt={ 'movie poster for ' + poster.title }
-                                                                    className={ posterClass                  }
-                                                                />
-                                                            )
-                                                )
-                                         .concat( [ state[ index ].imdb_id ] ) )
+                                    res.data.concat( [ state[ index ].imdb_id ] ) )
 
                             .catch(err => console.log(err));
             });
