@@ -104,7 +104,7 @@ export default function PosterBarn( {   setCurrentData,
 
         const cleanTitle  = cleanString(title);
 
-        let parameters = [ cleanTitle, imdbID ];          
+        let parameters = [ title, imdbID ];          
 
         
         // upload the poster to Cloudinary
