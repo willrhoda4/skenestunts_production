@@ -14,10 +14,10 @@ import { useEffect } from 'react';
  * @param {Object} params               - Parameters for font wrangling.
  * @param {Array}  params.ids           - Array of element IDs to apply the font wrangling to (must be unique IDs).
  * @param {number} params.initialSize   - Optional. Initial font size in pixels. Default is 16px.
- * @param {number} params.maxIterations - Optional. Maximum number of tries for font adjustment. Default is 15.
+ * @param {number} params.maxIterations - Optional. Maximum number of tries for font adjustment. Default is 10.
  * @param {string} params.childSelector - Optional. CSS selector to adjust font size of specific child elements.
  */
-export default function useFontWrangler( { ids, initialSize = 16, maxIterations = 15, childSelector = null } ) {
+export default function useFontWrangler( { ids, initialSize = 16, maxIterations = 10, childSelector = null } ) {
   
 
   // the `useEffect` hook runs when the component mounts and whenever 
@@ -30,9 +30,12 @@ export default function useFontWrangler( { ids, initialSize = 16, maxIterations 
     // define the function to adjust the font size of the text elements.
     function adjustFontSize() {
 
+      console.log('making an adjustment...');
+
+      attempts++;
 
       // If no IDs are provided or we're in a race situation, exit the function.
-      if ( !ids || attempts > 30 ) return;
+      if ( !ids || attempts > 10 ) return;
 
       // loop through all the element IDs provided.
       ids.forEach( id => {
@@ -40,7 +43,7 @@ export default function useFontWrangler( { ids, initialSize = 16, maxIterations 
         // find the text element using its ID.
         const text = document.getElementById( id );
 
-        if (!text) return setTimeout( () => { attempts++; adjustFontSize() }, 100);
+        if (!text) return setTimeout( () => { adjustFontSize() }, 200);
 
         // automatically get the parent container of the text element.
         const container = text?.parentElement;
@@ -48,7 +51,7 @@ export default function useFontWrangler( { ids, initialSize = 16, maxIterations 
         // if a childSelector is provided, query the child elements within the text.
         const childElements = childSelector && text.querySelectorAll( childSelector );
 
-        // if either the text or its container is missing, exit the function.
+        // if either the text or its container is missing, this ain't gonna work.
         if ( !(container && text) ) return;
 
         // start the font size at the initial size provided (default: 16px).
@@ -98,28 +101,31 @@ export default function useFontWrangler( { ids, initialSize = 16, maxIterations 
           // If no childSelector is provided, apply the size to the text element.
           !childSelector ? text.style.fontSize = newSize
                          : childElements.forEach( child => child.style.fontSize = newSize );           
-        }
-
+                         
           // lastly, increment the iteration counter.
           iterations++;
+          }
       });
     }
 
 
-    // Utility: Debounce function
-function debounce(func, delay) {
-  let timeout;
-  return (...args) => {
-  clearTimeout(timeout);
-  timeout = setTimeout(() => func(...args), delay);
-  };
+  // debounce function to add a delay to the resize event listener.
+  function debounce(func, delay) {
+    
+    let timeout;
+    
+    return (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), delay);
+    };
   }
 
+  // call `adjustFontSize` immediately when the component mounts.
+  adjustFontSize();
 
-  const debouncedResize = debounce(adjustFontSize, 200); // Debounce function
+  const debouncedResize = debounce(adjustFontSize, 500); // Debounce function
 
-    // call `adjustFontSize` immediately when the component mounts.
-    adjustFontSize();
+  // const debouncedResize = () => setTimeout(adjustFontSize, 500);
 
     // add an event listener to adjust the font size whenever the window is resized.
     window.addEventListener('resize', debouncedResize);

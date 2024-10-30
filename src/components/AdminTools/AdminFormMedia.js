@@ -283,7 +283,7 @@ export default function MediaForm({loadData, currentData, setCurrentData, table,
                         noHelp={true}
                     />     
 
-{
+                    {
                             formStatus === 'inputError'  ? <Notification type='bad'  msg='Looks like something is filled out incorrectly. Make sure all the lights are shining green, then try again.' />
                         :   formStatus === 'imageError'  ? <Notification type='bad'  msg='Looks like there was a problem uploading the image to your cloud server.' />
                         :   formStatus === 'uploadError' ? <Notification type='bad'  msg='There was a problem uploading your information. Try refreshing the page before you reattempt.' />

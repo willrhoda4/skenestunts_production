@@ -31,9 +31,9 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
   const attributeIds = boardData && boardData.map( (_, index) => `boardAttributes${index}` );
 
   // // use the hook to wrangle font sizes
-  // useFontWrangler( { ids: blurbIds                         } );
+  useFontWrangler( { ids: blurbIds                         } );
   // // useFontWrangler( { ids: [ 'teamName' ]                   } );
-  // useFontWrangler( { ids: attributeIds, childSelector: 'p' } );
+  useFontWrangler( { ids: attributeIds, childSelector: 'p' } );
 
 
 

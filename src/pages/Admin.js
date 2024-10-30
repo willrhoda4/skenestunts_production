@@ -262,8 +262,9 @@ export default function Admin( { performerOptions, editing, adminStatus, setAdmi
                                                                                      pkName='poster_id'
                                                                                   AdminForm={PosterBarn}
                                                                                   Generator={Posters}
-                                                                                    columns={[ 'title', 'imdb_id', 'cloudinary_id' ]}
                                                                                     getData={getData}
+                                                                                adminStatus={adminStatus}
+                                                                                    columns={[ 'title', 'imdb_id', 'cloudinary_id' ]}
                                                               />  
                               
                                 : editing === 'media'       ? <AdminView           loadData={loadData} 
