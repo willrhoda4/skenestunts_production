@@ -112,7 +112,7 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
                     <h2 className='boardName' >{legal_name}</h2>
                   </div>
                 
-                  <h3 style={{fontSize: '2em', zIndex: '99'}}>{title}</h3>
+                  <h3 style={{fontSize: '1.5em', zIndex: '99'}}>{title}</h3>
                 
                 </div>
 
