@@ -23,7 +23,7 @@ const   instagram                  = require('./handlers/instagram');
          
          
 // import middleware         
-const  sentry                      = require('./middleware/sentry');
+// const  sentry                      = require('./middleware/sentry');
 const  authorizeToken              = require('./middleware/authorizeToken');
 const  authorizeGitHub             = require('./middleware/authorizeGitHub');
 const  checkTable                  = require('./middleware/checkTable');
@@ -92,7 +92,7 @@ const limiter = rateLimit({
 const app = express();
 
       // ... and initiate your middleware
-      sentry.initialize(app);
+      // sentry.initialize(app);
 
       app.use(cookieParser());
 
@@ -252,7 +252,7 @@ app.get('/*',  (req, res) => { res.sendFile(path.join(__dirname, '../build', 'in
 
 
 // should be the last middleware
-app.use(sentry.errorHandler); 
+// app.use(sentry.errorHandler); 
 
 
 const PORT = process.env.PORT || 5000;
