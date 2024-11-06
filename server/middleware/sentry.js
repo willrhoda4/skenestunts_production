@@ -28,6 +28,9 @@ function initialize( app ) {
 
   // and  add errorHandler as the last middleware in server.js
 }
+console.log(`'\n\n${Sentry.Handlers.errorHandler()}\n\n`)
+console.log(`'\n\n${Sentry.Handlers()}\n\n`)
+console.log(`'\n\n${Sentry}\n\n`)
 
 const errorHandler = Sentry.Handlers.errorHandler();
 
