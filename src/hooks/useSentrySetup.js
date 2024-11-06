@@ -6,8 +6,8 @@
 
 
 import   * as Sentry      from "@sentry/react";
-import { BrowserTracing } from "@sentry/react";  
-import { Replay         } from "@sentry/react";  
+import { BrowserTracing } from "@sentry/browser";  
+import { Replay         } from "@sentry/browser";  
 
 
 // variable to check if Sentry has already been initialized
