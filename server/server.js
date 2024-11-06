@@ -83,7 +83,7 @@ const corsOptions = {
 const limiter = rateLimit({
 
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100                  // limit each IP to 100 requests per windowMs.
+  max: 250                  // limit each IP to 250 requests per windowMs.
 
 });
 
@@ -155,7 +155,7 @@ const app = express();
 
 
 // apply the rate limiter to all requests
-// app.use(limiter);
+app.use(limiter);
 
 
 
@@ -256,7 +256,7 @@ app.get('/*',  (req, res) => { res.sendFile(path.join(__dirname, '../build', 'in
 
 
 // Sentry.setupExpressErrorHandler(app);
-// app.use(Sentry.Handlers.errorHandler()); // should be the last middleware
+app.use(Sentry.Handlers.errorHandler()); // should be the last middleware
 
 
 const PORT = process.env.PORT || 5000;
