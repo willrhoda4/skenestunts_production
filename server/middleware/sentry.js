@@ -22,15 +22,15 @@ function initialize( app ) {
     profilesSampleRate: 1.0,
   });
 
-  // Attach Sentry handlers
-  app.use(Sentry.Handlers.requestHandler()); // to handle requests as first middleware
   app.use(Sentry.Handlers.tracingHandler()); // for tracing
+  app.use(Sentry.Handlers.requestHandler()); // to handle requests as first middleware
+  // Attach Sentry handlers
 
   // and  add errorHandler as the last middleware in server.js
 }
-console.log(`'\n\n${Sentry.Handlers.errorHandler()}\n\n`)
-console.log(`'\n\n${Sentry.Handlers()}\n\n`)
 console.log(`'\n\n${Sentry}\n\n`)
+console.log(`'\n\n${Sentry.Handlers()}\n\n`)
+console.log(`'\n\n${Sentry.Handlers.errorHandler()}\n\n`)
 
 const errorHandler = Sentry.Handlers.errorHandler();
 
