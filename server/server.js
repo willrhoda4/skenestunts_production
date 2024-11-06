@@ -252,7 +252,7 @@ app.get('/*',  (req, res) => { res.sendFile(path.join(__dirname, '../build', 'in
 
 
 // should be the last middleware
-app.use(sentry.errorHandler()); 
+app.use(sentry.errorHandler); 
 
 
 const PORT = process.env.PORT || 5000;
