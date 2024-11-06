@@ -8,9 +8,6 @@ const   path                       = require('path');
                                      require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 
 
-// import Sentry
-                                     require('./middleware/sentryInstrument');
-const Sentry                       = require('@sentry/node');
 
 
 // import handlers
@@ -26,6 +23,7 @@ const   instagram                  = require('./handlers/instagram');
          
          
 // import middleware         
+const  sentry                      = require('./middleware/sentry');
 const  authorizeToken              = require('./middleware/authorizeToken');
 const  authorizeGitHub             = require('./middleware/authorizeGitHub');
 const  checkTable                  = require('./middleware/checkTable');
@@ -94,9 +92,7 @@ const limiter = rateLimit({
 const app = express();
 
       // ... and initiate your middleware
-      // app.use(Sentry.Handlers.requestHandler());  // should be the first middleware
-
-      // app.use(Sentry.Handlers.tracingHandler());  // for performance monitoring
+      sentry.initialize(app);
 
       app.use(cookieParser());
 
@@ -255,8 +251,8 @@ app.post('/adminEmail',          authorizeToken('admin'),
 app.get('/*',  (req, res) => { res.sendFile(path.join(__dirname, '../build', 'index.html')); });
 
 
-// Sentry.setupExpressErrorHandler(app);
-app.use(Sentry.Handlers.errorHandler()); // should be the last middleware
+// should be the last middleware
+app.use(sentry.errorHandler); 
 
 
 const PORT = process.env.PORT || 5000;
