@@ -1,8 +1,0 @@
-
-
-
-
-
-Don't delete this file so Heroku doesn't delete its parent directory.
-
-Thanks!

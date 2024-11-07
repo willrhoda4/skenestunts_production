@@ -49,7 +49,6 @@ import { useLoadPosters           } from './hooks/useLoadPosters';
 import { useScrollToTop           } from './hooks/useScrollToTop';
 import { useFetchInstagramData    } from './hooks/useFetchInstagramData';
 import { useSetLinks              } from './hooks/useSetLinks';
-import { useSentrySetup           } from './hooks/useSentrySetup';
 
 
 const    Contact =                  lazy(() => import('./pages/Contact.js'            ));
@@ -103,8 +102,6 @@ const getData = useCallback( async (reqBody, headers) => {
 
 
 // Use custom hooks
-// useSentrySetup();
-
 usePreconnectOrigins();
 
 useCheckConstructionMode(getData, setConstructionMode);

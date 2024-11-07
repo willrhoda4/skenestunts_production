@@ -6,7 +6,7 @@
 
 
 
-import                        './utils/setupSentry';
+import                        './utils/setupSentryReact';
 import   App             from './App';
 import { BrowserRouter } from 'react-router-dom';
 
