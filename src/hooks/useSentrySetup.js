@@ -7,8 +7,8 @@
   
   
   import   * as Sentry      from "@sentry/react";
-  import { BrowserTracing } from "@sentry/tracing";  
-  import { Replay         } from "@sentry/replay";  
+  import { BrowserTracing } from "@sentry/browser";  
+  import { Replay         } from "@sentry/react";  
   import { useState,
            useEffect      } from 'react';
   
