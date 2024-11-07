@@ -12,17 +12,6 @@
 
 
 
-  
-  
-  
-  
-  import   * as Sentry      from "@sentry/react";
-  import { BrowserTracing } from "@sentry/tracing";  
-  import { Replay         } from "@sentry/replay";  
-  
-
-
-
 
 
 
@@ -114,19 +103,7 @@ const getData = useCallback( async (reqBody, headers) => {
 
 
 // Use custom hooks
-// useSentrySetup();
-Sentry.init({
-    dsn: process.env.REACT_APP_SENTRY_DSN,
-    integrations: [
-      new BrowserTracing(),  
-      new Replay(),          
-    ],
-    tracesSampleRate:         1.0,
-    tracePropagationTargets: ["localhost", /^https:\/\/skenestunts\.io\/api/],
-    replaysSessionSampleRate: 0.1,  // adjust sampling rates as needed
-    replaysOnErrorSampleRate: 1.0,
-  });
-
+useSentrySetup();
 
 usePreconnectOrigins();
 
