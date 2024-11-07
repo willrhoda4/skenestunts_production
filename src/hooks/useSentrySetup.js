@@ -9,7 +9,7 @@
   import   * as Sentry      from "@sentry/react";
   import { BrowserTracing } from "@sentry/tracing";  
   import { Replay         } from "@sentry/replay";  
-  import { useRef         } from 'react';
+  import { useState       } from 'react';
   
 
 // variable to check if Sentry has already been initialized
@@ -17,10 +17,10 @@
 // this hook initializes Sentry with the provided DSN and sets up the integrations.
 export function useSentrySetup() {
   
-  const isSentryInitializedRef = useRef(false);
-  
+  const [ isSentryInitialized, setIsSentryInitialized ] = useState(false);
+
   // ensure Sentry is initialized only once
-  if (isSentryInitializedRef.current) return;
+  if (isSentryInitialized) return;
 
   console.log('\ninitializing sentry\n')
 
@@ -37,6 +37,6 @@ export function useSentrySetup() {
   });
 
   // set flag to true after initialization
-  isSentryInitializedRef.current = true;
-
+  setIsSentryInitialized(true);
+  
 }
