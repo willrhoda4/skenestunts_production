@@ -7,8 +7,8 @@
   
   
   import   * as Sentry      from "@sentry/react";
-  import { BrowserTracing } from "@sentry/browser";  
-  import { Replay         } from "@sentry/react";  
+  import { BrowserTracing } from "@sentry/react";  
+  import { Replay         } from "@sentry/replay";  
   import { useState,
            useEffect      } from 'react';
   
@@ -41,7 +41,6 @@ export function useSentrySetup() {
     // set flag to true after initialization
     setIsSentryInitialized(true);
   
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])  
 
 }
