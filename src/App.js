@@ -95,7 +95,7 @@ const getData = useCallback( async (reqBody, headers) => {
 
                                            ); 
                   } 
-    catch (error) { return await Promise.reject(error);                                          }
+    catch (error) { return await Promise.reject(error); }
 
 }, []);
 
@@ -103,7 +103,7 @@ const getData = useCallback( async (reqBody, headers) => {
 
 
 // Use custom hooks
-useSentrySetup();
+// useSentrySetup();
 
 usePreconnectOrigins();
 
