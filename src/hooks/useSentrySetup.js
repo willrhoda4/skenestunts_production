@@ -19,6 +19,8 @@ export function useSentrySetup() {
   // ensure Sentry is initialized only once
   if (isSentryInitialized) return;
 
+  console.log('\ninitializing sentry\n')
+
   Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DSN,
     integrations: [
