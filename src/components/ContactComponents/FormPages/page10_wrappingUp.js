@@ -230,6 +230,7 @@ export default function Page10 ({
                         setter={setPassword}
                         error={passwordError}
                         instructions='Minimum of eight characters.'
+                        noHelp={true}
 
                     />
                 }
