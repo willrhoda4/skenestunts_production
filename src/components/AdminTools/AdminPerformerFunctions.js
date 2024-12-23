@@ -27,7 +27,7 @@ import   Axios            from 'axios';
 
 // conjures a note form inside performer profiles.
 // this is for internal use only, and is not visible to the public.
-function noteForm (id, note, setter) {
+function noteForm (id, note, setter, newNotification) {
 
 
     // helper function that updates the note in the database.
@@ -48,8 +48,8 @@ function noteForm (id, note, setter) {
                      [ 'performers', [ 'admin_notes' ], [ note ], [ [ 'performer_id', id ] ] ],
                      { withCredentials: true }
                   )
-             .then(  res => { setNote('noted'); } )
-             .catch( err => { setNote('error'); } );             
+             .then(  res => { setNote('noted'); newNotification('database updated', 'good'); } )
+             .catch( err => { setNote('error'); newNotification('update failed',    'bad');  } );             
     }
 
     return (
@@ -74,12 +74,13 @@ function noteForm (id, note, setter) {
                 {<img className='adminPerformerIcon' alt='pin icon' src={pinIcon} />}
             </button>
 
-            {     note === 'noting' ? <Notification type='wait' msg='Noting your note...'                 />
+            {     
+                  note === 'noting' ? <Notification type='wait' msg='Noting your note...'                 />
                 : note === 'noted'  ? <Notification type='good' msg='Note successfully stored!'           />
                 : note === 'blank'  ? <Notification type='bad'  msg={`There's no use noting nothing.`}    />
                 : note === 'error'  ? <Notification type='bad'  msg='There was a database error.'         />
                 :                      null
-                                        }
+            }
 
 
         </form>
@@ -91,7 +92,7 @@ function noteForm (id, note, setter) {
 // rather just make them a class F, which might do more damage.
 function deletePerformer (id, loadData) {
 
-    const warning = `Are you sure you don't just want to make this performer a class F? Proceeding will totally delete them from your database.`;
+    const warning = `Are you sure you don't just want to make this performer a class F - listed? Proceeding will totally delete them from your database.`;
     
     // eslint-disable-next-line no-restricted-globals
     window.confirm(warning) &&  Axios.post(`${ process.env.REACT_APP_API_URL }deleteData`, 

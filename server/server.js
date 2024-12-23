@@ -50,7 +50,7 @@ const cookieParser                 = require('cookie-parser');
 const corsOptions = {
 
   methods:             'GET,HEAD,PUT,PATCH,POST,DELETE',
-  allowedHeaders:     ['Content-Type', 'Authorization', 'x-reset-token'],
+  allowedHeaders:     ['Content-Type', 'Authorization', 'x-reset-token', 'baggage', 'sentry-trace', ],
   credentials:          true,
   optionsSuccessStatus: 204,
   origin: function (origin, callback) {
@@ -164,7 +164,7 @@ app.get( '/check', (req, res) => res.send('checkitout!'));
 
 // database routes
 app.post('/getData',             checkTable,
-                                 db.getData                     );
+                                 db.getData                     );  
 
 // auth routes
 app.post('/checkPassword',       auth.login                     );
@@ -184,7 +184,8 @@ app.post('/checkEmail',          email.checkEmail               );
 // image routes   
 app.post('/signature',           cloudinary.getSignature        );
 app.post('/fetchImage',          cloudinary.fetchImage          );
-app.put( '/updateIGToken',       instagram.updateToken          );
+app.get( '/refreshInstagram',    authorizeGitHub,
+                                 instagram.refreshInstagram     );
 
 
 // ===================== GITHUB ROUTES =====================

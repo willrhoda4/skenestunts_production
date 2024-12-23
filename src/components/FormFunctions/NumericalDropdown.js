@@ -14,7 +14,20 @@ import  HelpLink             from '../HelpLink.js';
 // numerical-dropdown component for whole integers.
 // accepts a min and max prop to determine its range.
 // the noIndicator and noHelp prop can be used to remove the indicatorLED and help icon.
-export default function numericalDropdown ({name, state, setter, error, min, max, rule, toolTip,setContactDisplay, setThisRule, noHelp})  {
+export default function numericalDropdown ( {
+                                                min, 
+                                                max, 
+                                                rule, 
+                                                name, 
+                                                state, 
+                                                error,
+                                                height, 
+                                                noHelp, 
+                                                setter, 
+                                                toolTip, 
+                                                setThisRule, 
+                                                setContactDisplay, 
+                                          } )  {
         
 
     // start by iterating through the range of numbers and pushing them to an array as option elements.
@@ -22,7 +35,9 @@ export default function numericalDropdown ({name, state, setter, error, min, max
 
     for (let i = min; i < max; i++) {
 
-        dropdown.push(<option key={i} value={i}>{i}</option>)
+        const heightValue = `${Math.floor(i / 12)}'${i % 12}"`
+
+        dropdown.push(<option key={i} value={i}>{ height ? heightValue : i }</option>)
     }
 
 

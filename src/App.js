@@ -69,10 +69,10 @@ export default function App() {
 
 const [ constructionMode,   setConstructionMode ] =   useState(false);
 const [ photoData,          setPhotoData        ] =   useState([]);
-const [ instaToken,         setInstaToken       ] =   useState(null);
-const [ editing,            setEditing          ] =   useState('posters');
+const [ editing,            setEditing          ] =   useState('performers');
 const [ links,              setLinks            ] =   useState([]);
 const [ performerClass,     setPerformerClass   ] =   useState('D');
+const [ boardMember,        setBoardMember      ] =   useState(false);
 const [ adminStatus,        setAdminStatus      ] =   useState(false);
 const [ boardPosters,       setBoardPosters     ] =   useState(false);
 const [ teamPosters,        setTeamPosters      ] =   useState(false);
@@ -101,6 +101,7 @@ const getData = useCallback( async (reqBody, headers) => {
 
 
 
+
 // Use custom hooks
 usePreconnectOrigins();
 
@@ -112,9 +113,9 @@ useLoadPosters(boardData, boardPosters, setBoardPosters, teamData, teamPosters, 
 
 useScrollToTop(location, mainRef);
 
-useFetchInstagramData(getData, instaToken, setInstaToken, setPhotoData);
+useFetchInstagramData(getData, setPhotoData);
 
-useSetLinks(location, adminStatus, setLinks);
+useSetLinks(location, boardMember, adminStatus, setLinks);
 
 
 
@@ -177,11 +178,13 @@ return (
                                                                                                                     /> } />
                                                         <Route path='passwordReset'    element={<PasswordReset     getData={getData} 
                                                                                                                     /> } />
-                                                        <Route path='/director'        element={<Admin             performerOptions={performerOptions()} 
+                                                        <Route path='/director'        element={<Admin              performerOptions={performerOptions()} 
                                                                                                                     editing={editing} 
                                                                                                                     posters={posters} 
                                                                                                                     setEditing={setEditing} 
                                                                                                                     adminStatus={adminStatus} 
+                                                                                                                    boardMember={boardMember}
+                                                                                                                    setBoardMember={setBoardMember}
                                                                                                                     setAdminStatus={setAdminStatus} 
                                                                                                                     getData={getData} 
                                                                                                                     /> } />

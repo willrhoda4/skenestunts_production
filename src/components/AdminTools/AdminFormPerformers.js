@@ -58,7 +58,9 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
     const [  skill1,              setSkill1               ] = useState('');
     const [  skill2,              setSkill2               ] = useState('');
     const [  skill3,              setSkill3               ] = useState('');
-
+   
+    // false indicates aspiring, true indicates experienced
+    const [  formUsed,            setFormUsed             ] = useState(false);
 
     // state to activate/deactivate filters
     const [  firstNameSwitch,      setFirstNameSwitch       ] = useState(false);
@@ -79,6 +81,7 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
     const [  skill2Switch,         setSkill2Switch          ] = useState(false);
     const [  skill3Switch,         setSkill3Switch          ] = useState(false);
     const [  classSwitch,          setClassSwitch           ] = useState(false);
+    const [  formUsedSwitch,       setFormUsedSwitch        ] = useState(false);
 
 
     // state to activate/deactivate error messages
@@ -118,12 +121,12 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
 
     // column lists for dropdown imported from performerOptions
     const eyeOptions       = performerOptions.eyes;
-    const hairOptions      = performerOptions.hair;
-    const skillOptions     = performerOptions.columns.flat().slice(23);
+    const hairOptions      = performerOptions.hair.sort();
+    const skillOptions     = performerOptions.columns.flat().slice(24).sort();
     const provinceOptions  = performerOptions.province;
     const unionOptions     = performerOptions.union;
     const genderOptions    = performerOptions.gender;
-    const ethnicityOptions = performerOptions.columns.flat().slice(16,23);
+    const ethnicityOptions = performerOptions.columns.flat().slice(16,24).sort();
 
     // all orderable optins
     const orderByOptions   = [ 'performer_class', 'province', 'first_name', 'last_name', 'weight', 'height', 'age' ];
@@ -142,9 +145,9 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
     const emailGear        = [   'email',               email,                        setEmail,                         emailSwitch,       setEmailSwitch,       emailError,       'text_field',    null,               true        ];
     const phoneGear        = [   'phone',               phone,                        setPhone,                         phoneSwitch,       setPhoneSwitch,       phoneError,       'text_field'                                     ];
     const imdbIdGear       = [   'imdb_id',             imdbId,                       setImdbId,                        imdbIdSwitch,      setImdbIdSwitch,      imdbIdError,      'text_field',    null,               true        ];
-    const ageGear          = [   'age',                 [age,ageWithin],              [setAge,setAgeWithin],            ageSwitch,         setAgeSwitch,         ageError,         'int_select'                                     ];
-    const weightGear       = [   'weight',              [weightMin,weightMax],        [setWeightMin,setWeightMax],      weightSwitch,      setWeightSwitch,      weightError,      'int_select',   [120,300]                        ];
-    const heightGear       = [   'height',              [heightMin,heightMax],        [setHeightMin,setHeightMax],      heightSwitch,      setHeightSwitch,      heightError,      'int_select',   [36,96]                          ];
+    const weightGear       = [   'weight',            [ weightMin,weightMax ],      [ setWeightMin,setWeightMax ],      weightSwitch,      setWeightSwitch,      weightError,      'int_select',  [ 120,300 ]                       ];
+    const ageGear          = [   'age',               [ age,ageWithin ],            [ setAge,setAgeWithin       ],      ageSwitch,         setAgeSwitch,         ageError,         'int_select'                                     ];
+    const heightGear       = [   'height',            [ heightMin,heightMax ],      [ setHeightMin,setHeightMax ],      heightSwitch,      setHeightSwitch,      heightError,      'int_select',  [ 36,96 ]                         ];
     const provinceGear     = [   'province',            province,                     setProvince,                      provinceSwitch,    setProvinceSwitch,    provinceError,    'str_select',    provinceOptions                 ];
     const unionsGear       = [   'workers_union',       union,                        setUnion,                         unionSwitch,       setUnionSwitch,       unionError,       'str_select',    unionOptions                    ];
     const genderGear       = [   'gender',              gender,                       setGender,                        genderSwitch,      setGenderSwitch,      genderError,      'str_select',    genderOptions                   ];
@@ -155,16 +158,19 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
     const skill2Gear       = [   'skill2',              skill2,                       setSkill2,                        skill2Switch,      setSkill2Switch,      skill2Error,      'str_select',    skillOptions                    ];
     const skill3Gear       = [   'skill3',              skill3,                       setSkill3,                        skill3Switch,      setSkill3Switch,      skill3Error,      'str_select',    skillOptions                    ];
     const classGear        = [   'performer_class',     performerClass,               setPerformerClass,                classSwitch,       setClassSwitch,       classError,       'str_select',    classOptions                    ];
-    
+    const formUsedGear     = [   'form_used',           formUsed,                     setFormUsed,                      formUsedSwitch,    setFormUsedSwitch,    null,             'toggle',     [ 'aspiring', 'experienced' ]      ];
+
     // the order by gear is excluded from the allFilters array.
-    // this is because the orderBy gear is not a true pfilter, but a query option.
+    // this is because the orderBy gear is not a true filter, but a query option.
     const orderByGear      = [   'order_by',            orderBy,                      setOrderBy,                       orderBySwitch,     setOrderBySwitch,     orderByError,     'str_select',    orderByOptions                  ]; 
 
 
     // bundled for iterative traversal
-    const allFilters       = [  firstNameGear,
+    const allFilters       = [  
+                                firstNameGear,
                                 ethnicityGear,
                                 lastNameGear,
+                                formUsedGear,
                                 provinceGear,
                                 imdbIdGear,
                                 unionsGear,
@@ -330,7 +336,7 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
 
                     // this option covers dropdowns populated by a list of strings.
                     // think skills, provinces, pronouns, eye color, etc.
-                    // it also covers the order_by dropdown, which is a sort of second-layer filter.
+                    // it also covers the order_by dropdown, which is a sort of second-lay[r filter.
                     :   inputType === 'str_select'  ?  < StringDropdown
                                                             noHelp={true}
                                                             name={name.replaceAll('_', ' ')}
@@ -338,6 +344,17 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
                                                             setter={setFilterState}
                                                             error={filterError}
                                                             options={inputOptions}
+                                                        />
+                    
+
+                    // the toggle filter was added last minute to accommodate the form_used filter,
+                    // which tracks whether the user signed up as an aspiring or experienced performer.
+                    :   inputType === 'toggle'       ?  <Toggle    
+                                                            name={name.replaceAll('_', ' ')}
+                                                            state={filterState}
+                                                            setter={setFilterState}
+                                                            disengaged={inputOptions[0]}
+                                                            engaged={inputOptions[1]}
                                                         />
 
 
@@ -365,14 +382,14 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
 
 
             // decalare an array to be loaded with filters.
-            const queryFilters = [];
+            let queryFilters = [];
 
 
             // iterate through all the filters.
             for (let i = 0; i < allFilters.length; i++) {
 
 
-                // if the filter is switch is engaged...
+                // if the filter switch is engaged...
                 if ( allFilters[i][3]) {
 
 
@@ -399,6 +416,12 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
                               allFilters[i][0] === 'ethnicity'     ) { queryFilters.push([ allFilters[i][1], 
                                                                                            true
                                                                                          ]);}
+
+                    // for the form_used filter we'll check the experienced column in the db                                                                     
+                    else if ( allFilters[i][0] === 'form_used'     ) { queryFilters.push([ 'experienced', 
+                                                                                            allFilters[i][1]
+                    ]);}
+
 
                     // if a filter has been labelled as case-insensitive, 
                     // we need to add ILIKE to index 2, to let the server know.                                                                     
@@ -485,6 +508,7 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
                             { filter(...lastNameGear)  }
                             { filter(...emailGear)     }
                             { filter(...phoneGear)     }
+                            { filter(...formUsedGear)  }
                     
                         {/* button to disappear the rest of the filters */}
                         <button className='adminPerformerFormButton' 

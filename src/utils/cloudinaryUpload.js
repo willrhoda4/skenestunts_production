@@ -36,7 +36,9 @@ export default async function cloudinaryUpload( newImage, id, assetFolder ) {
                                                                                       { responseType: 'blob' }
                                             
                                                                                     );
+
                                             const imageBlob = proxyResponse.data;
+                                            
                                             formData.append('file', imageBlob, 'image.jpg');
                                         
                                           } 

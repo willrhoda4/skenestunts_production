@@ -232,14 +232,16 @@ export default function Team({teamData, teamPosters, boardData, boardPosters}) {
                                                                                                     </div> 
                                                                                         } ) 
                                                   }
-                                                      <div id='teamGrid'>
-                                                        { teamData.filter(double => double.publish)
-                                                                  .map(  (double, index) => { return  <div key={double.imdb_id}>
-                                                                                                        { makeTeamProfile(  double, index ) }
-                                                                                                      </div> 
-                                                                                            } ) 
-                                                        }
-                                                      </div>         
+                                                      {/* this section omitted at the client's request//////////////////////////  
+                                                        <div id='teamGrid'>
+                                                          { teamData.filter(double => double.publish)
+                                                                    .map(  (double, index) => { return  <div key={double.imdb_id}>
+                                                                                                          { makeTeamProfile(  double, index ) }
+                                                                                                        </div> 
+                                                                                              } ) 
+                                                          }
+                                                        </div>          
+                                                      */}
                                               </> 
               }
           </>

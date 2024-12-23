@@ -15,12 +15,11 @@ const crypto = require('crypto');
 
 function authorizeGitHub ( req, res, next ) {
 
-    console.log('this function is running');
 
     // extract the authorization header from the incoming request
     const token = req.headers['authorization'];
 
-    console.log('token: ', token);
+    console.log('auhorizing github token: ', token);
 
     // if the token is missing, respond with a 401 Unauthorized error
     if ( !token ) return res.status(401).json( { message: 'Access denied. No token provided.' } );

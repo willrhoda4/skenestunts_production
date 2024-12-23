@@ -27,6 +27,7 @@ export default function Page10 ({
                                   pageState, 
                                   newPhotos, 
                                   setPageState, 
+                                  isExperienced,
                                   setCurrentPage, 
                                   performerClass, 
                                }) {
@@ -82,9 +83,13 @@ export default function Page10 ({
         // attaches a submitted_when or updated_when timestamp to the formState
         let allState        = formState.flat().concat( [ Date.now() ] )
 
+        // we want to track whether new signups used the
+        // experienced or the aspiring button to get to the form
+        if (!update) allState = allState.concat([ isExperienced ])
+
         // attaches a submitted_when or updated_when column name to the column list
-        let flatColumns     = !update ? columns.flat().concat([ 'submitted_when' ])
-                                      : columns.flat().concat([ 'updated_when'   ]);
+        let flatColumns     = !update ? columns.flat().concat([ 'submitted_when', 'experienced' ])
+                                      : columns.flat().concat([ 'updated_when'                  ]);
 
         // if there are no new photos, remove the headshot and bodyshot state and columns.
         if (update && !newPhotos)  { databaseState = [].concat(  allState.slice(   0,8), allState.slice(   10) );
@@ -279,43 +284,3 @@ export default function Page10 ({
 
 
 
-
-
-
-/**
- *  // uploadPhotos request requires a headshot, and bodyshot loaded into a FormData object.
-        const uploadPhotos = () => {
-
-            let fd = new FormData();
-                fd.append('name',     formState[1]+'_'+formState[0]     );
-                fd.append('headshot', formState[8],    formState[8].name);
-                fd.append('bodyshot', formState[9],    formState[9].name);
-
-                                                                        // onUploadProgress is a function that updates the uploadProgress state
-                                                                        // for display in the uploadProgress notification.
-            Axios.post( `${process.env.REACT_APP_API_URL}performerPhotos`,  fd, {  onUploadProgress: progressEvent => {  
-                                                                            setUploadProgress( Math.floor(progressEvent.loaded / progressEvent.total * 100 ) );
-                                                                        }
-                                                                     }
-                      )
-                 .then( res => { 
-                                    // if the upload is successful, update the notification to let the user know.
-                                    setUploadProgress(100);
-
-                                    // wrap the imageIds in an array, and insert them into the databaseState at the appropriate index.
-                                    // take the flatColumns list as is.
-                                    const imageIds = [ res.data[0], res.data[1] ]
-
-                                    databaseState  = [].concat(  allState.slice(0,8),   imageIds, allState.slice(10) );
-                                    columnList     = flatColumns;
-                                            
-                                    // if this is a new performer, call newPerformer(), otherwise call updateProfile().
-                                    update ? updateProfile() : newPerformer();    
-                               }
-                      )             // if the upload fails, update the notification to let the user know.
-                .catch( err => {    console.log(err);
-                                    setUploading(false);
-                                    setUploadProgress(412);    
-                               })
-        }
- */

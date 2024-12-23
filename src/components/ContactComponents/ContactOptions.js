@@ -27,10 +27,8 @@ function ContactOptions({setContactDisplay}) {
     // clickHandler() is called when the button is clicked.
     function clickHandler () {
 
-           if (display === 'update'    ) { navigate('/updatePerformer');                     }
-      else if (display === 'new'       ) { navigate('/info?faq=advice')                      }
-      else if (display === 'performer' ) { setContactDisplay('performer');                   }
-      else                               { setContactDisplay(display);                       }
+           if (display === 'update' ) { navigate('/updatePerformer'); }
+           else                       { setContactDisplay(display);   }
     }
 
 
@@ -50,11 +48,11 @@ function ContactOptions({setContactDisplay}) {
     <div id='contactSorter' className='contactForm'>
       <h2 >You are...</h2>
       <ul>
-          { optionButton('producer',  'a producer reaching out about a project')                        }
-          { optionButton('update',    'returning to update your profile information')                   }
-          { optionButton('performer', 'an experienced stunt performer getting in touch')                }
-          { optionButton('new',       'an aspiring stunt performer looking to get into the business')   }
-          { optionButton('email',     'somebody else who just needs an email form')                     }
+          { optionButton('performer', 'an experienced stunt performer interested in opportunities') }
+          { optionButton('new',       'an aspiring stunt performer interested in workshops'       ) }
+          { optionButton('update',    'returning to update your profile information'              ) }
+          { optionButton('producer',  'a producer reaching out about a project'                   ) }
+          { optionButton('email',     'trying to get in touch for another reason'                 ) }
       </ul>
     </div>
   );

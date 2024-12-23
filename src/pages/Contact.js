@@ -56,13 +56,15 @@ export default function Contact({performerOptions, performerClass, setPerformerC
             <div id='contactPage'>
                 {backToButton()}
                 <div id='contact' className='page'>
-                    {     contactDisplay === 'producer'     ? <Producer  setContactDisplay={setContactDisplay}  />
+                    {    
+                         contactDisplay === 'producer'     ? <Producer  setContactDisplay={setContactDisplay}  />
 
-                        : contactDisplay === 'performer'    ? <Performer setPerformerClass={setPerformerClass} 
-                                                                          performerOptions={performerOptions}   
+                        : contactDisplay === 'performer'
+                       || contactDisplay === 'new'          ? <Performer setPerformerClass={setPerformerClass} 
+                                                                          performerOptions={performerOptions}
                                                                             performerClass={performerClass}
+                                                                             isExperienced={contactDisplay === 'performer'}   
                                                                                    getData={getData}            />     
-                        : contactDisplay === 'new'          ? <p>redirecting to advice faq...</p>                   // contactDispalay 'new' redirects to faq with id 'advice'.
                         : contactDisplay === 'email'        ? <Email     setContactDisplay={setContactDisplay}  /> 
 
                         :                                     <Options   setContactDisplay={setContactDisplay}  />

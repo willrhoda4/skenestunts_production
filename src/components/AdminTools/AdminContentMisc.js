@@ -22,10 +22,10 @@ export default function AdminContentMisc ({currentData}) {
 
 
 
-    // retrieves reference to current backvround for display and sets the backgroundId state.
+    // retrieves reference to current background for display and sets the backgroundId state.
     useEffect(() => {
 
-        const id = currentData.find(row => row.description === 'background');
+        const id = currentData.find(row => row.description === 'current_background');
 
         id !== undefined && setBackgroundId(id.value);
 

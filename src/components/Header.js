@@ -14,9 +14,9 @@ import   useSpotlight   from '../hooks/useSpotlight';
 
 import   logo           from '../images/logo_header.webp';
 import   logoPng        from '../images/logo_header.png';
-import   flames         from '../images/flames.webp';
-import   flamesGif      from '../images/flames.gif';
-
+// import   flames         from '../images/flames.webp';
+// import   flamesGif      from '../images/flames.gif';
+// ^^^^^header animation suspended until further notice
 
 
 
@@ -37,9 +37,9 @@ function Header({ getData }) {
     // but we still run the hook since we keep the version number attached to the ID for cache busting.
     useEffect(() => {
 
-        getData( [ 'misc', [ [ 'description', 'background' ] ] ] )
-            .then( res  => setBackgroundId( res.data[0].value  ) )
-            .catch( err => console.log( err )                    );
+        getData( [ 'misc', [ [ 'description', 'current_background' ] ] ] )
+            .then( res  => setBackgroundId( res.data[0].value          ) )
+            .catch( err => console.log( err )                            );
     
         }, [ getData ] );
 
@@ -55,13 +55,13 @@ function Header({ getData }) {
 
             {/* title section with images and text */}
             <div id="title">
-                <Picture
+                {/* <Picture
                     src={flames}
                     fallback={flamesGif}
                     type="image/webp"
                     alt="flames burning down"
                     id="flames"
-                />
+                /> */}
                 <Picture
                     src={logo}
                     fallback={logoPng}

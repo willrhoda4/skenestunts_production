@@ -124,6 +124,35 @@ export default function Page1 ({pageState, setPageState, setPageError, performer
     useEffect(() => { pronouns && setPronounsError(false); }, [pronouns])
 
 
+    // simple hook to help the ux on the phone field by adding dashes automatically for auto entrieds
+    useEffect(() => {
+
+        // adds during manual entry
+        if ( phone.length === 3
+            |phone.length === 7 ) setPhone(phone => phone+'-')
+
+        // adds after auto entry
+        if (phone.length === 10 && /^\d{10}$/.test(phone)) {
+            setPhone(`${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6)}`);
+        }
+
+        // custom handling for backspacing dashes
+        const handleBackspace = (e) => {
+
+            if (e.key === 'Backspace' && phone.endsWith('-')) {
+                // Remove both the dash and the preceding number
+                setPhone((prevPhone) => prevPhone.slice(0, -1));
+            }
+        };
+
+        window.addEventListener('keydown', handleBackspace);
+
+        return () => {
+            window.removeEventListener('keydown', handleBackspace);
+        };
+
+    }, [ phone ] )
+
     return (<>
     
             <div className='formPageH2Wrapper'>

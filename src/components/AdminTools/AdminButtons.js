@@ -90,10 +90,17 @@ export default function AdminButtons ({ id,
      
     }
 
-
+ 
     // sends email to new team members with a link to the director's chair.
     function inviteTeam () {
 
+
+
+        const generating = 'generating invitation...'    
+        const emailError = 'there was an error sending the invitation';
+        const dataError  = 'there was a problem registering the reset';
+        const emailSent  = 'invitation successfully sent';            
+                            
 
 
         // called after a successful database update.
@@ -119,8 +126,8 @@ export default function AdminButtons ({ id,
                             inviteBody,
                           { withCredentials: true }
                       )
-                 .then(  res =>   { setFloatingNotification('emailSent') ; }  )             
-                 .catch( err =>   { setFloatingNotification('emailError'); }  );
+                 .then(  res =>   { setFloatingNotification(emailSent) ; }  )             
+                 .catch( err =>   { setFloatingNotification(emailError); }  );
         }
 
         // table to use for the database update
@@ -133,21 +140,25 @@ export default function AdminButtons ({ id,
         const warning = `Confirm that you're ok with sending this team member an invite to Skene Stunts Director's Chair`;
 
 
-        window.confirm(warning) &&  Axios.post(`${ process.env.REACT_APP_API_URL }registerReset`,
-                                                   reqBody,
-                                                 { withCredentials: true }
+        if (window.confirm(warning))  { 
+                                        
+                                        setFloatingNotification(generating)
+        
+                                        Axios.post(`${ process.env.REACT_APP_API_URL }registerReset`,
+                                                       reqBody,
+                                                     { withCredentials: true }
                                                 )
-                                         .then( res =>   { 
-                                                            const token = res.data[0].token;
+                                           .then( res =>    { 
+                                                                const token = res.data[0].token;
 
-                                                            // if the token is not a string, there was an error.
-                                                            // if the token is a string, send the email.
-                                                            if (typeof token !== 'string') { return setFloatingNotification('dataError'); }
-                                                            else                           {        inviteEmail(token);                   }
-                                                         } 
+                                                                // if the token is not a string, there was an error.
+                                                                // if the token is a string, send the email.
+                                                                if (typeof token !== 'string') { return setFloatingNotification(dataError); }
+                                                                else                           {        inviteEmail(token);                   }
+                                                            } 
                                               )
-                                        .catch( err =>     setFloatingNotification('emailError')  );
-     
+                                        .catch( err =>     setFloatingNotification(emailError)  );
+                                    }
     }
 
 

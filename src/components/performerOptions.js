@@ -25,6 +25,7 @@ const columns5   =  [ 'stunt_driving', 'precision_driving', 'nascar', 'atv_ridin
 const columns6   =  [ 'occupational_diver', 'high_diving', 'freediving', 'padi',  'paddle_boarding', 'surfing', 'surfskiing', 'waterskiing', 'wakeboarding', 'canoeing', 'kayaking', 'whitewater_kayaking', 'whitewater_rafting', 'jetski_riding', 'jetski_tricks' ];
 const columns7   =  [ 'skating_ice', 'skiing_alpine', 'skiing_xc', 'skiing_downhill', 'skiing_freestyle', 'skiing_jumping', 'mountain_boarding', 'snow_biking', 'snow_kiting', 'snowboarding', 'climbing_ice',       ];
 const columns8   =  [ 'air_rams', 'archery_horseback', 'archery_target', 'circus_training', 'climbing_rock', 'descender_work', 'fire_burns', 'fire_safety', 'hang_gliding', 'high_falls', 'parkour', 'prosthetic_work', 'skydiving', 'slacklining', 'stair_falls', 'trampoline', 'wirework', 'stunt_actor' ];
+
 const columns9   =  [ 'class_1', 'class_2', 'class_3', 'class_4', 'class_5', 'class_6', 'air_brake', 'heavy_trailer', 'house_trailer' ];
 const columns10  =  [ 'performer_notes', 'update_count', 'performer_class' ];
 

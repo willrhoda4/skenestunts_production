@@ -9,37 +9,21 @@
 import { useState,
          useEffect }       from 'react';
 
-import   FileUploader      from '../FormFunctions/FileUploader';
+import   AdminImageUpdater from './AdminImageUpdater';         
 import   Checkbox          from '../FormFunctions/Checkbox';
 import   Notification      from '../Notification';
 
 import   Axios             from 'axios';
 
-import   cloudinaryUpload  from '../../utils/cloudinaryUpload';
 
 
 
 export default function AdminFormMisc ({ table, loadData, currentData, setCurrentData }) {
 
-const [ newBackground,          setNewBackground      ] = useState(false);
-const [ newBackgroundError,     setNewBackgroundError ] = useState(false);
-
-const [ uploadStatus,           setUploadStatus       ] = useState(false); 
 
 const [ constructionMode,       setConstructionMode   ] = useState(false);
 const [ modeStatus,             setModeStatus         ] = useState(false);
 
-
-
-// checks if the new background image is a jpeg, and sets the newBackgroundError state accordingly.
-useEffect(() => {
-
-   const jpegRegEx   =  /^(.)+\.(jpg|jpeg|JPG|JPEG)$/;
-   const validImage  =  jpegRegEx.exec(newBackground.name);
-
-   setNewBackgroundError(!validImage);
-   
-}, [newBackground]);
 
 
 //  sets the constructionMode state to the value of active in the construction_mode row of the misc table.
@@ -52,54 +36,6 @@ useEffect(() => {
 }, [currentData])
 
 
-
-
-// uploads the new background image to the server,
-// then updates the background id in the misc table.
-async function uploadBackground(e) {
-
-
-    e.preventDefault();
-
-
-    // Check for errors before proceeding
-    if (newBackgroundError) { return setUploadStatus('error');     } 
-    else                    {        setUploadStatus('uploading'); }
-
-    const publicId    = 'current_background';
-    const assetFolder = 'background';
-
-    try {
-
-        // Use the helper function to upload the image and get the new versioned public ID
-        const nuPublicId = await cloudinaryUpload(newBackground, publicId, assetFolder);
-
-        // Update the background id in the misc table
-        const serverURL = process.env.REACT_APP_API_URL;
-        const reqBody   = [
-                                  'misc',
-                                [ 'value'     ],
-                                [  nuPublicId ],
-                                [  [ 'description', 'background']  ]
-                          ];
-                          
-        // update the background id in the misc table, then set the upload status to success                  
-        await Axios.put(    `${ serverURL }updateData`, 
-                                reqBody, 
-                              { withCredentials: true } 
-                       );
-
-
-        setUploadStatus('success'); 
-        loadData(table);
- 
-    } catch (error) {
- 
-        console.error(error);
-        setUploadStatus('httpError');
- 
-    }
-}
 
 
 
@@ -141,28 +77,13 @@ return (<div className='adminForm'>
    <form style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '80%', margin: '5vmin 0'}}>
 
 
-       < FileUploader
-           name='new background'
-           state={newBackground}
-           setter={setNewBackground}
-           onClick={() => setUploadStatus(null)}
-           error={newBackgroundError}
-           instructions='Make it a .jpeg formatted photo, please.'
-           noHelp={true}
-       />
-       
-   
+        <AdminImageUpdater
+              title={'New Background'     }
+             folder={'background'         }
+            imageId={'current_background' }
+           loadData={ loadData            }
+        />
 
-       {       uploadStatus === 'uploading' ? <Notification type='wait' msg='Uploading background. This might take a minute...' />
-           :   uploadStatus === 'error'     ? <Notification type='bad'  msg='The background needs to be .jpeg formatted.' />
-           :   uploadStatus === 'httpError' ? <Notification type='bad'  msg='Looks like there was a network error. Try refreshing the page and reattempting.' />
-           :   uploadStatus === 'uploaded'  ? <Notification type='wait' msg='Image successfully uploaded. Nowe we just need to catologue it in your database...' />
-           :   uploadStatus === 'success'   ? <Notification type='good' msg='New background successfully added to database!' />
-           :                                  null
-       }
-
-
-       <button className='formButton' type='button' onClick={uploadBackground}>Upload</button>
 
 
        < Checkbox    

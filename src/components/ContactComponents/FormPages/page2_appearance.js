@@ -408,9 +408,10 @@ export default function Page2 ({    rookie,
                     < NumericalDropdown
                         name='height'
                         state={height}
+                        height={true}
                         setter={setHeight}
                         error={heightError}
-                        min={36}
+                        min={48}
                         max={96}
                         noHelp={true}
                     />

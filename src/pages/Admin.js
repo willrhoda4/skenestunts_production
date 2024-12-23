@@ -43,7 +43,16 @@ import Misc                from '../components/AdminTools/AdminContentMisc.js';
 
 
 
-export default function Admin( { performerOptions, editing, adminStatus, setAdminStatus, posters, getData } ) {
+export default function Admin( { 
+                                  getData, 
+                                  posters, 
+                                  editing,
+                                  boardMember, 
+                                  adminStatus,
+                                  setBoardMember, 
+                                  setAdminStatus, 
+                                  performerOptions, 
+                              } ) {
 
 
  
@@ -52,7 +61,6 @@ export default function Admin( { performerOptions, editing, adminStatus, setAdmi
 
   const [ currentData,    setCurrentData    ] = useState([]);
   const [ authenticated,  setAuthenticated  ] = useState(false);
-  const [ boardMember,    setBoardMember    ] = useState(false);
 
   // jwtStatus tells us if the token is valid, invalid, or expired
   // updateJwt is a passed to PasswordChecker as a handler
@@ -136,6 +144,9 @@ export default function Admin( { performerOptions, editing, adminStatus, setAdmi
                                                     .catch(  err =>  console.log(err)        );
                                    }                 
   }
+
+
+
 
 
   // reloads data on page change

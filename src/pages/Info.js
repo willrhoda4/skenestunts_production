@@ -7,8 +7,8 @@
 
 import                      './Info.css';
 
-import teamShot        from '../images/team.webp'
-import teamShotBackup  from '../images/team.jpeg'
+// import teamShot        from '../images/team.webp'
+// import teamShotBackup  from '../images/team.jpeg'
 
 import iconIntegrity   from '../images/icon_integrity2.svg';
 import iconSafety      from '../images/icon_safety.svg';
@@ -26,7 +26,7 @@ import dropdownIcon    from '../images/icon_dropdown.svg';
 
 import FacebookFeed    from '../components/FacebookFeed';
 import Picture         from '../components/Picture';    
-
+import CloudImage      from '../components/CloudImage';
 
 import Axios           from 'axios';
 
@@ -44,7 +44,8 @@ import { Link        } from 'react-router-dom';
 export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
 
-
+   // cloudinary id for the teamshot
+   const [ teamshotId,       setTeamshotId   ] = useState('current_teamshot');
 
    // data for reel component
    // calculated angle for subheading skew
@@ -92,8 +93,8 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
         // loads faq buffet
          getData(['faq',    null, { orderBy: 'rank' }] )
-          .then( res => setFAQs(res.data)             )
-         .catch( err => console.log(err)              );
+          .then( res => setFAQs(res.data)              )
+         .catch( err => console.log(err)               );
 
 
         // gets quote data
@@ -105,6 +106,15 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
                     setQuoteBy(responses[1].data[0].value );
 
              }))   
+
+         // fetch the background image ID from the database when the component mounts.
+         // this isn't strictly necessary, since all backgrounds now use the same public ID,
+         // but we still run the hook since we keep the version number attached to the ID for cache busting.
+        getData( [ 'misc', [ [ 'description', 'current_teamshot' ] ] ] )
+            .then( res  => setTeamshotId( res.data[0].value  ) )
+            .catch( err => console.log( err )                  );
+    
+
         
     }, [ getData ] )
 
@@ -370,13 +380,17 @@ export default function Info({photoData, faqRef, fbFeed, setFbFeed, getData}) {
 
                         <div id='infoBioImageWrapper'>
                             
-                            <Picture
+                            {/* <Picture
                                      src={teamShot}
                                 fallback={teamShotBackup}
                                     type={'image/webp'}
                                      alt={'rick daniel and sean skene posing next to an old dump truck'}
                                       id={'infoBioImage'}
-                            />
+                            /> */}
+
+                            <div id="infoBioImage">
+                                <CloudImage id={teamshotId} />
+                            </div>
 
                             <div id='infoBioImageBlockLeft'   className='infoBioImageBlock animate' />
                             <div id='infoBioImageBlockRight'  className='infoBioImageBlock animate' />

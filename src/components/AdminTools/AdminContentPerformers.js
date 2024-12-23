@@ -5,47 +5,59 @@
 
 
 
-import   Notification      from '../Notification.js';
-import   CloudImage        from '../CloudImage.js';
-
-import   imdbIcon          from '../../images/imdb_icon.png';
-import   dropdownIcon      from '../../images/icon_dropdown.svg';
-import   phoneIcon         from '../../images/icon_phone.svg';
-import   emailIcon         from '../../images/icon_email.svg';
-import   reelIcon          from '../../images/icon_reel.svg';
-import   noteIcon          from '../../images/icon_note.svg';
-import   deleteUserIcon    from '../../images/icon_deleteUser.svg';
-import   levelIcon         from '../../images/icon_level.svg';
-import   refreshIcon       from '../../images/icon_refresh.svg';
-import   checkIcon         from '../../images/icon_check.svg';
-import   mailClosedIcon    from '../../images/icon_mailClosed.svg';
-import   mailOpenIcon      from '../../images/icon_mailOpen.svg';
-
-import { useState }        from 'react';
+import   Notification            from '../Notification.js';
+import   CloudImage              from '../CloudImage.js';
+         
+import   imdbIcon                from '../../images/imdb_icon.png';
+import   dropdownIcon            from '../../images/icon_dropdown.svg';
+import   phoneIcon               from '../../images/icon_phone.svg';
+import   emailIcon               from '../../images/icon_email.svg';
+import   reelIcon                from '../../images/icon_reel.svg';
+import   noteIcon                from '../../images/icon_note.svg';
+import   deleteUserIcon          from '../../images/icon_deleteUser.svg';
+import   levelIcon               from '../../images/icon_level.svg';
+import   refreshIcon             from '../../images/icon_refresh.svg';
+import   checkIcon               from '../../images/icon_check.svg';
+import   mailClosedIcon          from '../../images/icon_mailClosed.svg';
+import   mailOpenIcon            from '../../images/icon_mailOpen.svg';
+         
+import { useState }              from 'react';
+import   useFloatingNotification from '../../hooks/useFloatingNotification.js';
 
 import { noteForm, 
          emailForm, 
          updateClass, 
-         countCredits, 
-         deletePerformer  } from './AdminPerformerFunctions.js';
+         deletePerformer  }      from './AdminPerformerFunctions.js';
 
 
 
 export default function Performers ( {  currentData, loadData, adminStatus, boardMember, gopher  } ) { 
 
 
-    const [ adminNote,     setAdminNote   ] = useState(false);
-    const [ noting,        setNoting      ] = useState(false);
-    const [ emailStatus,   setEmailStatus ] = useState(false);
-    const [ creditCount,   setCreditCount ] = useState(false);
-    const [ expanded,      setExpanded    ] = useState(false);
-    const [ groupMail,     setGroupMail   ] = useState(false);
+    const [ adminNote,          setAdminNote            ] = useState(false);
+    const [ noting,             setNoting               ] = useState(false);
+    const [ emailStatus,        setEmailStatus          ] = useState(false);
+    const [ expanded,           setExpanded             ] = useState(false);
+    const [ groupMail,          setGroupMail            ] = useState(false);
+    const [ newNotification,    floatingNotification    ] = useFloatingNotification();
+    
 
 
     // wrangles email addresses for all search results into a comma-separated string for the 'mailto' link.
-    const   groupEmails                     = currentData.map( double => double.email ).join(', ');
+    const   groupEmails = currentData.map( double => double.email ).join(', ');
 
+    // clickhandler for group-email envelope icon in top-right corner
+    // it opens/closes the group-email form and copies the addresses to a list.
+    function clickEnvelope () { 
+        
+        //open the email form for admins
+        adminStatus && setGroupMail(!groupMail); 
+        
+        //copy the emails for everybody else
+        navigator.clipboard.writeText(groupEmails);
+        newNotification('emails copied to clipboard');
 
+    }
     
     function makePerformer (performer, index) {
  
@@ -57,6 +69,7 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                 updated_when,
                 update_count,
                 admin_notes,
+                experienced,
                 first_name,
                 last_name,
                 birthyear,
@@ -107,7 +120,9 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                                                                           else if ( prop === 'air_brake'       ||
                                                                                     prop.startsWith('class_')  ||
                                                                                     prop.endsWith('_trailer')   ) {    licenses.push(<p key={prop} >{ prop.replaceAll('_', ' ') }</p> ) }
-                                                                                   
+
+                                                                                    // experienced escape
+                                                                          else if ( prop === 'experienced'      ) {      continue;                                                      }         
                                                                                     // skills trap
                                                                           else                                    {      skills.push(<p key={prop} >{ prop.replaceAll('_', ' ') }</p> ) }
 
@@ -167,7 +182,6 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                              style={{height: '5vh', margin: '2.5vh', color: 'red'}}
                            onClick={ expanded !== performer_id ? () => { setExpanded(performer_id); 
                                                                          setEmailStatus(false); 
-                                                                         setCreditCount(false); 
                                                                          setAdminNote(false);
                                                                          setNoting(false);
                                                                        }
@@ -196,7 +210,7 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                             <CloudImage id={bodyshot} />
                         </div>
                         
-                    </div>
+                    </div>new note
 
                     {/* Layer 2: The Info Row */}
                     <div className='adminPerformerInfoRow'>
@@ -227,6 +241,10 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                                 <tr>
                                     <td><h5 className='adminPerformerAttribute'>Submitted:</h5></td>
                                     <td><p  className='adminPerformerAttribute'> {submitDate}</p></td>
+                                </tr>
+                                <tr>
+                                    <td><h5 className='adminPerformerAttribute'>Form Used:</h5></td>
+                                    <td><p  className='adminPerformerAttribute'> {experienced ? 'experienced' : 'aspiring'}</p></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -317,7 +335,7 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                         
                     {/* Layer 5: Note Form – this is used to add admin notes to a profile. 
                         It's hidden by default, and  appears when the note icon below is clicked. */}
-                    {   noting && noteForm(performer_id, adminNote, setAdminNote, loadData) }
+                    {   noting && noteForm(performer_id, adminNote, setAdminNote, newNotification) }
 
 
 
@@ -349,16 +367,16 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                         
                         {/* link to latest reel. doesn't appear if they haven't supplied one. */}
                         { reel_url !== 'none'    &&        <a target="_blank"
-                                                                    rel="noreferrer"
-                                                                    href={reel_url}
-                                                                    >
+                                                                 rel="noreferrer"
+                                                                href={reel_url}
+                                                           >
                                                                 <img className='adminPerformerIcon' alt='film reel icon' src={reelIcon} />
                                                             </a>
                         }
 
 
                         {/* Performer Class Row */}
-                        <div className='adminPerformerContactRow' >
+                        <div className='adminPerformerContactRow' >Access to XMLHttpRequest at 'http://localhost:5000/getData' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field baggage is not allowed by Access-Control-Allow-Headers in preflight response.
 
 
                             {/* icon is just for show. doesn't link out. */}
@@ -503,7 +521,7 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                     <p className='adminPerformerGridItem'>age</p>
                     
                     {/* groupMail icon to summon or banish email-all form */}
-                    <div onClick={()=> setGroupMail(!groupMail)} className='groupMailIcon' >   
+                    <div onClick={clickEnvelope} className='groupMailIcon' >   
                         {
                             // if group mail is open, display open envelope icon. if closed, display closed envelope icon.
                             !groupMail ? <img alt='closed envelope icon' src={mailClosedIcon} style={{height: '40%'}} />
@@ -533,6 +551,8 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
            {    currentData.length !==0                       &&
                 currentData[0].hasOwnProperty('performer_id') && currentData.map((performer, index) => makePerformer( performer, index ))
            }
+
+           { floatingNotification }
         </>
     )
 }

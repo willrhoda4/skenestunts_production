@@ -34,7 +34,7 @@ import   iconRewind    from '../../images/icon_rewind.svg';
 
 
 // this is the mold that all FormPages are poured into.
-export default function PerformerForm ( { performerOptions, performerData, performerClass, setPerformerClass, getData } ) {
+export default function PerformerForm ( { performerOptions, performerData, performerClass, setPerformerClass, isExperienced, getData } ) {
 
 
 
@@ -212,6 +212,7 @@ export default function PerformerForm ( { performerOptions, performerData, perfo
                                                                                 formState={formState} 
                                                                                    update={update} 
                                                                                 newPhotos={newPhotos} 
+                                                                            isExperienced={isExperienced}
                                                                            setCurrentPage={setCurrentPage} 
                                                                            performerClass={performerClass}      />
 

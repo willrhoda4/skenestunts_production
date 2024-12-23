@@ -6,17 +6,17 @@
 
 
 
-import   AdminButtons    from './AdminButtons.js';
-import   AdminFormTeam   from './AdminFormTeam.js';
-
-import   Notification    from '../Notification.js';  
-import   CloudImage      from '../CloudImage.js';
-import   cloudPoster     from '../../utils/cloudPoster.js';
-
-import { useState, 
-         useEffect  }    from 'react';
-        
-import   imdbIcon        from '../../images/imdb_icon.svg';
+import   AdminButtons            from './AdminButtons.js';
+import   AdminFormTeam           from './AdminFormTeam.js';
+         
+import   CloudImage              from '../CloudImage.js';
+import   cloudPoster             from '../../utils/cloudPoster.js';
+         
+import { useState,       
+         useEffect  }            from 'react';
+import   useFloatingNotification from '../../hooks/useFloatingNotification.js';
+         
+import   imdbIcon                from '../../images/imdb_icon.svg';
 
 
 export default function Team ( {     
@@ -33,13 +33,9 @@ export default function Team ( {
     
                            
     const [ expanded,              setExpanded              ] = useState(false);
+    const [ newNotification,       floatingNotification     ] = useFloatingNotification();
 
-    // controls the floating notification that appears when a team member
-    // is successfully or unsuccessfully invited to Director's Chair.
-    const [ floatingNotification,  setFloatingNotification  ] = useState(false);
-    const [ fadingNotification,    setFadingNotification    ] = useState(false);
-
-    const   posterList                                        = table === 'board' ? posters[0] : posters[1];
+   const   posterList                                        = table === 'board' ? posters[0] : posters[1];
 
 
     // close the current form if the table changes.
@@ -47,18 +43,6 @@ export default function Team ( {
     // when an adminStatus user clicks 'Board'
     // while an edit form is expanded on the 'Team' page.
     useEffect(() => { setExpanded(false); }, [table]);
-
-
-    // fades floating div out after five seconds, then disappears it.
-    useEffect(() => { 
-
-        if (floatingNotification) {
-
-            setTimeout(() => { setFadingNotification(true) }, 5000);
-            setTimeout(() => { setFadingNotification(false); setFloatingNotification(false); }, 5500);
-        }
-
-    }, [floatingNotification])
 
 
 
@@ -119,7 +103,7 @@ export default function Team ( {
                                             loadData={loadData}
                                             expanded={expanded}
                                             setExpanded={setExpanded}
-                                            setFloatingNotification={setFloatingNotification}
+                                            setFloatingNotification={newNotification}
                             />
 
                         </div>
@@ -164,14 +148,7 @@ export default function Team ( {
                   currentData[0].hasOwnProperty('team_id')   &&   currentData.map(( double, index ) => makeDouble(double, index))
                 }
 
-                <div className={ fadingNotification ? 'floatingNotification fading' : 'floatingNotification' }>
-                    {       
-                            floatingNotification === 'emailError'   ?  <Notification type={'bad'}  msg={'There was an error sending the invitation.'} />
-                        :   floatingNotification === 'dataError'    ?  <Notification type={'bad'}  msg={'There was a problem registering the reset.'} />
-                        :   floatingNotification === 'emailSent'    ?  <Notification type={'good'} msg={'Invitation successfully sent.'}              />
-                        :                                               null
-                    }
-                </div>
+                { floatingNotification }
     </>)
 }
 
