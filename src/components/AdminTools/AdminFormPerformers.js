@@ -313,6 +313,8 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
                     : inputType === 'int_select'      ? <div className='flexColumn'>
 
                                                                 < NumericalDropdown
+                                                                    height={ name === 'height' }
+                                                                    weight={ name === 'weight' }
                                                                     noHelp={true}
                                                                     name={name.replaceAll('_', ' ')+' min'}
                                                                     state={filterState[0]}
@@ -323,6 +325,8 @@ export default function PerformerForm ({loadData, currentData, setCurrentData, t
                                                                 />
                                                                     
                                                                 < NumericalDropdown
+                                                                    height={ name === 'height' }
+                                                                    weight={ name === 'weight' }
                                                                     noHelp={true}
                                                                     name={name.replaceAll('_', ' ')+' max'}
                                                                     state={filterState[1]}

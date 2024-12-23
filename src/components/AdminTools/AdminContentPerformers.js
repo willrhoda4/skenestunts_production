@@ -210,7 +210,7 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                             <CloudImage id={bodyshot} />
                         </div>
                         
-                    </div>new note
+                    </div>
 
                     {/* Layer 2: The Info Row */}
                     <div className='adminPerformerInfoRow'>
@@ -376,8 +376,7 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
 
 
                         {/* Performer Class Row */}
-                        <div className='adminPerformerContactRow' >Access to XMLHttpRequest at 'http://localhost:5000/getData' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field baggage is not allowed by Access-Control-Allow-Headers in preflight response.
-
+                        <div className='adminPerformerContactRow' >
 
                             {/* icon is just for show. doesn't link out. */}
                             <img className='adminPerformerIcon'     

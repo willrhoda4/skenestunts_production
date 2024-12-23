@@ -22,6 +22,7 @@ export default function numericalDropdown ( {
                                                 state, 
                                                 error,
                                                 height, 
+                                                weight,
                                                 noHelp, 
                                                 setter, 
                                                 toolTip, 
@@ -36,8 +37,12 @@ export default function numericalDropdown ( {
     for (let i = min; i < max; i++) {
 
         const heightValue = `${Math.floor(i / 12)}'${i % 12}"`
+        const weightValue = `${i} lbs`
 
-        dropdown.push(<option key={i} value={i}>{ height ? heightValue : i }</option>)
+        dropdown.push(<option key={i} value={i}>{   height ? heightValue
+                                                  : weight ? weightValue
+                                                  :          i 
+                                                }</option>)
     }
 
 

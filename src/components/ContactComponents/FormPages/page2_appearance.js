@@ -396,6 +396,7 @@ export default function Page2 ({    rookie,
                 
                     < NumericalDropdown
                         name='weight'
+                        weight={true}
                         state={weight}
                         setter={setWeight}
                         error={weightError}
@@ -407,8 +408,8 @@ export default function Page2 ({    rookie,
 
                     < NumericalDropdown
                         name='height'
-                        state={height}
                         height={true}
+                        state={height}
                         setter={setHeight}
                         error={heightError}
                         min={48}
