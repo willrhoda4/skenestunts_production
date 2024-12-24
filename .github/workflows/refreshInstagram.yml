@@ -13,7 +13,7 @@ jobs:
       - name: Call refreshInstagram endpoint
         run: |
           curl -X GET \
-          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Authorization: Bearer ${{ secrets.NODE_API_TOKEN }}" \
           https://skenestunts.com/refreshInstagram
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.NODE_API_TOKEN }}
