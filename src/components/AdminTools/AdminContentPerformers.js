@@ -97,6 +97,8 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                 // last updated when. defaults to 'unupdated' if never updated.
                 const updateDate  = update_count === 0 ? 'unupdated'
                                                        : new Date(parseInt(updated_when)).toLocaleDateString()+` (${update_count})`
+
+                const formattedHeight = `${Math.floor(height / 12)}'${height % 12}"`;
              
 
 
@@ -170,7 +172,7 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                     <p className='adminPerformerGridItem'
                            style={{ paddingLeft: '.5em' }}>{name}</p>
                     <p className='adminPerformerGridItem'>{weight} lbs</p>
-                    <p className='adminPerformerGridItem'>{height}"</p>
+                    <p className='adminPerformerGridItem'>{formattedHeight}</p>
                     <p className='adminPerformerGridItem'>{age}</p>
 
 
@@ -230,7 +232,7 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                                 {/* Performer Height */}
                                 <tr>
                                     <td><h5 className='adminPerformerAttribute'>Height:</h5></td> 
-                                    <td><p  className='adminPerformerAttribute'> {height}"</p></td>
+                                    <td><p  className='adminPerformerAttribute'> {formattedHeight}</p></td>
                                 </tr>  
                                 {/* Performer Weight */}
                                 <tr>
