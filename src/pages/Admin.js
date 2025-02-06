@@ -145,15 +145,15 @@ export default function Admin( {
                                    }                 
   }
 
-  // loads data for initial page load
+  // loads data for initial page load upon successful login
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => loadData('performers'), []);
+  useEffect(() => { validAuthRole && loadData('performers') }, [ authRole, validAuthRole ] );
 
 
 
   // reloads data on page change
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => loadData(editing), [editing]);
+  useEffect(() => loadData( editing ), [ editing ] );
 
 
 
