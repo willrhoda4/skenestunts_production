@@ -145,7 +145,9 @@ export default function Admin( {
                                    }                 
   }
 
-
+  // loads data for initial page load
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => loadData('performers'), []);
 
 
 
