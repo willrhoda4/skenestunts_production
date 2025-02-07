@@ -151,13 +151,16 @@ export default function Page2 ({    rookie,
 
 
     // sets the samePhotos state variable to true if the headshot and bodyshot are the same.
+    // but disregard this hook during an update when newPhotos hasn't been selected.
     useEffect(() => {
 
-        if (headshot && bodyshot) {  headshot.name === bodyshot.name ? setSamePhotos(true)
-                                                                     : setSamePhotos(false);
-                                  }
+        const photosLoaded = headshot && bodyshot;
+        const notUpdating  = !(update && !newPhotos);
+        const photosMatch  = headshot.name === bodyshot.name; 
 
-    }, [headshot, bodyshot, setSamePhotos])   
+        if ( photosLoaded && notUpdating ) { photosMatch ? setSamePhotos(true) : setSamePhotos(false); }
+
+    }, [ headshot, bodyshot, setSamePhotos, update, newPhotos ] )   
 
     
 
@@ -181,7 +184,7 @@ export default function Page2 ({    rookie,
 
 
     // checks for valid headshot and bodyshot files.
-    // in the event of an update an !newPhotos, the error is cleared.
+    // in the event of an update or !newPhotos, the error is cleared.
     useEffect(() => {
 
         const jpegRegEx  =  /^(.)+\.(jpg|jpeg|JPG|JPEG)$/;
