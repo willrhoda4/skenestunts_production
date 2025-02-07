@@ -156,7 +156,7 @@ export default function Page2 ({    rookie,
 
         const photosLoaded = headshot     &&  bodyshot;
         const photosMatch  = photosLoaded &&  headshot.name === bodyshot.name; 
-        const notUpdating  = !(update     && !newPhotos);
+        const notUpdating  = (update      && !newPhotos);
 
         photosMatch ?  setSamePhotos(true) : setSamePhotos(false);
 
