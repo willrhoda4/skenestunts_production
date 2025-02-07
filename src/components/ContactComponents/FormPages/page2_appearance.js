@@ -154,11 +154,13 @@ export default function Page2 ({    rookie,
     // but disregard this hook during an update when newPhotos hasn't been selected.
     useEffect(() => {
 
-        const photosLoaded = headshot && bodyshot;
-        const notUpdating  = !(update && !newPhotos);
-        const photosMatch  = headshot.name === bodyshot.name; 
+        const photosLoaded = headshot     &&  bodyshot;
+        const photosMatch  = photosLoaded &&  headshot.name === bodyshot.name; 
+        const notUpdating  = !(update     && !newPhotos);
 
-        if ( photosLoaded && notUpdating ) { photosMatch ? setSamePhotos(true) : setSamePhotos(false); }
+        photosMatch ?  setSamePhotos(true) : setSamePhotos(false);
+
+        notUpdating && setSamePhotos(false);
 
     }, [ headshot, bodyshot, setSamePhotos, update, newPhotos ] )   
 
