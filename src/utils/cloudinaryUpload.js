@@ -16,7 +16,7 @@ export default async function cloudinaryUpload( newImage, id, assetFolder ) {
     // prepare a few variables before the show
     const serverURL =  process.env.REACT_APP_API_URL;
     const cloudName =  process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
-    const cloudURL  = `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`;
+    const cloudURL  = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
     const publicId  =  id.replaceAll(' ', '_').toLowerCase();
 
 
@@ -42,11 +42,15 @@ export default async function cloudinaryUpload( newImage, id, assetFolder ) {
                                             formData.append('file', imageBlob, 'image.jpg');
                                         
                                           } 
-        // If newImage is a File object, append it directly
+        // if newImage is a File object, append it directly
         else                              {
                                             formData.append('file', newImage);
                                           }
         
+
+                                            // force Cloudinary to always convert to JPG
+                                            formData.append('format', 'jpg');
+                                            
         // append the signature data to the form data
         for (const key in sigData) {        formData.append(  key, sigData[ key ] ); }
                                                             /**

@@ -143,7 +143,6 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
 
 
 
-
         return( 
         
             <li key={index} className='adminItem'>
@@ -153,14 +152,14 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
 
 
                     {/* performer headshot thumbnail */}
-                    <div style={{height: '10vh', width: '100%', position: 'relative'}}>
-                        <CloudImage id={headshot}  />
+                    <div className='adminPerformerThumbnailWrapper'>
+                        <CloudImage id={headshot} className='adminPerformerThumbnail' />
                     </div> 
 
 
                     {/* performer bodyshot thumbnail */}
-                    <div style={{height: '10vh', width: '100%', position: 'relative'}}>
-                        <CloudImage id={bodyshot}  />
+                    <div className='adminPerformerThumbnailWrapper'>
+                        <CloudImage id={bodyshot} className='adminPerformerThumbnail' />
                     </div> 
 
 
@@ -202,14 +201,14 @@ export default function Performers ( {  currentData, loadData, adminStatus, boar
                     <div className='adminPerformerPhotoRow'>
                     
                         {/* performer headshot large */}
-                        <div className='adminPerformerPhoto' >
-                            <CloudImage id={headshot} />
+                        <div className='adminPerformerPhotoWrapper' >
+                            <CloudImage className='adminPerformerPhoto' id={headshot} />
                         </div>
 
 
                         {/* performer bodyshot large */}
-                        <div className='adminPerformerPhoto' >
-                            <CloudImage id={bodyshot} />
+                        <div className='adminPerformerPhotoWrapper' >
+                            <CloudImage className='adminPerformerPhoto' id={bodyshot} />
                         </div>
                         
                     </div>

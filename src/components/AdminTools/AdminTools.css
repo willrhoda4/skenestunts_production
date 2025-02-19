@@ -361,14 +361,20 @@
             }
 
 
-
-
-            .adminPerformerThumbnail {
-                height: 10vh;
-                max-width: 100%;
+            .adminPerformerThumbnailWrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: rgb(255, 255, 255, .5);
             }
 
-                .adminPerformerThumbnail:active {
+            .adminPerformerThumbnail {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+                /* .adminPerformerThumbnail:active {
                     height: 40vh;
                     max-width: none;
                     z-index: 999;
@@ -376,7 +382,8 @@
                     top: -5.2vmin;
                     transition: height .4s;
                 }
-
+                    ^^^^ thumbnail zoom on click ^^^^ */
+ */
 
             .groupMailIcon {
                 width: 100%;
@@ -395,11 +402,18 @@
             height: fit-content;
             grid-gap: 5vmin;
         }
-            .adminPerformerPhoto {
+            .adminPerformerPhotoWrapper {
                 height: 30vh;
                 margin: 2.5vh 0;
                 max-width: 100%;
             }
+
+                .adminPerformerPhoto {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: contain;
+                    object-position: center;
+                }
 
             .adminPerformerAttributeGrid {
                 display: grid;

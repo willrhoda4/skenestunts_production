@@ -187,25 +187,48 @@ export default function Page2 ({    rookie,
 
     // checks for valid headshot and bodyshot files.
     // in the event of an update or !newPhotos, the error is cleared.
+    // useEffect(() => {
+
+    //     const jpegRegEx  =  /^(.)+\.(jpg|jpeg|JPG|JPEG)$/;
+    //     const validHead  =  jpegRegEx.exec(headshot.name);
+    //     const validBody  =  jpegRegEx.exec(bodyshot.name);
+
+    //     if (headshot) {       !validHead  ?  setHeadshotError(true)
+    //                                       :  setHeadshotError(false);
+    //                   }
+    //     if (bodyshot) {       !validBody  ?  setBodyshotError(true)
+    //                                       :  setBodyshotError(false);
+    //                   }  
+                      
+    //     if (update && !newPhotos) {          setHeadshotError(false);
+    //                                          setBodyshotError(false);
+    //                               }
+    // }, [headshot, bodyshot, update, newPhotos]);
+
+
     useEffect(() => {
 
-        const jpegRegEx  =  /^(.)+\.(jpg|jpeg|JPG|JPEG)$/;
-        const validHead  =  jpegRegEx.exec(headshot.name);
-        const validBody  =  jpegRegEx.exec(bodyshot.name);
-
-        if (headshot) {       !validHead  ?  setHeadshotError(true)
-                                          :  setHeadshotError(false);
-                      }
-        if (bodyshot) {       !validBody  ?  setBodyshotError(true)
-                                          :  setBodyshotError(false);
-                      }  
-                      
-        if (update && !newPhotos) {          setHeadshotError(false);
-                                             setBodyshotError(false);
-                                  }
+        const validExtensions = [ "jpg", "jpeg" ];
+        
+        const checkValidFile  = ( file ) => {
+            
+            if (!file) return false;
+            
+            const ext = file.name.split('.').pop().toLowerCase();
+            
+            return validExtensions.includes(ext);
+        };
+    
+        setHeadshotError( headshot ? !checkValidFile(headshot) : false );
+        setBodyshotError( bodyshot ? !checkValidFile(bodyshot) : false );
+    
+        if ( update && !newPhotos ) {
+            
+            setHeadshotError(false);
+            setBodyshotError(false);
+        }
     }, [headshot, bodyshot, update, newPhotos]);
-
-
+    
 
     // checks for valid reel url and sets default 'none' value if user opts out.
     useEffect(() => {
