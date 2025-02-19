@@ -127,7 +127,6 @@ export default function Page10 ({
 
         // uploadPhotos request requires a headshot, and bodyshot loaded into a FormData object.
         const uploadPhotos = async () => {   
-            console.log('uploadPhotos');
 
             try {           
 
