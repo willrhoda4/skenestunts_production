@@ -150,7 +150,9 @@ export default function Page2 ({    rookie,
     }, [birthYearError,headshotError,bodyshotError,reelError,weightError,heightError,genderError,hairError,eyesError,unionError,setPageError])
 
 
-
+    
+    // sets the samePhotos state variable to true if the headshot and bodyshot are the same.
+    // but disregard this hook during an update when newPhotos hasn't been selected.
     useEffect(() => {
 
         const photosLoaded =   isFile( headshot ) && isFile( bodyshot );
@@ -164,19 +166,7 @@ export default function Page2 ({    rookie,
 
     }, [ headshot, bodyshot, setSamePhotos, update, newPhotos ] );
 
-    // sets the samePhotos state variable to true if the headshot and bodyshot are the same.
-    // but disregard this hook during an update when newPhotos hasn't been selected.
-    // useEffect(() => {
 
-    //     const photosLoaded = headshot     &&  bodyshot;
-    //     const photosMatch  = photosLoaded &&  headshot.name === bodyshot.name; 
-    //     const notUpdating  = (update      && !newPhotos);
-
-    //     photosMatch ?  setSamePhotos(true) : setSamePhotos(false);
-
-    //     notUpdating && setSamePhotos(false);
-
-    // }, [ headshot, bodyshot, setSamePhotos, update, newPhotos ] )   
 
     
 
@@ -199,25 +189,6 @@ export default function Page2 ({    rookie,
                                          birthYear > 2010   );  }, [birthYear]);
 
 
-    // checks for valid headshot and bodyshot files.
-    // in the event of an update or !newPhotos, the error is cleared.
-    // useEffect(() => {
-
-    //     const jpegRegEx  =  /^(.)+\.(jpg|jpeg|JPG|JPEG)$/;
-    //     const validHead  =  jpegRegEx.exec(headshot.name);
-    //     const validBody  =  jpegRegEx.exec(bodyshot.name);
-
-    //     if (headshot) {       !validHead  ?  setHeadshotError(true)
-    //                                       :  setHeadshotError(false);
-    //                   }
-    //     if (bodyshot) {       !validBody  ?  setBodyshotError(true)
-    //                                       :  setBodyshotError(false);
-    //                   }  
-                      
-    //     if (update && !newPhotos) {          setHeadshotError(false);
-    //                                          setBodyshotError(false);
-    //                               }
-    // }, [headshot, bodyshot, update, newPhotos]);
 
 
     useEffect(() => {

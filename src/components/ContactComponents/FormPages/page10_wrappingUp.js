@@ -106,7 +106,7 @@ export default function Page10 ({
             Axios.post( `${ process.env.REACT_APP_API_URL }newPerformer`,
                           [ columnList, databaseState, password ],
                       )
-                 .then(   res => { setUploadProgress(res.status); console.log(res);  })
+                 .then(   res => { setUploadProgress(res.status);                    })
                  .catch(  err => { console.log(err); setUploadProgress(400);         })
 
         }
@@ -119,8 +119,8 @@ export default function Page10 ({
                          { performerId: update, columnList, databaseState },
                          { withCredentials: true                          }
                       )
-                 .then(   res => { setUploadProgress(res.status); console.log(res); } )
-                 .catch(  err => { console.log(err); setUploadProgress(400);        } )
+                 .then(   res => { setUploadProgress(res.status);             } )
+                 .catch(  err => { console.log(err); setUploadProgress(400);  } )
 
         }
 

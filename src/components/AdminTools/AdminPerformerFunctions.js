@@ -123,7 +123,8 @@ function updateClass (id) {
         .then(  res => { 
                          classIcon.style.display = 'none';
                          checkIcon.style.display = 'inline';   
-                         console.log(res);                   })
+                       }
+              )
         .catch( err => { console.log(err);                   })
 }
 
@@ -183,7 +184,7 @@ function emailForm (id, email, status, setter, inputStyle, formStyle) {
                      { email, subject, message, type, cc  },
                      { withCredentials: true }
                   )
-             .then(   res => { setter('done');  console.log(res); } )
+             .then(   res => { setter('done');                    } )
              .catch(  err => { setter('error'); console.log(err); } );            
     }
 

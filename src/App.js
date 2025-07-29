@@ -146,6 +146,10 @@ return (
                                             
                                             <div id="main" ref={mainRef}>
                                                 <Suspense fallback={<Loader />}>
+
+                                                    {/* // IMPORTANT: if you're going to add a new route, 
+                                                        // be sure to add it to the clientRoutes array in server/server.js 
+                                                    */}
                                                     <Routes>
                                                         <Route path='/'                element={<Info              photoData={photoData} 
                                                                                                                     faqRef={faqRef} 

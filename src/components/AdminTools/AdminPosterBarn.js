@@ -116,7 +116,6 @@ export default function PosterBarn( {   setCurrentData,
                         console.log(err); 
                         setFormStatus('cloudinaryError');   
                     }
-                    console.log(parameters);
 
         // add a record to the database
         Axios.post( `${ process.env.REACT_APP_API_URL}addData`, 

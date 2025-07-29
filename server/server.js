@@ -3,7 +3,8 @@
 
 
                                      require('./middleware/setupSentryNode'); 
-// configure your environment variables
+
+                                     // configure your environment variables
 const   path                       = require('path');
                                      require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 
@@ -23,7 +24,6 @@ const   instagram                  = require('./handlers/instagram');
          
          
 // import middleware         
-// const  sentry                      = require('./middleware/sentry');
 const  authorizeToken              = require('./middleware/authorizeToken');
 const  authorizeGitHub             = require('./middleware/authorizeGitHub');
 const  checkTable                  = require('./middleware/checkTable');
@@ -92,7 +92,6 @@ const limiter = rateLimit({
 const app = express();
 
       // ... and initiate your middleware
-      // sentry.initialize(app);
 
       app.use(cookieParser());
 
@@ -132,10 +131,11 @@ const app = express();
             style-src   'self' 'unsafe-inline';
             script-src  'self' 'unsafe-inline' 'unsafe-eval'      https://connect.facebook.net        https://www.googletagmanager.com;
             connect-src 'self'  https://www.google-analytics.com  https://graph.instagram.com         https://api.cloudinary.com          
-                                https://api.github.com            https://www.skenestunts.com;
+                                https://api.github.com            https://www.skenestunts.com         https://o4506515558629376.ingest.us.sentry.io;
             img-src     'self'  data: https://m.media-amazon.com  https://scontent.cdninstagram.com   https://res.cloudinary.com;
             frame-src   'self'  https://player.vimeo.com          https://www.facebook.com;
-          `.replace(/\s+/g, ' ').trim() // minimize whitespace for better performance
+            worker-src  'self'  blob:;
+            `.replace(/\s+/g, ' ').trim() // minimize whitespace for better performance
         );
 
       
@@ -249,7 +249,27 @@ app.post('/adminEmail',          authorizeToken('admin'),
 
 
 // catch-all route to serve the index.html file for all routes
-app.get('/*',  (req, res) => { res.sendFile(path.join(__dirname, '../build', 'index.html')); });
+app.get('/*',  (req, res) => { 
+
+  const clientRoutes = [
+    '/',
+    '/info',
+    '/contact',
+    '/gallery',
+    '/reels',
+    '/media',
+    '/team',
+    '/updatePerformer',
+    '/passwordReset',
+    '/director',
+    // <== Be sure to add any new client routes here 
+];
+  
+  clientRoutes.includes(req.path) && res.status(404);
+  
+  res.sendFile(path.join(__dirname, '../build', 'index.html')); 
+
+} );
 
 
 // should be the last middleware

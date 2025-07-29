@@ -71,7 +71,6 @@ export default function QuoteForm({
 
         // this is the function that will be called if the update is successful.
         const success    =         (res) => {
-                                                console.log(res);
                                                 loadData(table); 
                                                 setFormStatus('updated');
                                             }

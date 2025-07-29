@@ -105,7 +105,6 @@ export default function FAQForm({
                          { withCredentials: true }
                      )
                 .then(  res => { 
-                                    console.log(res);
                                     loadData(table); 
                                     setFormStatus('updated')
                                 }

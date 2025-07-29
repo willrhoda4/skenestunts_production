@@ -99,9 +99,9 @@ export default function ContactProducer({setContactDisplay}) {
                                                     
             Axios.post( `${process.env.REACT_APP_API_URL}email`, { name, phone, email, subject, message, type }, 
                       )
-                 .then( res => {  setUploadProgress(res.status); console.log('status: ' + res.status); }
+                 .then( res => { setUploadProgress(res.status);            }
                       )
-                .catch( err => { setUploadProgress(400); console.log(err); });
+                .catch( err => { setUploadProgress(400); console.log(err); } );
         } 
     }
 

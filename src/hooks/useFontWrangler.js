@@ -30,7 +30,6 @@ export default function useFontWrangler( { ids, initialSize = 16, maxIterations 
     // define the function to adjust the font size of the text elements.
     function adjustFontSize() {
 
-      console.log('making an adjustment...');
 
       attempts++;
 

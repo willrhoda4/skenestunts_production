@@ -184,7 +184,6 @@ export default function MediaForm({loadData, currentData, setCurrentData, table,
 
         sendStory( columnList, parameters )
             .then( res => { 
-                            console.log(res); 
                             loadData(table); 
                             setFormStatus('uploaded');
                           }

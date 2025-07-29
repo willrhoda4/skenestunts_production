@@ -95,8 +95,6 @@ export default function Admin( {
     // and the 'posters' table needs to be ordered ascendingly in order satisfy alphabetic sensibilities.
     let profileTable = boardMember ? 'board' : 'team';
 
-    console.log('profileTable:', profileTable); 
-    console.log('authenticated:', authenticated);
     let reqBody      = table === 'profile' ? [  profileTable,    [ [ 'team_id', authenticated.team_id ] ]                                       ]
                      : table === 'info'    ? [ 'faq',                 null,                                { orderBy: 'rank' }                  ] 
                      : table === 'posters' ? [  table,                null,                                { orderBy: [ 'title', true ] }       ] 
@@ -174,9 +172,6 @@ export default function Admin( {
               .then( response => {
                                     const { user, role } = response.data;
 
-                                    console.log('successful login:', user, role);
-                                    // console.log('currentData:', currentData);
-                    
                                     // Update the authenticated state
                                     setAuthenticated(user);
                                     setAuthRole(role);

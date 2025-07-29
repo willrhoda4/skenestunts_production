@@ -171,10 +171,6 @@ export default function PasswordReset ({getData}) {
     function resetPassword (e) {
 
 
-        console.log('resetting password...');
-        console.log('id:', id);
-        console.log('table:', table);   
-        console.log('fk:', fk);
 
         e.preventDefault();
 

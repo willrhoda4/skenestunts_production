@@ -105,7 +105,6 @@ export default function ReelForm({loadData, currentData, setCurrentData, table, 
                          { withCredentials: true }                       
                      )
                 .then(  res => { 
-                                    console.log(res);
                                     loadData(table); 
                                     setFormStatus('updated')
                                 }

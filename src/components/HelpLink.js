@@ -16,7 +16,7 @@ export default function HelpLink({rule, toolTip, setContactDisplay, setThisRule}
 
       const clickHandler = () => {
 
-            console.log('handling it');
+
             setContactDisplay('new');
             setThisRule(rule);
       }

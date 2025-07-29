@@ -36,15 +36,22 @@ export default function UpdatePerformer( { performerOptions, performerClass, set
    
 
 
-    useEffect(() => {
+    // vvvvv DEBUGGING HOOK vvvvv
+    //  useEffect(() => {
         
-        console.log('performerData:', performerData);
-        console.log('performerClass:', performerClass);
-        console.log('authRole:', authRole);
-        console.log('successfulReset:', successfulReset);
-        console.log('notPerformer:', notPerformer());
+    //     console.log('performerData:', performerData);
+    //     console.log('performerClass:', performerClass);
+    //     console.log('authRole:', authRole);
+    //     console.log('successfulReset:', successfulReset);
+    //     console.log('notPerformer:', notPerformer());
 
-    }, [performerData, performerClass, authRole, successfulReset, notPerformer])
+    // }, [performerData, performerClass, authRole, successfulReset, notPerformer])
+
+
+
+
+
+
 
     // if the user has been sent back with a valid jwt after a password reset,
     // then go ahead and put their data in state without asking for credentials.
