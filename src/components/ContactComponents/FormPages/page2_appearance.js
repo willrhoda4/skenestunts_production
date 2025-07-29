@@ -105,22 +105,22 @@ export default function Page2 ({    rookie,
     // if returning to or updating page 2, load the values from the pageState array into the local state variables
     useEffect(() => {
   
-        if (!valuesLoaded && pageState.length === facts.length) {
+        if ( !valuesLoaded && pageState.length === facts.length ) {
 
-            setValuesLoaded(true);
+            setValuesLoaded( true );
 
-            for (let i = 0; i < facts.length; i++) {
-                facts[i][1](pageState[i]);
+            for ( let i = 0; i < facts.length; i++ ) {
+                facts[ i ][ 1 ]( pageState[ i ] );
             }
         }
         
-    }, [facts, pageState, valuesLoaded])
+    }, [ facts, pageState, valuesLoaded ] )
 
 
     // keep the pageState array  populated with the local state  variables 
     useEffect(() => {
         
-        setPageState(facts.map(fact => fact[0]))
+        setPageState( facts.map( fact => fact[ 0 ] ) )
 
     }, [facts, setPageState])
     
@@ -150,19 +150,33 @@ export default function Page2 ({    rookie,
 
 
 
-    // sets the samePhotos state variable to true if the headshot and bodyshot are the same.
-    // but disregard this hook during an update when newPhotos hasn't been selected.
     useEffect(() => {
 
-        const photosLoaded = headshot     &&  bodyshot;
-        const photosMatch  = photosLoaded &&  headshot.name === bodyshot.name; 
-        const notUpdating  = (update      && !newPhotos);
+        const isFile       =   file =>   file   && file instanceof File;
+        const photosLoaded =   isFile( headshot ) && isFile( bodyshot );
+        const photosMatch  =   photosLoaded && headshot.name === bodyshot.name;
+        const notUpdating  = ( update && !newPhotos );
 
-        photosMatch ?  setSamePhotos(true) : setSamePhotos(false);
+        // if the headshot and bodyshot are the same, set samePhotos to true.
+        // but disregard this hook during an update when newPhotos hasn't been selected.
+        photosMatch ?  setSamePhotos( true  ) : setSamePhotos( false );
+        notUpdating && setSamePhotos( false );
 
-        notUpdating && setSamePhotos(false);
+    }, [ headshot, bodyshot, setSamePhotos, update, newPhotos ] );
 
-    }, [ headshot, bodyshot, setSamePhotos, update, newPhotos ] )   
+    // sets the samePhotos state variable to true if the headshot and bodyshot are the same.
+    // but disregard this hook during an update when newPhotos hasn't been selected.
+    // useEffect(() => {
+
+    //     const photosLoaded = headshot     &&  bodyshot;
+    //     const photosMatch  = photosLoaded &&  headshot.name === bodyshot.name; 
+    //     const notUpdating  = (update      && !newPhotos);
+
+    //     photosMatch ?  setSamePhotos(true) : setSamePhotos(false);
+
+    //     notUpdating && setSamePhotos(false);
+
+    // }, [ headshot, bodyshot, setSamePhotos, update, newPhotos ] )   
 
     
 
