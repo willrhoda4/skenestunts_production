@@ -266,7 +266,7 @@ app.get('/*',  (req, res) => {
   ];
 
   let reqInfo = `
-  ${req.method} ${req.orignalUrl} - ${new Date().toISOString()}
+  ${req.method} ${req.originalUrl} - ${new Date().toISOString()}
   IP:         ${ req.headers[ 'x-forwarded-for' ] || req.ip }
   User-Agent: ${ req.headers[ 'user-agent'      ] || 'N/A'  }
   Referrer:   ${ req.headers[ 'referer'         ] || 'N/A'  }
@@ -276,7 +276,7 @@ app.get('/*',  (req, res) => {
     
   !isClientRoute && res.status( 404 );
 
-  console.log( isClientRoute ? 'REQUEST TO CLIENT:\n' : '404 REQUEST:\n' + reqInfo );
+  console.log( ( isClientRoute ? 'REQUEST TO CLIENT:\n' : '404 REQUEST:\n' ) + reqInfo );
 
   res.sendFile( path.join(__dirname, '../build', 'index.html') ); 
 
