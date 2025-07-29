@@ -70,6 +70,7 @@ export default function Page2 ({    rookie,
     const [  noImdb,              setNoImdb             ] = useState(false);
     const [  existingShots,       setExistingShots      ] = useState([]);
     const [  valuesLoaded,        setValuesLoaded       ] = useState(false);
+    const    isFile                                       = file => file && file instanceof File;
 
 
 
@@ -152,7 +153,6 @@ export default function Page2 ({    rookie,
 
     useEffect(() => {
 
-        const isFile       =   file =>   file   && file instanceof File;
         const photosLoaded =   isFile( headshot ) && isFile( bodyshot );
         const photosMatch  =   photosLoaded && headshot.name === bodyshot.name;
         const notUpdating  = ( update && !newPhotos );
@@ -226,7 +226,7 @@ export default function Page2 ({    rookie,
         
         const checkValidFile  = ( file ) => {
             
-            if (!file) return false;
+            if ( !isFile( file ) ) return false;
             
             const ext = file.name.split('.').pop().toLowerCase();
             
